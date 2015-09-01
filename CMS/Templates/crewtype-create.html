@@ -1,0 +1,21 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Types
+    </button>
+</p>
+<h2>New Crew Type</h2>
+
+<form>
+    <div class="form-group">
+        <label for="inputDescription">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Crew Type Name" ng-disabled="buttonsDisabled" ng-model="crewType.Name">
+    </div>
+    <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="crewType.Description">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="save(crewType)" ng-disabled="buttonsDisabled">Create</button>
+    </p>
+</form>

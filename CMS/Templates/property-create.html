@@ -1,0 +1,37 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Properties
+    </button>
+</p>
+<h2>New Property{{property.Name ? ": " + property.Name : ""}}</h2>
+
+<form>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-disabled="buttonsDisabled" ng-model="property.Name">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress1">Address 1</label>
+        <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-disabled="buttonsDisabled" ng-model="property.Address1">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-disabled="buttonsDisabled" ng-model="property.Address2">
+    </div>
+    <div class="form-group">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" placeholder="City" ng-disabled="buttonsDisabled" ng-model="property.City">
+    </div>
+    <div class="form-group">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" placeholder="State" ng-disabled="buttonsDisabled" ng-model="property.State">
+    </div>
+    <div class="form-group">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-disabled="buttonsDisabled" ng-model="property.Zip">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="save(property)" ng-disabled="buttonsDisabled">Create</button>
+    </p>
+</form>

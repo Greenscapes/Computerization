@@ -1,0 +1,31 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Types
+    </button>
+</p>
+<h2>New Task List Type</h2>
+
+<form>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-disabled="buttonsDisabled" ng-model="taskListType.Name">
+    </div>
+    <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="taskListType.Description">
+    </div>
+    <div class="form-group" ng-repeat="header in headers">
+        <label for="input{{$index}}">Header {{$index + 1}} Name</label>
+        <input type="text" class="form-control" id="input{{$index}}" placeholder="Header {{$index + 1}} Name" ng-disabled="buttonsDisabled" ng-model="header.Name">
+    </div>
+    <p>
+        <button type="button" class="btn btn-xs btn-primary" ng-click="addHeader()">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Header
+        </button>
+    </p>
+    <br/>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="save(taskListType)" ng-disabled="buttonsDisabled">Create</button>
+    </p>
+</form>

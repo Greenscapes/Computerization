@@ -1,0 +1,23 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
+<h2>New Task List</h2>
+
+<form>
+    <div class="form-group">
+        <label for="inputType">Type</label>
+        <br />
+        <select ng-options="type.Id as type.Name for type in taskListTypes" ng-model="taskList.PropertyTaskListTypeId" id="inputType" ng-disabled="buttonsDisabled"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputDescription">Name</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="taskList.Name">
+    </div>
+    <br/>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="save(taskList)" ng-disabled="buttonsDisabled">Create</button>
+    </p>
+</form>

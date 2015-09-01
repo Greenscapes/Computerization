@@ -1,0 +1,20 @@
+﻿<h2>Properties</h2>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newProperty()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Property
+    </button>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+    </tr>
+    <tr ng-repeat="property in properties">
+        <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
+        <td>{{property.Address1}}</td>
+        <td>{{property.City}}</td>
+        <td>{{property.State}}</td>
+    </tr>
+</table>

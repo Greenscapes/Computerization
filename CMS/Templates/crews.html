@@ -1,0 +1,16 @@
+﻿<h2>Crews</h2>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newCrew()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Crew
+    </button>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+    </tr>
+    <tr ng-repeat="crew in crews">
+        <td><a ng-href="#/crews/{{crew.Id}}">{{crew.Name}}</a></td>
+        <td>{{crew.CrewType.Name}}</td>
+    </tr>
+</table>

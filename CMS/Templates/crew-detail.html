@@ -1,0 +1,54 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Crews
+    </button>
+</p>
+<h2>{{crew.Name}} ({{crew.CrewType.Name}})</h2>
+<p>
+    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+    </button>
+</p>
+<hr/>
+<h3>Weekly Schedule</h3>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" style="width:50px">Sun</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Mon</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Tue</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Wed</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Thu</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Fri</button>
+    <button type="button" class="btn btn-primary" style="width:50px">Sat</button>
+</div>
+<hr />
+
+<h3>{{crew.Name}} Members</h3>
+
+<p>
+    <div class="form-group">
+        <select ng-options="employee.Id as formatName(employee.Id) for employee in employees" ng-model="newMember.EmployeeId" id="inputType" ng-disabled="buttonsDisabled"></select>
+        <br/>
+        <input type="checkbox" ng-model="newMember.IsCrewLeader" ng-disabled="buttonsDisabled" />
+        <label>Crew Leader</label>
+        <br/>
+        <button type="button" class="btn btn-primary btn-xs" ng-click="addCrewMember()" ng-disabled="buttonsDisabled || !newMember.EmployeeId || newMember.EmployeeId === 0">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Crew {{newMember.IsCrewLeader ? "Leader" : "Member"}}
+        </button>
+    </div>
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="member in members">
+        <td>{{formatName(member.EmployeeId)}}</td>
+        <td>{{member.IsCrewLeader ? "Leader" : "Member"}}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="removeMember(member)" ng-disabled="buttonsDisabled">Remove</button>
+        </td>
+    </tr>
+</table>

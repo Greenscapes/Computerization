@@ -1,0 +1,35 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
+<h2>{{taskList.Name}} Task List</h2>
+<p>
+    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+    </button>
+</p>
+<hr/>
+<h3>Tasks</h3>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newTask()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task
+    </button>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Location</th>
+        <th>Description</th>
+        <th ng-repeat="header in taskList.PropertyTaskListType.PropertyTaskHeaders">{{header.Name}}</th>
+        <th>Duration</th>
+        <th>Notes</th>
+    </tr>
+    <tr ng-repeat="task in tasks">
+        <td><a ng-href="#/properties/{{taskList.PropertyId}}/tasklists/{{task.PropertyTaskListId}}/tasks/{{task.Id}}">{{task.Location}}</a></td>
+        <td>{{task.Description}}</td>
+        <td ng-repeat="header in taskList.PropertyTaskListType.PropertyTaskHeaders">{{getDetailValueForHeader(task, header)}}</td>
+        <td>{{task.EstimatedDuration}}</td>
+        <td>{{task.Notes}}</td>
+    </tr>
+</table>

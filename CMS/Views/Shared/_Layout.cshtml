@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html ng-app="cmsApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Crew Management System</title>
+    <base href="/">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavController">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/properties">Crew Management System</a>
+                <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/properties">Properties</a></li>
+                    <li><a href="#/types">Types</a></li>
+                    <li><a href="#/employees">Employees</a></li>
+                    <li><a href="#/crews">Crews</a></li>
+                    <li><a href="#/schedule">Schedule</a></li>
+                    <li><a href="/help">API</a></li>
+                </ul>
+                @*<p class="nav navbar-text navbar-right" ng-controller="CurrentUserController"><span ng-bind="'Logged in as ' + getShortLogin()"></span></p>*@
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Greenscapes</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Properties
+    </button>
+</p>
+<h2>{{property.Name}} Details</h2>
+
+<table class="table table-bordered" style="width:auto">
+    <tr>
+        <td>Name</td>
+        <td>{{property.Name}}</td>
+    </tr>
+    <tr>
+        <td>Address 1</td>
+        <td>{{property.Address1}}</td>
+    </tr>
+    <tr>
+        <td>Address 2</td>
+        <td>{{property.Address2}}</td>
+    </tr>
+    <tr>
+        <td>City</td>
+        <td>{{property.City}}</td>
+    </tr>
+    <tr>
+        <td>State</td>
+        <td>{{property.State}}</td>
+    </tr>
+    <tr>
+        <td>Zip</td>
+        <td>{{property.Zip}}</td>
+    </tr>
+</table>
+<p>
+    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+    </button>
+</p>
+<hr/>
+
+<h3>{{property.Name}} Task Lists</h3>
+
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newTaskList()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List
+    </button>
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="taskList in taskLists">
+        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{taskList.Id}}">{{taskList.Name}}</a></td>
+    </tr>
+</table>
