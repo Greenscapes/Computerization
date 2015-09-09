@@ -84,6 +84,14 @@ app.config([
                 templateUrl: 'templates/crews.html',
                 controller: 'CrewsController'
             }).
+            when('/customerschedules', {
+                templateUrl: 'templates/customerschedules.html',
+                controller: 'CustomerSchedulesController'
+            }).
+             when('/schedules/:propertyId', {
+                 templateUrl: 'templates/customerscheduledetails.html',
+                 controller: 'CustomerScheduleDetailsController'
+             }).
             otherwise({
                 redirectTo: '/properties'
             });

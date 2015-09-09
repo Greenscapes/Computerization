@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Data.Entity;
 
@@ -18,7 +19,9 @@ namespace CMS.Models
                     Address2 = "STE 210",
                     City = "Townsville",
                     State = "Illinois",
-                    Zip = "11111"
+                    Zip = "11111",
+                    PropertyRefNumber ="RRSRS22323",
+                    ContractDate = DateTime.Now
                 }
             };
 
@@ -115,6 +118,29 @@ namespace CMS.Models
 
             context.Crews.Add(crew);
             context.SaveChanges();
+
+           /* var ev = new EventSchedule
+           {
+                 Property = new Property
+                {
+                    Name = "QQQQ",
+                    Address1 = "123 Fake St.",
+                    Address2 = "STE 210",
+                    City = "Townsville",
+                    State = "Illinois",
+                    Zip = "11111",
+                    PropertyRefNumber ="RRSRS22323",
+                    ContractDate = DateTime.Now
+                },
+                StartTime = DateTime.Today,
+                EndTime = DateTime.Now,
+                Title = "Online Meeting"
+                
+
+           };
+
+            context.EventSchedules.Add(ev);
+            context.SaveChanges();*/
         }
     }
 }

@@ -50,6 +50,9 @@ namespace CMS.Controllers
             }
 
             var originalEmployee = db.Employees.Find(id);
+            var originalEntry = db.Entry(originalEmployee);
+            originalEntry.CurrentValues.SetValues(employee);
+
             foreach (var missing in originalEmployee.CrewTypes.Where(c => employee.CrewTypes.All(ec => ec.Id != c.Id)).ToList())
             {
                 originalEmployee.CrewTypes.Remove(missing);

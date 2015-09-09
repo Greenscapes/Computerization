@@ -1,4 +1,6 @@
-﻿<br />
+﻿
+
+<br />
 <p>
     <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Properties
@@ -6,32 +8,51 @@
 </p>
 <h2>New Property{{property.Name ? ": " + property.Name : ""}}</h2>
 
-<form>
+<form name="PropertyAdd" novalidates>
+    
     <div class="form-group">
         <label for="inputName">Name</label>
-        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-disabled="buttonsDisabled" ng-model="property.Name">
+        <input type="text" class="form-control" id="inputName" placeholder="Name"  ng-model="property.Name" ng-maxlength="100" required>
     </div>
     <div class="form-group">
         <label for="inputAddress1">Address 1</label>
-        <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-disabled="buttonsDisabled" ng-model="property.Address1">
+        <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1"  ng-model="property.Address1">
     </div>
     <div class="form-group">
         <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-disabled="buttonsDisabled" ng-model="property.Address2">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2"  ng-model="property.Address2">
     </div>
     <div class="form-group">
         <label for="inputCity">City</label>
-        <input type="text" class="form-control" id="inputCity" placeholder="City" ng-disabled="buttonsDisabled" ng-model="property.City">
+        <input type="text" class="form-control" id="inputCity" placeholder="City"  ng-model="property.City">
     </div>
     <div class="form-group">
         <label for="inputState">State</label>
-        <input type="text" class="form-control" id="inputState" placeholder="State" ng-disabled="buttonsDisabled" ng-model="property.State">
+        <input type="text" class="form-control" id="inputState" placeholder="State"  ng-model="property.State">
     </div>
     <div class="form-group">
         <label for="inputZip">Zip</label>
-        <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-disabled="buttonsDisabled" ng-model="property.Zip">
+        <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-model="property.Zip">
     </div>
-    <p>
-        <button type="submit" class="btn btn-success" ng-click="save(property)" ng-disabled="buttonsDisabled">Create</button>
-    </p>
-</form>
+    <div class="form-group">
+        <label for="propertyRef">Reference Number</label>
+        <input type="text" class="form-control" id="propertyRef" placeholder="PropertyRefNumber" ng-model="property.PropertyRefNumber">
+    </div>
+    <div class="form-group">
+        <label for="cntDate">Customer since </label>
+        <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="property.ContractDate" value=" @DateTime.Now.Year">
+    </div>
+ 
+        <p>
+            <button type="submit" class="btn btn-success" ng-click="save(property)" ng-disabled="buttonsDisabled">Create</button>
+        </p>
+    <div  ng-show="validationErrors">
+        <ul>
+            <li  class="has-error" ng-repeat="error in validationErrors">{{error}}</li>
+        </ul>
+    </div>
+
+   
+    
+    
+  </form>

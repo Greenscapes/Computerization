@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width" />
     <title>Crew Management System</title>
     <base href="/">
+  
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavController">
@@ -28,7 +38,7 @@
                     <li><a href="#/types">Types</a></li>
                     <li><a href="#/employees">Employees</a></li>
                     <li><a href="#/crews">Crews</a></li>
-                    <li><a href="#/schedule">Schedule</a></li>
+                    <li><a href="#/customerschedules">Schedule</a></li>
                     <li><a href="/help">API</a></li>
                 </ul>
                 @*<p class="nav navbar-text navbar-right" ng-controller="CurrentUserController"><span ng-bind="'Logged in as ' + getShortLogin()"></span></p>*@

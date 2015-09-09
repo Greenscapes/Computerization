@@ -18,7 +18,7 @@ namespace CMS.Models
         }
 
         public DbSet<Property> Properties { get; set; }
-
+       
         public DbSet<PropertyTask> PropertyTasks { get; set; }
 
         public DbSet<PropertyTaskHeader> PropertyTaskHeaders { get; set; }
@@ -45,5 +45,6 @@ namespace CMS.Models
         public System.Data.Entity.DbSet<CMS.Models.WeeklySchedule> WeeklySchedules { get; set; }
 
         public System.Data.Entity.DbSet<CMS.Models.DailySchedule> DailySchedules { get; set; }
+        
     }
 }

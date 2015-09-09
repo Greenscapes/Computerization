@@ -10,11 +10,15 @@
         <th>Address</th>
         <th>City</th>
         <th>State</th>
+        <th>Reference Number</th>
+        <th>Customer since</th>
     </tr>
     <tr ng-repeat="property in properties">
         <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
         <td>{{property.Address1}}</td>
         <td>{{property.City}}</td>
         <td>{{property.State}}</td>
+        <td>{{property.PropertyRefNumber}}</td>
+        <td>{{property.ContractDate}}</td>
     </tr>
 </table>

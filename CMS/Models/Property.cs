@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace CMS.Models
 {
@@ -10,7 +12,8 @@ namespace CMS.Models
         {
             PropertyTaskLists = new HashSet<PropertyTaskList>();
         }
-
+      
+        [Required]
         public string Name
         {
             get;
@@ -40,7 +43,13 @@ namespace CMS.Models
             get;
             set;
         }
+        public string PropertyRefNumber { get; set; }
 
+       
+        public DateTime ContractDate { get; set; }
+
+        [StringLength(11)]
+       // [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$")]
         public string Zip
         {
             get;
