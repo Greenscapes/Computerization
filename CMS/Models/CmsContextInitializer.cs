@@ -118,8 +118,8 @@ namespace CMS.Models
 
             context.Crews.Add(crew);
             context.SaveChanges();
-
-           /* var ev = new EventSchedule
+           
+            var ev = new EventSchedule
            {
                  Property = new Property
                 {
@@ -140,7 +140,7 @@ namespace CMS.Models
            };
 
             context.EventSchedules.Add(ev);
-            context.SaveChanges();*/
+            context.SaveChanges();
         }
     }
 }

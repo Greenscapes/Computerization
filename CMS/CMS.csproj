@@ -214,6 +214,7 @@
     <Compile Include="Controllers\CrewTypesController.cs" />
     <Compile Include="Controllers\CustomerScheduleDetailsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\EventSchedulesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerSchedulesController.cs" />
     <Compile Include="Controllers\PropertiesController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Models\CrewType.cs" />
     <Compile Include="Models\DailySchedule.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EventSchedule.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Property.cs" />
@@ -270,6 +272,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar.css" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar.print.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -311,7 +316,7 @@
     <Content Include="Scripts\controllers\crewsController.js" />
     <Content Include="Scripts\controllers\crewTypeCreateController.js" />
     <Content Include="Scripts\controllers\crewTypeDetailController.js" />
-    <Content Include="Scripts\controllers\customerscheduleDetailsController.js" />
+    <Content Include="Scripts\controllers\eventSchedulesController.js" />
     <Content Include="Scripts\controllers\employeeCreateController.js" />
     <Content Include="Scripts\controllers\employeeDetailController.js" />
     <Content Include="Scripts\controllers\employeesController.js" />
@@ -335,6 +340,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\daypilot-all.min.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -402,6 +411,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\services\authenticationService.js" />
     <Content Include="Scripts\services\modalService.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.13.0.min.js" />

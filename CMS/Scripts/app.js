@@ -88,10 +88,15 @@ app.config([
                 templateUrl: 'templates/customerschedules.html',
                 controller: 'CustomerSchedulesController'
             }).
-             when('/schedules/:propertyId', {
+             when( '/eventschedules/:propertyId', {
                  templateUrl: 'templates/customerscheduledetails.html',
-                 controller: 'CustomerScheduleDetailsController'
-             }).
+                 controller: 'EventSchedulesController'
+             } ).
+             when( '/eventschedules', {
+                 templateUrl: 'templates/customerscheduledetails.html',
+                 controller: 'EventSchedulesController'
+             } ).
+            
             otherwise({
                 redirectTo: '/properties'
             });

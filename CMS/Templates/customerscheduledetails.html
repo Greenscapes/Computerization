@@ -1,0 +1,16 @@
+﻿<h2>Customer Schedules</h2>
+
+   
+
+    <!--<div id="fullcalendar" ></div>-->
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="eventScheduleDetails in eventSchedules">
+            <td><a ng-href="#/employees/{{eventScheduleDetails.id}}">{{eventScheduleDetails.text}}</a></td>
+        </tr>
+    </table>
+
+
+
