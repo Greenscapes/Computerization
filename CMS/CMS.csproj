@@ -313,13 +313,13 @@
     <Content Include="Scripts\controllers\crewsController.js" />
     <Content Include="Scripts\controllers\crewTypeCreateController.js" />
     <Content Include="Scripts\controllers\crewTypeDetailController.js" />
-    <Content Include="Scripts\controllers\eventSchedulesController.js" />
+    <Content Include="Scripts\controllers\customerschedulesController.js" />
+    <Content Include="Scripts\controllers\eventschedulesController.js" />
     <Content Include="Scripts\controllers\employeeCreateController.js" />
     <Content Include="Scripts\controllers\employeeDetailController.js" />
     <Content Include="Scripts\controllers\employeesController.js" />
     <Content Include="Scripts\controllers\modalsController.js" />
     <Content Include="Scripts\controllers\navController.js" />
-    <Content Include="Scripts\controllers\customerschedulesController.js" />
     <Content Include="Scripts\controllers\propertyCreateController.js" />
     <Content Include="Scripts\controllers\propertyDetailController.js" />
     <Content Include="Scripts\controllers\propertiesController.js" />
