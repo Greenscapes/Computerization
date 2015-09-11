@@ -8,6 +8,8 @@
     {
         'update': { method: 'PUT' }
     });
+    var crewsResource = $resource( "/api/crews" );
+    $scope.crews = crewsResource.query( function () { } );
 
     $scope.task = taskResource.get({ taskId: $routeParams.taskId }, function() {
         $scope.taskList = taskListResource.get({}, function () {

@@ -27,5 +27,20 @@
         <label for="inputNotes">Notes</label>
         <input type="text" class="form-control" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
     </div>
+   
+    <h3 ng-show="crews.length > 0">Assignable Crews</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+        
+        </tr>
+        <tr ng-repeat="crew in crews">
+            <td>
+                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+                <a ng-href="#/crews/{{crew.Id}}">{{crew.Name}}</a>
+            </td>
+
+        </tr>
+    </table>
     <button type="submit" class="btn btn-success" ng-click="save(task)" ng-disabled="buttonsDisabled">Create</button>
 </form>

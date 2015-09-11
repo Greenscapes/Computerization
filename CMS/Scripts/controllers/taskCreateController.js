@@ -17,7 +17,10 @@
             $scope.task.PropertyTaskDetails.push(newTaskDetail);
         }
         if (!$scope.$$phase) $scope.$apply();
-    });
+    } );
+
+    var crewsResource = $resource( "/api/crews" );
+    $scope.crews = crewsResource.query( function () { } );
 
     $scope.save = function(task) {
         $scope.buttonsDisabled = true;
