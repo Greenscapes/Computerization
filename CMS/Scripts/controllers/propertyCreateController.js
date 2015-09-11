@@ -5,8 +5,10 @@
   
     $scope.save = function(property) {
         $scope.buttonsDisabled = true;
+      
         propertiesResource.save(property, function () {
-                $scope.buttonsDisabled = false;
+           
+            $scope.buttonsDisabled = false;
                 $scope.back();
             },
             function(error) {
@@ -37,6 +39,7 @@
 
         }
     };
+   
     $(document).ready(function () {
         $('#datetimepicker').datepicker({
             format: 'mm-dd-yyyy',
@@ -58,7 +61,7 @@
 
         $('#datetimepicker').on('changeDate', function (ev) {
             ('#datetimepicker').valueOf(ev.target.value);
-            
+            $scope.property.ContractDate = ev.target.value;
         });
     });
     }

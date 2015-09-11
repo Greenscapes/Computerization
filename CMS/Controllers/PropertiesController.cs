@@ -79,8 +79,7 @@ namespace CMS.Controllers
             {
                 return BadRequest(ModelState);
             }
-            //Temp : Need to fix in UI
-            property.ContractDate = System.DateTime.Now;
+          
             db.Properties.Add(property);
             db.SaveChanges();
 
