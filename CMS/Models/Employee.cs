@@ -26,7 +26,12 @@ namespace CMS.Models
             get;
             set;
         }
-        public string Email { get; set; }
+
+        public string Email 
+        { 
+            get; set; 
+        }
+
         public virtual ICollection<CrewType> CrewTypes
         {
             get;
