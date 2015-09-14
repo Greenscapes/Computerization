@@ -10,6 +10,7 @@ namespace CMS.Models
         {
             CrewMembers = new List<CrewMember>();
             WeeklySchedule = new WeeklySchedule();
+            PropertyTasks = new List<PropertyTask>();
         }
 
         public int CrewTypeId
@@ -49,5 +50,12 @@ namespace CMS.Models
             get;
             set;
         }
+          [JsonIgnore]
+        public virtual ICollection<PropertyTask> PropertyTasks
+        {
+            get;
+            set;
+        }
+
     }
 }

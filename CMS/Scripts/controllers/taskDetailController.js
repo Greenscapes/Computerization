@@ -9,9 +9,20 @@
         'update': { method: 'PUT' }
     });
     var crewsResource = $resource( "/api/crews" );
-    $scope.crews = crewsResource.query( function () { } );
+  
+    $scope.task = taskResource.get( { taskId: $routeParams.taskId }, function () {
 
-    $scope.task = taskResource.get({ taskId: $routeParams.taskId }, function() {
+        $scope.crews = crewsResource.query( function () {
+            for ( var i = 0; i < $scope.crews.length; i++ ) {
+                for ( var j = 0; j < $scope.task.Crews.length; j++ ) {
+                    if ( $scope.crews[i].Id === $scope.task.Crews[j].Id ) {
+                        $scope.crews[i].checked = true;
+                        break;
+                    }
+                }
+            }
+        } );
+
         $scope.taskList = taskListResource.get({}, function () {
             for (var i = 0; i < $scope.taskList.PropertyTaskHeaders.length; i++) {
                 for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
@@ -23,6 +34,7 @@
             if (!$scope.$$phase) $scope.$apply();
         });
     });
+     
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;

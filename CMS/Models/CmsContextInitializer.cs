@@ -63,6 +63,37 @@ namespace CMS.Models
             taskLists.ForEach(t => context.PropertyTaskLists.Add(t));
             context.SaveChanges();
 
+            var propertyTasksCrs = new List<PropertyTask>
+            {
+                new PropertyTask
+                {
+                    Location = "444 GG",
+                    EstimatedDuration = 30,
+                    PropertyTaskList = taskLists[0]
+                }
+            };
+            var crewTypep = new CrewType
+            {
+                Name = "Mowing",
+                Description = "Mowing"
+            };
+
+            context.CrewTypes.Add(crewTypep);
+            context.SaveChanges();
+
+            var crewp = new Crew
+            {
+                CrewType = crewTypep,
+                Name = "Morning Mowing"
+            };
+            foreach (var p in  propertyTasksCrs)
+            {
+                p.Crews.Add(crewp);
+                context.PropertyTasks.Add(p);
+            }
+          
+            context.SaveChanges();
+
             var propertyTasks = new List<PropertyTask>
             {
                 new PropertyTask
@@ -75,7 +106,6 @@ namespace CMS.Models
 
             propertyTasks.ForEach(p => context.PropertyTasks.Add(p));
             context.SaveChanges();
-
             var propertyTaskDetails = new List<PropertyTaskDetail>
             {
                 new PropertyTaskDetail

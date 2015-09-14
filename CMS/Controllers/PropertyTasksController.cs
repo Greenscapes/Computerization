@@ -88,8 +88,9 @@ namespace CMS.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+         
             db.PropertyTasks.Add(propertyTask);
+         
             db.SaveChanges();
 
             return Ok(propertyTask);

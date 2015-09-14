@@ -9,6 +9,7 @@ namespace CMS.Models
         public PropertyTask()
         {
             PropertyTaskDetails = new List<PropertyTaskDetail>();
+            Crews = new List<Crew>();
         }
 
         public int PropertyTaskListId
@@ -40,7 +41,7 @@ namespace CMS.Models
             get;
             set;
         }
-
+       
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual PropertyTaskList PropertyTaskList
@@ -50,6 +51,13 @@ namespace CMS.Models
         }
 
         public virtual ICollection<PropertyTaskDetail> PropertyTaskDetails
+        {
+            get;
+            set;
+        }
+     
+     
+        public virtual ICollection<Crew> Crews
         {
             get;
             set;
