@@ -1,5 +1,7 @@
 ﻿function CustomerSchedulesController( $scope, $resource, $location ) {
     var customerschedulesResource = $resource( '/api/customerschedules' );
+
+
    
     $scope.properties = customerschedulesResource.query( function () { } );
   }

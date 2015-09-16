@@ -34,6 +34,22 @@ namespace CMS.Controllers
 
               return result;
         }
+        // [Route("{id:int}/eventschedules'")]int taskId
+        [Route("~/api/properties/:propertyId/tasklists/{taskListId:int}/tasks/{taskId:int}/eventschedules")]
+        public IEnumerable<EventScheduleDetails> GetEventSchedules(int propertyId, int taskListId,int taskId)
+        {
+            var result = db.EventSchedules.Where(e => e.PropertyTask.Id == taskId)
+           .Select(e => new EventScheduleDetails()
+           {
+               start = e.StartTime.ToString("s"),
+               end = e.EndTime.ToString("s"),
+               text = e.Title,
+               id = e.Id.ToString()
+           });
+
+
+            return result;
+        }
         //[Route("")]
         //public IQueryable<EventSchedule> GetEventSchedules()
         //{
@@ -87,7 +103,7 @@ namespace CMS.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/EventSchedules
+        [Route("")]
         [ResponseType(typeof(EventSchedule))]
         public IHttpActionResult PostEventSchedule(EventSchedule eventSchedule)
         {

@@ -62,5 +62,10 @@ namespace CMS.Models
             get;
             set;
         }
+        public virtual ICollection<EventSchedule> EventSchedules
+        {
+            get;
+            set;
+        }
     }
 }
