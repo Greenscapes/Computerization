@@ -1,5 +1,5 @@
 ﻿function CrewTypeDetailController($scope, $resource, $routeParams, $location, Modal) {
-    var crewTypesResource = $resource('/api/types/crews/:crewTypeId',
+    var crewTypesResource = $resource( '/api/types/crewlists/:crewTypeId',
     { crewTypeId: $routeParams.crewTypeId },
     {
         'update': { method: 'PUT' }
@@ -17,7 +17,7 @@
     };
 
     $scope.back = function () {
-        $location.path("/types");
+        $location.path( "/types/crewlists" );
         if (!$scope.$$phase) $scope.$apply();
     };
 

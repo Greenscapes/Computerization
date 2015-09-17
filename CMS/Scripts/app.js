@@ -32,11 +32,11 @@ app.config([
                 templateUrl: 'templates/properties.html',
                 controller: 'PropertiesController'
             }).
-            when('/types/crews/new', {
+            when('/types/crewlists/new', {
                 templateUrl: 'templates/crewtype-create.html',
                 controller: 'CrewTypeCreateController'
             }).
-            when('/types/crews/:crewTypeId', {
+            when('/types/crewlists/:crewTypeId', {
                 templateUrl: 'templates/crewtype-detail.html',
                 controller: 'CrewTypeDetailController'
             }).
@@ -51,7 +51,15 @@ app.config([
             when('/types', {
                 templateUrl: 'templates/types.html',
                 controller: 'TypesController'
-            }).
+            } ).
+             when( '/types/tasklists', {
+                 templateUrl: 'templates/tasklists.html',
+                 controller: 'PropertyTaskListTypesController'
+             } ).
+              when( '/types/crewlists', {
+                  templateUrl: 'templates/crewlists.html',
+                  controller: 'CrewListsController'
+              } ).
             when('/employees/new', {
                 templateUrl: 'templates/employee-create.html',
                 controller: 'EmployeeCreateController'

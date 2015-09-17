@@ -1,10 +1,10 @@
 ﻿<br />
 <p>
     <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
-        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Types
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Task Lists
     </button>
 </p>
-<h2>Task List Type: {{taskListType.Name}}</h2>
+<h2>Task List : {{taskListType.Name}}</h2>
 <p ng-show="taskListCount === 0">
     <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
         <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete

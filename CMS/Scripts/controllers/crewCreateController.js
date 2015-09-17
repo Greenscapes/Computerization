@@ -1,6 +1,6 @@
 ﻿function CrewCreateController($scope, $resource, $routeParams, $location) {
     var crewsResource = $resource('/api/crews');
-    var crewTypesResource = $resource("/api/types/crews");
+    var crewTypesResource = $resource("/api/types/crewlists");
 
     $scope.crewTypes = crewTypesResource.query();
 

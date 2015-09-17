@@ -331,6 +331,8 @@
     <Content Include="Scripts\controllers\taskListDetailController.js" />
     <Content Include="Scripts\controllers\taskListTypeCreateController.js" />
     <Content Include="Scripts\controllers\taskListTypeDetailController.js" />
+    <Content Include="Scripts\controllers\tasklistsController.js" />
+    <Content Include="Scripts\controllers\crewListsController.js" />
     <Content Include="Scripts\controllers\typesController.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -434,6 +436,8 @@
     <Content Include="Templates\tasklist-detail.html" />
     <Content Include="Templates\tasklisttype-create.html" />
     <Content Include="Templates\tasklisttype-detail.html" />
+    <Content Include="Templates\tasklists.html" />
+    <Content Include="Templates\crewlists.html" />
     <Content Include="Templates\types.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

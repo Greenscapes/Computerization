@@ -8,7 +8,7 @@ using CMS.Models;
 
 namespace CMS.Controllers
 {
-    [RoutePrefix("api/types/crews")]
+    [RoutePrefix("api/types/crewlists")]
     public class CrewTypesController : ApiController
     {
         private readonly CmsContext db = new CmsContext();

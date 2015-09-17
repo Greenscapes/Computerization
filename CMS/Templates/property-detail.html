@@ -4,7 +4,7 @@
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Properties
     </button>
 </p>
-<h2>{{property.Name}} Details: TEST</h2>
+<h2>{{property.Name}} Details</h2>
 
 <table class="table table-bordered" style="width:auto">
     <tr>
@@ -37,7 +37,7 @@
     </tr>
     <tr>
         <td>Customer since</td>
-        <td>{{property.ContractDate}}</td>
+        <td>{{property.ContractDate|date:'mediumDate'}}</td>
     </tr>
 </table>
 <p>

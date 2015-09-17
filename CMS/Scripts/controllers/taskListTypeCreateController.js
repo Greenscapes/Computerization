@@ -19,7 +19,7 @@
     };
 
     $scope.back = function () {
-        $location.path("/types");
+        $location.path("/types/tasklists");
         if (!$scope.$$phase) $scope.$apply();
     };
 
