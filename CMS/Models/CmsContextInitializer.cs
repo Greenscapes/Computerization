@@ -93,6 +93,8 @@ namespace CMS.Models
             }
           
             context.SaveChanges();
+            
+           
 
             var propertyTasks = new List<PropertyTask>
             {
@@ -100,7 +102,20 @@ namespace CMS.Models
                 {
                     Location = "1447 Gleneagles",
                     EstimatedDuration = 30,
-                    PropertyTaskList = taskLists[0]
+                    PropertyTaskList = taskLists[0],
+                    EventSchedules  = new List<EventSchedule>()
+                    {
+                         new EventSchedule
+                            {
+                
+                                StartTime = DateTime.Today,
+                                EndTime = DateTime.Now,
+                                Title = "Online Meeting"
+
+                            }
+                    
+
+                    }
                 }
             };
 
@@ -149,28 +164,7 @@ namespace CMS.Models
             context.Crews.Add(crew);
             context.SaveChanges();
            
-            var ev = new EventSchedule
-           {
-                 Property = new Property
-                {
-                    Name = "QQQQ",
-                    Address1 = "123 Fake St.",
-                    Address2 = "STE 210",
-                    City = "Townsville",
-                    State = "Illinois",
-                    Zip = "11111",
-                    PropertyRefNumber ="RRSRS22323",
-                    ContractDate = DateTime.Now
-                },
-                StartTime = DateTime.Today,
-                EndTime = DateTime.Now,
-                Title = "Online Meeting"
-                
-
-           };
-
-            context.EventSchedules.Add(ev);
-            context.SaveChanges();
+            
         }
     }
 }

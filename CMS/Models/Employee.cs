@@ -31,7 +31,11 @@ namespace CMS.Models
         { 
             get; set; 
         }
-
+        public string Phone
+        {
+            get;
+            set;
+        }
         public virtual ICollection<CrewType> CrewTypes
         {
             get;

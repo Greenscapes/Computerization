@@ -9,7 +9,9 @@
         'update': { method: 'PUT' }
     });
     var crewsResource = $resource( "/api/crews" );
-  
+    var eventScheduleResource = $resource( '/api/eventschedules',{    });
+    
+    
     $scope.task = taskResource.get( { taskId: $routeParams.taskId }, function () {
 
         $scope.crews = crewsResource.query( function () {
@@ -32,9 +34,24 @@
                 }
             }
             if (!$scope.$$phase) $scope.$apply();
-        });
+        } );
+        $scope.taskEvents = [];
+        for ( var i = 0; i < $scope.task.EventSchedules.length; i++ ) {
+            var event = $scope.task.EventSchedules[i];
+            var taskEvent = new Object( {
+                start: event.StartTime.toString(),
+                end: event.EndTime.toString(),
+                text: event.Title,
+                id: event.Id.toString()
+            } );
+          
+            $scope.taskEvents.push( taskEvent );
+            loadEvents();
+        }
     });
      
+  
+
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;
@@ -60,6 +77,55 @@
     $scope.confirmDelete = function () {
         Modal.showConfirmDelete("task", $scope.task.Location, $scope.task, deleteFunction);
     };
+
+
+
+    var nav = new DayPilot.Navigator( "nav" );
+    nav.showMonths = 3;
+    nav.skipMonths = 3;
+    nav.selectMode = "week";
+    nav.onTimeRangeSelected = function ( args ) {
+        dp.startDate = args.day;
+        dp.update();
+        loadEvents();
+    };
+    nav.init();
+
+    var dp = new DayPilot.Calendar( "dp" );
+    dp.viewType = "Week";
+    dp.headerDateFormat = "dddd <br/>d MMMM yyyy";
+    dp.headerHeight = "40";
+    dp.columnHeaderHeightAutoFit = "false"
+
+    dp.onTimeRangeSelected = function ( args ) {
+        var name = $scope.task.Description;
+
+        var e = new DayPilot.Event( {
+            start: args.start,
+            end: args.end,
+            id: DayPilot.guid(),
+            resource: args.resource,
+            text: name
+        } );
+        dp.events.add( e );
+        $scope.task.EventSchedules = [];
+        var newEvent = new Object( {
+            startTime: args.start,
+            endTime: args.end,
+            title: name
+        } );
+         $scope.task.EventSchedules.push( newEvent )
+
+    }
+    dp.init();
+    loadEvents();
+
+    function loadEvents() {
+        var start = dp.visibleStart();
+        var end = dp.visibleEnd();
+        dp.events.list = $scope.taskEvents;
+        dp.update();
+    }
 
     $scope.back = function() {
         $location.path("/properties/" + $routeParams.propertyId + "/tasklists/" + $routeParams.taskListId);

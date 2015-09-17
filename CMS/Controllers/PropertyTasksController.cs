@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
+using System.Collections.Generic;
 
 namespace CMS.Controllers
 {
@@ -26,7 +27,7 @@ namespace CMS.Controllers
         {
             return db.PropertyTasks.Where(p => p.PropertyTaskListId == taskListId);
         }
-
+       
         // GET: api/PropertyTasks/5
         [Route("{id:int}")]
         [ResponseType(typeof(PropertyTask))]
@@ -90,7 +91,8 @@ namespace CMS.Controllers
             }
          
             db.PropertyTasks.Add(propertyTask);
-         
+
+                     
             db.SaveChanges();
 
             return Ok(propertyTask);
@@ -106,7 +108,8 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
-
+            propertyTask.EventSchedules.ToList().ForEach(e => db.EventSchedules.Remove(e));
+           
             propertyTask.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
             db.PropertyTasks.Remove(propertyTask);
             db.SaveChanges();
