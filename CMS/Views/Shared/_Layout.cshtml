@@ -39,10 +39,12 @@
             <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
                 <ul class="nav navbar-nav">
                     <li><a href="#/properties">Properties</a></li>
-                    <li><a href="#/types">Types</a></li>
+                    @*<li><a href="#/types">Types</a></li>*@
+                    <li><a href="#/types/tasklists">Task Lists</a></li>
+                    <li><a href="#/types/crewlists">Crew Lists</a></li>
                     <li><a href="#/employees">Employees</a></li>
                     <li><a href="#/crews">Crews</a></li>
-                    <li><a href="#/customerschedules">Schedule</a></li>
+                    @*<li><a href="#/customerschedules">Schedule</a></li>*@
                     <li><a href="/help">API</a></li>
                 </ul>
                 @*<p class="nav navbar-text navbar-right" ng-controller="CurrentUserController"><span ng-bind="'Logged in as ' + getShortLogin()"></span></p>*@

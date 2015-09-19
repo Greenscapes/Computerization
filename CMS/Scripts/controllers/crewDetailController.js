@@ -4,7 +4,7 @@
     {
         'update': { method: 'PUT' }
     });
-    var crewTypesResource = $resource('/api/types/crews/:crewTypeId/employees');
+    var crewTypesResource = $resource('/api/types/crewlists/:crewTypeId/employees');
     var membersResource = $resource('/api/crews/:crewId/members', { crewId: $routeParams.crewId });
     var memberResource = $resource('/api/crews/:crewId/members/:crewMemberId', { crewId: $routeParams.crewId });
 

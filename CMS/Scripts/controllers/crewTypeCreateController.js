@@ -1,10 +1,10 @@
 ﻿function CrewTypeCreateController($scope, $resource, $routeParams, $location) {
-    var crewTypesResource = $resource('/api/types/crews');
+    var crewTypesResource = $resource( '/api/types/crewlists/' );
 
     $scope.buttonsDisabled = false;
 
     $scope.back = function () {
-        $location.path("/types");
+        $location.path("/types/crewlists");
         if (!$scope.$$phase) $scope.$apply();
     };
 

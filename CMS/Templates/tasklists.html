@@ -1,0 +1,21 @@
+﻿<div class="container">
+    <div class="col-md-6">
+        <h2>Task Lists</h2>
+        <p>
+            <button type="button" class="btn btn-primary" ng-click="newTaskListType()">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List Type
+            </button>
+        </p>
+        <table class="table table-striped">
+            <tr>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr ng-repeat="taskListType in taskListTypes">
+                <td><a ng-href="#/types/tasklists/{{taskListType.Id}}">{{taskListType.Name}}</a></td>
+                <td>{{taskListType.Description}}</td>
+            </tr>
+        </table>
+    </div>
+   
+</div>
