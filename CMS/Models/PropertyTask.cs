@@ -55,8 +55,8 @@ namespace CMS.Models
             get;
             set;
         }
-     
-     
+
+        
         public virtual ICollection<Crew> Crews
         {
             get;
