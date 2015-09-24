@@ -26,10 +26,10 @@
         } );
 
         $scope.taskList = taskListResource.get({}, function () {
-            for (var i = 0; i < $scope.taskList.PropertyTaskHeaders.length; i++) {
+            for ( var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++ ) {
                 for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
-                    if ($scope.taskList.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId) {
-                        $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskHeaders[i].Name;
+                    if ( $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId ) {
+                        $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name;
                     }
                 }
             }
