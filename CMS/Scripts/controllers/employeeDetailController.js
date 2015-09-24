@@ -4,7 +4,7 @@
     {
         'update': { method: 'PUT' }
     });
-    var crewTypesResource = $resource('/api/types/crews');
+    var crewTypesResource = $resource('/api/types/crewlists');
 
     $scope.employee = employeesResource.get({}, function() {
         $scope.crewTypes = crewTypesResource.query(function () {

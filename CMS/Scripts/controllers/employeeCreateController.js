@@ -1,6 +1,6 @@
 ﻿function EmployeeCreateController($scope, $resource, $routeParams, $location) {
     var employeesResource = $resource('/api/employees');
-    var crewTypesResource = $resource('/api/types/crews');
+    var crewTypesResource = $resource('/api/types/crewlists');
 
     $scope.crewTypes = crewTypesResource.query();
     $scope.buttonsDisabled = false;
