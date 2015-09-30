@@ -108,7 +108,10 @@ app.config([
                 templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
             } ).
-           
+            when( '/eventschedules/{employeeId:int}/events', {
+            templateUrl: 'templates/customerscheduledetails.html',
+            controller: 'EventSchedulesController'
+            } ).
             otherwise({
                 redirectTo: '/properties'
             });
