@@ -112,6 +112,10 @@ app.config([
             templateUrl: 'templates/customerscheduledetails.html',
             controller: 'EventSchedulesController'
             } ).
+              when( '/eventschedules/{propertyId:int}/{allProperty:bool}/propertyevents', {
+                  templateUrl: 'templates/property-detail.html',
+                  controller: 'EventSchedulesController'
+              } ).
             otherwise({
                 redirectTo: '/properties'
             });

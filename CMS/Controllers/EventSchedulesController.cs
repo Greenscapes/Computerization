@@ -56,7 +56,26 @@ namespace CMS.Controllers
             }
              
         }
+        // GET: api/eventschedules
+        [Route("{propertyId:int}/{allProperty:bool}/propertyevents")]
+        public IEnumerable<EventSchedule> GetEventSchedules(int propertyId, bool allProperty)
+        {
+            try
+            {
+                List<EventSchedule> events = new List<EventSchedule>();
 
+                db.PropertyTasks.Where(pt => pt.PropertyTaskList.PropertyId == propertyId).ToList()
+                    .ForEach(p => events.AddRange(p.EventSchedules));
+                
+                return events;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         // [Route("{id:int}/eventschedules'")]int taskId
         [Route("~/api/properties/:propertyId/tasklists/{taskListId:int}/tasks/{taskId:int}/eventschedules")]
         public IQueryable<EventScheduleDetails> GetEventSchedules(int propertyId, int taskListId,int taskId)
