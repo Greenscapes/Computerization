@@ -90,9 +90,17 @@ namespace CMS.Controllers
                 return BadRequest(ModelState);
             }
          
-            db.PropertyTasks.Add(propertyTask);
+            
+          
+           
+            List<Crew> crews= new List<Crew>();
 
-                     
+            foreach (Crew cr in propertyTask.Crews)
+            {
+                crews.Add(db.Crews.Single(c=>c.Id==cr.Id));
+            }
+            propertyTask.Crews = crews;
+            db.PropertyTasks.Add(propertyTask);      
             db.SaveChanges();
 
             return Ok(propertyTask);

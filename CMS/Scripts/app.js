@@ -107,7 +107,15 @@ app.config([
             when( '/properties/:propertyId/tasklists/:taskListId/tasks/:taskId/eventschedules', {
                 templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
-             } ).
+            } ).
+            when( '/eventschedules/{employeeId:int}/events', {
+            templateUrl: 'templates/customerscheduledetails.html',
+            controller: 'EventSchedulesController'
+            } ).
+              when( '/eventschedules/{propertyId:int}/{allProperty:bool}/propertyevents', {
+                  templateUrl: 'templates/property-detail.html',
+                  controller: 'EventSchedulesController'
+              } ).
             otherwise({
                 redirectTo: '/properties'
             });
