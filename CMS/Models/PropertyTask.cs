@@ -41,7 +41,11 @@ namespace CMS.Models
             get;
             set;
         }
-       
+        public bool IsFreeService
+        {
+            get;
+            set;
+        }
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual PropertyTaskList PropertyTaskList

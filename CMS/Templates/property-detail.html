@@ -39,6 +39,14 @@
         <td>Customer since</td>
         <td>{{property.ContractDate|date:'mediumDate'}}</td>
     </tr>
+    <tr>
+        <td>Number Of Free Services</td>
+        <td>{{property.NumberOfFreeServiceCalls}}</td>
+    </tr>
+    <tr>
+        <td>Remaining Free Services</td>
+        <td>{{property.NumberOfFreeServiceCalls}}</td>
+    </tr>
 </table>
 <p>
     <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">

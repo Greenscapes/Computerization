@@ -45,6 +45,8 @@ namespace CMS.Models
         }
         public string PropertyRefNumber { get; set; }
 
+        public int NumberOfFreeServiceCalls { get; set; }
+
        [DataType(DataType.Date)]
         public DateTime ContractDate { get; set; }
 

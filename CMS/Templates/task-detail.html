@@ -32,6 +32,10 @@
         <label for="inputNotes">Notes</label>
         <input type="text" class="form-control" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
     </div>
+    <div class="form-group">
+        <label for="inputNotes">Free Service</label>
+        <input type="checkbox" ng-model="task.IsFreeService" ng-disabled="buttonsDisabled" />
+    </div>
     <h3 ng-show="crews.length > 0">Assignable Crews</h3>
     <table class="table table-striped">
         <tr>
