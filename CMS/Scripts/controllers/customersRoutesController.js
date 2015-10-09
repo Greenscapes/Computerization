@@ -1,6 +1,10 @@
 ﻿function CustomersRoutesController($scope, $resource, $routeParams, $location, Modal) {
 
     var propertiesResource = $resource( '/api/properties' );
+    
+    var crewsResource = $resource( "/api/crews" );
+    $scope.crews = crewsResource.query( function () { } );
+    $scope.selectedDate = new Date();
 
     function codeAddress( address ) {
 
@@ -33,19 +37,52 @@
             return property.Address1 + " " + property.Address1 + " " + property.City + " " + property.State + " " + property.Zip;
         }
     }
-    $scope.properties = propertiesResource.query( function () {
 
-        for ( var i = 0; i < $scope.properties.length; i++ ) {
-            var property = $scope.properties[i];
-            var propertyAddress = property.Address1 + " " + property.Address2 + " " + property.City + " " + property.State + " " + property.Zip;
-            codeAddress( propertyAddress );
-        }
+
+    var nav = new DayPilot.Navigator( "nav" );
+    nav.showMonths = 3;
+    nav.skipMonths = 3;
+    nav.orientation = "horizontal"
+    nav.selectMode = "week";
+    nav.onTimeRangeSelected = function ( args ) {
+        $scope.selectedDate = args.day;
+      
+    };
+    nav.init();
+
+    $scope.collapse = function ( event ) {
+        $( event.target ).toggleClass( "glyphicon-chevron-down" );
+    };
+    $scope.collapsecrew = function ( event ) {
+        $( event.target ).toggleClass( "glyphicon-arrow-down" );
+    };
+
+    $scope.getevents = function () {
        
+        var month = $scope.selectedDate.getMonth()+1;
+        var year = $scope.selectedDate.getFullYear();
+        var date = $scope.selectedDate.getDate();
+        var eventsResource = $resource( '/api/eventschedules/:year/:month/:date/:crewid/events',
+         {
+             year: year,
+             month: month,
+             date: date,
+             crewid: $scope.crew.Id.Id
 
-    } );
-    
+         },
+            {
 
+            } );
 
+        $scope.eventdetaillist = eventsResource.query( {}, function () {
+            for ( var i = 0; i < $scope.eventdetaillist.length; i++ ) {
+                var currentEvent = $scope.eventdetaillist[i];
+
+                codeAddress( currentEvent.PropertyAddress );
+            }
+        }
+   );
+    };
     var mapOptions = {
         zoom: 4,
         center: new google.maps.LatLng( 40.0000, -98.0000 ),

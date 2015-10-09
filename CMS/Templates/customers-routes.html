@@ -1,32 +1,104 @@
-﻿<div class="row">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<table class="table table-striped">
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Reference Number</th>
-        <th>Customer since</th>
-    </tr>
-    <tr ng-repeat="property in properties  | filter:filterText">
-        <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
-        <td>{{property.Address1}}</td>
-        <td>{{property.City}}</td>
-        <td>{{property.State}}</td>
-        <td>{{property.PropertyRefNumber}}</td>
-        <td>{{property.ContractDate|date:'mediumDate'}}</td>
-    </tr>
-</table>
+﻿
+
+<br />
+<div class=" media-heading"> Crew DashBoard</div>
+    <div style="float:left; width: 160px">
+        <div id="nav"></div>
+    </div>
+    <div style="margin-left: 160px">
+       
+        <div>
+            <div><b>Crews </b>: 
+                <select ng-options="crew.Name for crew in crews" ng-model="crew.Id" id="inputType"
+                        ng-disabled="buttonsDisabled" ng-change="getevents()"></select>
+            </div>
+        </div>
+        <br />
+        <div >
+            <div >
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
+                </div> 
+            </div> 
+        </div> 
+        <br />
+        <div class="container">
+            <div >
+                <div class=" col-xs-1 pull-left">#</div>
+                <div class="col-lg-2 pull-left">Event</div>
+                <div class="col-lg-2 pull-left">Start Time</div>
+                <div class="col-lg-2 pull-left">End Time</div>
+                <div class="col-lg-2 pull-left">Property Name</div>
+                <div class="col-lg-2 pull-left">Address</div>
+            </div>
+
+            <div ng-repeat="eventdetails in eventdetaillist  | filter:filterText" class="table-condensed responsive-table">
+                <div class="row panel">
+                    <div class="col-xs-1">
+                        <div class="handpointer glyphicon glyphicon-chevron-right"
+                             data-ng-click="collapse($event)" data-target="#view_{{eventdetails.EventId}}" d data-toggle="collapse"
+                             aria-expanded="false"
+                             data-ng-if=" eventdetails.Crews.length > 0 ">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.Description"></div>
+                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.StartTime| date: 'medium'"></div>
+                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.EndTime| date: 'medium'"></div>
+                    <div class="col-lg-2 pull-left " data-ng-bind="eventdetails.PropertyName "></div>
+                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.PropertyAddress"></div>
+                </div>
+
+                <div class="collapse" id="view_{{eventdetails.EventId}}" data-ng-if="eventdetails.Crews!=null">
+                    <div class="col-sm-offset-1">
+                        <div class="row panel-heading bgOrg">
+                            <div class=" col-lg-2 pull-left">Crew Name</div>
+                            <div class="col-lg-2 pull-left">CrewTypeId</div>
+
+                        </div>
+
+                        <div ng-repeat="crew in eventdetails.Crews">
+                            <div class="row panel">
+                                <div class="col-xs-1">
+                                    <div class="handpointer glyphicon glyphicon-arrow-right"
+                                         data-ng-click="collapsecrew(event)" data-target="#view_{{crew.Id}}" d data-toggle="collapse"
+                                         aria-expanded="false"
+                                         data-ng-if=" eventdetails.Crews.CrewMembers.length > 0 ">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 pull-left" data-ng-bind="crew.Name"></div>
+                                <div class="col-lg-2 pull-left" data-ng-bind="crew.CrewTypeId"></div>
+
+                            </div>
+                            <div class="collapse" id="view_{{crew.Id}}" data-ng-if="crew.CrewMembers.length > 0">
+                                <div class="col-sm-offset-1">
+                                    <div class="row panel-heading bgOrg">
+                                        <div class=" col-lg-2 pull-left">MemberID</div>
+
+                                    </div>
+
+                                    <div ng-repeat="crewMembers in crew.CrewMembers">
+
+                                        <div class="col-lg-2 pull-left" data-ng-bind="crewMembers.Id"></div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <br />
 
     <div>
-    <div id="map" ></div>
-    <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-        <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+        <div id="map"></div>
+        <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+            <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+        </div>
     </div>
-</div>

@@ -18,6 +18,7 @@ namespace CMS
                 "~/Scripts/angular-google-maps.js",
                 "~/Scripts/angular-google-maps-street-view.js",
                    "~/Scripts/loadash.js",
+                   "~/Scripts/moment.js",
                
 #else
                 "~/Scripts/angular.min.js",
@@ -27,8 +28,11 @@ namespace CMS
                 "~/Scripts/loadash.min.js",
                  "~/Scripts/angular-google-maps.min",
                  "~/Scripts/angular-google-maps-street-view.min.js",
+                    "~/Scripts/moment.min.js",
 #endif
- "~/Scripts/ui-bootstrap-tpls-0.13.0.min.js"));
+ "~/Scripts/ui-bootstrap-tpls-0.13.0.min.js"
+
+ ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/app.js",
@@ -66,7 +70,8 @@ namespace CMS
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
-                "~/Content/site.css"));
+                "~/Content/site.css",
+                 "~/Content/customizedbs.css"));
 
           
         }

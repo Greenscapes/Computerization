@@ -14,7 +14,12 @@ namespace CMS.Models
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EndTime { get; set; }
         public string Title { get; set; }
-        [JsonIgnore]
+        public int PropertyTaskId
+        {
+            get;
+            set;
+        }
+       [JsonIgnore]
         public PropertyTask PropertyTask { get; set; }
     }
 }
