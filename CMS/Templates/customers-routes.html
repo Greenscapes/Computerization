@@ -1,0 +1,32 @@
+﻿<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Reference Number</th>
+        <th>Customer since</th>
+    </tr>
+    <tr ng-repeat="property in properties  | filter:filterText">
+        <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
+        <td>{{property.Address1}}</td>
+        <td>{{property.City}}</td>
+        <td>{{property.State}}</td>
+        <td>{{property.PropertyRefNumber}}</td>
+        <td>{{property.ContractDate|date:'mediumDate'}}</td>
+    </tr>
+</table>
+
+    <div>
+    <div id="map" ></div>
+    <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+        <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+    </div>
+</div>

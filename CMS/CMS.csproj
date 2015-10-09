@@ -211,6 +211,7 @@
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CustomersRoutesController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
     <Compile Include="Controllers\CrewsController.cs" />
     <Compile Include="Controllers\CrewTypesController.cs" />
@@ -296,6 +297,11 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Scripts\angular-google-maps-street-view.js" />
+    <Content Include="Scripts\angular-google-maps-street-view.min.js" />
+    <Content Include="Scripts\angular-google-maps.js" />
+    <Content Include="Scripts\angular-google-maps.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-route.js" />
@@ -320,6 +326,7 @@
     <Content Include="Scripts\controllers\employeeCreateController.js" />
     <Content Include="Scripts\controllers\employeeDetailController.js" />
     <Content Include="Scripts\controllers\employeesController.js" />
+    <Content Include="Scripts\controllers\customersRoutesController.js" />
     <Content Include="Scripts\controllers\modalsController.js" />
     <Content Include="Scripts\controllers\navController.js" />
     <Content Include="Scripts\controllers\propertyCreateController.js" />
@@ -406,6 +413,8 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.uk.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -429,6 +438,7 @@
     <Content Include="Templates\customerschedules.html" />
     <Content Include="Templates\properties.html" />
     <Content Include="Templates\property-create.html" />
+    <Content Include="Templates\customers-routes.html" />
     <Content Include="Templates\property-detail.html" />
     <Content Include="Templates\task-create.html" />
     <Content Include="Templates\task-detail.html" />
