@@ -45,6 +45,8 @@ namespace CMS.Models
         }
         public string PropertyRefNumber { get; set; }
 
+        public PropertyTypeEnum PropertyType { get; set; }
+
         public int NumberOfFreeServiceCalls { get; set; }
 
        [DataType(DataType.Date)]
@@ -66,4 +68,5 @@ namespace CMS.Models
             set;
         }
     }
+   
 }

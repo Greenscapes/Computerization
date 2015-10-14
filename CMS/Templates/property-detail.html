@@ -8,6 +8,19 @@
 
 <table class="table table-bordered" style="width:auto">
     <tr>
+        <td>Property Type</td>
+        <td><!--{{property.PropertyType}}-->
+            <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
+                    ng-model="property.PropertyType" ng-readonly="true;">
+                <option value="" class="">Select</option>
+                <option value="1">Draft</option>
+                <option value="2">Prospect</option>
+                <option value="66">Active</option>
+                <option value="66">Closed</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
         <td>Name</td>
         <td>{{property.Name}}</td>
     </tr>
