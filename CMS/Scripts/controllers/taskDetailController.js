@@ -41,7 +41,7 @@
             var taskEvent = new Object( {
                 start: event.StartTime.toString(),
                 end: event.EndTime.toString(),
-                text: event.Title,
+                title: event.Title,
                 id: event.Id.toString()
             } );
           
@@ -51,7 +51,13 @@
     });
      
   
-
+    $scope.crewCheckChanged = function(crew, task) {
+        if (crew.checked) {
+            task.Crews.push(crew);
+        } else {
+            task.Crews.pop(crew);
+        }
+    }
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;
@@ -114,7 +120,7 @@
             endTime: args.end,
             title: name
         } );
-         $scope.task.EventSchedules.push( newEvent )
+        $scope.task.EventSchedules.push(newEvent);
 
     }
     dp.init();
