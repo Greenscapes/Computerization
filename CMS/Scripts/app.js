@@ -125,7 +125,7 @@ app.config([
                   controller: 'CustomersRoutesController'
               } ).
             otherwise({
-                redirectTo: '/properties'
+                redirectTo: '/customerroutes'
             });
 
         $resourceProvider.defaults.stripTrainingSlashes = false;

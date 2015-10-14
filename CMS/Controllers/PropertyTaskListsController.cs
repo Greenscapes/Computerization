@@ -109,10 +109,8 @@ namespace CMS.Controllers
             tasks.ForEach(t =>
             {
                 t.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
-                foreach (var evenSchedule in t.EventSchedules)
-                {
-                     db.EventSchedules.Remove(evenSchedule);
-                }
+                t.EventSchedules.ToList().ForEach(ev => db.EventSchedules.Remove(ev));
+               
                 db.PropertyTasks.Remove(t);
             });
             db.PropertyTaskLists.Remove(propertyTaskList);

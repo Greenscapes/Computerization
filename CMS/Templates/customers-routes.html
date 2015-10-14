@@ -11,6 +11,7 @@
             <div><b>Crews </b>: 
                 <select ng-options="crew.Name for crew in crews" ng-model="crew.Id" id="inputType"
                         ng-disabled="buttonsDisabled" ng-change="getevents()"></select>
+              
             </div>
         </div>
         <br />
@@ -57,35 +58,12 @@
                         </div>
 
                         <div ng-repeat="crew in eventdetails.Crews">
-                            <div class="row panel">
-                                <div class="col-xs-1">
-                                    <div class="handpointer glyphicon glyphicon-arrow-right"
-                                         data-ng-click="collapsecrew(event)" data-target="#view_{{crew.Id}}" d data-toggle="collapse"
-                                         aria-expanded="false"
-                                         data-ng-if=" eventdetails.Crews.CrewMembers.length > 0 ">
-                                    </div>
-                                </div>
+                           
                                 <div class="col-lg-2 pull-left" data-ng-bind="crew.Name"></div>
                                 <div class="col-lg-2 pull-left" data-ng-bind="crew.CrewTypeId"></div>
 
                             </div>
-                            <div class="collapse" id="view_{{crew.Id}}" data-ng-if="crew.CrewMembers.length > 0">
-                                <div class="col-sm-offset-1">
-                                    <div class="row panel-heading bgOrg">
-                                        <div class=" col-lg-2 pull-left">MemberID</div>
-
-                                    </div>
-
-                                    <div ng-repeat="crewMembers in crew.CrewMembers">
-
-                                        <div class="col-lg-2 pull-left" data-ng-bind="crewMembers.Id"></div>
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            
                         </div>
 
                     </div>
@@ -99,6 +77,6 @@
     <div>
         <div id="map"></div>
         <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-            <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+            <!--<a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>-->
         </div>
     </div>

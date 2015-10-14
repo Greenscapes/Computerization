@@ -92,7 +92,8 @@ namespace CMS.Controllers
                 var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from)||
                                                                    (ev.StartTime <= to) && (ev.EndTime >= to)||
                                                                     (ev.StartTime >= from) && (ev.EndTime <= to)
-                    ).ToList();
+                                                                    
+                    ).OrderBy(e=>e.StartTime).ToList();
            
                foreach (var eventVal in eventSchedules)
                {
