@@ -1,8 +1,22 @@
 ﻿function EventNotesController( $scope, $resource, $routeParams, $location, Modal ) {
     var eventNotesResource = $resource( '/api/eventnotes' );
-    var eventschedulesResource = $resource( '/api/eventschedules');
+    var eventschedulesResource = $resource( '/api/eventschedules' );
+    var eventscheduleResource = $resource( '/api/eventschedules/:eventscheduleId',
+{ eventscheduleId: $routeParams.eventid },
+{
+        'update': { method: 'PUT' }
+});
+
     var eventNotebyScheduleResource = $resource( '/api/eventnotes/:eventscheduleId', { eventscheduleId: $routeParams.eventid } );
     $scope.eventid = $routeParams.eventid;
+
+    $scope.eventSchedule = eventscheduleResource.get( { eventscheduleId: $scope.eventid },function(){
+        
+        $scope.propertyTaskEventNotes = eventNotebyScheduleResource.query( { eventscheduleId: $routeParams.eventid }, function () {
+            
+        });
+    }
+    );
 
     $( document ).ready( function () {
         $( '#datetimepickerstart' ).datepicker( {
@@ -33,12 +47,12 @@
 
         $( '#datetimepickerstart' ).on( 'changeDate', function ( ev ) {
             ( '#datetimepickerstart' ).valueOf( ev.target.value );
-            $scope.propertyTaskEventNote.ActualStartTime = ev.target.value;
+            $scope.eventSchedule.ActualStartTime = ev.target.value;
         } );
 
         $( '#datetimepickerend' ).on( 'changeDate', function ( ev ) {
             ( '#datetimepickerend' ).valueOf( ev.target.value );
-            $scope.propertyTaskEventNote.ActualEndTime = ev.target.value;
+            $scope.eventSchedule.ActualEndTime = ev.target.value;
         } );
     } );
     $scope.back = function () {
@@ -46,12 +60,7 @@
         //if ( !$scope.$$phase ) $scope.$apply();
     };
     
-    $scope.eventSchedule = employeesResource.get( {}, function ()
-    {
-        $scope.propertyTaskEventNotes = eventNotebyScheduleResource.query( { eventscheduleId: $routeParams.eventid }, function () {
-            
-        });
-    } );
+  
     $scope.save = function ( propertyTaskEventNote ) {
         $scope.buttonsDisabled = true;
         
@@ -59,6 +68,7 @@
 
         propertyTaskEventNote.EventScheduleId = $scope.eventid;
         eventNotesResource.save( propertyTaskEventNote, function () {
+
             $scope.buttonsDisabled = false;
             $scope.back();
         },

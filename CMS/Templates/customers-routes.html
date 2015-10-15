@@ -25,7 +25,7 @@
         <br />
         <div class="container">
             <div >
-                <div class=" col-xs-1 pull-left"></div>
+               
                 <div class="col-lg-2 pull-left">Event</div>
                 <div class="col-lg-2 pull-left">Start Time</div>
                 <div class="col-lg-2 pull-left">End Time</div>
@@ -36,13 +36,7 @@
 
             <div ng-repeat="eventdetails in eventdetaillist  | filter:filterText" class="table-condensed responsive-table">
                 <div class="row panel">
-                    <div class="col-xs-1">
-                        <div class="handpointer glyphicon glyphicon-chevron-right"
-                             data-ng-click="collapse($event)" data-target="#view_{{eventdetails.EventId}}" d data-toggle="collapse"
-                             aria-expanded="false"
-                             data-ng-if=" eventdetails.Crews.length > 0 ">
-                        </div>
-                    </div>
+                   
                     <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.Description"></div>
                     <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.StartTime| date: 'medium'"></div>
                     <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.EndTime| date: 'medium'"></div>
@@ -54,25 +48,9 @@
                     </div>
                 </div>
 
-                <div class="collapse" id="view_{{eventdetails.EventId}}" data-ng-if="eventdetails.EventNotes!=null">
-                    <div class="col-sm-offset-1">
-                        <div class="row panel-heading bgOrg">
-                            <div class=" col-lg-2 pull-left">Notes</div>
-                            <div class=" col-lg-2 pull-left">Review Status</div>
-                        </div>
-
-                        <div ng-repeat="eventNote in eventdetails.EventNotes">
-
-                            <div class="col-lg-2 pull-left" data-ng-bind="eventNote.Notes"></div>
-                            <div class="col-lg-2 pull-left" data-ng-bind="eventNote.ReviewStatus"></div>
-
-                        </div>
-
-                    </div>
-
+            
                 </div>
-                </div>
-            </div>
+           
         </div>
     </div>
 
