@@ -6,7 +6,7 @@
 </p>
 <h2>New Crew</h2>
 
-<form>
+<form name="crewcreate">
     <div class="form-group">
         <label for="inputType">Type</label>
         <br />
@@ -15,26 +15,32 @@
     <div class="form-group">
         <label for="inputDescription">Name</label>
         <input type="text" class="form-control" id="inputDescription" placeholder="Crew Name" ng-disabled="buttonsDisabled" ng-model="crew.Name">
-    </div>
-   <div>
-       <table class="table table-striped">
-           <tr>
-               <th>Name</th>
-               <th>Crew Leader</th>
-           </tr>
-           <tr ng-repeat="employee in employees">
-               <td>
-                   <input type="checkbox" ng-model="employee.checked" ng-disabled="buttonsDisabled" />
-                   <a ng-href="#/employees/{{employee.Id}}">{{employee.FirstName +" "+employee.LastName }}</a>
-               </td>
-               <td>
-                   <input type="checkbox" ng-model="employee.IsCrewLeader" ng-disabled="buttonsDisabled" />
-                  
-               </td>
-           </tr>
-       </table>
 
-   </div>
+        <!--<span style="color:red" ng-show="crewcreate.inputDescription.$dirty && crewcreate.inputDescription.$invalid">
+            <span ng-show="crewcreate.inputDescription.$error.required">Description is required.</span>
+            <span ng-show="crewcreate.inputDescription.$error.email">Invalid Description.</span>
+        </span>-->
+    </div>
+    <div>
+        <div class="panel-title"><b>Crew members</b></div>
+        <table class="table table-striped">
+
+            <tr>
+                <th>Name</th>
+                <th>Crew Leader</th>
+            </tr>
+            <tr ng-repeat="employee in employees">
+                <td>
+                    <input type="checkbox" ng-model="employee.checked" ng-disabled="buttonsDisabled" />
+                    <a ng-href="#/employees/{{employee.Id}}">{{employee.FirstName +" "+employee.LastName }}</a>
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="employee.IsCrewLeader" ng-disabled="buttonsDisabled" />
+
+                </td>
+            </tr>
+        </table>
+    </div>
     <p>
         <button type="submit" class="btn btn-success" ng-click="save(crew)" ng-disabled="buttonsDisabled">Create</button>
     </p>

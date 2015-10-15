@@ -22,5 +22,7 @@ namespace CMS.Models
         }
        [JsonIgnore]
         public PropertyTask PropertyTask { get; set; }
+       [JsonIgnore]
+       public ICollection<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
     }
 }

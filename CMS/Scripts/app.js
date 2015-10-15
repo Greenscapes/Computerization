@@ -108,15 +108,15 @@ app.config([
                 templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
             } ).
-            when( '/eventschedules/{employeeId:int}/events', {
+            when( '/eventschedules/:employeeId/events', {
             templateUrl: 'templates/customerscheduledetails.html',
             controller: 'EventSchedulesController'
             } ).
-              when( '/eventschedules/{propertyId:int}/{allProperty:bool}/propertyevents', {
+              when( '/eventschedules/:propertyId/:allProperty/propertyevents', {
                   templateUrl: 'templates/property-detail.html',
                   controller: 'EventSchedulesController'
               } ).
-             when( '/eventschedules/{year:int}/{month:int}/{date:int}/{crewid:int}/events', {
+             when( '/eventschedules/:year/:month/:date/:crewid/events', {
                  templateUrl: 'templates/property-detail.html',
                  controller: 'EventSchedulesController'
              } ).
@@ -124,6 +124,15 @@ app.config([
                   templateUrl: 'templates/customers-routes.html',
                   controller: 'CustomersRoutesController'
               } ).
+               when( '/eventnotes/:eventid', {
+                   templateUrl: 'templates/eventnotes.html',
+                   controller: 'EventNotesController'
+               } ).
+            
+        when( '/eventnotes', {
+            templateUrl: 'templates/eventnotes.html',
+            controller: 'EventNotesController'
+        } ).
             otherwise({
                 redirectTo: '/customerroutes'
             });

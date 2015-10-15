@@ -46,6 +46,7 @@ namespace CMS.Models
 
         public System.Data.Entity.DbSet<CMS.Models.DailySchedule> DailySchedules { get; set; }
         public DbSet<EventSchedule> EventSchedules { get; set; }
+        public DbSet<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
 
     }
 }
