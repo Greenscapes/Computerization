@@ -3,6 +3,7 @@
 
     $scope.property = {};
     $( '#datetimepicker' ).datepicker( " setDate", new Date() );
+    $scope.property.State = "FL"
     $scope.save = function(property) {
         $scope.buttonsDisabled = true;
        
