@@ -9,7 +9,7 @@ namespace CMS.Models
         public Crew()
         {
             CrewMembers = new List<CrewMember>();
-            WeeklySchedule = new WeeklySchedule();
+            //WeeklySchedule = new WeeklySchedule();
             PropertyTasks = new List<PropertyTask>();
         }
 
@@ -19,11 +19,11 @@ namespace CMS.Models
             set;
         }
 
-        public int WeeklyScheduleId
-        {
-            get;
-            set;
-        }
+        //public int WeeklyScheduleId
+        //{
+        //    get;
+        //    set;
+        //}
 
         public string Name
         {
@@ -37,13 +37,13 @@ namespace CMS.Models
             set;
         }
 
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public virtual WeeklySchedule WeeklySchedule
-        {
-            get;
-            set;
-        }
+        //[JsonIgnore]
+        //[IgnoreDataMember]
+        //public virtual WeeklySchedule WeeklySchedule
+        //{
+        //    get;
+        //    set;
+        //}
 
         public virtual ICollection<CrewMember> CrewMembers
         {

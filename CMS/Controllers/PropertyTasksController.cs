@@ -57,7 +57,7 @@ namespace CMS.Controllers
             {
                 return BadRequest();
             }
-
+            propertyTask.EventSchedules.ToList().ForEach(e => e.PropertyTaskId = propertyTask.Id);
             db.Entry(propertyTask).State = EntityState.Modified;
 
             try

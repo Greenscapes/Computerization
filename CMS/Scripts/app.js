@@ -104,6 +104,10 @@ app.config([
                  templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
              } ).
+             when( '/eventschedules/:eventscheduleId', {
+                 templateUrl: 'templates/customerscheduledetails.html',
+                 controller: 'EventSchedulesController'
+             } ).
             when( '/properties/:propertyId/tasklists/:taskListId/tasks/:taskId/eventschedules', {
                 templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'

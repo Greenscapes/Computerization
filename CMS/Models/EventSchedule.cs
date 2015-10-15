@@ -15,6 +15,8 @@ namespace CMS.Models
         public DateTime EndTime { get; set; }
         public string Title { get; set; }
         public StatusEnum Status { get; set; }
+        public DateTime? ActualStartTime { get; set; }
+        public DateTime? ActualEndTime { get; set; }
         public int PropertyTaskId
         {
             get;

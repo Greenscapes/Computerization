@@ -44,7 +44,7 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            var weeklySchedule = crew.WeeklySchedule;
+            var weeklySchedule = new WeeklySchedule();// crew.WeeklySchedule;
             if (weeklySchedule == null)
             {
                 return NotFound();
@@ -58,20 +58,20 @@ namespace CMS.Controllers
         public IHttpActionResult GetCrewDailySchedule(int crewId, string day)
         {
             var crew = db.Crews
-                .Include(c => c.WeeklySchedule.SundaySchedule)
-                .Include(c => c.WeeklySchedule.MondaySchedule)
-                .Include(c => c.WeeklySchedule.TuesdaySchedule)
-                .Include(c => c.WeeklySchedule.WednesdaySchedule)
-                .Include(c => c.WeeklySchedule.ThursdaySchedule)
-                .Include(c => c.WeeklySchedule.FridaySchedule)
-                .Include(c => c.WeeklySchedule.SaturdaySchedule)
+                //.Include(c => c.WeeklySchedule.SundaySchedule)
+                //.Include(c => c.WeeklySchedule.MondaySchedule)
+                //.Include(c => c.WeeklySchedule.TuesdaySchedule)
+                //.Include(c => c.WeeklySchedule.WednesdaySchedule)
+                //.Include(c => c.WeeklySchedule.ThursdaySchedule)
+                //.Include(c => c.WeeklySchedule.FridaySchedule)
+                //.Include(c => c.WeeklySchedule.SaturdaySchedule)
                 .FirstOrDefault(c => c.Id == crewId);
             if (crew == null)
             {
                 return NotFound();
             }
 
-            var weeklySchedule = db.WeeklySchedules.FirstOrDefault(w => w.Id == crew.WeeklyScheduleId);
+            var weeklySchedule = db.WeeklySchedules.FirstOrDefault(w => true);//w.Id == crew.WeeklyScheduleId);
             if (weeklySchedule == null)
             {
                 return NotFound();
