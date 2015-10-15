@@ -21,4 +21,12 @@ namespace CMS.Models
         Closed = 3
 
     }
+    public enum ReviewStatusEnum
+    {
+        New = 0,
+        InReview = 1,
+        Reviewed = 2,
+        Closed = 3
+
+    }
 }

@@ -108,6 +108,7 @@ namespace CMS.Controllers
                        continue;
                    }
                    EventDetails eventDetail = new EventDetails();
+
                    eventDetail.EventId = eventVal.Id;
                    eventDetail.StartTime = eventVal.StartTime;
                    eventDetail.EndTime = eventVal.EndTime;
@@ -124,6 +125,10 @@ namespace CMS.Controllers
                    eventDetail.PropertyName = eventVal.PropertyTask.PropertyTaskList.Property.Name;
                    eventDetail.PropertyRefNumber = eventVal.PropertyTask.PropertyTaskList.Property.PropertyRefNumber;
                    eventDetail.Crew=crewVal;
+                   if (eventVal.PropertyTaskEventNotes != null)
+                   {
+                       eventDetail.EventNotes = eventVal.PropertyTaskEventNotes;
+                   }
                    eventDetails.Add(eventDetail);
                }  
                   
@@ -304,7 +309,7 @@ namespace CMS.Controllers
         public string PropertyName { get; set; }
         public string PropertyRefNumber { get; set; }
         public string PropertyAddress { get; set; }
-
+        public ICollection<PropertyTaskEventNote> EventNotes { get; set; }
         public Crew Crew { get; set; }
        
     }

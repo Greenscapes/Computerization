@@ -65,7 +65,8 @@ namespace CMS
                 "~/Scripts/controllers/tasklistsController.js",
                  "~/Scripts/controllers/eventSchedulesController.js",
                  "~/Scripts/controllers/crewListsController.js",
-                 "~/Scripts/controllers/customersRoutesController.js"
+                 "~/Scripts/controllers/customersRoutesController.js",
+                 "~/Scripts/controllers/eventNotesController.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

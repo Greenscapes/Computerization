@@ -1,0 +1,45 @@
+﻿<h2>Event Notes</h2>
+<br />
+<form>
+    <table>
+        <tr class="form-group">
+            <td><label for="inputNote">Notes</label></td>
+            <td><textarea type="text" ng-model="$parent.propertyTaskEventNote.Notes" cols="100" rows="5"></textarea></td>
+</tr>
+        <tr class="form-group">
+            <td><label for="inputReview">Review Status</label></td>
+            <td><select my-entity-set="Enums?type=ReviewStatusEnum" id="reviewStatusEnumSelect"
+                    ng-model="propertyTaskEventNote.ReviewStatus">
+                <option value="" class="">Select</option>
+                <option value="1">New</option>
+                <option value="2">InReview</option>
+                <option value="66">Reviewed</option>
+                <option value="66">Closed</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p>
+                    <button type="submit" class="btn btn-success" ng-click="save(propertyTaskEventNote)" ng-disabled="buttonsDisabled">Create</button>
+                </p>
+            </td>
+        </tr>
+    </table>
+</form>
+    <table class="table table-striped">
+        <tr>
+            <th>Notes</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="propertyTaskEventNote in propertyTaskEventNotes">
+           
+            <td>{{propertyTaskEventNote.Notes}}</td>
+            <td>{{propertyTaskEventNote.ReviewStatus}}</td>
+          
+            <td>
+
+            <a ng-href="#/eventnotesdetail/{{propertyTaskEventNote.Id}}">update</a></td>
+        </tr>
+    </table>
+

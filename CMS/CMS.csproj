@@ -211,6 +211,7 @@
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EventNotesController.cs" />
     <Compile Include="Controllers\CustomersRoutesController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
     <Compile Include="Controllers\CrewsController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\CrewType.cs" />
     <Compile Include="Models\DailySchedule.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\PropertyTaskEventNote.cs" />
     <Compile Include="Models\EventSchedule.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ModelBase.cs" />
@@ -318,6 +320,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
+    <Content Include="Scripts\controllers\eventNotesController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
     <Content Include="Scripts\controllers\crewMemberDetailController.js" />
@@ -429,6 +432,7 @@
     <Content Include="Templates\crew-create.html" />
     <Content Include="Templates\crew-detail.html" />
     <Content Include="Templates\crewmember-create.html" />
+    <Content Include="Templates\eventnotes.html" />
     <Content Include="Templates\crews.html" />
     <Content Include="Templates\crewmember-detail.html" />
     <Content Include="Templates\crewtype-create.html" />
@@ -437,6 +441,7 @@
     <Content Include="Templates\employee-create.html" />
     <Content Include="Templates\employee-detail.html" />
     <Content Include="Templates\employees.html" />
+    <Content Include="Templates\modals\modal-form.html" />
     <Content Include="Templates\modals\modal-delete-confirm.html" />
     <Content Include="Templates\customerschedules.html" />
     <Content Include="Templates\properties.html" />

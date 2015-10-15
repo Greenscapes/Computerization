@@ -2,10 +2,10 @@
     var propertiesResource = $resource('/api/properties');
 
     $scope.property = {};
-  
+    $( '#datetimepicker' ).datepicker( " setDate", new Date() );
     $scope.save = function(property) {
         $scope.buttonsDisabled = true;
-      
+       
         propertiesResource.save(property, function () {
            
             $scope.buttonsDisabled = false;
@@ -39,7 +39,7 @@
 
         }
     };
-   
+    
     $(document).ready(function () {
         $('#datetimepicker').datepicker({
             format: 'mm-dd-yyyy',

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
+using System;
 
 namespace CMS.Controllers
 {
@@ -79,6 +80,8 @@ namespace CMS.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (property.ContractDate == DateTime.MinValue)
+            { property.ContractDate = DateTime.Now; }
           
             db.Properties.Add(property);
             db.SaveChanges();

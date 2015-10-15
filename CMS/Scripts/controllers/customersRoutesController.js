@@ -72,6 +72,7 @@
         function combineAddress( property ) {
             return property.Address1 + " " + property.Address1 + " " + property.City + " " + property.State + " " + property.Zip;
         }
+
     }
 
 

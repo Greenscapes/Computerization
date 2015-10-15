@@ -25,12 +25,13 @@
         <br />
         <div class="container">
             <div >
-                <div class=" col-xs-1 pull-left">#</div>
+                <div class=" col-xs-1 pull-left"></div>
                 <div class="col-lg-2 pull-left">Event</div>
                 <div class="col-lg-2 pull-left">Start Time</div>
                 <div class="col-lg-2 pull-left">End Time</div>
                 <div class="col-lg-2 pull-left">Property Name</div>
                 <div class="col-lg-2 pull-left">Address</div>
+                <div class="col-xs-1 pull-left"></div>
             </div>
 
             <div ng-repeat="eventdetails in eventdetaillist  | filter:filterText" class="table-condensed responsive-table">
@@ -47,26 +48,29 @@
                     <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.EndTime| date: 'medium'"></div>
                     <div class="col-lg-2 pull-left " data-ng-bind="eventdetails.PropertyName "></div>
                     <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.PropertyAddress"></div>
+                    <div class="col-xs-1 pull-left">
+                        <a ng-href='#/eventnotes/{{eventdetails.EventId}}'>Update</a>
+
+                    </div>
                 </div>
 
-                <div class="collapse" id="view_{{eventdetails.EventId}}" data-ng-if="eventdetails.Crews!=null">
+                <div class="collapse" id="view_{{eventdetails.EventId}}" data-ng-if="eventdetails.EventNotes!=null">
                     <div class="col-sm-offset-1">
                         <div class="row panel-heading bgOrg">
-                            <div class=" col-lg-2 pull-left">Crew Name</div>
-                            <div class="col-lg-2 pull-left">CrewTypeId</div>
-
+                            <div class=" col-lg-2 pull-left">Notes</div>
+                            <div class=" col-lg-2 pull-left">Review Status</div>
                         </div>
 
-                        <div ng-repeat="crew in eventdetails.Crews">
-                           
-                                <div class="col-lg-2 pull-left" data-ng-bind="crew.Name"></div>
-                                <div class="col-lg-2 pull-left" data-ng-bind="crew.CrewTypeId"></div>
+                        <div ng-repeat="eventNote in eventdetails.EventNotes">
 
-                            </div>
-                            
+                            <div class="col-lg-2 pull-left" data-ng-bind="eventNote.Notes"></div>
+                            <div class="col-lg-2 pull-left" data-ng-bind="eventNote.ReviewStatus"></div>
+
                         </div>
 
                     </div>
+
+                </div>
                 </div>
             </div>
         </div>
@@ -76,7 +80,7 @@
 
     <div>
         <div id="map"></div>
-        <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-            <!--<a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>-->
-        </div>
+        <!--<div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+            <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+        </div>-->
     </div>
