@@ -180,6 +180,7 @@ namespace CMS.Controllers
 
         // PUT: api/EventSchedules/5
         [ResponseType(typeof(void))]
+        [Route("{id:int}")]
         public IHttpActionResult PutEventSchedule(int id, EventSchedule eventSchedule)
         {
             if (!ModelState.IsValid)

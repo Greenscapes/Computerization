@@ -33,6 +33,7 @@
         }
 
       );
+
         var d = new Date();
 
         var month = d.getMonth() + 1;
@@ -64,8 +65,9 @@
     $scope.save = function ( propertyTaskEventNote ) {
         $scope.buttonsDisabled = true;
         
-        eventschedulesResource.save( $scope.eventSchedule );
-
+        
+        eventscheduleResource.update( { eventScheduleId: $scope.eventSchedule.Id }, $scope.eventSchedule, function () {
+        } );
         propertyTaskEventNote.EventScheduleId = $scope.eventid;
         eventNotesResource.save( propertyTaskEventNote, function () {
 
