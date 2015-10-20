@@ -57,7 +57,20 @@ namespace CMS.Controllers
             {
                 return BadRequest();
             }
-            propertyTask.EventSchedules.ToList().ForEach(e => e.PropertyTaskId = propertyTask.Id);
+            foreach (var eventSchedule in propertyTask.EventSchedules)
+            {
+                eventSchedule.PropertyTaskId = propertyTask.Id;
+                if (eventSchedule.Id > 0)
+                {
+                    db.Entry(eventSchedule).State = EntityState.Modified;
+                }
+                else
+                {
+                   
+                    db.EventSchedules.Add(eventSchedule);
+                }
+            }
+            
             db.Entry(propertyTask).State = EntityState.Modified;
 
             try

@@ -55,8 +55,7 @@
             };
         }
 
-        var selectState;
-        var crudServiceBaseUrl="/api/eventtask";
+      
         var scheduler = $( "#scheduler" ).kendoScheduler( {
             date: new Date( ),
             startTime: new Date( ),
@@ -72,6 +71,8 @@
             remove: scheduler_remove,
             edit: scheduler_edit,
             cancel: scheduler_cancel,
+            dataBinding: scheduler_dataBinding,
+            dataBound: scheduler_dataBound,
         } ).data( "kendoScheduler" );
 
         //var contextMenuOpen = function ( e ) {
@@ -141,7 +142,14 @@
         function scheduler_edit( e ) {
            
         }
+        function scheduler_dataBinding( e ) {
+          
+        }
+
+    function scheduler_dataBound(e) {
        
+    }
+
     }
  
 TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

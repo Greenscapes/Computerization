@@ -27,55 +27,56 @@
         $scope.empEvents = [];
         $scope.eventlist = eventschedulesResource.query( {}, function () {
 
-            for ( var k = 0; k < $scope.eventlist.length; k++ ) {
-                var empevent = $scope.eventlist[k];
-                var taskEvent = new Object( {
-                    start: empevent.StartTime.toString(),
-                    end: empevent.EndTime.toString(),
-                    text: empevent.Title,
-                    id: empevent.Id.toString()
-                } );
-
-                $scope.empEvents.push( taskEvent );
-                loadEvents();
-
-            }
+            $scope.empEvents;
+            GetEvents( $scope.eventlist );
+            loadEvents();
 
         } );
        
     } );
     
-    var nav = new DayPilot.Navigator( "nav" );
-    nav.showMonths = 3;
-    nav.skipMonths = 3;
-    nav.selectMode = "week";
-    nav.onTimeRangeSelected = function ( args ) {
-        dp.startDate = args.day;
-        dp.update();
-        loadEvents();
-    };
-    nav.init();
-   
-    var dp = new DayPilot.Calendar( "dp" );
-    dp.viewType = "Week";
-    dp.headerDateFormat = "dddd <br/>d MMMM yyyy";
-    dp.headerHeight = "40";
-    dp.columnHeaderHeightAutoFit = "false"
+ 
+    function GetEvents( data ) {
+        for ( var i = 0; i < data.length; i++ ) {
 
-    dp.onTimeRangeSelected = function ( args ) {
-       
+            var event = data[i];
+            var newEvent = new Object( {
+                taskId: event.Id,
+                start: new Date( event.StartTime.toString() ),
+                end: new Date( event.EndTime.toString() ),
+                title: event.Title,
+                isAllDay: event.IsAllDay,
+                startTimezone: event.StartTimezone,
+                endTimezone: event.EndTimezone,
+                description: event.Description,
+                recurrenceId: event.RecurrenceID,
+                recurrenceRule: event.RecurrenceRule,
+                recurrenceException: event.RecurrenceException
+
+            } );
+            $scope.empEvents.push( newEvent );
+
+            // $( "#scheduler" ).data( "kendoScheduler" ).addEvent( newEvent );
+        }
 
     }
-        dp.init();
-        loadEvents();
 
+    function loadEvents() {
+        var scheduler = $( "#scheduler" ).kendoScheduler( {
+            date: new Date(),
+            startTime: new Date(),
+            height: 600,
+            editable: false,
+            views: [
+                "day",
+                { type: "workWeek", selected: true },
+                "week",
+                "month",
+            ],
+            dataSource: $scope.empEvents,
+        } ).data( "kendoScheduler" );
+    }
 
-        function loadEvents() {
-            var start = dp.visibleStart();
-            var end = dp.visibleEnd();
-            dp.events.list = $scope.empEvents;
-            dp.update();
-        }
     
     $scope.buttonsDisabled = false;
 

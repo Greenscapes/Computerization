@@ -50,15 +50,12 @@
 
         </tr>
     </table>
-    <div>
-        <h3 ng-show="crews.length > 0">Create Schedule</h3>
-        <div style="float:left; width: 160px">
-            <div id="nav"></div>
-        </div>
-        <div style="margin-left: 160px">
-            <div id="dp"></div>
-        </div>
+    <div id="EventScheduler">
+        <div id="scheduler"></div>
+
+        <!--<ul id="contextMenu"></ul>-->
     </div>
+    <br />
     <br />
     <br />
     <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
