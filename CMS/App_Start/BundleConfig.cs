@@ -72,9 +72,13 @@ namespace CMS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/site.css",
-                 "~/Content/customizedbs.css"));
-
-          
+                 "~/Content/customizedbs.css",
+                 "~/Content/kendoui/kendo.common.min.css",
+               
+                 "~/Content/kendoui/kendo.default.min.css"
+                
+                 ));
+               
         }
     }
 }

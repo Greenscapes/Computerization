@@ -23,8 +23,29 @@
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
 
     <script src="~/Scripts/daypilot-all.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
+  
+
+    <script src="~/Scripts/kendoui/kendo.all.min.js"></script>
+   
+    <script src="~/Scripts/kendoui/kendo.timezones.min.js"></script>
+    <script src="~/Scripts/kendoui/kendo.aspnetmvc.min.js"></script>
+
+    @{
+        var culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+    }
+
+    <script src="@Url.Content("~/Scripts/kendo/2013.3.1119/cultures/kendo.culture." + culture + ".min.js")"></script>
+
+    @* Set the current culture *@
+    <script>
+        kendo.culture( "@culture" );
+    </script>
+
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+   
+    
+    
  
     </head>
     <body>
