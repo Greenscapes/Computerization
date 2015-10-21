@@ -2,8 +2,14 @@
 
     var propertiesResource = $resource( '/api/properties' );
     
+    var officeAddress ="3600 Country Club Dr, Jefferson City, MO 65109";
 
 
+    var crewsResource = $resource( "/api/crews" );
+    $scope.crews = crewsResource.query( function () { } );
+    $scope.selectedDate = new Date();
+    $scope.addressList = [];
+    var propertyLists=[]
     var infoWindow = new google.maps.InfoWindow();
     var geocoder = new google.maps.Geocoder();
     var directionsService = new google.maps.DirectionsService();
@@ -25,11 +31,152 @@
 
    
 
+    $scope.collapse = function ( event ) {
+        $( event.target ).toggleClass( "glyphicon-chevron-down" );
+    };
+    $scope.collapsecrew = function ( event ) {
+        $( event.target ).toggleClass( "glyphicon-arrow-down" );
+    };
+    $scope.reset = function () {
+        $location.path( '/' );
+    }
+    $scope.getevents = function () {
+      
+        var month = $scope.selectedDate.getMonth()+1;
+        var year = $scope.selectedDate.getFullYear();
+        var date = $scope.selectedDate.getDate();
 
-    var crewsResource = $resource( "/api/crews" );
-    $scope.crews = crewsResource.query( function () { } );
-    $scope.selectedDate = new Date();
-    $scope.addressList = [];
+        $scope.isSelected = true;
+        var eventsResource = $resource( '/api/eventschedules/:year/:month/:date/:crewid/events',
+         {
+             year: year,
+             month: month,
+             date: date,
+             crewid: $scope.crew.Id.Id
+
+         },
+            {
+
+            } );
+
+        $scope.eventdetaillist = eventsResource.query( {}, function ()
+        {
+            $scope.addressList.push( { address: officeAddress, starttime: new Date(), endtime: new Date(), isFirstpoint: true } );
+
+
+            var uniqueAddress = [];
+            for ( var i = 0; i < $scope.eventdetaillist.length; i++ ) {
+                var currentEvent = $scope.eventdetaillist[i];
+                uniqueAddress.push( currentEvent.PropertyAddress );
+                if ( IndexByKeyValue(propertyLists,"value",currentEvent.PropertyId) >-1 )continue
+                propertyLists.push( { text: currentEvent.PropertyName + " </br>" + currentEvent.PropertyAddress, value: currentEvent.PropertyId } )
+               
+            }
+            uniqueAddress = uniqueAddress.unique();
+            for ( var i = 0; i < uniqueAddress.length; i++ ) {
+                $scope.addressList.push( { address: uniqueAddress[i], starttime: currentEvent.StartTime, endtime: currentEvent.EndTime, isFirstpoint: false } );
+
+               
+            }
+            propertyLists = uniquePropertyList(propertyLists);
+            
+            //Office Address
+            GetEvents( $scope.eventdetaillist );
+            loadEvents();
+           
+            for ( var i = 0; i < $scope.addressList.length; i++ ) {
+                codeAddress( $scope.addressList[i] );//comment this during testing
+            }
+        }
+   );
+    };
+    function IndexByKeyValue( arraytosearch, key, valuetosearch ) {
+
+        for ( var i = 0; i < arraytosearch.length; i++ ) {
+
+            if ( arraytosearch[i][key] == valuetosearch ) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    function uniquePropertyList( a ) {
+        
+        a.sort();
+        for ( var i = 1; i < a.length; ) {
+            if ( a[i - 1].value == a[i].value ) {
+                a.splice( i, 1 );
+            } else {
+                i++;
+            }
+        }
+        return a;
+    }
+    Array.prototype.unique = function () {
+        var arr = this;
+        return $.grep( arr, function ( v, i ) {
+            return $.inArray( v, arr ) === i;
+        } );
+    }
+
+    function GetEvents( data ) {
+        $scope.crewevents = [];
+        for ( var i = 0; i < data.length; i++ ) {
+
+            var event = data[i];
+            var newEvent = new Object( {
+                taskId: event.Id,
+                start: new Date( event.StartTime.toString() ),
+                end: new Date( event.EndTime.toString() ),
+                title: event.Title,
+                isAllDay: event.IsAllDay,
+                startTimezone: event.StartTimezone,
+                endTimezone: event.EndTimezone,
+                description: event.Description,
+                recurrenceId: event.RecurrenceID,
+                recurrenceRule: event.RecurrenceRule,
+                recurrenceException: event.RecurrenceException,
+                roomId: event.PropertyId
+
+            } );
+            $scope.crewevents.push( newEvent );
+
+            // $( "#scheduler" ).data( "kendoScheduler" ).addEvent( newEvent );
+        }
+
+    }
+
+    function loadEvents() {
+        var scheduler = $( "#scheduler" ).kendoScheduler( {
+            date: new Date(),
+            startTime: new Date(),
+            height: 600,
+            editable: false,
+            views: [
+                 { type: "agenda", selected: true },
+                "day",
+                "workWeek",
+                "week",
+                "month"
+                
+            ],
+            dataSource: $scope.crewevents,
+            group: {
+                resources: ["Properties"],
+                orientation: "vertical"
+            },
+            resources: [
+                {
+                    field: "roomId",
+                    name: "Properties",
+                    dataSource: propertyLists,
+                    title: "Property"
+                }
+            ]
+        } );
+    }
+
     function codeAddress( addressdetails ) {
 
         geocoder.geocode( { 'address': addressdetails.address }, function ( results, status ) {
@@ -44,8 +191,8 @@
                 }
                 path.push( results[0].geometry.location );
                 var enddate =
-                marker.title = '<div >' + addressdetails.address +'</div>';
-                marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime +  '<br>End Time :' + addressdetails.endtime + '</div>';
+                marker.title = '<div >' + addressdetails.address + '</div>';
+                marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime + '<br>End Time :' + addressdetails.endtime + '</div>';
 
                 google.maps.event.addListener( marker, 'click', function () {
                     infoWindow.setContent( '<h2>' + marker.title + '</h2>' + marker.content );
@@ -53,7 +200,7 @@
                 } );
                 $scope.markers.push( marker );
                 var bounds = new google.maps.LatLngBounds();
-                for ( var i in $scope.markers ) {
+                for ( i = 0; i < $scope.markers.length ; i++ ) {
                     bounds.extend( $scope.markers[i].position )
                 }
                 var polyline = new google.maps.Polyline( {
@@ -74,66 +221,6 @@
         }
 
     }
-
-
-    var nav = new DayPilot.Navigator( "nav" );
-    nav.showMonths = 3;
-    nav.skipMonths = 3;
-    nav.orientation = "horizontal"
-    nav.selectMode = "week";
-    nav.onTimeRangeSelected = function ( args ) {
-        $scope.selectedDate = args.day;
-      
-    };
-    nav.init();
-
-    $scope.collapse = function ( event ) {
-        $( event.target ).toggleClass( "glyphicon-chevron-down" );
-    };
-    $scope.collapsecrew = function ( event ) {
-        $( event.target ).toggleClass( "glyphicon-arrow-down" );
-    };
-
-    $scope.getevents = function () {
-       
-        var month = $scope.selectedDate.getMonth()+1;
-        var year = $scope.selectedDate.getFullYear();
-        var date = $scope.selectedDate.getDate();
-        var eventsResource = $resource( '/api/eventschedules/:year/:month/:date/:crewid/events',
-         {
-             year: year,
-             month: month,
-             date: date,
-             crewid: $scope.crew.Id.Id
-
-         },
-            {
-
-            } );
-
-        $scope.eventdetaillist = eventsResource.query( {}, function () {
-            $scope.addressList.push( { address: "3600 Country Club Dr, Jefferson City, MO 65109", starttime:  new Date(), endtime: new Date(),isFirstpoint:true } );
-
-            for ( var i = 0; i < $scope.eventdetaillist.length; i++ ) {
-                var currentEvent = $scope.eventdetaillist[i];
-                var found = jQuery.inArray( currentEvent.PropertyAddress, $scope.addressList );
-                if ( found >= 0 ) {
-                    continue;
-                }
-                $scope.addressList.push( { address: currentEvent.PropertyAddress, starttime: currentEvent.StartTime, endtime: currentEvent.EndTime ,isFirstpoint:false } );
-               
-            }
-            //Office Address
-           
-           
-            for ( var i = 0; i < $scope.addressList.length; i++ ) {
-                codeAddress( $scope.addressList[i] );
-            }
-        }
-   );
-    };
-
-
     $scope.openInfoWindow = function ( e, selectedMarker ) {
         e.preventDefault();
         google.maps.event.trigger( selectedMarker, 'click' );

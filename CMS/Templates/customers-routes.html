@@ -1,64 +1,22 @@
-﻿
-
-<br />
-<div class=" media-heading"> Crew DashBoard</div>
-    <div style="float:left; width: 160px">
-        <div id="nav"></div>
-    </div>
-    <div style="margin-left: 160px">
-       
+﻿<br />
+<div class="page-header"> Crew DashBoard</div>
+    <div >
         <div>
             <div><b>Crews </b>: 
-                <select ng-options="crew.Name for crew in crews" ng-model="crew.Id" id="inputType"
-                        ng-disabled="buttonsDisabled" ng-change="getevents()"></select>
-              
+                <select ng-options="crew.Name for crew in crews" ng-model="crew.Id" id="selectCrewList"
+                        ng-disabled="isSelected" ng-change="getevents()"></select>
+                <button type="submit" class="btn btn-success" ng-click="reset()" >Reset</button>
             </div>
         </div>
         <br />
-        <div >
-            <div >
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
-                </div> 
-            </div> 
-        </div> 
-        <br />
-        <div class="container">
-            <div >
-               
-                <div class="col-lg-2 pull-left">Event</div>
-                <div class="col-lg-2 pull-left">Start Time</div>
-                <div class="col-lg-2 pull-left">End Time</div>
-                <div class="col-lg-2 pull-left">Property Name</div>
-                <div class="col-lg-2 pull-left">Address</div>
-                <div class="col-xs-1 pull-left"></div>
-            </div>
-
-            <div ng-repeat="eventdetails in eventdetaillist  | filter:filterText" class="table-condensed responsive-table">
-                <div class="row panel">
-                   
-                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.Description"></div>
-                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.StartTime| date: 'medium'"></div>
-                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.EndTime| date: 'medium'"></div>
-                    <div class="col-lg-2 pull-left " data-ng-bind="eventdetails.PropertyName "></div>
-                    <div class="col-lg-2 pull-left" data-ng-bind="eventdetails.PropertyAddress"></div>
-                    <div class="col-xs-1 pull-left">
-                        <a ng-href='#/eventnotes/{{eventdetails.EventId}}'>Update</a>
-
-                    </div>
-                </div>
-
-            
-                </div>
-           
+        <div id="EventScheduler">
+            <div id="scheduler"></div>
+            <!--<ul id="contextMenu"></ul>-->
         </div>
+        <br />
     </div>
-
    <br />
-
     <div>
         <div id="map"></div>
-        <!--<div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-            <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
-        </div>-->
+     
     </div>

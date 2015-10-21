@@ -1370,7 +1370,8 @@
     <Content Include="Templates\employee-create.html" />
     <Content Include="Templates\employee-detail.html" />
     <Content Include="Templates\employees.html" />
-    <Content Include="Templates\modals\modal-form.html" />
+    <Content Include="Templates\modals\modal-form - Copy.html" />
+    <Content Include="Templates\modals\modal-crewselect.html" />
     <Content Include="Templates\modals\modal-delete-confirm.html" />
     <Content Include="Templates\customerschedules.html" />
     <Content Include="Templates\properties.html" />
