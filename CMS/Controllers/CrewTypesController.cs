@@ -102,7 +102,12 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
-
+            var crewList = db.Crews.Where(c => c.CrewTypeId == id).ToList();
+            crewList.ForEach(c=>{
+                c.CrewMembers.ToList().ForEach(cm => db.CrewMembers.Remove(cm));
+                db.Crews.Remove(c);
+                   }
+                );
             db.CrewTypes.Remove(crewType);
             db.SaveChanges();
 

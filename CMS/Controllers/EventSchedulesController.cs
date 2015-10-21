@@ -102,7 +102,7 @@ namespace CMS.Controllers
                    {
                        continue;
                    }
-                   Crew crewVal = propTask.Crews.First(c=>c.Id == crewid );
+                   Crew crewVal = propTask.Crews.FirstOrDefault(c=>c.Id == crewid );
                    if(crewVal == null)
                    {
                        continue;
@@ -166,6 +166,7 @@ namespace CMS.Controllers
         //}
         // GET: api/EventSchedules/5
         [ResponseType(typeof(EventSchedule))]
+        [Route("{id:int}")]
         public IHttpActionResult GetEventSchedule(int id)
         {
             EventSchedule eventSchedule = db.EventSchedules.Find(id);
@@ -179,6 +180,7 @@ namespace CMS.Controllers
 
         // PUT: api/EventSchedules/5
         [ResponseType(typeof(void))]
+        [Route("{id:int}")]
         public IHttpActionResult PutEventSchedule(int id, EventSchedule eventSchedule)
         {
             if (!ModelState.IsValid)

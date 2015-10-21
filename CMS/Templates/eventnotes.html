@@ -3,11 +3,21 @@
 <form>
     <table>
         <tr class="form-group">
-            <td><label for="inputNote">Notes</label></td>
+            <td><label for="actualstartdate">Actual Start Time  </label></td>
+            <td><input type="text" class="form-control" id="datetimepickerstart" placeholder="actualstartdate" ng-model="eventSchedule.ActualStartTime" data-date-format="dd/mm/yyyy" date-type="string"></td>
+        </tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
+        <tr class="form-group">
+            <td><label for="actualenddate">Actual End Time  </label></td>
+            <td><input type="text" class="form-control" id="datetimepickerend" placeholder="actualenddate" ng-model="eventSchedule.ActualEndTime" data-date-format="dd/mm/yyyy" date-type="string"></td>
+        </tr><tr><td colspan="2" style="height:8px"></td></tr>
+        <tr class="form-group">
+            <td><label for="inputNote">Notes    </label></td>
             <td><textarea type="text" ng-model="$parent.propertyTaskEventNote.Notes" cols="100" rows="5"></textarea></td>
 </tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
         <tr class="form-group">
-            <td><label for="inputReview">Review Status</label></td>
+            <td><label for="inputReview">Review Status  </label></td>
             <td><select my-entity-set="Enums?type=ReviewStatusEnum" id="reviewStatusEnumSelect"
                     ng-model="propertyTaskEventNote.ReviewStatus">
                 <option value="" class="">Select</option>
@@ -17,6 +27,7 @@
                 <option value="66">Closed</option>
             </select></td>
         </tr>
+        <tr><td colspan="2" style="height:8px"></td></tr>
         <tr>
             <td colspan="2">
                 <p>

@@ -25,55 +25,12 @@
     var crewsResource = $resource( "/api/crews" );
     $scope.crews = crewsResource.query( function () { } );
 
-    var nav = new DayPilot.Navigator( "nav" );
-    nav.showMonths = 3;
-    nav.skipMonths = 3;
-    nav.selectMode = "week";
-    nav.onTimeRangeSelected = function ( args ) {
-        dp.startDate = args.day;
-        dp.update();
-        loadEvents();
-    };
-    nav.init();
-   
-    var dp = new DayPilot.Calendar( "dp" );
-    dp.viewType = "Week";
-    dp.headerDateFormat = "dddd <br/>d MMMM yyyy";
-    dp.headerHeight = "40";
-    dp.columnHeaderHeightAutoFit = "false"
-
-    dp.onTimeRangeSelected = function ( args ) {
-        var name = $scope.task.Description;
-      
-        var e = new DayPilot.Event( {
-            start: args.start,
-            end: args.end,
-            id: DayPilot.guid(),
-            resource: args.resource,
-            text: name
-        } );
-        dp.events.add( e );
-        
-        var newEvent = new Object( {
-            startTime: args.start,
-            endTime: args.end,
-            title: name
-        } );
-        $scope.task.EventSchedules.push( newEvent )
-
-    }
-        dp.init();
-        loadEvents();
-
-        function loadEvents() {
-            var start = dp.visibleStart();
-            var end = dp.visibleEnd();
-            dp.update();
-        }
     
 
         $scope.save = function(task) {
             $scope.buttonsDisabled = true;
+            var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+            SetEventSchedules( scheduler._data )
             task.PropertyTaskListId = $routeParams.taskListId;
             task.crews = [];
             for ( var i = 0; i < $scope.crews.length; i++ ) {
@@ -97,6 +54,102 @@
                 if (!$scope.$$phase) $scope.$apply();
             };
         }
+
+      
+        var scheduler = $( "#scheduler" ).kendoScheduler( {
+            date: new Date( ),
+            startTime: new Date( ),
+            height: 600,
+            views: [
+                "day",
+                { type: "workWeek", selected: true },
+                "week",
+                "month",
+            ],
+         
+            save: scheduler_save,
+            remove: scheduler_remove,
+            edit: scheduler_edit,
+            cancel: scheduler_cancel,
+            dataBinding: scheduler_dataBinding,
+            dataBound: scheduler_dataBound,
+        } ).data( "kendoScheduler" );
+
+        //var contextMenuOpen = function ( e ) {
+        //    var menu = e.sender;
+        //    var text = $( e.target ).hasClass( "k-event" ) ? "Edit event" : "Add Event";
+
+        //    menu.remove( ".myClass" );
+        //    menu.append( [{ text: text, cssClass: "myClass" }] );
+        //};
+
+        //var contextMenuSelect = function ( e ) {
+        //    var state = selectState;
+
+        //    if ( state.events.length ) {
+        //        scheduler.editEvent( state.events[0] );
+        //    } else {
+        //        scheduler.addEvent( {
+        //            start: state.start,
+        //            end: state.end
+        //        } );
+        //    }
+        //};
+
+        //$( "#contextMenu" ).kendoContextMenu( {
+        //    filter: ".k-event, .k-scheduler-table",
+        //    showOn: "click",
+        //    select: contextMenuSelect,
+        //    open: contextMenuOpen
+        //} );
+
+       
+        function SetEventSchedules( data )
+        {
+            for ( var i = 0; i < data.length; i++ ) {
+
+                var event = data[i];
+                var newEvent = new Object( {
+                    clientTaskId: event.uid,
+                    startTime: event.start,
+                    endTime: event.end,
+                    title: event.title,
+                    isAllDay: event.isAllDay,
+                    startTimezone: event.startTimezone,
+                    endTimezone: event.endTimezone,
+                    description: event.description,
+                    recurrenceID: event.recurrenceId,
+                    recurrenceRule: event.recurrenceRule,
+                    recurrenceException: event.recurrenceException
+
+                } );
+                $scope.task.EventSchedules.push( newEvent )
+            }
+
+        }
+        function scheduler_save( e ) {
+       
+        }
+
+        function scheduler_remove( e ) {
+          
+        }
+
+        function scheduler_cancel( e ) {
+            
+        }
+
+        function scheduler_edit( e ) {
+           
+        }
+        function scheduler_dataBinding( e ) {
+          
+        }
+
+    function scheduler_dataBound(e) {
+       
+    }
+
     }
  
 TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
