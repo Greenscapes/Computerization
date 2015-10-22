@@ -112,7 +112,16 @@ namespace CMS.Controllers
                    eventDetail.EventId = eventVal.Id;
                    eventDetail.StartTime = eventVal.StartTime;
                    eventDetail.EndTime = eventVal.EndTime;
-                   eventDetail.Description = eventVal.Title;
+                   eventDetail.ActualEndTime = eventVal.ActualEndTime;
+                   eventDetail.ActualStartTime = eventVal.ActualStartTime;
+                   eventDetail.IsAllDay = eventVal.IsAllDay;
+                   eventDetail.RecurrenceRule = eventVal.RecurrenceRule;
+                   eventDetail.RecurrenceID = eventVal.RecurrenceID;
+                   eventDetail.RecurrenceException = eventVal.RecurrenceException;
+                   eventDetail.StartTimezone = eventVal.StartTimezone;
+                   eventDetail.EndTimezone = eventVal.EndTimezone;
+                   eventDetail.Status = eventVal.Status;
+                   eventDetail.Title = eventVal.Title;
                    eventVal.PropertyTask =propTask;
                    eventDetail.TaskId = propTask.Id;
                    eventDetail.PropertyId = propTask.PropertyTaskList.Property.Id;
@@ -300,10 +309,24 @@ namespace CMS.Controllers
 
     public class EventDetails
     {
+
         public int EventId { get; set; }
         public int TaskId { get; set; }
+
         public string Location { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
+        public bool IsAllDay { get; set; }
+        public string RecurrenceRule { get; set; }
+        public Nullable<int> RecurrenceID { get; set; }
+        public string RecurrenceException { get; set; }
+        public string StartTimezone { get; set; }
+        public string EndTimezone { get; set; }
+        public StatusEnum Status { get; set; }
+        public DateTime? ActualStartTime { get; set; }
+        public DateTime? ActualEndTime { get; set; }
+        public int PropertyTaskId { get; set; }
+       
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
