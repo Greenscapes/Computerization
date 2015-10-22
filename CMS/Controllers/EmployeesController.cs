@@ -17,7 +17,13 @@ namespace CMS.Controllers
         [Route("")]
         public IQueryable<Employee> GetEmployees()
         {
-            return db.Employees;
+            var employees = db.Employees;
+            foreach (var employee in employees)
+            {
+                employee.InCrew = db.CrewMembers.Any(c => c.EmployeeId == employee.Id);
+            }
+
+            return employees;
         }
 
         // GET: api/Employees/5

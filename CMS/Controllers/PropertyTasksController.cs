@@ -57,6 +57,7 @@ namespace CMS.Controllers
             {
                 return BadRequest();
             }
+
             foreach (var eventSchedule in propertyTask.EventSchedules)
             {
                 eventSchedule.PropertyTaskId = propertyTask.Id;

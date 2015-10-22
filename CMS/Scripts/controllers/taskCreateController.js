@@ -3,13 +3,15 @@
     {
         taskListId: $routeParams.taskListId
     });
+    var propertyResource = $resource('/api/properties/:propertyId');
     var tasksResource = $resource( '/api/tasks' );
 
     var eventschedulesResource = $resource( '/api/eventschedules' );
   
 
     $scope.task = {};
-    $scope.taskList = taskListResource.get({}, function() {
+    $scope.taskList = taskListResource.get({}, function () {
+        $scope.property = propertyResource.get({ propertyId: $scope.taskList.PropertyId });
         $scope.task.PropertyTaskDetails = [];
         for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
             var newTaskDetail = {

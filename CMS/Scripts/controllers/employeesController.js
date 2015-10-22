@@ -1,6 +1,8 @@
 ﻿function EmployeesController($scope, $resource, $location) {
     var employeesResource = $resource("/api/employees");
-    $scope.employees = employeesResource.query(function() {});
+    $scope.employees = employeesResource.query(function() {
+        
+    });
 
     $scope.newEmployee = function () {
         $location.path("/employees/new");

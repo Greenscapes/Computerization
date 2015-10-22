@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace CMS.Models
 {
@@ -36,6 +38,10 @@ namespace CMS.Models
             get;
             set;
         }
+
+        [NotMapped]
+        public bool InCrew { get; set; }
+
         public virtual ICollection<CrewType> CrewTypes
         {
             get;
