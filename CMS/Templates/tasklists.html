@@ -3,12 +3,12 @@
         <h2>Task Lists</h2>
         <p>
             <button type="button" class="btn btn-primary" ng-click="newTaskListType()">
-                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List Type
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List
             </button>
         </p>
         <table class="table table-striped">
             <tr>
-                <th>Type</th>
+                <th>Name</th>
                 <th>Description</th>
             </tr>
             <tr ng-repeat="taskListType in taskListTypes">
