@@ -1,21 +1,22 @@
-﻿<br />
-<div class="page-header"> Crew DashBoard</div>
-    <div >
-        <div>
+﻿<h2> Crew DashBoard</h2>
+    
             <div><b>Crews </b>: 
                 <select ng-options="crew.Name for crew in crews" ng-model="crew.Id" id="selectCrewList"
                         ng-disabled="isSelected" ng-change="getevents()"></select>
                 <button type="submit" class="btn btn-success" ng-click="reset()" >Reset</button>
             </div>
-        </div>
+        
         <br />
+ <h3>Crew Events</h3>
+
         <div id="EventScheduler">
-            <div id="scheduler"></div>
-            <!--<ul id="contextMenu"></ul>-->
+            <div id="scheduler" k-options="schedulerOptions"></div>
+            <ul id="contextMenu"></ul>
         </div>
         <br />
-    </div>
+    
    <br />
+<h3>Route</h3>
     <div>
         <div id="map"></div>
      

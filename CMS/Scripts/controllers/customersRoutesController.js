@@ -1,7 +1,9 @@
 ﻿function CustomersRoutesController($scope, $resource, $routeParams, $location, Modal) {
 
     var propertiesResource = $resource( '/api/properties' );
-    
+    var eventNotesResource = $resource( '/api/eventnotes' );
+
+
     var officeAddress ="3600 Country Club Dr, Jefferson City, MO 65109";
 
 
@@ -21,7 +23,9 @@
     }
     var path = [];
 
-
+    $( "#panelbar" ).kendoPanelBar( {
+        expandMode: "single"
+    } );
 
     var directionsDisplay = new google.maps.DirectionsRenderer( { map: $scope.map } );
 
@@ -126,7 +130,7 @@
 
             var event = data[i];
             var newEvent = new Object( {
-                taskId: event.Id,
+                id: event.EventId,
                 start: new Date( event.StartTime.toString() ),
                 end: new Date( event.EndTime.toString() ),
                 title: event.Title,
@@ -152,7 +156,11 @@
             date: new Date(),
             startTime: new Date(),
             height: 600,
-            editable: false,
+            //editable: false,
+            selectable: true,
+            change: function(e) {
+                $scope.selectState = e;
+            },
             views: [
                  { type: "agenda", selected: true },
                 "day",
@@ -161,6 +169,7 @@
                 "month"
                 
             ],
+            
             dataSource: $scope.crewevents,
             group: {
                 resources: ["Properties"],
@@ -176,7 +185,12 @@
             ]
         } );
     }
-
+    function scheduler_change( e ) {
+        if ( e.events.length ) {
+            console.log( e.events[0].title )
+        }
+    }
+    
     function codeAddress( addressdetails ) {
 
         geocoder.geocode( { 'address': addressdetails.address }, function ( results, status ) {
@@ -226,9 +240,90 @@
         google.maps.event.trigger( selectedMarker, 'click' );
     }
 
+    var contextMenuOpen = function ( e ) {
+        var menu = e.sender;
+        var event = e.target;
+        
+        var text = "";
+        if ( $( e.target ).hasClass( "k-scheduler-table" ) )
+            {
+            text = "Add Note";
+            
+        }
+        else
+        {
+            return;
+        }
+        menu.remove( ".myClass" );
+        menu.append( [{ text: text, cssClass: "myClass" }] );
+    };
 
+    var contextMenuSelect = function ( e ) {
+        var message = "Notes";
+       
+        var html =
+             '<div id="myDialogWindow"> ' +
+             ' <div style="text-align: center; width:100%"> ' +
+             '   <div style="margin:10px 0 15px 0">' + message + '</div> ' +
+             ' <label>Enter Notes</label><br/> <textarea type="text" id="txtNotes" cols="100" rows="5" />' +
+             '   <button class="k-button" id="yesButton"">Save</button> ' +
+             '   <button class="k-button" id="noButton"">Cancel</button> ' +
+             '   </div> ' +
+             '</div> ';
 
+        $( 'body' ).append( html );
 
+        var windowDiv = $( '#myDialogWindow' );
+        windowDiv.kendoWindow( {
+            width: "450px",
+            title: message,
+            modal: true,
+            visible: false
+        } );
+        var txtNote = $( '#txtNotes' );
+        var dialog = windowDiv.data( "kendoWindow" );
+
+        $( '#yesButton' ).click( function ( e ) {
+
+            var note = $( '#txtNotes' )[0].value;
+            var state = $scope.selectState;
+            var eventId = state.events[0].id;
+            var propertyTaskEventNote = new Object( {
+                Notes: note,
+                EventScheduleId: eventId
+            } );
+
+            eventNotesResource.save( propertyTaskEventNote, function () {         
+            } );
+       
+
+            dialog.close();
+            $( '#myDialogWindow' ).remove();
+            
+           
+        } );
+
+        $( '#noButton' ).click( function ( e ) {
+            dialog.close();
+            $( '#myDialogWindow' ).remove();
+          
+            
+        } );
+
+        dialog.center();
+        dialog.open();
+    };
+
+    $( "#contextMenu" ).kendoContextMenu( {
+        filter: ".k-event, .k-scheduler-table",
+        showOn: "click",
+        select: contextMenuSelect,
+        open: contextMenuOpen
+    } );
+
+    function scheduler_edit( e ) {
+        alert("edit")
+    }
 };
 
   
