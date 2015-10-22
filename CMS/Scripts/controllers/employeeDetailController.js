@@ -4,6 +4,9 @@
     {
         'update': { method: 'PUT' }
     });
+    var crewMemberResource = $resource('/api/crews/employee/:employeeId',
+    { employeeId: $routeParams.employeeId });
+
     var crewTypesResource = $resource('/api/types/crewlists');
     var eventschedulesResource = $resource( '/api/eventschedules/:employeeId/events',
     { employeeId: $routeParams.employeeId },
@@ -22,8 +25,12 @@
                     }
                 }
             }
+            
+        });
+        $scope.crew = crewMemberResource.get({}, function() {
 
-        } );
+        });
+
         $scope.empEvents = [];
         $scope.eventlist = eventschedulesResource.query( {}, function () {
 

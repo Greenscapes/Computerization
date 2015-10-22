@@ -13,11 +13,11 @@ namespace CMS.Models
             PropertyTasks = new List<PropertyTask>();
         }
 
-        public int CrewTypeId
-        {
-            get;
-            set;
-        }
+        //public int CrewTypeId
+        //{
+        //    get;
+        //    set;
+        //}
 
         //public int WeeklyScheduleId
         //{
@@ -31,11 +31,11 @@ namespace CMS.Models
             set;
         }
 
-        public virtual CrewType CrewType
-        {
-            get;
-            set;
-        }
+        //public virtual CrewType CrewType
+        //{
+        //    get;
+        //    set;
+        //}
 
         //[JsonIgnore]
         //[IgnoreDataMember]

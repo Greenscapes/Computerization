@@ -33,7 +33,7 @@
     };
 
     $scope.confirmDelete = function () {
-        Modal.showConfirmDelete("crew type", $scope.crewType.Name, $scope.crewType, deleteFunction);
+        Modal.showConfirmDelete("skill", $scope.crewType.Name, $scope.crewType, deleteFunction);
     };
 }
 

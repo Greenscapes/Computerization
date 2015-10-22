@@ -18,18 +18,21 @@
 
         crew.CrewMembers = [];
 
-        for ( var i = 0; i < $scope.employees.length; i++ ) {
-            if ( $scope.employees[i].checked ) {
-                delete $scope.employees[i].checked;
-                
-                var cremember = new Object( {
-                    EmployeeId: $scope.employees[i].Id,
-                    IsCrewLeader: $scope.employees[i].IsCrewLeader
+        if ($scope.employees) {
+            for (var i = 0; i < $scope.employees.length; i++) {
+                if ($scope.employees[i].checked) {
+                    delete $scope.employees[i].checked;
+
+                    var cremember = new Object({
+                        EmployeeId: $scope.employees[i].Id,
+                        IsCrewLeader: $scope.employees[i].IsCrewLeader
+                    }
+                    );
+                    crew.CrewMembers.push(cremember);
                 }
-                );
-                crew.CrewMembers.push( cremember );
             }
         }
+        
         crewsResource.save(crew, function() {
             $scope.buttonsDisabled = false;
 
