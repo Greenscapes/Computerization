@@ -152,6 +152,8 @@
     }
 
     function loadEvents() {
+
+
         var scheduler = $( "#scheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
@@ -185,12 +187,7 @@
             ]
         } );
     }
-    function scheduler_change( e ) {
-        if ( e.events.length ) {
-            console.log( e.events[0].title )
-        }
-    }
-    
+   
     function codeAddress( addressdetails ) {
 
         geocoder.geocode( { 'address': addressdetails.address }, function ( results, status ) {
@@ -264,7 +261,7 @@
         var html =
              '<div id="myDialogWindow"> ' +
              ' <div style="text-align: center; width:100%"> ' +
-             '   <div style="margin:10px 0 15px 0">' + message + '</div> ' +
+             
              ' <label>Enter Notes</label><br/> <textarea type="text" id="txtNotes" cols="100" rows="5" />' +
              '   <button class="k-button" id="yesButton"">Save</button> ' +
              '   <button class="k-button" id="noButton"">Cancel</button> ' +

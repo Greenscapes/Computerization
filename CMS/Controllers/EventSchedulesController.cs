@@ -20,20 +20,9 @@ namespace CMS.Controllers
 
         // GET: api/EventSchedules
         [Route("")]
-        public IEnumerable<EventScheduleDetails> GetEventSchedules()
+        public IQueryable<EventSchedule> GetEventSchedules()
         {
-           
-            var result = db.EventSchedules.AsEnumerable()
-          .Select(e => new EventScheduleDetails()
-          {
-              start = e.StartTime.ToString("s"),
-              end = e.EndTime.ToString("s"),
-              text = e.Title,
-              id = e.Id.ToString()
-          });
-           
-
-              return result;
+            return db.EventSchedules;
         }
 
         // GET: api/eventschedules
