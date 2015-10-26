@@ -48,6 +48,7 @@ namespace CMS.Controllers
 
             return Ok(propertyTaskEventNote);
         }
+        [Route("{id:int}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPropertyTaskEventNote(int id, PropertyTaskEventNote propertyTaskEventNote)
         {

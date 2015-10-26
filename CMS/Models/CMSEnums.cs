@@ -13,6 +13,7 @@ namespace CMS.Models
         Closed = 3
 
     }
+
     public enum StatusEnum
     {
         New = 0,
