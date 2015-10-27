@@ -33,6 +33,7 @@ namespace CMS.Models
             set;
         }
        [JsonIgnore]
+        [IgnoreDataMember]
         public PropertyTask PropertyTask { get; set; }
        [JsonIgnore]
        public ICollection<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }

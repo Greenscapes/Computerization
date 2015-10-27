@@ -72,8 +72,15 @@
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;
-        var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+        var scheduler = $( "#taskdetailscheduler" ).data( "kendoScheduler" );
         SetEventSchedules( scheduler._data );
+        task.Crews = [];
+        for ( var i = 0; i < $scope.crews.length; i++ ) {
+            if ( $scope.crews[i].checked ) {
+                delete $scope.crews[i].checked;
+                task.Crews.push( $scope.crews[i] );
+            }
+        }
         taskResource.update( { taskId: task.Id }, task, function () {
 
             
@@ -102,7 +109,7 @@
 
     function loadEvents() {
 
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
+        var scheduler = $( "#taskdetailscheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
             height: 600,

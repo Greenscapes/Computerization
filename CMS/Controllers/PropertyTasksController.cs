@@ -62,6 +62,7 @@ namespace CMS.Controllers
                 eventSchedule.PropertyTaskId = propertyTask.Id;
                 if (eventSchedule.Id > 0)
                 {
+                
                     db.Entry(eventSchedule).State = EntityState.Modified;
                 }
                 else
@@ -70,6 +71,27 @@ namespace CMS.Controllers
                     db.EventSchedules.Add(eventSchedule);
                 }
             }
+            //Remove events from property task
+            List<EventSchedule> currentEvents = db.EventSchedules.Where(e => e.PropertyTaskId == id).ToList();
+
+            foreach (EventSchedule eventsch in currentEvents)
+            {
+                EventSchedule eventSchValue = propertyTask.EventSchedules.SingleOrDefault(e => e.Id == eventsch.Id);
+                                 
+                if (eventSchValue == null)
+                { 
+                    db.EventSchedules.Remove(eventsch);
+                }
+                
+            }
+            
+            List<Crew> crews = new List<Crew>();
+
+            foreach (Crew cr in propertyTask.Crews)
+            {
+                crews.Add(db.Crews.Single(c => c.Id == cr.Id));
+            }
+            propertyTask.Crews = crews;
             
             db.Entry(propertyTask).State = EntityState.Modified;
 

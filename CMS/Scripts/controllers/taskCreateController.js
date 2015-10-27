@@ -29,7 +29,7 @@
 
         $scope.save = function(task) {
             $scope.buttonsDisabled = true;
-            var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+            var scheduler = $( "#taskCreatescheduler" ).data( "kendoScheduler" );
             SetEventSchedules( scheduler._data )
             task.PropertyTaskListId = $routeParams.taskListId;
             task.crews = [];
@@ -56,7 +56,7 @@
         }
 
       
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
+        var scheduler = $( "#taskCreatescheduler" ).kendoScheduler( {
             date: new Date( ),
             startTime: new Date( ),
             height: 600,
@@ -66,7 +66,7 @@
                 "week",
                 "month",
             ],
-         
+            timezone: "Etc/UTC",
             save: scheduler_save,
             remove: scheduler_remove,
             edit: scheduler_edit,
@@ -75,33 +75,7 @@
             dataBound: scheduler_dataBound,
         } ).data( "kendoScheduler" );
 
-        //var contextMenuOpen = function ( e ) {
-        //    var menu = e.sender;
-        //    var text = $( e.target ).hasClass( "k-event" ) ? "Edit event" : "Add Event";
-
-        //    menu.remove( ".myClass" );
-        //    menu.append( [{ text: text, cssClass: "myClass" }] );
-        //};
-
-        //var contextMenuSelect = function ( e ) {
-        //    var state = selectState;
-
-        //    if ( state.events.length ) {
-        //        scheduler.editEvent( state.events[0] );
-        //    } else {
-        //        scheduler.addEvent( {
-        //            start: state.start,
-        //            end: state.end
-        //        } );
-        //    }
-        //};
-
-        //$( "#contextMenu" ).kendoContextMenu( {
-        //    filter: ".k-event, .k-scheduler-table",
-        //    showOn: "click",
-        //    select: contextMenuSelect,
-        //    open: contextMenuOpen
-        //} );
+        
 
        
         function SetEventSchedules( data )

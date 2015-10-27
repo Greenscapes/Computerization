@@ -154,7 +154,7 @@
     function loadEvents() {
 
 
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
+        var scheduler = $( "#crewscheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
             height: 600,
@@ -236,7 +236,7 @@
         e.preventDefault();
         google.maps.event.trigger( selectedMarker, 'click' );
     }
-
+    
     var contextMenuOpen = function ( e ) {
         var menu = e.sender;
         var event = e.target;
@@ -311,7 +311,19 @@
         dialog.open();
     };
 
-    $( "#contextMenu" ).kendoContextMenu( {
+    var destroyListener = $scope.$on( 'destroyDirective', function () {
+        $scope.$destroy();
+    } );
+
+    
+
+    $scope.$on( '$destroy', function () {
+        destroyListener();
+       // element.remove();
+        $( "#crewcontextMenu" ).remove();
+    } );
+
+    $( "#crewcontextMenu" ).kendoContextMenu( {
         filter: ".k-event, .k-scheduler-table",
         showOn: "click",
         select: contextMenuSelect,

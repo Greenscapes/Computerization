@@ -50,7 +50,8 @@ namespace CMS.Models
             get;
             set;
         }
-          [JsonIgnore]
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual ICollection<PropertyTask> PropertyTasks
         {
             get;
