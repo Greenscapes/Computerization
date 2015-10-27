@@ -102,7 +102,7 @@
 
     function loadEvents() {
 
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
+        var scheduler = $( "#taskdetailscheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
             height: 600,
