@@ -1,0 +1,43 @@
+﻿<br />
+<h2>Task for {{task.Location}}</h2>
+<p>
+    Description: {{task.Description}}<br />
+    Location: {{task.Location}}<br/>
+    Crew: {{task.Crew}}
+</p>
+<form>
+
+    <h3 ng-show="taskList.length > 0">Available Event Task Lists</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Schedule</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled"/>
+                Event TaskList 1
+            </td>
+            <td>
+                Mondays at 9:00am
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+                Event TaskList 2
+            </td>
+            <td>
+                Wednesdays at 9:00am
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-success" ng-href="#/properties/1/tasks/3/schedule/new" ng-disabled="buttonsDisabled">Create new Event Task List</a>
+    <!--<div id="EventScheduler">
+        <div id="scheduler"></div>
+    </div>
+    <br />
+    <br />
+    <br />-->
+    <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
+</form>

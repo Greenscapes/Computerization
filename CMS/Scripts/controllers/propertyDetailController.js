@@ -1,6 +1,6 @@
 ﻿function PropertyDetailController($scope, $resource, $routeParams, $location, Modal) {
     var propertyResource = $resource('/api/properties/:propertyId');
-    var taskListsResource = $resource( '/api/properties/:propertyId/tasklists', { propertyId: $routeParams.propertyId } );
+    var taskListsResource = $resource( '/api/properties/:propertyId/tasks', { propertyId: $routeParams.propertyId } );
 
     var eventschedulesResource = $resource( '/api/eventschedules/:propertyId/:allProperty/propertyevents',
    {
@@ -12,7 +12,7 @@
    } );
 
     $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId } );
-    $scope.taskLists = taskListsResource.query( function () {
+    $scope.tasks = taskListsResource.query( function () {
         $scope.empEvents = [];
         $scope.eventlist = eventschedulesResource.query( {}, function () {
             $scope.empEvents;
@@ -66,8 +66,8 @@
         }
 
 
-    $scope.newTaskList = function () {
-        $location.path('/properties/' + $routeParams.propertyId + '/tasklists/new');
+    $scope.newTask = function () {
+        $location.path('/properties/' + $routeParams.propertyId + '/tasklists/' + $scope.property.TaskListId + '/tasks/new');
     };
 
     var deleteFunction = function () {

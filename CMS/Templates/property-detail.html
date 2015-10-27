@@ -68,28 +68,34 @@
 </p>
 <hr/>
 
-<h3>{{property.Name}} Task Lists</h3>
+<h3>Property Tasks</h3>
 
 <p>
-    <button type="button" class="btn btn-primary" ng-click="newTaskList()">
-        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List
+    <button type="button" class="btn btn-primary" ng-click="newTask()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task
     </button>
 </p>
 
 <table class="table table-striped">
     <tr>
-        <th>Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Crew</th>
+        <th>Schedule</th>
+        <th></th>
     </tr>
-    <tr ng-repeat="taskList in taskLists">
-        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{taskList.Id}}">{{taskList.Name}}</a></td>
+    <tr ng-repeat="task in tasks">
+        <td>{{task.Description}}</td>
+        <td>{{task.Location}}</td>
+        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>
+        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule">Schedule Task</a></td>
+        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>      
     </tr>
 </table>
 
-<div>
+<!--<div>
     <h3 ng-show="crews.length > 0">Property Schedules</h3>
     <div id="EventScheduler">
         <div id="scheduler"></div>
-
-        <!--<ul id="contextMenu"></ul>-->
     </div>
-</div>
+</div>-->

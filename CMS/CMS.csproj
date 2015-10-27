@@ -661,6 +661,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
+    <Content Include="Scripts\controllers\crewRouteController.js" />
     <Content Include="Scripts\controllers\eventNotesController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
@@ -674,12 +675,15 @@
     <Content Include="Scripts\controllers\employeeDetailController.js" />
     <Content Include="Scripts\controllers\employeesController.js" />
     <Content Include="Scripts\controllers\customersRoutesController.js" />
+    <Content Include="Scripts\controllers\eventTaskListController.js" />
+    <Content Include="Scripts\controllers\eventTaskListCreateController.js" />
     <Content Include="Scripts\controllers\modalsController.js" />
     <Content Include="Scripts\controllers\navController.js" />
     <Content Include="Scripts\controllers\propertyCreateController.js" />
     <Content Include="Scripts\controllers\propertyDetailController.js" />
     <Content Include="Scripts\controllers\propertiesController.js" />
     <Content Include="Scripts\controllers\taskCreateController.js" />
+    <Content Include="Scripts\controllers\taskCrewCreateController.js" />
     <Content Include="Scripts\controllers\taskDetailController.js" />
     <Content Include="Scripts\controllers\taskListCreateController.js" />
     <Content Include="Scripts\controllers\taskListDetailController.js" />
@@ -1361,6 +1365,7 @@
     <Content Include="Templates\crew-create.html" />
     <Content Include="Templates\crew-detail.html" />
     <Content Include="Templates\crewmember-create.html" />
+    <Content Include="Templates\crewroute.html" />
     <Content Include="Templates\eventnotes.html" />
     <Content Include="Templates\crews.html" />
     <Content Include="Templates\crewmember-detail.html" />
@@ -1370,6 +1375,7 @@
     <Content Include="Templates\employee-create.html" />
     <Content Include="Templates\employee-detail.html" />
     <Content Include="Templates\employees.html" />
+    <Content Include="Templates\eventtasklist-create.html" />
     <Content Include="Templates\modals\modal-form - Copy.html" />
     <Content Include="Templates\modals\modal-crewselect.html" />
     <Content Include="Templates\modals\modal-delete-confirm.html" />
@@ -1380,12 +1386,14 @@
     <Content Include="Templates\property-detail.html" />
     <Content Include="Templates\task-create.html" />
     <Content Include="Templates\task-detail.html" />
+    <Content Include="Templates\taskcrew-create.html" />
     <Content Include="Templates\tasklist-create.html" />
     <Content Include="Templates\tasklist-detail.html" />
     <Content Include="Templates\tasklisttype-create.html" />
     <Content Include="Templates\tasklisttype-detail.html" />
     <Content Include="Templates\tasklists.html" />
     <Content Include="Templates\crewlists.html" />
+    <Content Include="Templates\eventtasklists.html" />
     <Content Include="Templates\types.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

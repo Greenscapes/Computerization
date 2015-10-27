@@ -23,11 +23,25 @@ namespace CMS.Controllers
 
         // GET: api/PropertyTasks
         [Route("~/api/tasklists/{taskListId:int}/tasks")]
-        public IQueryable<PropertyTask> GetPropertyTasks(int taskListId)
+        public IQueryable<PropertyTask> GetPropertyTasksForList(int taskListId)
         {
             return db.PropertyTasks.Where(p => p.PropertyTaskListId == taskListId);
         }
-       
+
+        [Route("~/api/properties/{propertyId:int}/tasks")]
+        public IQueryable<PropertyTask> GetPropertyTasks(int propertyId)
+        {
+            var tasks = new List<PropertyTask>();
+            var taskLists = db.PropertyTaskLists.Where(t => t.PropertyId == propertyId);
+
+            foreach (var taskList in taskLists)
+            {
+                tasks.AddRange(taskList.PropertyTasks);
+            }
+
+            return tasks.AsQueryable();
+        }
+
         // GET: api/PropertyTasks/5
         [Route("{id:int}")]
         [ResponseType(typeof(PropertyTask))]

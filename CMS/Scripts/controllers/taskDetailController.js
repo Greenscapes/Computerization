@@ -72,8 +72,8 @@
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;
-        var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
-        SetEventSchedules( scheduler._data );
+        //var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+        //SetEventSchedules( scheduler._data );
         taskResource.update( { taskId: task.Id }, task, function () {
 
             
@@ -147,7 +147,7 @@
 
     }
     $scope.back = function() {
-        $location.path("/properties/" + $routeParams.propertyId + "/tasklists/" + $routeParams.taskListId);
+        $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
         if (!$scope.$$phase) $scope.$apply();
     }
 
