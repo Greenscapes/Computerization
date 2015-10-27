@@ -16,10 +16,26 @@ app.config([
                 templateUrl: 'templates/tasklist-create.html',
                 controller: 'TaskListCreateController'
             }).
+            when('/properties/:propertyId/crew/:crewId/route/:routeId', {
+                templateUrl: 'templates/crewroute.html',
+                controller: 'CrewRouteController'
+            }).
             when('/properties/:propertyId/tasklists/:taskListId', {
                 templateUrl: 'templates/tasklist-detail.html',
                 controller: 'TaskListDetailController'
             }).
+            when('/properties/:propertyId/tasks/:taskId/crew', {
+                templateUrl: 'templates/taskcrew-create.html',
+                controller: 'TaskCrewCreateController'
+            }).
+            when('/properties/:propertyId/tasks/:taskId/schedule', {
+                templateUrl: 'templates/eventtasklists.html',
+                controller: 'EventTaskListController'
+            }).
+            when('/properties/:propertyId/tasks/:taskId/schedule/new', {
+                 templateUrl: 'templates/eventtasklist-create.html',
+                 controller: 'EventTaskListCreateController'
+             }).
             when('/properties/new', {
                 templateUrl: 'templates/property-create.html',
                 controller: 'PropertyCreateController'

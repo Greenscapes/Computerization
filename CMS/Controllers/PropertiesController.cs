@@ -32,6 +32,11 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
+            if (property.PropertyTaskLists.Any())
+            {
+                property.TaskListId = property.PropertyTaskLists.First().Id;
+            }
+
             return Ok(property);
         }
 

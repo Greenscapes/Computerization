@@ -3,13 +3,15 @@
     {
         taskListId: $routeParams.taskListId
     });
+    var propertyResource = $resource('/api/properties/:propertyId');
     var tasksResource = $resource( '/api/tasks' );
 
     var eventschedulesResource = $resource( '/api/eventschedules' );
   
 
     $scope.task = {};
-    $scope.taskList = taskListResource.get({}, function() {
+    $scope.taskList = taskListResource.get({}, function () {
+        $scope.property = propertyResource.get({ propertyId: $scope.taskList.PropertyId });
         $scope.task.PropertyTaskDetails = [];
         for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
             var newTaskDetail = {
@@ -29,16 +31,16 @@
 
         $scope.save = function(task) {
             $scope.buttonsDisabled = true;
-            var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
-            SetEventSchedules( scheduler._data )
+            //var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+            //SetEventSchedules( scheduler._data )
             task.PropertyTaskListId = $routeParams.taskListId;
-            task.crews = [];
-            for ( var i = 0; i < $scope.crews.length; i++ ) {
-                if ( $scope.crews[i].checked ) {
-                    delete $scope.crews[i].checked;
-                    task.crews.push( $scope.crews[i] );
-                }
-            }
+            //task.crews = [];
+            //for ( var i = 0; i < $scope.crews.length; i++ ) {
+            //    if ( $scope.crews[i].checked ) {
+            //        delete $scope.crews[i].checked;
+            //        task.crews.push( $scope.crews[i] );
+            //    }
+            //}
           
             var response = tasksResource.save(task, function() {
                 $scope.buttonsDisabled = false;
@@ -50,7 +52,7 @@
                 });
       
             $scope.back = function() {
-                $location.path("/properties/" + $routeParams.propertyId + "/tasklists/" + $routeParams.taskListId);
+                $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
                 if (!$scope.$$phase) $scope.$apply();
             };
         }

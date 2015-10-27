@@ -34,6 +34,19 @@ namespace CMS.Controllers
             return Ok(crew);
         }
 
+        [Route("~/api/crews/employee/{id:int}")]
+        [ResponseType(typeof(Crew))]
+        public IHttpActionResult GetCrewByEmployeeId(int id)
+        {
+            var crewMember = db.CrewMembers.FirstOrDefault(c => c.EmployeeId == id);
+            if (crewMember == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(crewMember.Crew);
+        }
+
         // PUT: api/Crews/5
         [Route("{id:int}")]
         [ResponseType(typeof(void))]

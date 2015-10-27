@@ -16,8 +16,10 @@
 <table class="table table-striped">
     <tr>
         <th>Name</th>
+        <th>In Crew</th>
     </tr>
     <tr ng-repeat="employee in employees | filter:filterText">
         <td><a ng-href="#/employees/{{employee.Id}}">{{formatName(employee)}}</a></td>
+        <td>{{employee.InCrew ? 'Yes' : 'No'}}</td>
     </tr>
 </table>

@@ -1,0 +1,21 @@
+﻿<br />
+<h2>New Event Task List for {{task.Location}}</h2>
+<p>
+    Description: {{task.Description}}<br />
+    Location: {{task.Location}}<br />
+    Crew: {{task.Crew}}
+</p>
+<form>
+
+    <div class="form-group">
+        <label for="inputFirstName">Name</label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="employee.FirstName">
+    </div>
+    <div id="EventScheduler">
+        <div id="scheduler"></div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
+</form>

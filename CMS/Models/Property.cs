@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMS.Models
 {
@@ -59,6 +60,9 @@ namespace CMS.Models
             get;
             set;
         }
+
+        [NotMapped]
+        public int TaskListId { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

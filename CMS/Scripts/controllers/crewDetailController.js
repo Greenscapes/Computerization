@@ -4,7 +4,7 @@
     {
         'update': { method: 'PUT' }
     });
-    var crewTypesResource = $resource('/api/types/crewlists/:crewTypeId/employees');
+    var crewTypesResource = $resource('/api/employees');
     var membersResource = $resource('/api/crews/:crewId/members', { crewId: $routeParams.crewId });
     var memberResource = $resource('/api/crews/:crewId/members/:crewMemberId', { crewId: $routeParams.crewId });
 
@@ -45,7 +45,7 @@
     };
 
     $scope.crew = crewResource.get({ crewId: $routeParams.crewId }, function() {
-        allEmployees = crewTypesResource.query({ crewTypeId: $scope.crew.CrewTypeId }, function() {
+        allEmployees = crewTypesResource.query({ }, function() {
             loadMembers();
         });
     });

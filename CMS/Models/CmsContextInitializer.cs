@@ -83,7 +83,7 @@ namespace CMS.Models
 
             var crewp = new Crew
             {
-                CrewType = crewTypep,
+                //CrewType = crewTypep,
                 Name = "Morning Mowing"
             };
             foreach (var p in  propertyTasksCrs)
@@ -157,7 +157,7 @@ namespace CMS.Models
 
             var crew = new Crew
             {
-                CrewType = crewType,
+                //CrewType = crewType,
                 Name = "Morning Mowing"
             };
 

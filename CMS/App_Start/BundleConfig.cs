@@ -37,37 +37,8 @@ namespace CMS
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/app.js",
                 "~/Scripts/services/authenticationService.js",
-                "~/Scripts/services/modalService.js",
-                "~/Scripts/controllers/modalsController.js",
-                "~/Scripts/controllers/navController.js",
-                "~/Scripts/controllers/typesController.js",
-                "~/Scripts/controllers/taskListTypeCreateController.js",
-                "~/Scripts/controllers/taskListTypeDetailController.js",
-                "~/Scripts/controllers/crewTypeCreateController.js",
-                "~/Scripts/controllers/crewTypeDetailController.js",
-                "~/Scripts/controllers/employeesController.js",
-                "~/Scripts/controllers/employeeCreateController.js",
-                "~/Scripts/controllers/employeeDetailController.js",
-                "~/Scripts/controllers/crewsController.js",
-                "~/Scripts/controllers/crewController.js",
-                "~/Scripts/controllers/crewCreateController.js",
-                "~/Scripts/controllers/crewDetailController.js",
-                "~/Scripts/controllers/crewMemberCreateController.js",
-                "~/Scripts/controllers/crewMemberDetailController.js",
-                "~/Scripts/controllers/propertiesController.js",
-                "~/Scripts/controllers/propertyCreateController.js",
-                "~/Scripts/controllers/propertyDetailController.js",
-                "~/Scripts/controllers/taskCreateController.js",
-                "~/Scripts/controllers/taskDetailController.js",
-                "~/Scripts/controllers/taskListCreateController.js",
-                "~/Scripts/controllers/taskListDetailController.js",
-                "~/Scripts/controllers/customerschedulesController.js",
-                "~/Scripts/controllers/tasklistsController.js",
-                 "~/Scripts/controllers/eventSchedulesController.js",
-                 "~/Scripts/controllers/crewListsController.js",
-                 "~/Scripts/controllers/customersRoutesController.js",
-                 "~/Scripts/controllers/eventNotesController.js"
-                ));
+                "~/Scripts/services/modalService.js")
+                .IncludeDirectory("~/Scripts/controllers", "*.js", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",

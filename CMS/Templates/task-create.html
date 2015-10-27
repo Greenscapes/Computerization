@@ -4,33 +4,33 @@
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Task List
     </button>
 </p>
-<h2>New Task</h2>
+<h2>New Task for {{property.Name}}</h2>
 
 <form>
-    <div class="form-group">
-        <label for="inputLocation">Location</label>
-        <input type="text" class="form-control" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location">
-    </div>
     <div class="form-group">
         <label for="inputDescription">Description</label>
         <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description">
     </div>
-    <div class="form-group" ng-repeat="detail in task.PropertyTaskDetails">
+    <div class="form-group">
+        <label for="inputLocation">Location</label>
+        <input type="text" class="form-control full-size" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location">
+    </div>
+    <!--<div class="form-group" ng-repeat="detail in task.PropertyTaskDetails">
         <label for="input{{$index}}">{{detail.HeaderName}}</label>
         <input type="text" class="form-control" id="input{{$index}}" placeholder="{{detail.HeaderName}}" ng-disabled="buttonsDisabled" ng-model="detail.Value">
-    </div>
+    </div>-->
     <div class="form-group">
         <label for="inputDuration">Duration</label>
         <input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration">
     </div>
     <div class="form-group">
         <label for="inputNotes">Notes</label>
-        <input type="text" class="form-control" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
+        <input type="text" class="form-control full-size" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
     </div>
     <div class="form-group">
         <input type="checkbox" ng-model="task.IsFreeService" ng-disabled="buttonsDisabled" />IsFreeService
     </div>
-    <h3 ng-show="crews.length > 0">Assignable Crews</h3>
+    <!--<h3 ng-show="crews.length > 0">Assignable Crews</h3>
     <table class="table table-striped">
         <tr>
             <th>Name</th>
@@ -44,14 +44,12 @@
 
         </tr>
     </table>
-    <br />
+    <br />-->
    
-    <br />
+    <!--<br />
     <div id="EventScheduler">
         <div id="scheduler"></div>
-
-        <!--<ul id="contextMenu"></ul>-->
-    </div>
+    </div>-->
     <br />
     <button type="submit" class="btn btn-success" ng-click="save(task)" ng-disabled="buttonsDisabled">Create</button>
     <br />

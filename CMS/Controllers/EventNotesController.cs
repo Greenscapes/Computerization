@@ -48,6 +48,7 @@ namespace CMS.Controllers
 
             return Ok(propertyTaskEventNote);
         }
+        [Route("{id:int}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPropertyTaskEventNote(int id, PropertyTaskEventNote propertyTaskEventNote)
         {
@@ -90,7 +91,7 @@ namespace CMS.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            propertyTaskEventNote.ReviewStatus = ReviewStatusEnum.New;
             db.PropertyTaskEventNotes.Add(propertyTaskEventNote);
             db.SaveChanges();
 
