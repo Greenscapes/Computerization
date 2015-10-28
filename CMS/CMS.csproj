@@ -225,6 +225,7 @@
     <Compile Include="Controllers\EventSchedulesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerSchedulesController.cs" />
+    <Compile Include="Controllers\ServiceTicketController.cs" />
     <Compile Include="Controllers\PropertiesController.cs" />
     <Compile Include="Controllers\PropertyTaskDetailsController.cs" />
     <Compile Include="Controllers\PropertyTaskHeadersController.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Models\CrewScheduleTask.cs" />
     <Compile Include="Models\CrewType.cs" />
     <Compile Include="Models\DailySchedule.cs" />
+    <Compile Include="Models\ServiceTicket.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\PropertyTaskEventNote.cs" />
     <Compile Include="Models\EventSchedule.cs" />
@@ -662,6 +664,7 @@
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewRouteController.js" />
+    <Content Include="Scripts\controllers\serviceTicketController.js" />
     <Content Include="Scripts\controllers\eventNotesController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
@@ -1384,6 +1387,8 @@
     <Content Include="Templates\property-create.html" />
     <Content Include="Templates\customers-routes.html" />
     <Content Include="Templates\property-detail.html" />
+    <Content Include="Templates\servicetickets\irrigation-installation.html" />
+    <Content Include="Templates\servicetickets\serviceticket.html" />
     <Content Include="Templates\task-create.html" />
     <Content Include="Templates\task-detail.html" />
     <Content Include="Templates\taskcrew-create.html" />

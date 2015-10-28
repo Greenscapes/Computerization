@@ -1,0 +1,17 @@
+﻿<br />
+<h2>{{serviceTicket.TemplateName}}</h2>
+
+<form role="form">
+
+    <div class="form-group">
+        <label for="referenceNumber">AS/SB/RM No</label>
+        <input type="text" class="form-control" id="referenceNumber" placeholder="Reference Number" ng-disabled="buttonsDisabled" ng-model="serviceTicket.ReferenceNumber">
+    </div>
+    Odd
+    <div ng-include="serviceTicket.TemplateUrl"></div>
+
+    <p>
+        <button class="btn btn-success" ng-click="update(serviceTicket)" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+    
+</form>

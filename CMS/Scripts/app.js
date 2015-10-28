@@ -152,7 +152,11 @@ app.config([
         when( '/eventnotes', {
             templateUrl: 'templates/eventnotes.html',
             controller: 'EventNotesController'
-        } ).
+        }).
+            when('/kevin/:serviceTicketId', {
+                templateUrl: 'templates/servicetickets/serviceticket.html',
+                controller: 'ServiceTicketController'
+            }).
             otherwise({
                 redirectTo: '/customerroutes'
             });
