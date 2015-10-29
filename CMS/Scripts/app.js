@@ -153,10 +153,27 @@ app.config([
             templateUrl: 'templates/eventnotes.html',
             controller: 'EventNotesController'
         }).
-            when('/kevin/:serviceTicketId', {
+            when('/servicetickets/:serviceTicketId', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
                 controller: 'ServiceTicketController'
             }).
+                  when('/servicetemplates', {
+                      templateUrl: 'templates/servicetickets/servicetemplate-list.html',
+                      controller: 'ServiceTemplateListController'
+                  }).
+
+      when('/servicetemplates/:serviceTemplateId', {
+          templateUrl: 'templates/servicetickets/servicetemplate-detail.html',
+          controller: 'ServiceTemplateDetailController'
+      }).
+
+                  when('/servicetemplates/new', {
+                      templateUrl: 'templates/servicetickets/servicetemplate-detail.html',
+                      controller: 'ServiceTemplateDetailController'
+                  }).
+
+
+
             otherwise({
                 redirectTo: '/customerroutes'
             });

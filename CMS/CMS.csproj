@@ -215,6 +215,7 @@
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ServiceTemplateController.cs" />
     <Compile Include="Controllers\EventNotesController.cs" />
     <Compile Include="Controllers\CustomersRoutesController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\CrewScheduleTask.cs" />
     <Compile Include="Models\CrewType.cs" />
     <Compile Include="Models\DailySchedule.cs" />
+    <Compile Include="Models\ServiceTemplate.cs" />
     <Compile Include="Models\ServiceTicket.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\PropertyTaskEventNote.cs" />
@@ -664,7 +666,6 @@
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewRouteController.js" />
-    <Content Include="Scripts\controllers\serviceTicketController.js" />
     <Content Include="Scripts\controllers\eventNotesController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
@@ -685,6 +686,9 @@
     <Content Include="Scripts\controllers\propertyCreateController.js" />
     <Content Include="Scripts\controllers\propertyDetailController.js" />
     <Content Include="Scripts\controllers\propertiesController.js" />
+    <Content Include="Scripts\controllers\servicetickets\serviceTemplateDetailController.js" />
+    <Content Include="Scripts\controllers\servicetickets\serviceTemplateListController.js" />
+    <Content Include="Scripts\controllers\servicetickets\serviceTicketController.js" />
     <Content Include="Scripts\controllers\taskCreateController.js" />
     <Content Include="Scripts\controllers\taskCrewCreateController.js" />
     <Content Include="Scripts\controllers\taskDetailController.js" />
@@ -1388,6 +1392,9 @@
     <Content Include="Templates\customers-routes.html" />
     <Content Include="Templates\property-detail.html" />
     <Content Include="Templates\servicetickets\arborjet-treatment.html" />
+    <Content Include="Templates\servicetickets\servicetemplate-create.html" />
+    <Content Include="Templates\servicetickets\servicetemplate-detail.html" />
+    <Content Include="Templates\servicetickets\servicetemplate-list.html" />
     <Content Include="Templates\servicetickets\irrigation-installation.html" />
     <Content Include="Templates\servicetickets\serviceticket.html" />
     <Content Include="Templates\task-create.html" />

@@ -35,7 +35,7 @@ namespace CMS.Controllers
             ticket.FromTime = DateTime.Now;
             ticket.ToTime = DateTime.Now.AddHours(1);
             
-            ticket.JsonFields = @"{""Trees"":[{""Kind"":""Palm"",""Type"":""Coconut""}],""NewTree"":{""Kind"":""Palm"",""Type"":""Coconut""}}";
+            ticket.JsonFields = "{\"Trees\":[],\"DefaultTree\":{\"Kind\":\"Palm\",\"Type\":\"Coconut\"}}";
             ticket.Notes = "This is the notes";
             ticket.Condition = 3;
 
