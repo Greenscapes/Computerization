@@ -29,10 +29,15 @@ namespace CMS.Controllers
             ServiceTicket ticket = new ServiceTicket();
 
             ticket.Id = id;
-            ticket.TemplateName = "Irrigation Installation";
-            ticket.TemplateUrl = "/templates/servicetickets/irrigation-installation.html";
+            ticket.TemplateName = "Arborjet Treatment";
+            ticket.TemplateUrl = "/templates/servicetickets/arborjet-treatment.html";
             ticket.ReferenceNumber = "AB100223";
-            ticket.JsonFields = "{ \"ZoneNumber\": 10, \"hello\":\"function(){ alert('hi'); }\" }";
+            ticket.FromTime = DateTime.Now;
+            ticket.ToTime = DateTime.Now.AddHours(1);
+            
+            ticket.JsonFields = @"{""Trees"":[{""Kind"":""Palm"",""Type"":""Coconut""}],""NewTree"":{""Kind"":""Palm"",""Type"":""Coconut""}}";
+            ticket.Notes = "This is the notes";
+            ticket.Condition = 3;
 
             return Ok(ticket);
         }

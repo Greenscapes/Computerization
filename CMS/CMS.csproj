@@ -1387,6 +1387,7 @@
     <Content Include="Templates\property-create.html" />
     <Content Include="Templates\customers-routes.html" />
     <Content Include="Templates\property-detail.html" />
+    <Content Include="Templates\servicetickets\arborjet-treatment.html" />
     <Content Include="Templates\servicetickets\irrigation-installation.html" />
     <Content Include="Templates\servicetickets\serviceticket.html" />
     <Content Include="Templates\task-create.html" />
