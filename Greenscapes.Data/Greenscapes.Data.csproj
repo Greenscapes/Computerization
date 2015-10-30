@@ -71,6 +71,7 @@
     <Compile Include="DataContext\PropertyTaskHeader.cs" />
     <Compile Include="DataContext\PropertyTaskList.cs" />
     <Compile Include="DataContext\PropertyTaskListType.cs" />
+    <Compile Include="DataContext\ServiceTemplate.cs" />
     <Compile Include="DataContext\WeeklySchedule.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Property.cs" />

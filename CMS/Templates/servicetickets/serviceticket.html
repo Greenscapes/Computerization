@@ -1,0 +1,63 @@
+﻿<br />
+<h2>{{serviceTicket.TemplateName}}</h2>
+
+<p>
+    {{PropertyName}}<br />
+    {{Address1}}<br />
+    {{Address2}}<br />
+    {{City}}, {{State}} {{ZipCode}}
+</p>
+
+<form role="form" novalidate>
+    <div class="form-group">
+        <label for="referenceNumber">AS/SB/RM No</label>
+        <input type="text" class="form-control" autocomplete="off" id="referenceNumber" placeholder="Reference Number" ng-disabled="buttonsDisabled" ng-model="serviceTicket.ReferenceNumber">
+    </div>
+
+    <div class="form-group">
+        <label for="visitDate">Date of Visit</label>
+        <input type="date" class="form-control" autocomplete="off" id="visitDate" placeholder="Visit Date" ng-disabled="buttonsDisabled" >
+    </div>
+
+    <div class="form-group">
+        <label for="referenceNumber">From Time</label>
+        <input type="time" class="form-control" autocomplete="off" id="fromTime" placeholder="From" ng-disabled="buttonsDisabled" >
+    </div>
+
+    <div class="form-group">
+        <label for="referenceNumber">To Time</label>
+        <input type="time" class="form-control" autocomplete="off" id="toTime" placeholder="To" ng-disabled="buttonsDisabled" >
+    </div>
+
+    <div class="form-group">
+        <label for="staff">GS Staff</label>
+        <input type="text" class="form-control" autocomplete="off" id="staff" placeholder="GS Staff" ng-disabled="buttonsDisabled" ng-model="serviceTicket.ReferenceNumber">
+    </div>
+
+    <div ng-include="serviceTicket.TemplateUrl"></div>
+
+    <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea class="form-control" rows="10" ng-disabled="buttonsDisabled" ng-model="serviceTicket.Notes"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="condition">Overall Condition of Landscape</label>
+        <p class="help-block">Rank the overall condition of the landscape on a scale of 0 to 5<br />
+        (where 0 is terrible and 5 is perfect) taking into account all aspects of the landscape</p>
+        <select ng-model="serviceTicket.Condition" required>
+            <option></option>
+            <option value="0">0 - terrible</option>
+            <option value="1">1 - poor</option>
+            <option value="2">2 - okay</option>
+            <option value="3">3 - good</option>
+            <option value="4">4 - great</option>
+            <option value="5">5 - perfect</option>
+        </select>
+    </div>
+
+    <p>
+        <button class="btn btn-success" ng-click="update(serviceTicket)" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+    
+</form>

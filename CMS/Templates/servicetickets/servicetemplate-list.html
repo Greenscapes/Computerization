@@ -1,0 +1,17 @@
+﻿<h1>Service Templates</h1>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="new()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Service Template
+    </button>
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Url</th>
+    </tr>
+    <tr ng-repeat="serviceTemplate in serviceTemplates">
+        <td><a ng-href="#/servicetemplates/{{serviceTemplate.Id}}">{{serviceTemplate.Name}}</a></td>
+        <td>{{serviceTemplate.Url}}</td>
+    </tr>
+</table>
