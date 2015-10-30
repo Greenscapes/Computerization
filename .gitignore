@@ -4,3 +4,6 @@ CMS/CMS.csproj.user
 CMS/bin/
 CMS/obj/
 packages/
+*.orig
+Greenscapes.Data/bin/
+Greenscapes.Data/obj/

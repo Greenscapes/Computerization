@@ -140,7 +140,7 @@
         
         function detailInit( e ) {
 
-
+            $scope.selectedeventid = e.data.Id;
 
         $scope.propertyTaskEventNotes = eventNotebyScheduleResource.query( { eventscheduleId: e.data.Id }, function () {
             $( "<div/>" ).appendTo( e.detailCell ).kendoGrid( {
@@ -164,7 +164,7 @@
                         field: "ReviewStatus",
                         title: "Review Status",
                         width: "110px",
-                        template: "#if( ReviewStatus==0){#<text class='templateCell'>New</text>#} else if( ReviewStatus==1) {#<text class='templateCell'>InReview</text>#} else if( ReviewStatus==2) {#<text class='templateCell'>Reviewed</text>#} else if( ReviewStatus==3){#<text class='templateCell'>Closed</text>#}#",
+                        //template: "#if( ReviewStatus==0){#<text class='templateCell'>New</text>#} else if( ReviewStatus==1) {#<text class='templateCell'>InReview</text>#} else if( ReviewStatus==2) {#<text class='templateCell'>Reviewed</text>#} else if( ReviewStatus==3){#<text class='templateCell'>Closed</text>#}#",
 
                     },
                  { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }
@@ -188,11 +188,11 @@
 
                     } )
                     if ( eventNote.Id ) {
-                        propertyeventNote.Id = eventNote.Id
+                        propertyeventNote.Id = eventNote.Id;
                         eventNotesResource.update( { eventid: propertyeventNote.Id }, propertyeventNote, function () { } );
                     }
                     else {
-
+                        propertyeventNote.EventScheduleId = $scope.selectedeventid;
                         eventNoteResource.save( propertyeventNote );
                     }
                  

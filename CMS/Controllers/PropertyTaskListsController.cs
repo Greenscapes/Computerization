@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
+using Greenscapes.Data.DataContext;
 
 namespace CMS.Controllers
 {
@@ -109,7 +110,7 @@ namespace CMS.Controllers
             tasks.ForEach(t =>
             {
                 t.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
-                t.EventSchedules.ToList().ForEach(ev => db.EventSchedules.Remove(ev));
+               // t.EventSchedules.ToList().ForEach(ev => db.EventSchedules.Remove(ev));
                
                 db.PropertyTasks.Remove(t);
             });

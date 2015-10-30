@@ -5,19 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>Crew Management System</title>
     <base href="/">
-  
-    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
-    @Styles.Render("~/Content/themes/base/css")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/fullcalendar")
-    @Scripts.Render("~/bundles/fullcalendar")
-
-        <script src="~/Scripts/jquery-1.9.1.js"></script>
    
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
@@ -35,7 +29,7 @@
         var culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
     }
 
-    <script src="@Url.Content("~/Scripts/kendo/2013.3.1119/cultures/kendo.culture." + culture + ".min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/kendo/2013.3.1119/cultures/kendo.culture." + culture + ".min.js")"></script>*@
 
     @* Set the current culture *@
     <script>
