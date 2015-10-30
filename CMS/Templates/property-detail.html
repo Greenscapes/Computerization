@@ -78,18 +78,21 @@
 
 <table class="table table-striped">
     <tr>
-        <th>Description</th>
         <th>Location</th>
+        <th>Task</th>
         <th>Crew</th>
         <th>Schedule</th>
         <th></th>
     </tr>
     <tr ng-repeat="task in tasks">
-        <td>{{task.Description}}</td>
         <td>{{task.Location}}</td>
-        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>
-        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule">Schedule Task</a></td>
-        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>      
+        <td>{{task.Description}}</td>
+        <td ng-if="task.Crews.length <= 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>
+        <td ng-if="task.Crews.length > 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">
+            <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>
+        </a></td>
+        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule">{{task.ScheduleName}}</a></td>
+        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>
     </tr>
 </table>
 

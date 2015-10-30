@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Models;
 
 namespace CMS.Controllers
 {
@@ -91,7 +93,7 @@ namespace CMS.Controllers
             {
                 return BadRequest(ModelState);
             }
-            propertyTaskEventNote.ReviewStatus = ReviewStatusEnum.New;
+            propertyTaskEventNote.ReviewStatus = (int)ReviewStatusEnum.New;
             db.PropertyTaskEventNotes.Add(propertyTaskEventNote);
             db.SaveChanges();
 

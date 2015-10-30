@@ -10,8 +10,8 @@
   
 
     $scope.task = {};
+    $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
     $scope.taskList = taskListResource.get({}, function () {
-        $scope.property = propertyResource.get({ propertyId: $scope.taskList.PropertyId });
         $scope.task.PropertyTaskDetails = [];
         for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
             var newTaskDetail = {

@@ -6,48 +6,36 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System.Collections.Generic;
+using CMS.Mappers;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Repositories;
 
 namespace CMS.Controllers
 {
     [RoutePrefix("api/tasks")]
     public class PropertyTasksController : ApiController
     {
-        private readonly CmsContext db = new CmsContext();
-
-        // GET: api/PropertyTasks
-        [Route("")]
-        public IQueryable<PropertyTask> GetPropertyTasks()
-        {
-            return db.PropertyTasks;
-        }
+        private readonly PropertyTaskRepository db = new PropertyTaskRepository();
 
         // GET: api/PropertyTasks
         [Route("~/api/tasklists/{taskListId:int}/tasks")]
-        public IQueryable<PropertyTask> GetPropertyTasksForList(int taskListId)
+        public IEnumerable<PropertyTaskViewModel> GetPropertyTasksForList(int taskListId)
         {
-            return db.PropertyTasks.Where(p => p.PropertyTaskListId == taskListId);
+            return db.GetPropertyTasksForTaskList(taskListId).MapTo<IEnumerable<PropertyTaskViewModel>>();
         }
 
         [Route("~/api/properties/{propertyId:int}/tasks")]
-        public IQueryable<PropertyTask> GetPropertyTasks(int propertyId)
+        public IEnumerable<PropertyTaskViewModel> GetPropertyTasks(int propertyId)
         {
-            var tasks = new List<PropertyTask>();
-            var taskLists = db.PropertyTaskLists.Where(t => t.PropertyId == propertyId);
-
-            foreach (var taskList in taskLists)
-            {
-                tasks.AddRange(taskList.PropertyTasks);
-            }
-
-            return tasks.AsQueryable();
+            return db.GetPropertyTasksForProperty(propertyId).MapTo<IEnumerable<PropertyTaskViewModel>>();
         }
 
         // GET: api/PropertyTasks/5
         [Route("{id:int}")]
-        [ResponseType(typeof(PropertyTask))]
+        [ResponseType(typeof(PropertyTaskViewModel))]
         public IHttpActionResult GetPropertyTask(int id)
         {
-            var propertyTask = db.PropertyTasks.Find(id);
+            var propertyTask = db.GetPropertyTask(id).MapTo<PropertyTaskViewModel>();
             if (propertyTask == null)
             {
                 return NotFound();
@@ -60,7 +48,7 @@ namespace CMS.Controllers
         [Route("{id:int}")]
         [Route("~/api/tasklists/{taskListId:int}/tasks/{id:int}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPropertyTask(int id, PropertyTask propertyTask)
+        public IHttpActionResult PutPropertyTask(int id, PropertyTaskViewModel propertyTask)
         {
             if (!ModelState.IsValid)
             {
@@ -72,59 +60,53 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            foreach (var eventSchedule in propertyTask.EventSchedules)
-            {
-                eventSchedule.PropertyTaskId = propertyTask.Id;
-                if (eventSchedule.Id > 0)
-                {
+            db.UpdatePropertyTask(propertyTask.MapTo<PropertyTask>());
+
+       //     foreach (var eventSchedule in propertyTask.EventSchedules)
+       //     {
+       //         eventSchedule.PropertyTaskId = propertyTask.Id;
+       //         if (eventSchedule.Id > 0)
+       //         {
                 
-                    db.Entry(eventSchedule).State = EntityState.Modified;
-                }
-                else
-                {
+       //             db.Entry(eventSchedule).State = EntityState.Modified;
+       //         }
+       //         else
+       //         {
                    
-                    db.EventSchedules.Add(eventSchedule);
-                }
-            }
-            //Remove events from property task
-            List<EventSchedule> currentEvents = db.EventSchedules.Where(e => e.PropertyTaskId == id).ToList();
+       //             db.EventSchedules.Add(eventSchedule);
+       //         }
+       //     }
+       //     //Remove events from property task
+       //     List<EventSchedule> currentEvents = db.EventSchedules.Where(e => e.PropertyTaskId == id).ToList();
 
-            foreach (EventSchedule eventsch in currentEvents)
-            {
-                EventSchedule eventSchValue = propertyTask.EventSchedules.SingleOrDefault(e => e.Id == eventsch.Id);
+       //     foreach (EventSchedule eventsch in currentEvents)
+       //     {
+       //         EventSchedule eventSchValue = propertyTask.EventSchedules.SingleOrDefault(e => e.Id == eventsch.Id);
                                  
-                if (eventSchValue == null)
-                { 
-                    db.EventSchedules.Remove(eventsch);
-                }
+       //         if (eventSchValue == null)
+       //         { 
+       //             db.EventSchedules.Remove(eventsch);
+       //         }
                 
-            }
+       //     }
             
-            List<Crew> crews = new List<Crew>();
+       ////     db.Entry(propertyTask).State = EntityState.Modified;
 
-            foreach (Crew cr in propertyTask.Crews)
-            {
-                crews.Add(db.Crews.Single(c => c.Id == cr.Id));
-            }
-            propertyTask.Crews = crews;
-            
-            db.Entry(propertyTask).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PropertyTaskExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+       //     try
+       //     {
+       //         db.SaveChanges();
+       //     }
+       //     catch (DbUpdateConcurrencyException)
+       //     {
+       //         if (!PropertyTaskExists(id))
+       //         {
+       //             return NotFound();
+       //         }
+       //         else
+       //         {
+       //             throw;
+       //         }
+       //     }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -132,26 +114,26 @@ namespace CMS.Controllers
         // POST: api/PropertyTasks
         [Route("")]
         [Route("~/api/tasks/:taskListId/tasks")]
-        [ResponseType(typeof(PropertyTask))]
-        public IHttpActionResult PostPropertyTask(PropertyTask propertyTask)
+        [ResponseType(typeof(PropertyTaskViewModel))]
+        public IHttpActionResult PostPropertyTask(PropertyTaskViewModel propertyTask)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-         
-            
-          
-           
-            List<Crew> crews= new List<Crew>();
 
-            foreach (Crew cr in propertyTask.Crews)
-            {
-                crews.Add(db.Crews.Single(c=>c.Id==cr.Id));
-            }
-            propertyTask.Crews = crews;
-            db.PropertyTasks.Add(propertyTask);      
-            db.SaveChanges();
+
+            db.UpdatePropertyTask(propertyTask.MapTo<PropertyTask>());
+
+            //List<Crew> crews= new List<Crew>();
+
+            //foreach (Crew cr in propertyTask.Crews)
+            //{
+            //    crews.Add(db.Crews.Single(c=>c.Id==cr.Id));
+            //}
+            //propertyTask.Crews = crews;
+            //db.PropertyTasks.Add(propertyTask);      
+            //db.SaveChanges();
 
             return Ok(propertyTask);
         }
@@ -161,18 +143,19 @@ namespace CMS.Controllers
         [ResponseType(typeof(PropertyTask))]
         public IHttpActionResult DeletePropertyTask(int id)
         {
-            var propertyTask = db.PropertyTasks.Find(id);
-            if (propertyTask == null)
+            var success = db.DeletePropertyTask(id);
+            //var propertyTask = db.PropertyTasks.Find(id);
+            if (!success)
             {
                 return NotFound();
             }
-            propertyTask.EventSchedules.ToList().ForEach(e => db.EventSchedules.Remove(e));
-           
-            propertyTask.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
-            db.PropertyTasks.Remove(propertyTask);
-            db.SaveChanges();
+            //propertyTask.EventSchedules.ToList().ForEach(e => db.EventSchedules.Remove(e));
 
-            return Ok(propertyTask);
+            //propertyTask.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
+            //db.PropertyTasks.Remove(propertyTask);
+            //db.SaveChanges();
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)
@@ -182,11 +165,6 @@ namespace CMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool PropertyTaskExists(int id)
-        {
-            return db.PropertyTasks.Count(e => e.Id == id) > 0;
         }
     }
 }

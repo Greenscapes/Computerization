@@ -3,19 +3,23 @@
 <p>
     Description: {{task.Description}}<br />
     Location: {{task.Location}}<br />
-    Crew: {{task.Crew}}
+    Crew: <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>
 </p>
 <form>
 
     <div class="form-group">
         <label for="inputFirstName">Name</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="employee.FirstName">
+        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="eventTaskList.Name">
     </div>
-    <div id="EventScheduler">
+    <!--<div id="EventScheduler">
         <div id="scheduler"></div>
+    </div>-->
+    <div kendo-scheduler k-options="schedulerOptions">
+        <span k-event-template class='custom-event'>{{dataItem.title}}</span>
+        <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
     </div>
     <br />
     <br />
     <br />
-    <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
+    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList)" ng-disabled="buttonsDisabled">Save</button>
 </form>

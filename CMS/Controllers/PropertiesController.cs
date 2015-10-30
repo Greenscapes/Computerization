@@ -6,35 +6,36 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Repositories;
+using Greenscapes.Data.Repositories.Interfaces;
+using CMS.Mappers;
 
 namespace CMS.Controllers
 {
     [RoutePrefix("api/properties")]
     public class PropertiesController : ApiController
     {
-        private readonly CmsContext db = new CmsContext();
+        private readonly IPropertyRepository db = new PropertyRepository();
 
         // GET: api/Properties
         [Route("")]
-        public IQueryable<Property> GetProperties()
+        public IEnumerable<PropertyViewModel> GetProperties()
         {
-            return db.Properties;
+            return db.GetProperties().MapTo<IEnumerable<PropertyViewModel>>();
         }
 
         // GET: api/Properties/5
         [Route("{id:int}")]
-        [ResponseType(typeof(Property))]
+        [ResponseType(typeof(PropertyViewModel))]
         public IHttpActionResult GetProperty(int id)
         {
-            Property property = db.Properties.Find(id);
+            var property = db.GetProperty(id).MapTo<PropertyViewModel>();
             if (property == null)
             {
                 return NotFound();
-            }
-
-            if (property.PropertyTaskLists.Any())
-            {
-                property.TaskListId = property.PropertyTaskLists.First().Id;
             }
 
             return Ok(property);
@@ -43,7 +44,7 @@ namespace CMS.Controllers
         // PUT: api/Properties/5
         [Route("{id:int}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProperty(int id, Property property)
+        public IHttpActionResult PutProperty(int id, PropertyViewModel property)
         {
             if (!ModelState.IsValid)
             {
@@ -55,77 +56,58 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            db.Entry(property).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PropertyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.UpdateProperty(property.MapTo<Property>());
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Properties
         [Route("")]
-        [ResponseType(typeof(Property))]
-        public IHttpActionResult PostProperty(Property property)
+        [ResponseType(typeof(PropertyViewModel))]
+        public IHttpActionResult PostProperty(PropertyViewModel property)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (property.ContractDate == DateTime.MinValue)
-            { property.ContractDate = DateTime.Now; }
-          
-            db.Properties.Add(property);
-            db.SaveChanges();
+
+            db.UpdateProperty(property.MapTo<Property>());
 
             return Ok(property);
         }
 
         // DELETE: api/Properties/5
         [Route("{id:int}")]
-        [ResponseType(typeof(Property))]
+        [ResponseType(typeof(void))]
         public IHttpActionResult DeleteProperty(int id)
         {
-            var property = db.Properties.Find(id);
-            if (property == null)
+            var success = db.DeleteProperty(id);
+            if (!success)
             {
                 return NotFound();
             }
 
-            var taskLists = property.PropertyTaskLists.ToList();
-            taskLists.ForEach(l =>
-            {
-                var tasks = l.PropertyTasks.ToList();
-                tasks.ForEach(t =>
-                {
-                    t.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
+            //var taskLists = property.PropertyTaskLists.ToList();
+            //taskLists.ForEach(l =>
+            //{
+            //    var tasks = l.PropertyTasks.ToList();
+            //    tasks.ForEach(t =>
+            //    {
+            //        t.PropertyTaskDetails.ToList().ForEach(d => db.PropertyTaskDetails.Remove(d));
 
-                    t.EventSchedules.ToList().ForEach(e =>
-                    {
-                        db.EventSchedules.Remove(e);
-                    });
-                    db.PropertyTasks.Remove(t);
-                });
-                db.PropertyTaskLists.Remove(l);
-            });
+            //        t.EventSchedules.ToList().ForEach(e =>
+            //        {
+            //            db.EventSchedules.Remove(e);
+            //        });
+            //        db.PropertyTasks.Remove(t);
+            //    });
+            //    db.PropertyTaskLists.Remove(l);
+            //});
 
-            db.Properties.Remove(property);
-            db.SaveChanges();
+            //db.Properties.Remove(property);
+            //db.SaveChanges();
 
-            return Ok(property);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)
@@ -135,11 +117,6 @@ namespace CMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool PropertyExists(int id)
-        {
-            return db.Properties.Count(e => e.Id == id) > 0;
         }
     }
 }

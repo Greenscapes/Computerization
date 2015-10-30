@@ -1,4 +1,4 @@
-﻿var app = angular.module("cmsApp", ['ngRoute', 'ngResource', 'ui.bootstrap']);
+﻿var app = angular.module("cmsApp", ['ngRoute', 'ngResource', 'ui.bootstrap', 'kendo.directives']);
 
 app.config([
     '$routeProvider', '$resourceProvider',
@@ -35,7 +35,11 @@ app.config([
             when('/properties/:propertyId/tasks/:taskId/schedule/new', {
                  templateUrl: 'templates/eventtasklist-create.html',
                  controller: 'EventTaskListCreateController'
-             }).
+            }).
+            when('/properties/:propertyId/tasks/:taskId/schedule/:eventTaskId', {
+                templateUrl: 'templates/eventtasklist-create.html',
+                controller: 'EventTaskListCreateController'
+            }).
             when('/properties/new', {
                 templateUrl: 'templates/property-create.html',
                 controller: 'PropertyCreateController'
