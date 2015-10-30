@@ -46,6 +46,19 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.PropertyTasks, src => src.Ignore())
                 .ForMember(dest => dest.EventSchedules, src => src.Ignore());
 
+            Mapper.CreateMap<ServiceTemplate, ServiceTemplateViewModel>();
+            Mapper.CreateMap<ServiceTemplateViewModel, ServiceTemplate>()
+                .ForMember(dest => dest.ServiceTickets, src => src.Ignore());
+
+            Mapper.CreateMap<ServiceTicket, ServiceTicketViewModel>()
+                .ForMember(dest => dest.TemplateName, src => src.Ignore())
+                .ForMember(dest => dest.TemplateUrl, src => src.Ignore());
+
+            Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()
+                .ForMember(dest => dest.ApprovedBy, src => src.Ignore())
+                .ForMember(dest => dest.PropertyTask, src => src.Ignore())
+                .ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+
             Mapper.AssertConfigurationIsValid();
         }
     }

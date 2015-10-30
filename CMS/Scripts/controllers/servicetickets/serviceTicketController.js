@@ -1,8 +1,11 @@
 ﻿function ServiceTicketController($scope, $resource, $routeParams, $location) {
     
-    var serviceTicektResource = $resource('/api/servicetickets/:serviceTicketId');
+    var resource = $resource('/api/servicetickets/:serviceTicketId',
+    { serviceTicketId: $routeParams.serviceTicketId }, {
+        'update': { method: 'PUT' }
+    });
 
-    $scope.serviceTicket = serviceTicektResource.get({ serviceTicketId: $routeParams.serviceTicketId }, function () {
+    $scope.serviceTicket = resource.get({ serviceTicketId: $routeParams.serviceTicketId }, function () {
         $scope.serviceTicket.Fields = JSON.parse($scope.serviceTicket.JsonFields);
     });
 
@@ -21,9 +24,23 @@
         list.push($scope.Item);
     }
     
-    $scope.update = function (serviceTicket) {
-        $scope.serviceTicket.Notes = JSON.stringify($scope.serviceTicket.Fields);
-    }
+    $scope.save = function () {
+        $scope.buttonsDisabled = true;
+
+        $scope.serviceTicket.JsonFields = JSON.stringify($scope.serviceTicket.Fields);
+
+        if ($routeParams.serviceTicketId > 0) {
+            resource.update({ serviceTicketId: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
+        }
+        else {
+            resource.save({ serviceTicketId: null }, $scope.serviceTicket, function () { $scope.buttonsDisabled = false; $scope.back(); }, function () { $scope.buttonsDisabled = false; });
+        }
+    };
+
+    $scope.back = function () {
+        $location.path("/");
+        if (!$scope.$$phase) $scope.$apply();
+    };
 }
 
 ServiceTicketController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

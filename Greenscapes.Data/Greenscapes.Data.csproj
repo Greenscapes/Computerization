@@ -79,8 +79,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EventTaskListRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventTaskListRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IServiceTicketRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IServiceTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyTaskRepository.cs" />
+    <Compile Include="Repositories\ServiceTicketRepository.cs" />
+    <Compile Include="Repositories\ServiceTemplateRepository.cs" />
     <Compile Include="Repositories\PropertyRepository.cs" />
     <Compile Include="Repositories\PropertyTaskRepository.cs" />
   </ItemGroup>

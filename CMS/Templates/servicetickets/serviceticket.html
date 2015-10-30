@@ -31,7 +31,7 @@
 
     <div class="form-group">
         <label for="staff">GS Staff</label>
-        <input type="text" class="form-control" autocomplete="off" id="staff" placeholder="GS Staff" ng-disabled="buttonsDisabled" ng-model="serviceTicket.ReferenceNumber">
+        <input type="text" class="form-control" autocomplete="off" id="staff" placeholder="GS Staff" ng-disabled="buttonsDisabled" ng-model="serviceTicket.Staff">
     </div>
 
     <div ng-include="serviceTicket.TemplateUrl"></div>
@@ -57,7 +57,7 @@
     </div>
 
     <p>
-        <button class="btn btn-success" ng-click="update(serviceTicket)" ng-disabled="buttonsDisabled">Save</button>
+        <button class="btn btn-success" ng-click="save()" ng-disabled="buttonsDisabled">Save</button>
     </p>
     
 </form>
