@@ -27,6 +27,8 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<PropertyTaskList> PropertyTaskLists { get; set; }
         public virtual DbSet<PropertyTaskListType> PropertyTaskListTypes { get; set; }
         public virtual DbSet<PropertyTask> PropertyTasks { get; set; }
+        public virtual DbSet<ServiceTemplate> ServiceTemplates { get; set; }
+        public virtual DbSet<ServiceTicket> ServiceTickets { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -142,6 +144,13 @@ namespace Greenscapes.Data.DataContext
                 .HasMany(e => e.PropertyTaskDetails)
                 .WithRequired(e => e.PropertyTask)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ServiceTemplate>()
+                .HasMany(e => e.ServiceTickets)
+                .WithRequired(e => e.ServiceTemplate)
+                .WillCascadeOnDelete(false);
+
+
         }
     }
 }

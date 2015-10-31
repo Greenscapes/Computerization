@@ -171,8 +171,8 @@
     <Compile Include="Controllers\PropertyTaskListsController.cs" />
     <Compile Include="Controllers\PropertyTaskListTypesController.cs" />
     <Compile Include="Controllers\PropertyTasksController.cs" />
-    <Compile Include="Controllers\ServiceTemplateController.cs" />
-    <Compile Include="Controllers\ServiceTicketController.cs" />
+    <Compile Include="Controllers\ServiceTemplatesController.cs" />
+    <Compile Include="Controllers\ServiceTicketsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WeeklySchedulesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +187,8 @@
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\PropertyTaskViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
+    <Compile Include="Models\ServiceTicketViewModel.cs" />
+    <Compile Include="Models\ServiceTemplateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

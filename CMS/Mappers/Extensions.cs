@@ -56,5 +56,36 @@ namespace CMS.Mappers
         {
             return Mapper.Map<IEnumerable<EventTaskList>, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this ServiceTemplate source) where TTarget : ServiceTemplateViewModel
+        {
+            return Mapper.Map<ServiceTemplate, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this ServiceTemplateViewModel source) where TTarget : ServiceTemplate
+        {
+            return Mapper.Map<ServiceTemplateViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTemplate> source) where TTarget : IEnumerable<ServiceTemplateViewModel>
+        {
+            return Mapper.Map<IEnumerable<ServiceTemplate>, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this ServiceTicket source) where TTarget : ServiceTicketViewModel
+        {
+            return Mapper.Map<ServiceTicket, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this ServiceTicketViewModel source) where TTarget : ServiceTicket
+        {
+            return Mapper.Map<ServiceTicketViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTicket> source) where TTarget : IEnumerable<ServiceTicketViewModel>
+        {
+            return Mapper.Map<IEnumerable<ServiceTicket>, TTarget>(source);
+        }
+
     }
 }
