@@ -124,7 +124,7 @@
             "week",
             "month",
         ],
-        timezone: "Etc/UTC",
+        timezone: "America/New_York",
         dataSource: {
             batch: false,
             transport: {
@@ -159,16 +159,20 @@
                     }
                 }
             },
+            editable: {
+                template: $("#customEditorTemplate").html(),
+            },
             schema: {
                 model: {
                     id: "taskId",
                     fields: {
                         taskId: { from: "TaskID", type: "number" },
-                        title: { from: "Title", defaultValue: "No title", validation: { required: true } },
+                        title: { from: "Title", defaultValue: $scope.eventTaskList.Name, validation: { required: true } },
                         start: { type: "date", from: "Start" },
                         end: { type: "date", from: "End" },
-                        startTimezone: { from: "StartTimezone" },
-                        endTimezone: { from: "EndTimezone" },
+                        startTimezone: { from: "StartTimezone", defaultValue: "America/New_York"
+                    },
+                        endTimezone: { from: "EndTimezone", defaultValue: "America/New_York" },
                         description: { from: "Description" },
                         recurrenceId: { from: "RecurrenceID" },
                         recurrenceRule: { from: "RecurrenceRule" },
@@ -178,26 +182,8 @@
 
                     }
                 }
-            },
-            filter: {
-                logic: "or",
-                filters: [
-                    { field: "ownerId", operator: "eq", value: 1 },
-                    { field: "ownerId", operator: "eq", value: 2 }
-                ]
             }
-        },
-        resources: [
-            {
-                field: "ownerId",
-                title: "Owner",
-                dataSource: [
-                    { text: "Alex", value: 1, color: "#f8a398" },
-                    { text: "Bob", value: 2, color: "#51a0ed" },
-                    { text: "Charlie", value: 3, color: "#56ca85" }
-                ]
-            }
-        ]
+        }
     };
 }
 

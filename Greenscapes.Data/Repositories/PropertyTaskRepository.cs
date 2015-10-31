@@ -43,6 +43,9 @@ namespace Greenscapes.Data.Repositories
 
         public bool UpdatePropertyTask(PropertyTask propertyTask)
         {
+            if (propertyTask.EventTaskListId == 0)
+                propertyTask.EventTaskListId = null;
+
             var existingTask = db.PropertyTasks.Include("Crews").FirstOrDefault(p => p.Id == propertyTask.Id);
             if (existingTask != null)
             {
@@ -83,6 +86,7 @@ namespace Greenscapes.Data.Repositories
                 return false;
 
             db.Properties.Remove(property);
+            db.SaveChanges();
             return true;
         }
 

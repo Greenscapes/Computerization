@@ -28,19 +28,19 @@
         } );
 
         $scope.taskList = taskListResource.get({}, function () {
-            for ( var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++ ) {
-                for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
-                    if ( $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId ) {
-                        $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name;
-                    }
-                }
-            }
-            if (!$scope.$$phase) $scope.$apply();
+            //for ( var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++ ) {
+            //    for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
+            //        if ( $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId ) {
+            //            $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name;
+            //        }
+            //    }
+            //}
+            //if (!$scope.$$phase) $scope.$apply();
         } );
         $scope.taskEvents = [];
-        GetEvents( $scope.task.EventSchedules );
+        //GetEvents( $scope.task.EventSchedules );
         
-            loadEvents();
+        //    loadEvents();
         
     });
      

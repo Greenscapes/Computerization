@@ -17,14 +17,14 @@
         <tr ng-repeat="eventTaskList in eventTaskLists">
             <td>
                 <input type="checkbox" ng-model="eventTaskList.checked" ng-disabled="buttonsDisabled"/>
-                <a href="#/properties/1/tasks/3/schedule/{{eventTaskList.Id}}">{{eventTaskList.Name}}</a>
+                <a href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule/{{eventTaskList.Id}}">{{eventTaskList.Name}}</a>
             </td>
             <td>
                 Mondays at 9:00am
             </td>
         </tr>
     </table>
-    <a class="btn btn-success" ng-href="#/properties/1/tasks/3/schedule/new" ng-disabled="buttonsDisabled">Create new Event Task List</a>
+    <a class="btn btn-success" ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule/new" ng-disabled="buttonsDisabled">Create new Event Task List</a>
     <!--<div id="EventScheduler">
         <div id="scheduler"></div>
     </div>

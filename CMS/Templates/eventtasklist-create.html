@@ -11,10 +11,16 @@
         <label for="inputFirstName">Name</label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="eventTaskList.Name">
     </div>
+    <div class="form-group">
+        <label for="templateSelect">Service Ticket Template</label>
+        <select name="templateSelect" id="templateSelect"
+                ng-options="template.Id as template.Name for template in templates track by template.id"
+                ng-model="eventTaskList.templateId"></select>
+    </div>
     <!--<div id="EventScheduler">
         <div id="scheduler"></div>
     </div>-->
-    <div kendo-scheduler k-options="schedulerOptions">
+    <div kendo-scheduler k-options="schedulerOptions" k-visible="eventTaskList.Id">
         <span k-event-template class='custom-event'>{{dataItem.title}}</span>
         <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
     </div>
@@ -23,3 +29,41 @@
     <br />
     <button type="submit" class="btn btn-success" ng-click="save(eventTaskList)" ng-disabled="buttonsDisabled">Save</button>
 </form>
+
+<script id="customEditorTemplate" type="text/x-kendo-template">
+    <div class="k-edit-label"><label for="title">Title</label></div>
+    <div data-container-for="title" class="k-edit-field">
+        <input type="text" class="k-input k-textbox" name="title" required="required" data-bind="value:title" value="{{eventTaskList.Name}}">
+    </div>
+    <div class="k-edit-label">
+        <label for="start">Start</label>
+    </div>
+    <div data-container-for="start" class="k-edit-field">
+        <input type="text"
+               data-role="datetimepicker"
+               data-interval="15"
+               data-type="date"
+               data-bind="value:start,invisible:isAllDay"
+               name="start" />
+        <input type="text" data-type="date" data-role="datepicker" data-bind="value:start,visible:isAllDay" name="start" />
+        <span data-for="start" class="k-invalid-msg" style="display: none;"></span>
+    </div>
+    <div class="k-edit-label"><label for="end">End</label></div>
+    <div data-container-for="end" class="k-edit-field">
+        <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <span data-for="end" class="k-invalid-msg" style="display: none;"></span>
+    </div>
+    <div class="k-edit-label"><label for="isAllDay">All day event</label></div>
+    <div data-container-for="isAllDay" class="k-edit-field">
+        <input type="checkbox" name="isAllDay" data-type="boolean" data-bind="checked:isAllDay">
+    </div>
+    <div class="k-edit-label"><label for="recurrenceRule">Repeat</label></div>
+    <div data-container-for="recurrenceRule" class="k-edit-field">
+        <div data-bind="value:recurrenceRule" name="recurrenceRule" data-role="recurrenceeditor"></div>
+    </div>
+    <div class="k-edit-label"><label for="description">Description</label></div>
+    <div data-container-for="description" class="k-edit-field">
+        <textarea name="description" class="k-textbox" data-bind="value:description"></textarea>
+    </div>
+</script>

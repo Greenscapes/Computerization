@@ -40,7 +40,7 @@
         taskResource.update({ taskId: task.Id }, task, function () {
             $scope.buttonsDisabled = false;
 
-            $location.path("/properties/1");
+            $location.path("/properties/" + $routeParams.propertyId);
             if (!$scope.$$phase) $scope.$apply();
         },
         function () {

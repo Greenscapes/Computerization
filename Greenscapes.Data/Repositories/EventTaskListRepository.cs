@@ -56,6 +56,7 @@ namespace Greenscapes.Data.Repositories
                 return false;
 
             db.EventTaskLists.Remove(taskList);
+            db.SaveChanges();
             return true;
         }
 
