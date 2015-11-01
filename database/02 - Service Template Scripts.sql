@@ -92,47 +92,83 @@ VALUES (10, 'Irrigation Inspection','/templates/servicetickets/irrigation-inspec
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (11, 'Irrigation Installation','/templates/servicetickets/irrigation-installation.html','');
+VALUES (11, 'Irrigation Installation','/templates/servicetickets/irrigation-installation.html','{
+"Zones": [],
+"DefaultZone":{"Number": 1, "Installation": ""},
+"Parts": [],
+"DefaultPart":{"Name": "", "Charge":0.00}
+ }');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (12, 'Irrigation Port of Control Installation','/templates/servicetickets/','');
+VALUES (12, 'Irrigation Port of Control Installation','/templates/servicetickets/irrigation-port.html','{
+"Clocks": [],
+"DefaultClock":{"Reference": "", "Installation": ""},
+"Parts": [],
+"DefaultPart":{"Name": "", "Charge":0.00},
+"Labor": [],
+"DefaultLabor":{"Name": "", "Charge":0.00}
+ }');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (13, 'Irrigation Quote','/templates/servicetickets/','');
+VALUES (13, 'Irrigation Quote','/templates/servicetickets/irrigation-quote.html','{
+"Zones": [],
+"DefaultZone":{"Number": 1, "Repair": ""},
+"Parts": [],
+"DefaultPart":{"Name": "", "Charge":0.00},
+"Labor": [{"Name": "Initial call out and first hour", "Charge":100.00}],
+"DefaultLabor":{"Name": "", "Charge":0.00}
+ }');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (14, 'Irrigation Repair','/templates/servicetickets/','');
+VALUES (14, 'Irrigation Repair','/templates/servicetickets/irrigation-repair.html','{
+"Zones": [],
+"DefaultZone":{"Number": 1, "Repair": ""},
+"Parts": [],
+"DefaultPart":{"Name": "", "Charge":0.00},
+"Labor": [],
+"DefaultLabor":{"Name": "", "Charge":0.00}
+ }');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (15, 'Landscape Installation or Removal or Repair Visit','/templates/servicetickets/landscape-repair.html','');
+VALUES (15, 'Landscape Installation or Removal or Repair Visit','/templates/servicetickets/landscape-repair.html','{"Tasks":[], "DefaultTask": {"Location":"", "Plantings":"", "Amount":0}}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (16, 'Mulching Visit','/templates/servicetickets/mulching.html','');
+VALUES (16, 'Mulching Visit','/templates/servicetickets/mulching.html','{"Tasks":[], "DefaultTask": {"Location":"", "Size":"", "NumberBags":0}}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (17, 'Operations Manager Quality Control Visit','/templates/servicetickets/operations-manager.html','');
+VALUES (17, 'Operations Manager Quality Control Visit','/templates/servicetickets/quality-control.html','{}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (18, 'Pruning of Palm Trees over 15ft','/templates/servicetickets/pruning-palm.html','');
+VALUES (18, 'Pruning of Palm Trees over 15ft','/templates/servicetickets/palm-pruning.html','{"CompletedPalms":[], "RemainingPalms":[], "DefaultPalm": {"Area":"", "Number":1}}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (19, 'Residential/Small Commercial Maintenance Visit','/templates/servicetickets/residential-maintenance.html','');
+VALUES (19, 'Residential/Small Commercial Maintenance Visit','/templates/servicetickets/residential-maintenance.html','{
+
+"Tasks":[],
+"DefaultTask": {"Location":"", "Mowed":false, "HardtopEdged":false, "BedEdged":false, "BlewOff":false, "DebrisCollected":false, "Comments":""},
+"Plants":[],
+"DefaultPlant":{"Location":"", "Plant":"", "Pruned":false, "Comments":""},
+"Weeds":[],
+"DefaultWeed": {"Location":"", "HandPulled":false, "Sprayed":false, "SprayedCracks":false, "Comments":""},
+"Work":[],
+"DefaultWork": {"Location":"", "FireAnt":false, "DebrisCollected":false, "BlewOff":false, "Comments":""}
+}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (20, 'Sales Visit','/templates/servicetickets/sales-visit.html','');
+VALUES (20, 'Sales Visit','/templates/servicetickets/sales-visit.html','{}');
 GO
 
 INSERT ServiceTemplates (Id, Name, Url, JsonFields) 
-VALUES (21, 'Walkthrough Record','/templates/servicetickets/walkthrough-record.html','');
+VALUES (21, 'Walkthrough Record','/templates/servicetickets/walk-through.html','{}');
 GO
 
 SET IDENTITY_INSERT ServiceTemplates OFF
