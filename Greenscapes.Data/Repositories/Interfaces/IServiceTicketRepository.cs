@@ -10,6 +10,7 @@ namespace Greenscapes.Data.Repositories.Interfaces
     public interface IServiceTicketRepository : IDisposable
     {
         ServiceTicket GetServiceTicket(int id);
+        ServiceTicket GetServiceTicket(int eventTaskListId, DateTime eventDate);
         bool UpdateServiceTicket(ServiceTicket serviceTicket);
         bool DeleteServiceTicket(int id);
     }

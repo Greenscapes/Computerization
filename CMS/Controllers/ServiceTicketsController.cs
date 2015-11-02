@@ -14,25 +14,50 @@ namespace CMS.Controllers
     [RoutePrefix("api/servicetickets")]
     public class ServiceTicketsController : ApiController
     {
-        private readonly IServiceTicketRepository db = new ServiceTicketRepository();
+        private readonly IServiceTicketRepository serviceTicketRepo = new ServiceTicketRepository();
+        private readonly IEventTaskListRepository eventTaskListRepo = new EventTaskListRepository();
+        private readonly IServiceTemplateRepository serviceTemplateRepo = new ServiceTemplateRepository();
+        private readonly IPropertyRepository propertyRepo = new PropertyRepository();
         
-        // GET: api/ServiceTickets/5
-        [Route("{id:int}")]
+        // GET: api/ServiceTickets/5/2015-10-10
+        [Route("{id:int}/{date:DateTime}")]
         [ResponseType(typeof(ServiceTicketViewModel))]
-        public IHttpActionResult GetServiceTicket(int id)
+        public IHttpActionResult GetServiceTicket(int id, DateTime date)
         {
-            var serviceTicketEntity = db.GetServiceTicket(id);
-            var serviceTicket = serviceTicketEntity.MapTo<ServiceTicketViewModel>();
-
-            if (serviceTicket == null)
+            var serviceTicket = serviceTicketRepo.GetServiceTicket(id, date);
+            var eventTaskList = eventTaskListRepo.GetEventTaskList(id);
+            
+            if (eventTaskList == null || !eventTaskList.ServiceTemplateId.HasValue)
             {
                 return NotFound();
             }
 
-            //serviceTicket.TemplateName = serviceTicketEntity.ServiceTemplate.Name;
-            //serviceTicket.TemplateUrl = serviceTicketEntity.ServiceTemplate.Url;
+            var serviceTemplate = serviceTemplateRepo.GetServiceTemplate(eventTaskList.ServiceTemplateId.Value);
 
-            return Ok(serviceTicket);
+            if (serviceTicket == null)
+            {
+                serviceTicket = new ServiceTicket();
+                serviceTicket.EventTaskListId = id;
+                serviceTicket.EventDate = date;
+                serviceTicket.VisitFromTime = DateTime.Now.Date;
+                serviceTicket.ServiceTemplateId = serviceTemplate.Id;
+                serviceTicket.JsonFields = serviceTemplate.JsonFields;
+                serviceTicketRepo.UpdateServiceTicket(serviceTicket);
+            }
+
+            var property = propertyRepo.GetProperty(eventTaskList.PropertyId);
+
+            var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
+            ticket.TemplateName = serviceTemplate.Name;
+            ticket.TemplateUrl = serviceTemplate.Url;
+            ticket.PropertyName = property.Name;
+            ticket.Address1 = property.Address1;
+            ticket.Address2 = property.Address2;
+            ticket.City = property.City;
+            ticket.State = property.State;
+            ticket.Zip = property.Zip;
+            
+            return Ok(ticket);
         }
 
         // PUT: api/servicetickets/5
@@ -50,7 +75,7 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            db.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
+            serviceTicketRepo.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -65,7 +90,7 @@ namespace CMS.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
+            serviceTicketRepo.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
 
             return Ok(serviceTicket);
         }
@@ -75,7 +100,7 @@ namespace CMS.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteServiceTicket(int id)
         {
-            var success = db.DeleteServiceTicket(id);
+            var success = serviceTicketRepo.DeleteServiceTicket(id);
             if (!success)
             {
                 return NotFound();
@@ -88,7 +113,10 @@ namespace CMS.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                serviceTicketRepo.Dispose();
+                eventTaskListRepo.Dispose();
+                serviceTemplateRepo.Dispose();
+                propertyRepo.Dispose();
             }
             base.Dispose(disposing);
         }

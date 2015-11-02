@@ -12,6 +12,18 @@ namespace CMS.Models
 
         public string TemplateUrl { get; set; }
 
+        public string PropertyName { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string Zip { get; set; }
+        
         public int ServiceTemplateId { get; set; }
 
         public int EventTaskListId { get; set; }
