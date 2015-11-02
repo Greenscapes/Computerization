@@ -104,10 +104,12 @@ namespace CMS.Controllers
                     }
                     EventDetails eventDetail = new EventDetails();
 
-                   eventDetail.EventId = eventVal.Id;
-                   eventDetail.StartTime = eventVal.StartTime;
-                   eventDetail.EndTime = eventVal.EndTime;
-                   eventDetail.ActualEndTime = eventVal.ActualEndTime;
+                    TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    
+                    eventDetail.EventId = eventVal.Id;
+                   eventDetail.StartTime = TimeZoneInfo.ConvertTimeFromUtc(eventVal.StartTime, estZone);
+                    eventDetail.EndTime = TimeZoneInfo.ConvertTimeFromUtc(eventVal.EndTime, estZone);
+                    eventDetail.ActualEndTime = eventVal.ActualEndTime;
                    eventDetail.ActualStartTime = eventVal.ActualStartTime;
                    eventDetail.IsAllDay = eventVal.IsAllDay;
                    eventDetail.RecurrenceRule = eventVal.RecurrenceRule;
@@ -168,7 +170,7 @@ namespace CMS.Controllers
                 foreach (var eventVal in eventSchedules)
                 {
                     var eventTaskLists = db.EventTaskLists.Single(pt => pt.Id == eventVal.EventTaskListId);
-                    if (eventTaskLists.Crew == null)
+                    if (eventTaskLists.Crew == null || eventTaskLists.CrewId != crewid)
                     {
                         continue;
                     }

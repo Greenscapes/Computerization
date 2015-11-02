@@ -23,9 +23,9 @@ namespace CMS.Controllers
     {
         private readonly CmsContext db = new CmsContext();
 
-        public IEnumerable<EventViewModel> GetTask([ModelBinder(typeof(Models.ModelBinders.DataSourceRequestModelBinder))] DataSourceRequest request)
+        public IEnumerable<EventViewModel> GetTask([ModelBinder(typeof(Models.ModelBinders.DataSourceRequestModelBinder))] DataSourceRequest request, int crewId)
         {
-            var data = db.EventSchedules.ToList().Select(task => new EventViewModel()
+            var data = db.EventSchedules.Where(e => e.EventTaskList.CrewId == crewId).ToList().Select(task => new EventViewModel()
             {
                 TaskID = task.Id,
                 Title = task.Title,
@@ -37,7 +37,8 @@ namespace CMS.Controllers
                 RecurrenceRule = task.RecurrenceRule,
                 RecurrenceException = task.RecurrenceException,
                 StartTimezone = task.StartTimezone,
-                EndTimezone = task.EndTimezone
+                EndTimezone = task.EndTimezone,
+                OwnerID = task.EventTaskListId
             });
 
             return data;
@@ -56,9 +57,9 @@ namespace CMS.Controllers
         }
 
         // PUT api/Task/5
-        public HttpResponseMessage PutTask(int id, EventViewModel task)
+        public HttpResponseMessage PutTask(EventViewModel task)
         {
-            if (ModelState.IsValid && id == task.TaskID)
+            if (ModelState.IsValid)
             {
                 var entity = new EventSchedule
                 {
@@ -72,7 +73,8 @@ namespace CMS.Controllers
                     RecurrenceRule = task.RecurrenceRule,
                     RecurrenceException = task.RecurrenceException,
                     RecurrenceID = task.RecurrenceID,
-                    IsAllDay = task.IsAllDay
+                    IsAllDay = task.IsAllDay,
+                    EventTaskListId = task.OwnerID ?? 0
                 };
 
                 db.EventSchedules.Attach(entity);

@@ -170,6 +170,7 @@
         var scheduler = $( "#crewscheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
+            endTime: new Date(),
             height: 600,
             //editable: false,
             selectable: true,
@@ -181,7 +182,7 @@
                  { type: CustomAgenda, title: "Crew Schedule", selected: true },
                 
             ],
-            
+            timezone: "America/New_York",
             dataSource: $scope.crewevents,
             group: {
                 resources: ["Properties"],
