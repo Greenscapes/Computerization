@@ -1,7 +1,7 @@
 ﻿function ServiceTicketController($scope, $resource, $routeParams, $location) {
     
-    var resource = $resource('/api/servicetickets/:eventTaskListId/:eventDate',
-    { eventTaskListId: $routeParams.eventTaskListId }, {
+    var resource = $resource('/api/servicetickets/:id/:eventDate',
+    { id: $routeParams.id }, {
         'update': { method: 'PUT' }
     });
 
@@ -29,12 +29,8 @@
 
         $scope.serviceTicket.JsonFields = angular.toJson($scope.serviceTicket.Fields);
 
-        if ($routeParams.eventTaskListId > 0) {
-            resource.update({ eventTaskListId: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
-        }
-        else {
-            resource.save({ eventTaskListId: null }, $scope.serviceTicket, function () { $scope.buttonsDisabled = false; $scope.back(); }, function () { $scope.buttonsDisabled = false; });
-        }
+            resource.update({ id: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
+        
     };
 
     $scope.back = function () {
