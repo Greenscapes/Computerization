@@ -12,7 +12,7 @@ namespace Greenscapes.Data.Repositories
 
         public EventTaskList GetEventTaskList(int id)
         {
-            EventTaskList eventTaskList = db.EventTaskLists.FirstOrDefault(p => p.Id == id);
+            EventTaskList eventTaskList = db.EventTaskLists.Include("PropertyTasks").FirstOrDefault(p => p.Id == id);
 
             return eventTaskList;
         }

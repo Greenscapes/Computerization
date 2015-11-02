@@ -147,7 +147,11 @@ app.config([
               when( '/customerroutes', {
                   templateUrl: 'templates/customers-routes.html',
                   controller: 'CustomersRoutesController'
-              } ).
+              }).
+            when('/creweventtasks/:taskListId', {
+                templateUrl: 'templates/creweventtasks.html',
+                controller: 'CrewEventTasksController'
+            }).
                when( '/eventnotes/:eventid', {
                    templateUrl: 'templates/eventnotes.html',
                    controller: 'EventNotesController'

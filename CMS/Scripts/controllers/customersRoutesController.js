@@ -141,7 +141,8 @@
                 recurrenceId: event.RecurrenceID,
                 recurrenceRule: event.RecurrenceRule,
                 recurrenceException: event.RecurrenceException,
-                roomId: event.PropertyId
+                roomId: event.PropertyId,
+                eventTaskListId: event.EventTaskListId
 
             } );
             $scope.crewevents.push( newEvent );
@@ -153,7 +154,8 @@
 
     function launchTicket(events) {
         var event = events[0];
-
+        $location.path('/creweventtasks/' + event.eventTaskListId);
+        if (!$scope.$$phase) $scope.$apply();
     }
 
     function loadEvents() {
@@ -191,7 +193,13 @@
                     name: "Properties",
                     dataSource: propertyLists,
                     title: "Property"
-                }
+                },
+                //{
+                //    field: "EventTaskListId",
+                //    name: "EventTaskLists",
+                //    datasource: eventTaskLists,
+                //    title: "EventTaskList"
+                //}
             ]
         } );
     }

@@ -1,0 +1,24 @@
+﻿<br />
+<h2>{{taskList.Name}} Tasks</h2>
+<p>
+    Property Name: {{property.Name}}<br />
+</p>
+<form>
+    <table class="table table-striped">
+        <tr>
+            <th></th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+        <tr ng-repeat="task in taskList.PropertyTasks">
+            <td><input type="checkbox" ng-disabled="buttonsDisabled" /></td>
+            <td>
+                {{task.Location}}
+            </td>
+            <td>
+                {{task.Description}}
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-success" ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule/new" ng-disabled="buttonsDisabled">Create Service Ticket</a>
+</form>

@@ -119,6 +119,7 @@ namespace CMS.Controllers
                    eventDetail.Title = eventVal.Title;
                    eventVal.EventTaskList =propTask;
                    eventDetail.TaskId = propTask.Id;
+                   eventDetail.EventTaskListId = eventVal.EventTaskListId;
                    eventDetail.PropertyId = propTask.Property.Id;
                    eventDetail.PropertyAddress = propTask.Property.Address1 + " "+
                                                  propTask.Property.Address2 + " "+
@@ -406,7 +407,7 @@ namespace CMS.Controllers
         public string PropertyAddress { get; set; }
         public ICollection<PropertyTaskEventNote> EventNotes { get; set; }
         public Crew Crew { get; set; }
-       
+        public int EventTaskListId { get; set; }
     }
      
 }
