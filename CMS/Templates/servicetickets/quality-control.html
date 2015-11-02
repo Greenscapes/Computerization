@@ -1,0 +1,33 @@
+﻿<h3>People Seen During Visit</h3>
+
+<div class="form-group">
+    <label for="meet-anyone">Did you meet with anyone from the property - yes or no?</label>
+    <select id="meet-anyone" class="form-control" ng-model="serviceTicket.Fields.MeetAnyone">
+        <option value="">- Select Y/N -</option>
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+</div>
+
+<div class="form-group" ng-show="serviceTicket.Fields.MeetAnyone == 'Y'">
+    <label for="who-met">Who did you meet with?</label>
+    <input id="who-met" type="text" rows="2" class="form-control" ng-model="serviceTicket.Fields.WhoMet" required>
+</div>
+
+<div class="form-group">
+    <label for="landscape-changes">Changes To Landscape</label>
+    <p class="help-block">Anything different since last visit? Any changes needed to customer record? If new horticultural work, which company did the work? Any implicaitons for our service?</p>
+    <textarea id="landscape-changes" class="form-control" rows="2" ng-model="serviceTicket.Fields.LandscapeChanges"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="potential-work">Potential Additional Services</label>
+    <p class="help-block">Did you notice any potential additional services? Did you mention it to the customer? What needs to happen next?</p>
+    <textarea id="potential-work" class="form-control" rows="2" ng-model="serviceTicket.Fields.PotentialWork"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="action">Action</label>
+    <p class="help-block">Does anything need to be cdone as a result of your visit?  If so, what?</p>
+    <textarea id="action" class="form-control" rows="2" ng-model="serviceTicket.Fields.Action"></textarea>
+</div>

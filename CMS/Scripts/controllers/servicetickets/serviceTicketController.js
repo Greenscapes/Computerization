@@ -6,7 +6,7 @@
     });
 
     $scope.serviceTicket = resource.get({ serviceTicketId: $routeParams.serviceTicketId }, function () {
-        $scope.serviceTicket.Fields = JSON.parse($scope.serviceTicket.JsonFields);
+        $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
     });
 
     $scope.Item = null;
@@ -27,7 +27,7 @@
     $scope.save = function () {
         $scope.buttonsDisabled = true;
 
-        $scope.serviceTicket.JsonFields = JSON.stringify($scope.serviceTicket.Fields);
+        $scope.serviceTicket.JsonFields = angular.toJson($scope.serviceTicket.Fields);
 
         if ($routeParams.serviceTicketId > 0) {
             resource.update({ serviceTicketId: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
