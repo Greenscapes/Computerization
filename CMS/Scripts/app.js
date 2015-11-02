@@ -157,7 +157,7 @@ app.config([
             templateUrl: 'templates/eventnotes.html',
             controller: 'EventNotesController'
         }).
-            when('/servicetickets/:serviceTicketId', {
+            when('/servicetickets/:eventTaskListId/:eventDate', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
                 controller: 'ServiceTicketController'
             }).

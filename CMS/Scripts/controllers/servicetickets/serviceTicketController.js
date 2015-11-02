@@ -1,12 +1,13 @@
 ﻿function ServiceTicketController($scope, $resource, $routeParams, $location) {
     
-    var resource = $resource('/api/servicetickets/:serviceTicketId',
-    { serviceTicketId: $routeParams.serviceTicketId }, {
+    var resource = $resource('/api/servicetickets/:eventTaskListId',
+    { eventTaskListId: $routeParams.eventTaskListId }, {
         'update': { method: 'PUT' }
     });
 
-    $scope.serviceTicket = resource.get({ serviceTicketId: $routeParams.serviceTicketId }, function () {
+    $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId }, function () {
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
+        console.log($routeParams.eventDate);
     });
 
     $scope.Item = null;
@@ -29,11 +30,11 @@
 
         $scope.serviceTicket.JsonFields = angular.toJson($scope.serviceTicket.Fields);
 
-        if ($routeParams.serviceTicketId > 0) {
-            resource.update({ serviceTicketId: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
+        if ($routeParams.eventTaskListId > 0) {
+            resource.update({ eventTaskListId: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
         }
         else {
-            resource.save({ serviceTicketId: null }, $scope.serviceTicket, function () { $scope.buttonsDisabled = false; $scope.back(); }, function () { $scope.buttonsDisabled = false; });
+            resource.save({ eventTaskListId: null }, $scope.serviceTicket, function () { $scope.buttonsDisabled = false; $scope.back(); }, function () { $scope.buttonsDisabled = false; });
         }
     };
 

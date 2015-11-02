@@ -55,10 +55,10 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.TemplateName, src => src.Ignore())
                 .ForMember(dest => dest.TemplateUrl, src => src.Ignore());
 
-            Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()
-                .ForMember(dest => dest.ApprovedBy, src => src.Ignore())
-                .ForMember(dest => dest.PropertyTask, src => src.Ignore())
-                .ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+            Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>();
+                //.ForMember(dest => dest.ApprovedBy, src => src.Ignore())
+                //.ForMember(dest => dest.PropertyTask, src => src.Ignore())
+                //.ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
 
             Mapper.AssertConfigurationIsValid();
         }

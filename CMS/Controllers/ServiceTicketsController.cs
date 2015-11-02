@@ -29,8 +29,8 @@ namespace CMS.Controllers
                 return NotFound();
             }
 
-            serviceTicket.TemplateName = serviceTicketEntity.ServiceTemplate.Name;
-            serviceTicket.TemplateUrl = serviceTicketEntity.ServiceTemplate.Url;
+            //serviceTicket.TemplateName = serviceTicketEntity.ServiceTemplate.Name;
+            //serviceTicket.TemplateUrl = serviceTicketEntity.ServiceTemplate.Url;
 
             return Ok(serviceTicket);
         }

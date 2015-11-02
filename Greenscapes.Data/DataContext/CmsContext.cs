@@ -146,9 +146,9 @@ namespace Greenscapes.Data.DataContext
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ServiceTemplate>()
-                .HasMany(e => e.ServiceTickets)
-                .WithRequired(e => e.ServiceTemplate)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.ServiceTickets);
+                //.WithRequired(e => e.ServiceTemplate)
+                //.WillCascadeOnDelete(false);
 
 
         }

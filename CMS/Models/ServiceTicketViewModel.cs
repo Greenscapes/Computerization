@@ -14,7 +14,9 @@ namespace CMS.Models
 
         public int ServiceTemplateId { get; set; }
 
-        public int PropertyTaskId { get; set; }
+        public int EventTaskListId { get; set; }
+
+        public DateTime EventDate { get; set; }
 
         public string ReferenceNumber { get; set; }
 
