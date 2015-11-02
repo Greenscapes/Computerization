@@ -15,7 +15,9 @@ namespace Greenscapes.Data.DataContext
 
         public int ServiceTemplateId { get; set; }
 
-        public int PropertyTaskId { get; set; }
+        public int EventTaskListId { get; set; }
+
+        public DateTime EventDate { get; set; }
 
         public string ReferenceNumber { get; set; }
 
@@ -35,11 +37,11 @@ namespace Greenscapes.Data.DataContext
 
         public int? Condition { get; set; }
 
-        public virtual ServiceTemplate ServiceTemplate { get; set; }
+        //public virtual ServiceTemplate ServiceTemplate { get; set; }
 
-        public virtual PropertyTask PropertyTask { get; set; }
+        //public virtual PropertyTask PropertyTask { get; set; }
 
-        public virtual Employee ApprovedBy { get; set; }
+        //public virtual Employee ApprovedBy { get; set; }
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<Employee> Employees { get; set; }

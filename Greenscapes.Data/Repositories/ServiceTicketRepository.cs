@@ -12,7 +12,7 @@ namespace Greenscapes.Data.Repositories
 
         public ServiceTicket GetServiceTicket(int id)
         {
-            ServiceTicket serviceTicket = db.ServiceTickets.Include("ServiceTemplate").Include("PropertyTask").FirstOrDefault(s => s.Id == id);
+            ServiceTicket serviceTicket = db.ServiceTickets.FirstOrDefault(s => s.Id == id);
             if (serviceTicket == null)
             {
                 return null;
@@ -26,7 +26,8 @@ namespace Greenscapes.Data.Repositories
             if (existingTicket != null)
             {
                 existingTicket.ServiceTemplateId = serviceTicket.ServiceTemplateId;
-                existingTicket.PropertyTaskId = serviceTicket.PropertyTaskId;
+                existingTicket.EventTaskListId = serviceTicket.EventTaskListId;
+                existingTicket.EventDate = serviceTicket.EventDate;
                 existingTicket.ReferenceNumber = serviceTicket.ReferenceNumber;
                 existingTicket.VisitFromTime = serviceTicket.VisitFromTime;
                 existingTicket.VisitToTime = serviceTicket.VisitToTime;
