@@ -1,0 +1,9 @@
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\Greenscapes.Business.dll
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\Greenscapes.Business.pdb
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\Greenscapes.Data.dll
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\EntityFramework.dll
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\Greenscapes.Data.pdb
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\bin\Debug\EntityFramework.xml
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\obj\Debug\Greenscapes.Business.csprojResolveAssemblyReference.cache
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\obj\Debug\Greenscapes.Business.dll
+C:\dev\greenscapes.cyberlancers.com\Greenscapes.Business\obj\Debug\Greenscapes.Business.pdb

@@ -13,14 +13,14 @@
     $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
     $scope.taskList = taskListResource.get({}, function () {
         $scope.task.PropertyTaskDetails = [];
-        for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
-            var newTaskDetail = {
-                PropertyTaskHeaderId: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id,
-                HeaderName: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name
-            };
+        //for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
+        //    var newTaskDetail = {
+        //        PropertyTaskHeaderId: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id,
+        //        HeaderName: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name
+        //    };
 
-            $scope.task.PropertyTaskDetails.push(newTaskDetail);
-        }
+        //    $scope.task.PropertyTaskDetails.push(newTaskDetail);
+        //}
         if (!$scope.$$phase) $scope.$apply();
     } );
     $scope.task.EventSchedules = [];

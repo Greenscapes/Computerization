@@ -123,7 +123,7 @@ namespace CMS.Controllers
                 db.EventSchedules.Add(entity);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, new { Data = new[] { task }, Total = 1 });
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, new[] { task });
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = task.TaskID }));
                 return response;
             }

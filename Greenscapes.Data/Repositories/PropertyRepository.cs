@@ -54,6 +54,12 @@ namespace Greenscapes.Data.Repositories
                 if (property.ContractDate == DateTime.MinValue)
                 { property.ContractDate = DateTime.Now; }
                 db.Properties.Add(property);
+
+                var propertyTaskList = new PropertyTaskList();
+                propertyTaskList.Property = property;
+                propertyTaskList.Name = "Default";
+                propertyTaskList.PropertyTaskListType = db.PropertyTaskListTypes.First();
+                db.PropertyTaskLists.Add(propertyTaskList);
             }
 
             db.SaveChanges();
@@ -68,6 +74,7 @@ namespace Greenscapes.Data.Repositories
                 return false;
 
             db.Properties.Remove(property);
+            db.SaveChanges();
             return true;
         }
 

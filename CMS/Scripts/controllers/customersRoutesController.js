@@ -4,7 +4,7 @@
     var eventNotesResource = $resource( '/api/eventnotes' );
 
 
-    var officeAddress ="3600 Country Club Dr, Jefferson City, MO 65109";
+    var officeAddress = "8000 Fruitville rd, Sarasota, FL 34240";
 
 
     var crewsResource = $resource( "/api/crews" );
@@ -151,8 +151,19 @@
 
     }
 
+    function launchTicket(events) {
+        var event = events[0];
+
+    }
+
     function loadEvents() {
 
+        var CustomAgenda = kendo.ui.AgendaView.extend({
+            endDate: function () {
+               // var date = kendo.ui.AgendaView.fn.endDate.call(this);
+                return new Date();
+            }
+        });
 
         var scheduler = $( "#crewscheduler" ).kendoScheduler( {
             date: new Date(),
@@ -160,15 +171,12 @@
             height: 600,
             //editable: false,
             selectable: true,
-            change: function(e) {
+            change: function (e) {
+                launchTicket(e.events);
                 $scope.selectState = e;
             },
             views: [
-                 { type: "agenda", selected: true },
-                "day",
-                "workWeek",
-                "week",
-                "month"
+                 { type: CustomAgenda, title: "Crew Schedule", selected: true },
                 
             ],
             
@@ -237,7 +245,7 @@
         google.maps.event.trigger( selectedMarker, 'click' );
     }
     
-    var contextMenuOpen = function ( e ) {
+    var contextMenuOpen = function (e) {
         var menu = e.sender;
         var event = e.target;
         
@@ -311,24 +319,24 @@
         dialog.open();
     };
 
-    var destroyListener = $scope.$on( 'destroyDirective', function () {
-        $scope.$destroy();
-    } );
+    //var destroyListener = $scope.$on( 'destroyDirective', function () {
+    //    $scope.$destroy();
+    //} );
 
     
 
-    $scope.$on( '$destroy', function () {
-        destroyListener();
-       // element.remove();
-        $( "#crewcontextMenu" ).remove();
-    } );
+    //$scope.$on( '$destroy', function () {
+    //    destroyListener();
+    //   // element.remove();
+    //    $( "#crewcontextMenu" ).remove();
+    //} );
 
-    $( "#crewcontextMenu" ).kendoContextMenu( {
-        filter: ".k-event, .k-scheduler-table",
-        showOn: "click",
-        select: contextMenuSelect,
-        open: contextMenuOpen
-    } );
+    //$( "#crewcontextMenu" ).kendoContextMenu( {
+    //    filter: ".k-event, .k-scheduler-table",
+    //    showOn: "click",
+    //    select: contextMenuSelect,
+    //    open: contextMenuOpen
+    //} );
 
     function scheduler_edit( e ) {
         alert("edit")
