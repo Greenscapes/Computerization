@@ -23,7 +23,7 @@
 
     $scope.taskEvents = [];
 
-  //  loadEvents();
+    //  loadEvents();
 
     function GetEvents(data) {
         for (var i = 0; i < data.length; i++) {
@@ -50,6 +50,11 @@
 
     }
 
+    $scope.back = function () {
+        $location.path("/properties/" + $routeParams.propertyId + "/tasks/" + $routeParams.taskId + "/schedule");// + "/tasklists/" + $routeParams.taskListId);
+        if (!$scope.$$phase) $scope.$apply();
+    };
+
     function loadEvents() {
 
         var scheduler = $("#scheduler").kendoScheduler({
@@ -70,11 +75,11 @@
 
     $scope.save = function (eventTaskList) {
         $scope.buttonsDisabled = true;
-  //      var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
- //       SetEventSchedules(scheduler._data);
+        //      var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+        //       SetEventSchedules(scheduler._data);
         eventTaskList.PropertyId = $routeParams.propertyId;
         eventTaskList.CrewId = $scope.task.Crews[0].Id;
-        
+
         if (!eventTaskList.ServiceTemplateId) {
             alert("You must select a service tempalte");
             return;
@@ -82,10 +87,10 @@
 
         var response = eventTaskListResource.save(eventTaskList, function () {
             $scope.buttonsDisabled = false;
-                $scope.eventTaskList = response;
-                // $scope.back();
-                // if (!$scope.$$phase) $scope.$apply();
-            },
+            $scope.eventTaskList = response;
+            // $scope.back();
+            // if (!$scope.$$phase) $scope.$apply();
+        },
             function () {
                 $scope.buttonsDisabled = false;
             });
@@ -205,7 +210,7 @@
                 }
             }
         };
-    }    
+    }
 }
 
 EventTaskListCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

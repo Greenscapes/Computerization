@@ -2,8 +2,8 @@
     var propertiesResource = $resource('/api/properties');
 
     $scope.property = {};
-  
-    $scope.property.State = "FL"
+
+    $scope.property.State = "FL";
     $scope.save = function(property) {
         $scope.buttonsDisabled = true;
        
@@ -13,7 +13,7 @@
                 $scope.back();
             },
             function(error) {
-                _showValidationErrors($scope, error)
+                _showValidationErrors($scope, error);
                 $scope.buttonsDisabled = false;
             },
 
@@ -32,8 +32,9 @@
     {
         $scope.validationErrors = [];
         if (error.data && angular.isObject(error.data)) {
-            for (var key in error.data);
-            $scope.validationErrors.push(error.data[key]);
+            //for (var key in error.data) {
+            //    $scope.validationErrors.push(error.data[key]);
+            //}
         }
         else {
             $scope.validationErrors.push("Could not add property");
@@ -43,9 +44,6 @@
     
     $(document).ready(function () {
         $('#datetimepicker').datepicker({
-            format: 'mm-dd-yyyy',
-
-
         }
 
         );
@@ -53,12 +51,13 @@
 
         var month = d.getMonth() + 1;
         var day = d.getDate();
+        var year = d.getFullYear();
 
-        var output = d.getFullYear() + '/' +
+        var output =
         (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day;
+        (day < 10 ? '0' : '') + day + '/' + year;
 
-        $("#datetimepicker").val(output + " 00:01:00");
+        $("#datetimepicker").val(output);
 
         $('#datetimepicker').on('changeDate', function (ev) {
             ('#datetimepicker').valueOf(ev.target.value);

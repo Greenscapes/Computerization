@@ -34,12 +34,17 @@
         taskResource.update({ taskId: task.Id }, task, function () {
             $scope.buttonsDisabled = false;
 
-            $location.path("/properties/1");
+            $location.path("/properties/" + $routeParams.propertyId);
             if (!$scope.$$phase) $scope.$apply();
         },
         function () {
             $scope.buttonsDisabled = false;
         });
+    };
+
+    $scope.back = function () {
+        $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
+        if (!$scope.$$phase) $scope.$apply();
     };
 }
 
