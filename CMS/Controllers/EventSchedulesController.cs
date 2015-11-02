@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System.Globalization;
+using Greenscapes.Business.Services;
 using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Models;
 
@@ -80,25 +81,28 @@ namespace CMS.Controllers
                 DateTime to = GetLastDayOfWeek(selectedDate,null);
                 List<EventDetails> eventDetails = new List<EventDetails>();
 
-                var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from)||
-                                                                   (ev.StartTime <= to) && (ev.EndTime >= to)||
-                                                                    (ev.StartTime >= from) && (ev.EndTime <= to)
+                //var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from)||
+                //                                                   (ev.StartTime <= to) && (ev.EndTime >= to)||
+                //                                                    (ev.StartTime >= from) && (ev.EndTime <= to)
                                                                     
-                    ).OrderBy(e=>e.StartTime).ToList();
+                //    ).OrderBy(e=>e.StartTime).ToList();
            
+                var service = new EventService();
+                var eventSchedules = service.GetEventsForCrewForDay(from, crewid);
+
                foreach (var eventVal in eventSchedules)
                {
-                   EventTaskList propTask = db.EventTaskLists.Single(pt => pt.Id == eventVal.EventTaskListId);
-                   if(propTask.Crew == null)
-                   {
-                       continue;
-                   }
-                   Crew crewVal = propTask.Crew;
-                   if(crewVal == null)
-                   {
-                       continue;
-                   }
-                   EventDetails eventDetail = new EventDetails();
+                    EventTaskList propTask = db.EventTaskLists.Include("Crew").Include("Property").Single(pt => pt.Id == eventVal.EventTaskListId);
+                    if (propTask.Crew == null)
+                    {
+                        continue;
+                    }
+                    Crew crewVal = propTask.Crew;
+                    if (crewVal == null)
+                    {
+                        continue;
+                    }
+                    EventDetails eventDetail = new EventDetails();
 
                    eventDetail.EventId = eventVal.Id;
                    eventDetail.StartTime = eventVal.StartTime;
@@ -124,7 +128,7 @@ namespace CMS.Controllers
 
                    eventDetail.PropertyName = eventVal.EventTaskList.Property.Name;
                    eventDetail.PropertyRefNumber = eventVal.EventTaskList.Property.PropertyRefNumber;
-                   eventDetail.Crew=crewVal;
+               //    eventDetail.Crew=crewVal;
                    if (eventVal.PropertyTaskEventNotes != null)
                    {
                        eventDetail.EventNotes = eventVal.PropertyTaskEventNotes;

@@ -60,6 +60,11 @@ namespace Greenscapes.Data.Repositories
             return true;
         }
 
+        public List<EventTaskList> GetEventTaskListsForCrew(int crewId)
+        {
+            return db.EventTaskLists.Where(e => e.CrewId == crewId).ToList();
+        }
+
         public void Dispose()
         {
             db.Dispose();

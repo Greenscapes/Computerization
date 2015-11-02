@@ -14,8 +14,8 @@
     <div class="form-group">
         <label for="templateSelect">Service Ticket Template</label>
         <select name="templateSelect" id="templateSelect"
-                ng-options="template.Id as template.Name for template in templates track by template.id"
-                ng-model="eventTaskList.templateId"></select>
+                ng-options="template.Id as template.Name for template in templates"
+                ng-model="eventTaskList.ServiceTemplateId"></select>
     </div>
     <!--<div id="EventScheduler">
         <div id="scheduler"></div>

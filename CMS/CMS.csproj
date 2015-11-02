@@ -1456,6 +1456,10 @@
     <None Include="Properties\PublishProfiles\Development.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Greenscapes.Business\Greenscapes.Business.csproj">
+      <Project>{ac11487d-2876-4209-9e27-7ff467f3a29a}</Project>
+      <Name>Greenscapes.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Greenscapes.Data\Greenscapes.Data.csproj">
       <Project>{d5e1e526-7823-464f-ab6f-2f0eec4c0a3a}</Project>
       <Name>Greenscapes.Data</Name>

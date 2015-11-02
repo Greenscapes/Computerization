@@ -5,6 +5,7 @@
     { taskId: $routeParams.taskId });
     var eventTaskListResource = $resource('/api/eventtasklists');
     var eventTaskListResourceGet = $resource('/api/eventtasklists/:taskListId');
+    var serviceTemplateResource = $resource('/api/servicetemplates');
 
     var today = new Date();
 
@@ -16,6 +17,8 @@
      //       GetEvents($scope.crewEventSchedules);
         });
     });
+
+    $scope.templates = serviceTemplateResource.query();
 
     if ($routeParams.eventTaskId) {
         $scope.eventTaskList = eventTaskListResourceGet.get({ taskListId: $routeParams.eventTaskId });

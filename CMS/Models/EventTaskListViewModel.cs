@@ -15,6 +15,8 @@ namespace CMS.Models
 
         public int CrewId { get; set; }
 
+        public int ServiceTemplateId { get; set; }
+
         [StringLength(255)]
         public string Name { get; set; }
     }
