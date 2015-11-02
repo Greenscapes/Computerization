@@ -1,13 +1,12 @@
 ﻿function ServiceTicketController($scope, $resource, $routeParams, $location) {
     
-    var resource = $resource('/api/servicetickets/:eventTaskListId',
+    var resource = $resource('/api/servicetickets/:eventTaskListId/:eventDate',
     { eventTaskListId: $routeParams.eventTaskListId }, {
         'update': { method: 'PUT' }
     });
 
-    $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId }, function () {
+    $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId, eventDate: $routeParams.eventDate }, function () {
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
-        console.log($routeParams.eventDate);
     });
 
     $scope.Item = null;

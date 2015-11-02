@@ -19,6 +19,16 @@ namespace Greenscapes.Data.Repositories
             }
             return serviceTicket;
         }
+
+        public ServiceTicket GetServiceTicket(int eventTaskListId, DateTime eventDate)
+        {
+            ServiceTicket serviceTicket = db.ServiceTickets.FirstOrDefault(s => s.EventTaskListId == eventTaskListId && s.EventDate == eventDate);
+            if (serviceTicket == null)
+            {
+                return null;
+            }
+            return serviceTicket;
+        }
         
         public bool UpdateServiceTicket(ServiceTicket serviceTicket)
         {

@@ -53,7 +53,14 @@ namespace CMS.Mappers
 
             Mapper.CreateMap<ServiceTicket, ServiceTicketViewModel>()
                 .ForMember(dest => dest.TemplateName, src => src.Ignore())
-                .ForMember(dest => dest.TemplateUrl, src => src.Ignore());
+                .ForMember(dest => dest.TemplateUrl, src => src.Ignore())
+                .ForMember(dest => dest.PropertyName, src => src.Ignore())
+                .ForMember(dest => dest.Address1, src => src.Ignore())
+                .ForMember(dest => dest.Address2, src => src.Ignore())
+                .ForMember(dest => dest.City, src => src.Ignore())
+                .ForMember(dest => dest.State, src => src.Ignore())
+                .ForMember(dest => dest.Zip, src => src.Ignore());
+
 
             Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>();
                 //.ForMember(dest => dest.ApprovedBy, src => src.Ignore())
