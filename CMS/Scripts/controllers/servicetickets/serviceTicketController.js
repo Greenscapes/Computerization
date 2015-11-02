@@ -37,6 +37,26 @@
         $location.path("/");
         if (!$scope.$$phase) $scope.$apply();
     };
+
+    $(document).ready(function () {
+        $('#datetimepicker').datepicker();
+        var d = new Date();
+
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var year = d.getFullYear();
+
+        var output =
+        (month < 10 ? '0' : '') + month + '/' +
+        (day < 10 ? '0' : '') + day + '/' + year;
+
+        $("#datetimepicker").val(output);
+
+        $('#datetimepicker').on('changeDate', function (ev) {
+            ('#datetimepicker').valueOf(ev.target.value);
+            $scope.serviceTicket.VisitFrom = ev.target.value;
+        });
+    });
 }
 
 ServiceTicketController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
