@@ -173,6 +173,7 @@
     <Compile Include="Controllers\PropertyTasksController.cs" />
     <Compile Include="Controllers\ServiceTemplatesController.cs" />
     <Compile Include="Controllers\ServiceTicketsController.cs" />
+    <Compile Include="Controllers\TaskTemplateController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WeeklySchedulesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +190,7 @@
     <Compile Include="Models\PropertyViewModel.cs" />
     <Compile Include="Models\ServiceTicketViewModel.cs" />
     <Compile Include="Models\ServiceTemplateViewModel.cs" />
+    <Compile Include="Models\TaskTemplateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +548,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="partials\sortBy.html" />
     <Content Include="Scripts\angular-google-maps-street-view.js" />
     <Content Include="Scripts\angular-google-maps-street-view.min.js" />
     <Content Include="Scripts\angular-google-maps.js" />
@@ -598,6 +601,8 @@
     <Content Include="Scripts\controllers\taskListTypeDetailController.js" />
     <Content Include="Scripts\controllers\tasklistsController.js" />
     <Content Include="Scripts\controllers\crewListsController.js" />
+    <Content Include="Scripts\controllers\taskTemplateCreateController.js" />
+    <Content Include="Scripts\controllers\taskTemplatesController.js" />
     <Content Include="Scripts\controllers\typesController.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -625,6 +630,7 @@
     <Content Include="Content\kendoui\images\kendoui.woff" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\daypilot-all.min.js" />
+    <Content Include="Scripts\directives\sortBy.js" />
     <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -1326,6 +1332,8 @@
     <Content Include="Templates\tasklists.html" />
     <Content Include="Templates\crewlists.html" />
     <Content Include="Templates\eventtasklists.html" />
+    <Content Include="Templates\tasktemplate-create.html" />
+    <Content Include="Templates\taskTemplates.html" />
     <Content Include="Templates\types.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

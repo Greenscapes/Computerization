@@ -30,6 +30,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<ServiceTemplate> ServiceTemplates { get; set; }
         public virtual DbSet<ServiceTicket> ServiceTickets { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
+        public virtual DbSet<TaskTemplate> TaskTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

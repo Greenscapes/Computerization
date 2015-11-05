@@ -38,7 +38,8 @@ namespace CMS
                 "~/Scripts/app.js",
                 "~/Scripts/services/authenticationService.js",
                 "~/Scripts/services/modalService.js")
-                .IncludeDirectory("~/Scripts/controllers", "*.js", true));
+                .IncludeDirectory("~/Scripts/controllers", "*.js", true)
+                .IncludeDirectory("~/Scripts/directives", "*.js", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",

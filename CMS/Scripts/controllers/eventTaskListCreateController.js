@@ -1,23 +1,30 @@
 ﻿function EventTaskListCreateController($scope, $resource, $routeParams, $location) {
     var propertyResource = $resource('/api/properties/:propertyId');
-    var taskResource = $resource('/api/tasks/:taskId',
-    { taskId: $routeParams.taskId });
+    //var taskResource = $resource('/api/tasks/:taskId',
+    //{ taskId: $routeParams.taskId });
     var eventTaskListResource = $resource('/api/eventtasklists');
     var eventTaskListResourceGet = $resource('/api/eventtasklists/:taskListId');
     var serviceTemplateResource = $resource('/api/servicetemplates');
-
+    var crewsResource = $resource("/api/crews");
     var today = new Date();
 
     $scope.eventTaskList = {};
     $scope.eventTaskList.EventSchedules = [];
     $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
-    $scope.task = taskResource.get({ taskId: $routeParams.taskId }, function () {
-        if ($routeParams.eventTaskId) {
-            $scope.eventTaskList = eventTaskListResourceGet.get({ taskListId: $routeParams.eventTaskId }, function () {
-                setSchedulerOptions();
-            });
-        }
-    });
+    if ($routeParams.eventTaskId) {
+        $scope.eventTaskList = eventTaskListResourceGet.get({ taskListId: $routeParams.eventTaskId }, function () {
+            setSchedulerOptions();
+        });
+    }
+    $scope.crews = crewsResource.query({});
+
+    //$scope.task = taskResource.get({ taskId: $routeParams.taskId }, function () {
+    //    if ($routeParams.eventTaskId) {
+    //        $scope.eventTaskList = eventTaskListResourceGet.get({ taskListId: $routeParams.eventTaskId }, function () {
+    //            setSchedulerOptions();
+    //        });
+    //    }
+    //});
 
     $scope.templates = serviceTemplateResource.query();
 
@@ -51,7 +58,7 @@
     }
 
     $scope.back = function () {
-        $location.path("/properties/" + $routeParams.propertyId + "/tasks/" + $routeParams.taskId + "/schedule");// + "/tasklists/" + $routeParams.taskListId);
+        $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
         if (!$scope.$$phase) $scope.$apply();
     };
 
@@ -78,7 +85,7 @@
         //      var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
         //       SetEventSchedules(scheduler._data);
         eventTaskList.PropertyId = $routeParams.propertyId;
-        eventTaskList.CrewId = $scope.task.Crews[0].Id;
+      //  eventTaskList.CrewId = $scope.task.Crews[0].Id;
 
         if (!eventTaskList.ServiceTemplateId) {
             alert("You must select a service tempalte");
@@ -88,7 +95,7 @@
         var response = eventTaskListResource.save(eventTaskList, function () {
             $scope.buttonsDisabled = false;
             $scope.eventTaskList = response;
-            // $scope.back();
+            // $scope.back();ba
             // if (!$scope.$$phase) $scope.$apply();
         },
             function () {
@@ -198,7 +205,8 @@
                                 from: "StartTimezone", defaultValue: "America/New_York"
                             },
                             endTimezone: { from: "EndTimezone", defaultValue: "America/New_York" },
-                            description: { from: "Description", defaultValue: "Crew: " + $scope.task.Crews[0].Name },
+                            description: { from: "Description", defaultValue: "Crew: " + $scope.eventTaskList.Crew.Name
+                        },
                             recurrenceId: { from: "RecurrenceID" },
                             recurrenceRule: { from: "RecurrenceRule" },
                             recurrenceException: { from: "RecurrenceException" },

@@ -21,5 +21,6 @@ namespace CMS.Models
         public string Name { get; set; }
 
         public List<PropertyTaskViewModel> PropertyTasks { get; set; } 
+        public CrewViewModel Crew { get; set; }
     }
 }

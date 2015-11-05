@@ -28,6 +28,7 @@ namespace CMS.Models
 
         public string ScheduleName { get; set; }
 
-        public List<CrewViewModel> Crews { get; set; } 
+        //     public List<CrewViewModel> Crews { get; set; } 
+        public CrewViewModel Crew { get; set; }
     }
 }

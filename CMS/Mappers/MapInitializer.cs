@@ -26,12 +26,14 @@ namespace CMS.Mappers
 
             Mapper.CreateMap<PropertyTask, PropertyTaskViewModel>()
                 .ForMember(dest => dest.ScheduleName,
-                    src => src.MapFrom(s => s.EventTaskList != null ? s.EventTaskList.Name : "Schedule Task"));
+                    src => src.MapFrom(s => s.EventTaskList != null ? s.EventTaskList.Name : ""))
+                .ForMember(dest => dest.Crew, src => src.MapFrom(s => s.EventTaskList.Crew));
 
             Mapper.CreateMap<PropertyTaskViewModel, PropertyTask>()
                 .ForMember(dest => dest.EventTaskList, src => src.Ignore())
                 .ForMember(dest => dest.PropertyTaskDetails, src => src.Ignore())
-                .ForMember(dest => dest.PropertyTaskList, src => src.Ignore());
+                .ForMember(dest => dest.PropertyTaskList, src => src.Ignore())
+                .ForMember(dest => dest.Crews, src => src.Ignore());
 
             Mapper.CreateMap<Crew, CrewViewModel>();
             Mapper.CreateMap<CrewViewModel, Crew>()
@@ -63,9 +65,12 @@ namespace CMS.Mappers
 
 
             Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>();
-                //.ForMember(dest => dest.ApprovedBy, src => src.Ignore())
-                //.ForMember(dest => dest.PropertyTask, src => src.Ignore())
-                //.ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+            //.ForMember(dest => dest.ApprovedBy, src => src.Ignore())
+            //.ForMember(dest => dest.PropertyTask, src => src.Ignore())
+            //.ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+
+            Mapper.CreateMap<TaskTemplate, TaskTemplateViewModel>();
+            Mapper.CreateMap<TaskTemplateViewModel, TaskTemplate>();
 
             Mapper.AssertConfigurationIsValid();
         }

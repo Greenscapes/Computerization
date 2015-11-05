@@ -5,12 +5,17 @@
     });
     var propertyResource = $resource('/api/properties/:propertyId');
     var tasksResource = $resource( '/api/tasks' );
+    var locationsResource = $resource('/api/tasks/locations/:propertyId');
 
     var eventschedulesResource = $resource( '/api/eventschedules' );
-  
+    var taskTemplateResource = $resource('/api/taskTemplates/');
+
+    $scope.taskTemplates = taskTemplateResource.query({});
 
     $scope.task = {};
+    $scope.selectedTemplate = {};
     $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
+    $scope.locations = locationsResource.query({ propertyId: $routeParams.propertyId });
     $scope.taskList = taskListResource.get({}, function () {
         $scope.task.PropertyTaskDetails = [];
         //for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
@@ -57,6 +62,14 @@
             };
         }
 
+        $scope.templateSelected = function() {
+            if ($scope.selectedTemplate) {
+                $scope.task.Description = $scope.selectedTemplate.Description;
+                $scope.task.EstimatedDuration = $scope.selectedTemplate.EstimatedDuration;
+                $scope.task.Notes = $scope.selectedTemplate.Notes;
+                $scope.task.IsFreeService = $scope.selectedTemplate.IsFreeService;
+            }
+        }
       
         var scheduler = $( "#taskCreatescheduler" ).kendoScheduler( {
             date: new Date( ),

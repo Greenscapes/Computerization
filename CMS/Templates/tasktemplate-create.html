@@ -1,0 +1,26 @@
+﻿<br />
+<h2>New Task Template</h2><br /><br />
+
+<form>
+    <div class="form-group">
+        <label for="inputDescription">Task</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description">
+    </div>
+    <div class="form-group">
+        <label for="inputDuration">Duration</label>
+        <input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration">
+    </div>
+    <div class="form-group">
+        <label for="inputNotes">Notes</label>
+        <input type="text" class="form-control full-size" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
+    </div>
+    <div class="form-group">
+        <input type="checkbox" ng-model="task.IsFreeService" ng-disabled="buttonsDisabled" />IsFreeService
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success" ng-click="save(task)" ng-disabled="buttonsDisabled">Save</button>
+    <br />
+    <label class="has-error">{{ErrorLabel}}</label>
+
+    <br />
+</form>

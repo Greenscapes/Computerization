@@ -22,7 +22,8 @@ namespace CMS.Mappers
             return Mapper.Map<PropertyViewModel, TTarget>(source);
         }
 
-        public static TTarget MapTo<TTarget>(this IEnumerable<Property> source) where TTarget : IEnumerable<PropertyViewModel>
+        public static TTarget MapTo<TTarget>(this IEnumerable<Property> source)
+            where TTarget : IEnumerable<PropertyViewModel>
         {
             return Mapper.Map<IEnumerable<Property>, TTarget>(source);
         }
@@ -37,7 +38,8 @@ namespace CMS.Mappers
             return Mapper.Map<PropertyTaskViewModel, TTarget>(source);
         }
 
-        public static TTarget MapTo<TTarget>(this IEnumerable<PropertyTask> source) where TTarget : IEnumerable<PropertyTaskViewModel>
+        public static TTarget MapTo<TTarget>(this IEnumerable<PropertyTask> source)
+            where TTarget : IEnumerable<PropertyTaskViewModel>
         {
             return Mapper.Map<IEnumerable<PropertyTask>, TTarget>(source);
         }
@@ -52,7 +54,8 @@ namespace CMS.Mappers
             return Mapper.Map<EventTaskListViewModel, TTarget>(source);
         }
 
-        public static TTarget MapTo<TTarget>(this IEnumerable<EventTaskList> source) where TTarget : IEnumerable<EventTaskListViewModel>
+        public static TTarget MapTo<TTarget>(this IEnumerable<EventTaskList> source)
+            where TTarget : IEnumerable<EventTaskListViewModel>
         {
             return Mapper.Map<IEnumerable<EventTaskList>, TTarget>(source);
         }
@@ -67,7 +70,8 @@ namespace CMS.Mappers
             return Mapper.Map<ServiceTemplateViewModel, TTarget>(source);
         }
 
-        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTemplate> source) where TTarget : IEnumerable<ServiceTemplateViewModel>
+        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTemplate> source)
+            where TTarget : IEnumerable<ServiceTemplateViewModel>
         {
             return Mapper.Map<IEnumerable<ServiceTemplate>, TTarget>(source);
         }
@@ -82,10 +86,26 @@ namespace CMS.Mappers
             return Mapper.Map<ServiceTicketViewModel, TTarget>(source);
         }
 
-        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTicket> source) where TTarget : IEnumerable<ServiceTicketViewModel>
+        public static TTarget MapTo<TTarget>(this IEnumerable<ServiceTicket> source)
+            where TTarget : IEnumerable<ServiceTicketViewModel>
         {
             return Mapper.Map<IEnumerable<ServiceTicket>, TTarget>(source);
         }
 
+        public static TTarget MapTo<TTarget>(this TaskTemplate source) where TTarget : TaskTemplateViewModel
+        {
+            return Mapper.Map<TaskTemplate, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this TaskTemplateViewModel source) where TTarget : TaskTemplate
+        {
+            return Mapper.Map<TaskTemplateViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<TaskTemplate> source)
+            where TTarget : IEnumerable<TaskTemplateViewModel>
+        {
+            return Mapper.Map<IEnumerable<TaskTemplate>, TTarget>(source);
+        }
     }
 }
