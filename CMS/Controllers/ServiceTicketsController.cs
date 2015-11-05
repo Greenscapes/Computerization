@@ -33,20 +33,26 @@ namespace CMS.Controllers
             }
 
             var serviceTemplate = serviceTemplateRepo.GetServiceTemplate(eventTaskList.ServiceTemplateId.Value);
+            var property = propertyRepo.GetProperty(eventTaskList.PropertyId);
 
+            if (serviceTemplate == null || property == null)
+            {
+                return NotFound();
+            }
+            
             if (serviceTicket == null)
             {
                 serviceTicket = new ServiceTicket();
                 serviceTicket.EventTaskListId = id;
                 serviceTicket.EventDate = date;
-                serviceTicket.VisitFromTime = DateTime.Now.Date;
+                serviceTicket.VisitFromTime = DateTime.Today.AddHours(8);
+                serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
                 serviceTicket.ServiceTemplateId = serviceTemplate.Id;
                 serviceTicket.JsonFields = serviceTemplate.JsonFields;
+                serviceTicket.ReferenceNumber = property.PropertyRefNumber;
                 serviceTicketRepo.UpdateServiceTicket(serviceTicket);
             }
-
-            var property = propertyRepo.GetProperty(eventTaskList.PropertyId);
-
+                        
             var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
             ticket.TemplateName = serviceTemplate.Name;
             ticket.TemplateUrl = serviceTemplate.Url;
@@ -56,7 +62,7 @@ namespace CMS.Controllers
             ticket.City = property.City;
             ticket.State = property.State;
             ticket.Zip = property.Zip;
-            
+
             return Ok(ticket);
         }
 

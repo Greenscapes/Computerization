@@ -39,8 +39,8 @@ namespace Greenscapes.Data.Repositories
                 existingTicket.EventTaskListId = serviceTicket.EventTaskListId;
                 existingTicket.EventDate = serviceTicket.EventDate;
                 existingTicket.ReferenceNumber = serviceTicket.ReferenceNumber;
-                existingTicket.VisitFromTime = serviceTicket.VisitFromTime;
-                existingTicket.VisitToTime = serviceTicket.VisitToTime;
+                existingTicket.VisitFromTime = serviceTicket.VisitFromTime.Value.ToLocalTime();
+                existingTicket.VisitToTime = serviceTicket.VisitToTime.Value.ToLocalTime();
                 existingTicket.Staff = serviceTicket.Staff;
                 existingTicket.JsonFields = serviceTicket.JsonFields;
                 existingTicket.ApprovedById = serviceTicket.ApprovedById;
