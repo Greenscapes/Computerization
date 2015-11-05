@@ -1,0 +1,16 @@
+﻿<br />
+<h2>Task Templates</h2>
+<form>
+    <table class="table table-striped">
+        <tr>
+            <th>Task</th>
+        </tr>
+        <tr ng-repeat="task in tasks">
+            <td>
+                <input type="checkbox" ng-model="task.checked" ng-disabled="buttonsDisabled" />
+                <a href="#/tasktemplates/{{task.Id}}">{{task.Description}}</a>
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-success" ng-href="#/tasktemplates/new" ng-disabled="buttonsDisabled">Create new Task</a>
+</form>

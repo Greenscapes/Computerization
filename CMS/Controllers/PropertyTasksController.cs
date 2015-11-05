@@ -30,6 +30,12 @@ namespace CMS.Controllers
             return db.GetPropertyTasksForProperty(propertyId).MapTo<IEnumerable<PropertyTaskViewModel>>();
         }
 
+        [Route("~/api/tasks/locations/{propertyId:int}")]
+        public IEnumerable<string> GetTaskLocations(int propertyId)
+        {
+            return db.GetPropertyTasksForProperty(propertyId).MapTo<IEnumerable<PropertyTaskViewModel>>().Select(p => p.Location).Distinct();
+        }
+
         // GET: api/PropertyTasks/5
         [Route("{id:int}")]
         [ResponseType(typeof(PropertyTaskViewModel))]

@@ -11,7 +11,7 @@
     $scope.crews = crewsResource.query( function () { } );
     $scope.selectedDate = new Date();
     $scope.addressList = [];
-    var propertyLists=[]
+    var propertyLists = [];
     var infoWindow = new google.maps.InfoWindow();
     var geocoder = new google.maps.Geocoder();
     var directionsService = new google.maps.DirectionsService();
@@ -27,9 +27,8 @@
         expandMode: "single"
     } );
 
-    var directionsDisplay = new google.maps.DirectionsRenderer( { map: $scope.map } );
-
-    $scope.map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
+    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var directionsDisplay = new google.maps.DirectionsRenderer({ map: $scope.map });
 
     $scope.markers = [];
 
@@ -84,6 +83,16 @@
             }
             propertyLists = uniquePropertyList(propertyLists);
             
+            var waypts = [];
+            for (var i = 0; i < $scope.addressList.length; i++) {
+                waypts.push({
+                    location: $scope.addressList[i].address,
+                    stopover: false
+                });
+            }
+           
+            calculateAndDisplayRoute(directionsService, directionsDisplay, waypts);
+
             //Office Address
             GetEvents( $scope.eventdetaillist );
             loadEvents();
@@ -141,7 +150,8 @@
                 recurrenceId: event.RecurrenceID,
                 recurrenceRule: event.RecurrenceRule,
                 recurrenceException: event.RecurrenceException,
-                roomId: event.PropertyId
+                roomId: event.PropertyId,
+                eventTaskListId: event.EventTaskListId
 
             } );
             $scope.crewevents.push( newEvent );
@@ -153,7 +163,8 @@
 
     function launchTicket(events) {
         var event = events[0];
-
+        $location.path('/creweventtasks/' + event.eventTaskListId);
+        if (!$scope.$$phase) $scope.$apply();
     }
 
     function loadEvents() {
@@ -168,6 +179,7 @@
         var scheduler = $( "#crewscheduler" ).kendoScheduler( {
             date: new Date(),
             startTime: new Date(),
+            endTime: new Date(),
             height: 600,
             //editable: false,
             selectable: true,
@@ -179,7 +191,7 @@
                  { type: CustomAgenda, title: "Crew Schedule", selected: true },
                 
             ],
-            
+            timezone: "America/New_York",
             dataSource: $scope.crewevents,
             group: {
                 resources: ["Properties"],
@@ -191,55 +203,78 @@
                     name: "Properties",
                     dataSource: propertyLists,
                     title: "Property"
-                }
+                },
+                //{
+                //    field: "EventTaskListId",
+                //    name: "EventTaskLists",
+                //    datasource: eventTaskLists,
+                //    title: "EventTaskList"
+                //}
             ]
         } );
     }
    
     function codeAddress( addressdetails ) {
 
-        geocoder.geocode( { 'address': addressdetails.address }, function ( results, status ) {
-            if ( status == google.maps.GeocoderStatus.OK ) {
+        geocoder.geocode({ 'address': addressdetails.address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
                 // $scope.map.setCenter( results[0].geometry.location );
-                var marker = new google.maps.Marker( {
+                var marker = new google.maps.Marker({
                     map: $scope.map,
                     position: results[0].geometry.location
-                } );
-                if ( addressdetails.isFirstpoint ) {
+                });
+                if (addressdetails.isFirstpoint) {
                     marker.icon = '~/Content/action.ico';
                 }
-                path.push( results[0].geometry.location );
+                path.push(results[0].geometry.location);
                 var enddate =
                 marker.title = '<div >' + addressdetails.address + '</div>';
                 marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime + '<br>End Time :' + addressdetails.endtime + '</div>';
 
-                google.maps.event.addListener( marker, 'click', function () {
-                    infoWindow.setContent( '<h2>' + marker.title + '</h2>' + marker.content );
-                    infoWindow.open( $scope.map, marker );
-                } );
-                $scope.markers.push( marker );
+                google.maps.event.addListener(marker, 'click', function () {
+                    infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                    infoWindow.open($scope.map, marker);
+                });
+                $scope.markers.push(marker);
                 var bounds = new google.maps.LatLngBounds();
-                for ( i = 0; i < $scope.markers.length ; i++ ) {
-                    bounds.extend( $scope.markers[i].position )
+                for (i = 0; i < $scope.markers.length ; i++) {
+                    bounds.extend($scope.markers[i].position)
                 }
-                var polyline = new google.maps.Polyline( {
-                    map: $scope.map,
-                    path: path,
-                    strokeColor: '#0000FF',
-                    strokeOpacity: 0.7,
-                    strokeWeight: 1
-                } );
-                $scope.map.fitBounds( bounds );
+                //var polyline = new google.maps.Polyline({
+                //    map: $scope.map,
+                //    path: path,
+                //    strokeColor: '#0000FF',
+                //    strokeOpacity: 0.7,
+                //    strokeWeight: 1
+                //});
+                $scope.map.fitBounds(bounds);
             } else {
-                alert( "Geocode was not successful for the following reason: " + status );
+                alert("Geocode was not successful for the following reason: " + status);
             }
-        } );
+        });
 
         function combineAddress( property ) {
             return property.Address1 + " " + property.Address1 + " " + property.City + " " + property.State + " " + property.Zip;
         }
 
     }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, waypts) {
+        directionsService.route({
+            origin: $scope.addressList[0].address,
+            destination: $scope.addressList[0].address,
+            waypoints: waypts,
+            optimizeWaypoints: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function (response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
     $scope.openInfoWindow = function ( e, selectedMarker ) {
         e.preventDefault();
         google.maps.event.trigger( selectedMarker, 'click' );

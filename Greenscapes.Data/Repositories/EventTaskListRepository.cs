@@ -12,7 +12,7 @@ namespace Greenscapes.Data.Repositories
 
         public EventTaskList GetEventTaskList(int id)
         {
-            EventTaskList eventTaskList = db.EventTaskLists.FirstOrDefault(p => p.Id == id);
+            EventTaskList eventTaskList = db.EventTaskLists.Include("PropertyTasks").Include("Crew").FirstOrDefault(p => p.Id == id);
 
             return eventTaskList;
         }
@@ -63,6 +63,11 @@ namespace Greenscapes.Data.Repositories
         public List<EventTaskList> GetEventTaskListsForCrew(int crewId)
         {
             return db.EventTaskLists.Where(e => e.CrewId == crewId).ToList();
+        }
+
+        public List<EventTaskList> GetPropertyEventTaskLists(int propertyId)
+        {
+            return db.EventTaskLists.Where(e => e.PropertyId == propertyId).ToList();
         }
 
         public void Dispose()

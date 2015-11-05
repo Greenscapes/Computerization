@@ -73,6 +73,7 @@
     <Compile Include="DataContext\PropertyTaskListType.cs" />
     <Compile Include="DataContext\ServiceTemplate.cs" />
     <Compile Include="DataContext\ServiceTicket.cs" />
+    <Compile Include="DataContext\TaskTemplate.cs" />
     <Compile Include="DataContext\WeeklySchedule.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Property.cs" />
@@ -85,10 +86,12 @@
     <Compile Include="Repositories\Interfaces\IServiceTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyTaskRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITaskTemplateRepository.cs" />
     <Compile Include="Repositories\ServiceTicketRepository.cs" />
     <Compile Include="Repositories\ServiceTemplateRepository.cs" />
     <Compile Include="Repositories\PropertyRepository.cs" />
     <Compile Include="Repositories\PropertyTaskRepository.cs" />
+    <Compile Include="Repositories\TaskTemplateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -27,6 +27,12 @@ namespace CMS.Controllers
             return db.GetEventTaskLists(propertyId, taskId).MapTo<IEnumerable<EventTaskListViewModel>>();
         }
 
+        [Route("~/api/properties/{propertyId:int}/eventtasklists")]
+        public IEnumerable<EventTaskListViewModel> GetPropertyEventTaskLists(int propertyId)
+        {
+            return db.GetPropertyEventTaskLists(propertyId).MapTo<IEnumerable<EventTaskListViewModel>>();
+        }
+
         // GET: api/eventtasklists/5
         [Route("{id:int}")]
         [ResponseType(typeof(EventTaskListViewModel))]

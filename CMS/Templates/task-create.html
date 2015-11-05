@@ -4,12 +4,25 @@
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Task List
     </button>
 </p>
-<h2>New Task for {{property.Name}}</h2>
+<h2>New Task for {{property.Name}}</h2><br/><br/>
 
 <form>
     <div class="form-group">
-        <label for="inputLocation">Location</label>
+        <label for="locationSelect">Select Existing Location</label>
+        <select name="locationSelect" id="locationSelect"
+                ng-options="location for location in locations"
+                ng-model="task.Location"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputLocation">New Location</label>
         <input type="text" class="form-control full-size" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location">
+    </div>
+    <div class="form-group">
+        <label for="templateSelect">Select Existing Task</label>
+        <select name="templateSelect" id="templateSelect"
+                ng-options="taskTemplate as taskTemplate.Description for taskTemplate in taskTemplates"
+                ng-model="selectedTemplate"
+                ng-change="templateSelected()"></select>
     </div>
     <div class="form-group">
         <label for="inputDescription">Task</label>
@@ -45,7 +58,6 @@
         </tr>
     </table>
     <br/>-->
-
     <!--<br/>
     <div id="EventScheduler">
         <div id="scheduler"></div>

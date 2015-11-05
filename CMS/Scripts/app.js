@@ -32,11 +32,11 @@ app.config([
                 templateUrl: 'templates/eventtasklists.html',
                 controller: 'EventTaskListController'
             }).
-            when('/properties/:propertyId/tasks/:taskId/schedule/new', {
+            when('/properties/:propertyId/schedule/new', {
                  templateUrl: 'templates/eventtasklist-create.html',
                  controller: 'EventTaskListCreateController'
             }).
-            when('/properties/:propertyId/tasks/:taskId/schedule/:eventTaskId', {
+            when('/properties/:propertyId/schedule/:eventTaskId', {
                 templateUrl: 'templates/eventtasklist-create.html',
                 controller: 'EventTaskListCreateController'
             }).
@@ -147,7 +147,11 @@ app.config([
               when( '/customerroutes', {
                   templateUrl: 'templates/customers-routes.html',
                   controller: 'CustomersRoutesController'
-              } ).
+              }).
+            when('/creweventtasks/:taskListId', {
+                templateUrl: 'templates/creweventtasks.html',
+                controller: 'CrewEventTasksController'
+            }).
                when( '/eventnotes/:eventid', {
                    templateUrl: 'templates/eventnotes.html',
                    controller: 'EventNotesController'
@@ -175,8 +179,18 @@ app.config([
                       templateUrl: 'templates/servicetickets/servicetemplate-detail.html',
                       controller: 'ServiceTemplateDetailController'
                   }).
-
-
+            when('/tasktemplates', {
+                templateUrl: 'templates/taskTemplates.html',
+                controller: 'TaskTemplateController'
+            }).
+            when('/tasktemplates/new', {
+                templateUrl: 'templates/tasktemplate-create.html',
+                controller: 'TaskTemplateCreateController'
+            }).
+            when('/tasktemplates/:taskId', {
+                templateUrl: 'templates/tasktemplate-create.html',
+                controller: 'TaskTemplateCreateController'
+            }).
 
             otherwise({
                 redirectTo: '/customerroutes'

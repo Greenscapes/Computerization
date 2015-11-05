@@ -1,4 +1,9 @@
-﻿<br />
+﻿<br/>
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
 <h2>Assign Event Task List</h2>
 <p>
     Property Name: {{property.Name}}<br />
@@ -17,7 +22,7 @@
         <tr ng-repeat="eventTaskList in eventTaskLists">
             <td>
                 <input type="checkbox" ng-model="eventTaskList.checked" ng-disabled="buttonsDisabled"/>
-                <a href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule/{{eventTaskList.Id}}">{{eventTaskList.Name}}</a>
+                <a href="#/properties/{{property.Id}}/schedule/{{eventTaskList.Id}}">{{eventTaskList.Name}}</a>
             </td>
             <td>
                 Mondays at 9:00am

@@ -1,15 +1,26 @@
-﻿<br />
-<h2>New Event Task List for {{task.Location}}</h2>
+﻿<br/>
 <p>
-    Description: {{task.Description}}<br />
-    Location: {{task.Location}}<br />
-    Crew: <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
+<h2>New Event Task List for {{property.Name}}</h2>
+<p>
+    <!--Description: {{task.Description}}<br />
+    Location: {{task.Location}}<br />-->
+    <!--Crew: <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>-->
 </p>
 <form>
 
     <div class="form-group">
         <label for="inputFirstName">Name</label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="eventTaskList.Name">
+    </div>
+    <div class="form-group">
+        <label for="crewSelect">Crew</label>
+        <select name="crewSelect" id="crewSelect"
+                ng-options="crew.Id as crew.Name for crew in crews"
+                ng-model="eventTaskList.CrewId"></select>
     </div>
     <div class="form-group">
         <label for="templateSelect">Service Ticket Template</label>

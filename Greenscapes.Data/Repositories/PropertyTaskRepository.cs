@@ -31,7 +31,7 @@ namespace Greenscapes.Data.Repositories
         public List<PropertyTask> GetPropertyTasksForProperty(int propertyId)
         {
             var propertyTasks = new List<PropertyTask>();
-            var propertyTaskLists = db.PropertyTaskLists.Include("PropertyTasks").Include("PropertyTasks.Crews").Include("PropertyTasks.EventTaskList").Where(p => p.PropertyId == propertyId);
+            var propertyTaskLists = db.PropertyTaskLists.Include("PropertyTasks").Include("PropertyTasks.EventTaskList.Crew").Include("PropertyTasks.EventTaskList").Where(p => p.PropertyId == propertyId);
 
             foreach (var taskList in propertyTaskLists)
             {
