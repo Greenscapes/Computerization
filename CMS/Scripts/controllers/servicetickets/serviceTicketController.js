@@ -7,6 +7,8 @@
 
     $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId, eventDate: $routeParams.eventDate }, function () {
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
+        $scope.serviceTicket.FromTime = new Date($scope.serviceTicket.VisitFromTime.substring(0,19));
+        $scope.serviceTicket.ToTime = new Date($scope.serviceTicket.VisitToTime.substring(0,19));
     });
 
     $scope.Item = null;
@@ -26,37 +28,18 @@
     
     $scope.save = function () {
         $scope.buttonsDisabled = true;
-
         $scope.serviceTicket.JsonFields = angular.toJson($scope.serviceTicket.Fields);
-
-            resource.update({ id: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
-        
+        $scope.serviceTicket.VisitFromTime = $scope.serviceTicket.FromTime;
+        var from = $scope.serviceTicket.FromTime;
+        var to = $scope.serviceTicket.ToTime;
+        $scope.serviceTicket.VisitToTime = new Date(from.getFullYear(), from.getMonth(), from.getDate(), to.getHours(), to.getMinutes(), to.getSeconds(), to.getMilliseconds());
+        resource.update({ id: $scope.serviceTicket.Id }, $scope.serviceTicket, function () { $scope.back(); });
     };
 
     $scope.back = function () {
         $location.path("/");
         if (!$scope.$$phase) $scope.$apply();
     };
-
-    $(document).ready(function () {
-        $('#datetimepicker').datepicker();
-        var d = new Date();
-
-        var month = d.getMonth() + 1;
-        var day = d.getDate();
-        var year = d.getFullYear();
-
-        var output =
-        (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day + '/' + year;
-
-        $("#datetimepicker").val(output);
-
-        $('#datetimepicker').on('changeDate', function (ev) {
-            ('#datetimepicker').valueOf(ev.target.value);
-            $scope.serviceTicket.VisitFrom = ev.target.value;
-        });
-    });
 }
 
 ServiceTicketController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

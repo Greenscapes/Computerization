@@ -15,18 +15,18 @@
     </div>
 
     <div class="form-group">
-        <label for="datetimepicker">Date of Visit</label>
-        <input id="datetimepicker" data-date-format="mm/dd/yyyy" date-type="string" type="text" class="form-control" autocomplete="off" placeholder="Visit Date" ng-disabled="buttonsDisabled" >
+        <label for="visit-date">Date of Visit</label>
+        <input id="visit-date" type="date" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled" >
     </div>
-
+    
     <div class="form-group">
-        <label for="visitFromTime">From Time</label>
-        <input id="visitFromTime" type="time" class="form-control" autocomplete="off" placeholder="From" ng-model="serviceTicket.VisitFromTime" ng-disabled="buttonsDisabled" >
+        <label for="fromTime">From Time</label>
+        <input id="fromTime" type="time" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled" >
     </div>
-
+    
     <div class="form-group">
-        <label for="visitToTime">To Time</label>
-        <input id="visitToTime" type="text" class="form-control" autocomplete="off" placeholder="To" ng-disabled="buttonsDisabled" >
+        <label for="toTime">To Time</label>
+        <input id="toTime" type="time" class="form-control" ng-model="serviceTicket.ToTime" ng-disabled="buttonsDisabled" >
     </div>
 
     <div class="form-group">
