@@ -61,13 +61,14 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.Address2, src => src.Ignore())
                 .ForMember(dest => dest.City, src => src.Ignore())
                 .ForMember(dest => dest.State, src => src.Ignore())
-                .ForMember(dest => dest.Zip, src => src.Ignore());
+                .ForMember(dest => dest.Zip, src => src.Ignore())
+                .ForMember(dest => dest.Members, src => src.Ignore());
 
-
-            Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>();
-            //.ForMember(dest => dest.ApprovedBy, src => src.Ignore())
-            //.ForMember(dest => dest.PropertyTask, src => src.Ignore())
-            //.ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+            Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()
+            .ForMember(dest => dest.ApprovedBy, src => src.Ignore())
+            .ForMember(dest => dest.EventTaskList, src => src.Ignore())
+            .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
+            .ForMember(dest => dest.ServiceMembers, src => src.Ignore());
 
             Mapper.CreateMap<TaskTemplate, TaskTemplateViewModel>();
             Mapper.CreateMap<TaskTemplateViewModel, TaskTemplate>();

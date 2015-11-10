@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="DataContext\CmsContext.cs" />
     <Compile Include="DataContext\Crew.cs" />
+    <Compile Include="DataContext\ServiceMember.cs" />
     <Compile Include="DataContext\CrewMember.cs" />
     <Compile Include="DataContext\CrewType.cs" />
     <Compile Include="DataContext\DailySchedule.cs" />
@@ -82,12 +83,10 @@
     <Compile Include="Repositories\EventTaskListRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventScheduleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventTaskListRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IServiceTicketRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyTaskRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITaskTemplateRepository.cs" />
-    <Compile Include="Repositories\ServiceTicketRepository.cs" />
     <Compile Include="Repositories\ServiceTemplateRepository.cs" />
     <Compile Include="Repositories\PropertyRepository.cs" />
     <Compile Include="Repositories\PropertyTaskRepository.cs" />

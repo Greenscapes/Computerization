@@ -188,6 +188,7 @@
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\PropertyTaskViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
+    <Compile Include="Models\ServiceMemberViewModel.cs" />
     <Compile Include="Models\ServiceTicketViewModel.cs" />
     <Compile Include="Models\ServiceTemplateViewModel.cs" />
     <Compile Include="Models\TaskTemplateViewModel.cs" />
