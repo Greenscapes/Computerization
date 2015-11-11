@@ -29,6 +29,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<PropertyTask> PropertyTasks { get; set; }
         public virtual DbSet<ServiceTemplate> ServiceTemplates { get; set; }
         public virtual DbSet<ServiceTicket> ServiceTickets { get; set; }
+        public virtual DbSet<ServiceMember> ServiceMembers { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<TaskTemplate> TaskTemplates { get; set; }
 

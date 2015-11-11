@@ -8,38 +8,37 @@ using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Repositories;
 using Greenscapes.Data.Repositories.Interfaces;
 using CMS.Mappers;
+using System.Linq;
 
 namespace CMS.Controllers
 {
     [RoutePrefix("api/servicetickets")]
     public class ServiceTicketsController : ApiController
     {
-        private readonly IServiceTicketRepository serviceTicketRepo = new ServiceTicketRepository();
-        private readonly IEventTaskListRepository eventTaskListRepo = new EventTaskListRepository();
-        private readonly IServiceTemplateRepository serviceTemplateRepo = new ServiceTemplateRepository();
-        private readonly IPropertyRepository propertyRepo = new PropertyRepository();
-        
+        private readonly CmsContext db = new CmsContext();
+                
         // GET: api/ServiceTickets/5/2015-10-10
         [Route("{id:int}/{date:DateTime}")]
         [ResponseType(typeof(ServiceTicketViewModel))]
         public IHttpActionResult GetServiceTicket(int id, DateTime date)
         {
-            var serviceTicket = serviceTicketRepo.GetServiceTicket(id, date);
-            var eventTaskList = eventTaskListRepo.GetEventTaskList(id);
+            var eventTaskList = db.EventTaskLists.FirstOrDefault(e => e.Id == id);
             
             if (eventTaskList == null || !eventTaskList.ServiceTemplateId.HasValue)
             {
                 return NotFound();
             }
 
-            var serviceTemplate = serviceTemplateRepo.GetServiceTemplate(eventTaskList.ServiceTemplateId.Value);
-            var property = propertyRepo.GetProperty(eventTaskList.PropertyId);
+            var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == eventTaskList.ServiceTemplateId);
+            var property = db.Properties.FirstOrDefault(p => p.Id == eventTaskList.PropertyId);
 
             if (serviceTemplate == null || property == null)
             {
                 return NotFound();
             }
-            
+
+            var serviceTicket = db.ServiceTickets.FirstOrDefault(s => s.EventTaskListId == id && s.EventDate == date);
+
             if (serviceTicket == null)
             {
                 serviceTicket = new ServiceTicket();
@@ -50,9 +49,22 @@ namespace CMS.Controllers
                 serviceTicket.ServiceTemplateId = serviceTemplate.Id;
                 serviceTicket.JsonFields = serviceTemplate.JsonFields;
                 serviceTicket.ReferenceNumber = property.PropertyRefNumber;
-                serviceTicketRepo.UpdateServiceTicket(serviceTicket);
+                db.ServiceTickets.Add(serviceTicket);
+                db.SaveChanges();
             }
-                        
+
+            var serviceMembers = from e in db.Employees
+                               join c in db.CrewMembers on e.Id equals c.EmployeeId
+                               where c.CrewId == eventTaskList.CrewId
+                               orderby e.FirstName, e.LastName
+                               select new ServiceMemberViewModel()
+                               {
+                                   EmployeeId = e.Id,
+                                   FirstName = e.FirstName,
+                                   LastName = e.LastName,
+                                   Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
+                               };
+
             var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
             ticket.TemplateName = serviceTemplate.Name;
             ticket.TemplateUrl = serviceTemplate.Url;
@@ -62,6 +74,7 @@ namespace CMS.Controllers
             ticket.City = property.City;
             ticket.State = property.State;
             ticket.Zip = property.Zip;
+            ticket.Members = serviceMembers.ToList();
 
             return Ok(ticket);
         }
@@ -81,7 +94,33 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            serviceTicketRepo.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
+            var existingTicket = db.ServiceTickets.FirstOrDefault(p => p.Id == id);
+            if (existingTicket == null)
+            { 
+                return NotFound();
+            }
+
+            existingTicket.ServiceTemplateId = serviceTicket.ServiceTemplateId;
+            existingTicket.EventTaskListId = serviceTicket.EventTaskListId;
+            existingTicket.EventDate = serviceTicket.EventDate;
+            existingTicket.ReferenceNumber = serviceTicket.ReferenceNumber;
+            existingTicket.VisitFromTime = serviceTicket.VisitFromTime.Value.ToLocalTime();
+            existingTicket.VisitToTime = serviceTicket.VisitToTime.Value.ToLocalTime();
+            existingTicket.JsonFields = serviceTicket.JsonFields;
+            existingTicket.ApprovedById = serviceTicket.ApprovedById;
+            existingTicket.ApprovedDate = serviceTicket.ApprovedDate;
+            existingTicket.Condition = serviceTicket.Condition;
+            existingTicket.Notes = serviceTicket.Notes;
+
+            db.ServiceMembers.RemoveRange(db.ServiceMembers.Where(s => s.ServiceTicketId == serviceTicket.Id));
+
+            foreach (var member in serviceTicket.Members)
+            {
+                if (member.Selected)
+                    db.ServiceMembers.Add(new ServiceMember() { ServiceTicketId = serviceTicket.Id, EmployeeId = member.EmployeeId });
+            }
+                        
+            db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -96,7 +135,8 @@ namespace CMS.Controllers
                 return BadRequest(ModelState);
             }
 
-            serviceTicketRepo.UpdateServiceTicket(serviceTicket.MapTo<ServiceTicket>());
+            db.ServiceTickets.Add(serviceTicket.MapTo<ServiceTicket>());
+            db.SaveChanges();
 
             return Ok(serviceTicket);
         }
@@ -106,24 +146,22 @@ namespace CMS.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteServiceTicket(int id)
         {
-            var success = serviceTicketRepo.DeleteServiceTicket(id);
-            if (!success)
+            var serviceTicket = db.ServiceTickets.FirstOrDefault(p => p.Id == id);
+            if (serviceTicket == null)
             {
                 return NotFound();
             }
+
+            db.ServiceMembers.RemoveRange(db.ServiceMembers.Where(s => s.ServiceTicketId == id));
+            db.ServiceTickets.Remove(serviceTicket);
+            db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                serviceTicketRepo.Dispose();
-                eventTaskListRepo.Dispose();
-                serviceTemplateRepo.Dispose();
-                propertyRepo.Dispose();
-            }
+            db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Greenscapes.Data.DataContext;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -36,8 +37,6 @@ namespace CMS.Models
 
         public DateTime? VisitToTime { get; set; }
 
-        public string Staff { get; set; }
-
         public string JsonFields { get; set; }
 
         public int? ApprovedById { get; set; }
@@ -47,5 +46,7 @@ namespace CMS.Models
         public string Notes { get; set; }
 
         public int? Condition { get; set; }
+
+        public List<ServiceMemberViewModel> Members { get; set; }
     }
 }
