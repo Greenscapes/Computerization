@@ -67,7 +67,7 @@
                 $scope.task.Description = $scope.selectedTemplate.Description;
                 $scope.task.EstimatedDuration = $scope.selectedTemplate.EstimatedDuration;
                 $scope.task.Notes = $scope.selectedTemplate.Notes;
-                $scope.task.IsFreeService = $scope.selectedTemplate.IsFreeService;
+                $scope.task.IsFreeService = false;//$scope.selectedTemplate.IsFreeService;
             }
         }
       

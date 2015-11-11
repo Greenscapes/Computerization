@@ -9,13 +9,14 @@
     <!--Description: {{task.Description}}<br />
     Location: {{task.Location}}<br />-->
     <!--Crew: <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>-->
+    <span ng-show="eventTaskList.Name">Event Task List Name: {{eventTaskList.Name}}</span>
 </p>
 <form>
 
-    <div class="form-group">
+    <!--<div class="form-group">
         <label for="inputFirstName">Name</label>
         <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-disabled="buttonsDisabled" ng-model="eventTaskList.Name">
-    </div>
+    </div>-->
     <div class="form-group">
         <label for="crewSelect">Crew</label>
         <select name="crewSelect" id="crewSelect"
@@ -31,6 +32,7 @@
     <!--<div id="EventScheduler">
         <div id="scheduler"></div>
     </div>-->
+    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, false)" ng-disabled="buttonsDisabled" ng-hide="eventTaskList.Id">Create Schedule</button>
     <div kendo-scheduler k-options="schedulerOptions" k-visible="eventTaskList.Id">
         <span k-event-template class='custom-event'>{{dataItem.title}}</span>
         <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
@@ -38,7 +40,7 @@
     <br />
     <br />
     <br />
-    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList)" ng-disabled="buttonsDisabled">Save</button>
+    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, true)" ng-disabled="buttonsDisabled" ng-show="eventTaskList.Id">Save</button>
 </form>
 
 <script id="customEditorTemplate" type="text/x-kendo-template">

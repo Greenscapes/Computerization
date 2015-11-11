@@ -80,11 +80,12 @@
 
     }
 
-    $scope.save = function (eventTaskList) {
+    $scope.save = function (eventTaskList, goBack) {
         $scope.buttonsDisabled = true;
         //      var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
         //       SetEventSchedules(scheduler._data);
         eventTaskList.PropertyId = $routeParams.propertyId;
+        eventTaskList.Name = $scope.property.Name + ", " + $('#crewSelect option:selected').text();
       //  eventTaskList.CrewId = $scope.task.Crews[0].Id;
 
         if (!eventTaskList.ServiceTemplateId) {
@@ -95,15 +96,20 @@
         var response = eventTaskListResource.save(eventTaskList, function () {
             $scope.buttonsDisabled = false;
             $scope.eventTaskList = response;
-            // $scope.back();ba
-            // if (!$scope.$$phase) $scope.$apply();
+            $scope.back(goBack);
+            if (!$scope.$$phase) $scope.$apply();
         },
             function () {
                 $scope.buttonsDisabled = false;
             });
 
-        $scope.back = function () {
-            $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
+        $scope.back = function (goBack) {
+            if (goBack) {
+                $location.path("/properties/" + $routeParams.propertyId); // + "/tasklists/" + $routeParams.taskListId);
+            } else {
+                $location.path("/properties/" + $routeParams.propertyId + "/schedule/" + $scope.eventTaskList.Id);// + "/tasklists/" + $routeParams.taskListId);
+            }
+           
             if (!$scope.$$phase) $scope.$apply();
         };
     }

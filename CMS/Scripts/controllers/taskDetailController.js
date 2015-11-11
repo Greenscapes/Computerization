@@ -17,14 +17,14 @@
     $scope.task = taskResource.get( { taskId: $routeParams.taskId }, function () {
 
         $scope.crews = crewsResource.query( function () {
-            for ( var i = 0; i < $scope.crews.length; i++ ) {
-                for ( var j = 0; j < $scope.task.Crews.length; j++ ) {
-                    if ( $scope.crews[i].Id === $scope.task.Crews[j].Id ) {
-                        $scope.crews[i].checked = true;
-                        break;
-                    }
-                }
-            }
+            //for ( var i = 0; i < $scope.crews.length; i++ ) {
+            //    for ( var j = 0; j < $scope.task.Crews.length; j++ ) {
+            //        if ( $scope.crews[i].Id === $scope.task.Crews[j].Id ) {
+            //            $scope.crews[i].checked = true;
+            //            break;
+            //        }
+            //    }
+            //}
         } );
 
         $scope.taskList = taskListResource.get({}, function () {
