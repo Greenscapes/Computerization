@@ -49,9 +49,13 @@
           
             var response = tasksResource.save(task, function() {
                 $scope.buttonsDisabled = false;
-                $scope.back();
-                if (!$scope.$$phase) $scope.$apply();
-            },
+                $scope.task.Description = '';
+                $scope.task.EstimatedDuration = '';
+                $scope.task.Notes = '';
+
+                    //  $scope.back();
+                    //  if (!$scope.$$phase) $scope.$apply();
+                },
                 function() {
                     $scope.buttonsDisabled = false;
                 });

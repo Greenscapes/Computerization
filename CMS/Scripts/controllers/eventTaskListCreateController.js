@@ -148,6 +148,9 @@
                 "week",
                 "month",
             ],
+            editable: {
+                template: $("#customEditorTemplate").html()
+            },
             timezone: "America/New_York",
             dataBound: function (e) {
                 $('div.k-event').removeClass('special-event');
@@ -195,9 +198,6 @@
                             };
                         }
                     }
-                },
-                editable: {
-                    template: $("#customEditorTemplate").html(),
                 },
                 schema: {
                     model: {

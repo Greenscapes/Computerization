@@ -4,13 +4,6 @@
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Property
     </button>
 </p>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
 <table class="table table-striped">
     <tr>
         <th>Name</th>
@@ -20,7 +13,7 @@
         <th>Reference Number</th>
         <th>Customer since</th>
     </tr>
-    <tr ng-repeat="property in properties  | filter:filterText">
+    <tr ng-repeat="property in properties">
         <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
         <td>{{property.Address1}}</td>
         <td>{{property.City}}</td>

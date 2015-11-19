@@ -34,7 +34,7 @@
     </div>-->
     <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, false)" ng-disabled="buttonsDisabled" ng-hide="eventTaskList.Id">Create Schedule</button>
     <div kendo-scheduler k-options="schedulerOptions" k-visible="eventTaskList.Id">
-        <span k-event-template class='custom-event'>{{dataItem.title}}</span>
+        <span k-event-template class='custom-event'>{{dataItem.title}} - {{dataItem.start | date:'shortTime'}} to {{dataItem.end | date:'shortTime'}}</span>
         <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
     </div>
     <br />
@@ -42,7 +42,6 @@
     <br />
     <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, true)" ng-disabled="buttonsDisabled" ng-show="eventTaskList.Id">Save</button>
 </form>
-
 <script id="customEditorTemplate" type="text/x-kendo-template">
     <div class="k-edit-label"><label for="title">Title</label></div>
     <div data-container-for="title" class="k-edit-field">
@@ -54,7 +53,7 @@
     <div data-container-for="start" class="k-edit-field">
         <input type="text"
                data-role="datetimepicker"
-               data-interval="15"
+               data-interval="10"
                data-type="date"
                data-bind="value:start,invisible:isAllDay"
                name="start" />
@@ -63,7 +62,7 @@
     </div>
     <div class="k-edit-label"><label for="end">End</label></div>
     <div data-container-for="end" class="k-edit-field">
-        <input type="text" data-type="date" data-role="datetimepicker" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <input type="text" data-type="date" data-role="datetimepicker"data-interval="10"  data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
         <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
         <span data-for="end" class="k-invalid-msg" style="display: none;"></span>
     </div>
