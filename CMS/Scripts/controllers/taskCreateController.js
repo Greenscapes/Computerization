@@ -53,6 +53,7 @@
                 $scope.task.EstimatedDuration = '';
                 $scope.task.Notes = '';
 
+                $scope.locations = locationsResource.query({ propertyId: $routeParams.propertyId });
                     //  $scope.back();
                     //  if (!$scope.$$phase) $scope.$apply();
                 },

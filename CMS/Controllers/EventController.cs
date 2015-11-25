@@ -23,9 +23,9 @@ namespace CMS.Controllers
     {
         private readonly CmsContext db = new CmsContext();
 
-        public IEnumerable<EventViewModel> GetTask([ModelBinder(typeof(Models.ModelBinders.DataSourceRequestModelBinder))] DataSourceRequest request, int crewId)
+        public IEnumerable<EventViewModel> GetTask([ModelBinder(typeof(Models.ModelBinders.DataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            var data = db.EventSchedules.Where(e => e.EventTaskList.CrewId == crewId).ToList().Select(task => new EventViewModel()
+            var data = db.EventSchedules.ToList().Select(task => new EventViewModel()
             {
                 TaskID = task.Id,
                 Title = task.Title,
@@ -61,6 +61,12 @@ namespace CMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                var eventTaskList = db.EventTaskLists.Include("Property").Include("Crew").FirstOrDefault(e => e.Id == task.OwnerID);
+                if (eventTaskList != null)
+                {
+                    task.Title = eventTaskList.Property.Name + ", " + eventTaskList.Crew.Name;
+                }
+
                 var entity = new EventSchedule
                 {
                     Id = task.TaskID,
@@ -89,7 +95,9 @@ namespace CMS.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, new[] { task });
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = task.TaskID }));
+                return response;
             }
             else
             {
@@ -106,6 +114,12 @@ namespace CMS.Controllers
             //var task = JsonConvert.DeserializeObject<EventViewModel>(models);
             if (ModelState.IsValid)
             {
+                var eventTaskList = db.EventTaskLists.Include("Property").Include("Crew").FirstOrDefault(e => e.Id == task.OwnerID);
+                if (eventTaskList != null)
+                {
+                    task.Title = eventTaskList.Property.Name + ", " + eventTaskList.Crew.Name;
+                }
+
                 var entity = new EventSchedule
                 {
                     Id = task.TaskID,
@@ -136,9 +150,9 @@ namespace CMS.Controllers
         }
 
         // DELETE api/Task/5
-        public HttpResponseMessage DeleteTask(int id)
+        public HttpResponseMessage DeleteTask(EventViewModel deletedTask)
         {
-            EventSchedule task = db.EventSchedules.Single(p => p.Id == id);
+            EventSchedule task = db.EventSchedules.Single(p => p.Id == deletedTask.TaskID);
             if (task == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

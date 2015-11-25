@@ -37,3 +37,7 @@ h2 {
 .special-event {
     background-color: #50FFFF !important;
 }
+
+.k-edit-field .k-dropdown {
+    width: 350px;
+}

@@ -1,4 +1,4 @@
-﻿var app = angular.module("cmsApp", ['ngRoute', 'ngResource', 'ui.bootstrap', 'kendo.directives']);
+﻿var app = angular.module("cmsApp", ['ngRoute', 'ngResource', 'ui.bootstrap', 'kendo.directives', 'angular.filter']);
 
 app.config([
     '$routeProvider', '$resourceProvider',
@@ -191,7 +191,10 @@ app.config([
                 templateUrl: 'templates/tasktemplate-create.html',
                 controller: 'TaskTemplateCreateController'
             }).
-
+            when('/schedule', {
+                templateUrl: 'templates/schedule.html',
+                controller: 'ScheduleController'
+            }).
             otherwise({
                 redirectTo: '/customerroutes'
             });

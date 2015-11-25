@@ -47,6 +47,18 @@ namespace CMS.Controllers
             return Ok(eventTaskList);
         }
 
+        [Route("")]
+        public IHttpActionResult GetEventTaskLists()
+        {
+            var eventTaskLists = db.GetEventTaskLists().MapTo<List<EventTaskListViewModel>>();
+            if (eventTaskLists == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(eventTaskLists);
+        }
+
         // PUT: api/EventTaskLists/5
         [Route("{id:int}")]
         [ResponseType(typeof(EventTaskListViewModel))]

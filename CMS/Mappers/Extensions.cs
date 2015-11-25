@@ -107,5 +107,21 @@ namespace CMS.Mappers
         {
             return Mapper.Map<IEnumerable<TaskTemplate>, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this Employee source) where TTarget : EmployeeViewModel
+        {
+            return Mapper.Map<Employee, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this EmployeeViewModel source) where TTarget : Employee
+        {
+            return Mapper.Map<EmployeeViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<Employee> source)
+            where TTarget : IEnumerable<EmployeeViewModel>
+        {
+            return Mapper.Map<IEnumerable<Employee>, TTarget>(source);
+        }
     }
 }

@@ -32,6 +32,13 @@ namespace Greenscapes.Data.Repositories
             return eventTasks;
         }
 
+        public List<EventTaskList> GetEventTaskLists()
+        {
+            var eventTasks = db.EventTaskLists.Where(e => e.Property.PropertyType != 3);
+
+            return eventTasks.ToList();
+        }
+
         public EventTaskList UpdateEventTaskList(EventTaskList taskList)
         {
             var existingTaskList = db.EventTaskLists.FirstOrDefault(p => p.Id == taskList.Id);

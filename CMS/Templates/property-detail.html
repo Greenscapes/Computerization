@@ -74,7 +74,7 @@
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task
     </button>
     <button type="button" class="btn btn-primary" ng-click="newEventTaskList()">
-        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Event Task List
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create and Schedule Event Task List
     </button><br/><br/>
     <button type="button" class="btn btn-primary" ng-click="assignTasks()">
         Assign Tasks to Event Task List
@@ -83,25 +83,30 @@
     </select>
 </p>
 
-<table class="table table-striped">
-    <tr>
-        <th><sortby neworder="'Location'" oldorder="liSortByField" reverse="itemReverse">Location</sortby></th>
-        <th>Task</th>
-        <th><sortby neworder="'Crew.Name'" oldorder="liSortByField" reverse="itemReverse">Crew</sortby></th>
-        <th><sortby neworder="'ScheduleName'" oldorder="liSortByField" reverse="itemReverse">Event Task List</sortby></th>
-        <th></th>
-    </tr>
-    <tr ng-repeat="task in tasks | orderBy: liSortByField: itemReverse">
-        <td><input type="checkbox" ng-model="task.selected"/>{{task.Location}}</td>
-        <td>{{task.Description}}</td>
-        <!--<td ng-if="task.Crews.length <= 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>-->
-        <td><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">{{task.Crew.Name}}
-        </a></td>
-        <td><a ng-href="#/properties/{{property.Id}}/schedule/{{task.EventTaskListId}}">{{task.ScheduleName}}</a></td>
-        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>
-    </tr>
-</table>
-
+<div ng-repeat="(key, val) in tasks | groupBy: 'ScheduleName'">
+    <h4>{{key ? key : 'Not Allocated'}}</h4>
+    <table class="table table-striped">
+        <tr>
+            <th><sortby neworder="'Location'" oldorder="liSortByField" reverse="itemReverse">Location</sortby></th>
+            <th>Task</th>
+            <th><sortby neworder="'Crew.Name'" oldorder="liSortByField" reverse="itemReverse">Crew</sortby></th>
+            <th><sortby neworder="'ScheduleName'" oldorder="liSortByField" reverse="itemReverse">Event Task List</sortby></th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="task in val | orderBy: liSortByField: itemReverse">
+            <td><input type="checkbox" ng-model="task.selected"/>{{task.Location}}</td>
+            <td>{{task.Description}}</td>
+            <!--<td ng-if="task.Crews.length <= 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>-->
+            <td>
+                <a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">
+                    {{task.Crew.Name}}
+                </a>
+            </td>
+            <td><a ng-href="#/properties/{{property.Id}}/schedule/{{task.EventTaskListId}}">{{task.ScheduleName}}</a></td>
+            <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>
+        </tr>
+    </table>
+</div>
 <!--<div>
     <h3 ng-show="crews.length > 0">Property Schedules</h3>
     <div id="EventScheduler">

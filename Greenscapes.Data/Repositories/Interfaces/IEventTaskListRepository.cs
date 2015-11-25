@@ -11,6 +11,7 @@ namespace Greenscapes.Data.Repositories.Interfaces
     {
         EventTaskList GetEventTaskList(int id);
         List<EventTaskList> GetEventTaskLists(int propertyid, int taskId);
+        List<EventTaskList> GetEventTaskLists();
         EventTaskList UpdateEventTaskList(EventTaskList taskList);
         bool DeleteEventTaskList(int id);
         List<EventTaskList> GetEventTaskListsForCrew(int crewId);

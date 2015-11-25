@@ -73,6 +73,14 @@ namespace CMS.Mappers
             Mapper.CreateMap<TaskTemplate, TaskTemplateViewModel>();
             Mapper.CreateMap<TaskTemplateViewModel, TaskTemplate>();
 
+            Mapper.CreateMap<Employee, EmployeeViewModel>();
+            Mapper.CreateMap<EmployeeViewModel, Employee>()
+                .ForMember(dest => dest.CrewMembers, src => src.Ignore());
+
+            Mapper.CreateMap<CrewType, CrewTypeViewModel>();
+            Mapper.CreateMap<CrewTypeViewModel, CrewType>()
+                .ForMember(dest => dest.Employees, src => src.Ignore());
+
             Mapper.AssertConfigurationIsValid();
         }
     }
