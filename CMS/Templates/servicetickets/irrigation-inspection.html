@@ -3,6 +3,16 @@
     <input id="clockReference" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.ClockReference" required>
 </div>
 
+<div class="form-group">
+    <label for="controllerInspection">Inspection of Controller</label>
+    <input id="controllerInspection" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.ControllerInspection" required>
+</div>
+
+<div class="form-group">
+    <label for="inhibitInspection">Inspection of System to Inhibit When Sufficient Moisture, e.g. rain sensor System present? Working? Fixable if not working?</label>
+    <input id="inhibitInspection" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.InhibitInspection" required>
+</div>
+
 <h3>Repairs Carried Out Under Contract During Visit (Not Chargeable)</h3>
 <table class="table table-striped">
     <tr>
@@ -90,7 +100,7 @@
 </div>
 
 <div class="form-group">
-    <label for="valveNotOperating">Valve Not Operationg</label>
+    <label for="valveNotOperating">Valve Not Operating</label>
     <input id="valveNotOperating" type="text" class="form-control" autocomplete="off" ng-model="serviceTicket.Fields.ValveNotOperating">
 </div>
 
