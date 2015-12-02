@@ -12,6 +12,8 @@ namespace Greenscapes.Data.DataContext
         public Employee()
         {
             CrewMembers = new HashSet<CrewMember>();
+            ServiceMembers = new HashSet<ServiceMember>();
+            ServiceTickets = new HashSet<ServiceTicket>();
             CrewTypes = new HashSet<CrewType>();
         }
 
@@ -29,6 +31,12 @@ namespace Greenscapes.Data.DataContext
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CrewMember> CrewMembers { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceMember> ServiceMembers { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceTicket> ServiceTickets { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CrewType> CrewTypes { get; set; }

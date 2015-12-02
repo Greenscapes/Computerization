@@ -47,11 +47,14 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.Crew, src => src.Ignore())
                 .ForMember(dest => dest.PropertyTasks, src => src.Ignore())
                 .ForMember(dest => dest.EventSchedules, src => src.Ignore())
-                .ForMember(dest => dest.ServiceTemplate, src => src.Ignore());
+                .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
+                .ForMember(dest => dest.EventTaskTimes, src => src.Ignore())
+                .ForMember(dest => dest.ServiceTickets, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTemplate, ServiceTemplateViewModel>();
             Mapper.CreateMap<ServiceTemplateViewModel, ServiceTemplate>()
-                .ForMember(dest => dest.ServiceTickets, src => src.Ignore());
+                .ForMember(dest => dest.ServiceTickets, src => src.Ignore())
+                .ForMember(dest => dest.EventTaskLists, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTicket, ServiceTicketViewModel>()
                 .ForMember(dest => dest.TemplateName, src => src.Ignore())
@@ -65,17 +68,19 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.Members, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()
-            .ForMember(dest => dest.ApprovedBy, src => src.Ignore())
-            .ForMember(dest => dest.EventTaskList, src => src.Ignore())
-            .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
-            .ForMember(dest => dest.ServiceMembers, src => src.Ignore());
+                .ForMember(dest => dest.EventTaskList, src => src.Ignore())
+                .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
+                .ForMember(dest => dest.ServiceMembers, src => src.Ignore())
+                .ForMember(dest => dest.Employee, src => src.Ignore());
 
             Mapper.CreateMap<TaskTemplate, TaskTemplateViewModel>();
             Mapper.CreateMap<TaskTemplateViewModel, TaskTemplate>();
 
             Mapper.CreateMap<Employee, EmployeeViewModel>();
             Mapper.CreateMap<EmployeeViewModel, Employee>()
-                .ForMember(dest => dest.CrewMembers, src => src.Ignore());
+                .ForMember(dest => dest.CrewMembers, src => src.Ignore())
+                .ForMember(dest => dest.ServiceTickets, src => src.Ignore())
+                .ForMember(dest => dest.ServiceMembers, src => src.Ignore());
 
             Mapper.CreateMap<CrewType, CrewTypeViewModel>();
             Mapper.CreateMap<CrewTypeViewModel, CrewType>()

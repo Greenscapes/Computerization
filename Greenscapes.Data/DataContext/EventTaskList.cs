@@ -12,7 +12,9 @@ namespace Greenscapes.Data.DataContext
         public EventTaskList()
         {
             EventSchedules = new HashSet<EventSchedule>();
+            EventTaskTimes = new HashSet<EventTaskTime>();
             PropertyTasks = new HashSet<PropertyTask>();
+            ServiceTickets = new HashSet<ServiceTicket>();
         }
 
         public int Id { get; set; }
@@ -21,22 +23,27 @@ namespace Greenscapes.Data.DataContext
 
         public int CrewId { get; set; }
 
-        public int? ServiceTemplateId { get; set; }
-
         [StringLength(255)]
         public string Name { get; set; }
 
+        public int? ServiceTemplateId { get; set; }
+
         public virtual Crew Crew { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventSchedule> EventSchedules { get; set; }
+
         public virtual Property Property { get; set; }
+
+        public virtual ServiceTemplate ServiceTemplate { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventTaskTime> EventTaskTimes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PropertyTask> PropertyTasks { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventSchedule> EventSchedules { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ServiceTemplate ServiceTemplate { get; set; }
+        public virtual ICollection<ServiceTicket> ServiceTickets { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Greenscapes.Data.DataContext
+namespace Greenscapes.Data.DataContext
 {
     using System;
     using System.Collections.Generic;
@@ -8,12 +8,6 @@
 
     public partial class TaskTemplate
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaskTemplate()
-        {
-
-        }
-
         public int Id { get; set; }
 
         public string Description { get; set; }

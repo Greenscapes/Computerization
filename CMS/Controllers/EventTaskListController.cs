@@ -47,6 +47,22 @@ namespace CMS.Controllers
             return Ok(eventTaskList);
         }
 
+        [Route("{id:int}/start/{start:DateTime}"), HttpPut]
+        public IHttpActionResult SetStartTime(int id, DateTime start)
+        {
+            db.SetStartTime(id, start);
+
+            return Ok();
+        }
+
+        [Route("{id:int}/finish/{finish:DateTime}"), HttpPut]
+        public IHttpActionResult SetFinishTime(int id, DateTime finish)
+        {
+            db.SetFinishTime(id, finish);
+
+            return Ok();
+        }
+
         [Route("")]
         public IHttpActionResult GetEventTaskLists()
         {

@@ -1,8 +1,7 @@
-﻿function CustomersRoutesController($scope, $resource, $routeParams, $location, Modal) {
+﻿function CustomersRoutesController($scope, $resource, $routeParams, $location, Modal, $http) {
 
     var propertiesResource = $resource( '/api/properties' );
     var eventNotesResource = $resource( '/api/eventnotes' );
-
 
     var officeAddress = "8000 Fruitville rd, Sarasota, FL 34240";
 
@@ -92,10 +91,6 @@
             }
            
             calculateAndDisplayRoute(directionsService, directionsDisplay, waypts);
-
-            //Office Address
-            GetEvents( $scope.eventdetaillist );
-            loadEvents();
            
             for ( var i = 0; i < $scope.addressList.length; i++ ) {
                 codeAddress( $scope.addressList[i] );//comment this during testing
@@ -133,87 +128,35 @@
         } );
     }
 
-    function GetEvents( data ) {
-        $scope.crewevents = [];
-        for ( var i = 0; i < data.length; i++ ) {
+    $scope.setTime = function (isStart, event) {
+        var date = new Date();
+        var dateString = (date.getFullYear() + 1) + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + '%3A' + date.getMinutes() + '%3A' + date.getSeconds();
 
-            var event = data[i];
-            var newEvent = new Object( {
-                id: event.EventId,
-                start: new Date( event.StartTime.toString() ),
-                end: new Date( event.EndTime.toString() ),
-                title: event.Title,
-                isAllDay: event.IsAllDay,
-                startTimezone: event.StartTimezone,
-                endTimezone: event.EndTimezone,
-                description: event.Description,
-                recurrenceId: event.RecurrenceID,
-                recurrenceRule: event.RecurrenceRule,
-                recurrenceException: event.RecurrenceException,
-                roomId: event.PropertyId,
-                eventTaskListId: event.EventTaskListId
-
-            } );
-            $scope.crewevents.push( newEvent );
-
-            // $( "#scheduler" ).data( "kendoScheduler" ).addEvent( newEvent );
+        if (isStart) {
+            $http.put('/api/eventtasklists/' + event.EventTaskListId + "/start/" + dateString)
+                .success(function(data, status, headers) {
+                    $scope.getevents();
+                });
+        } else {
+            $http.put('/api/eventtasklists/' + event.EventTaskListId + "/finish/" + dateString)
+                .success(function (data, status, headers) {
+                    $scope.getevents();
+                });
         }
-
     }
 
-    function launchTicket(events) {
-        var event = events[0];
-        $location.path('/creweventtasks/' + event.eventTaskListId);
+    $scope.launchTasks = function (event) {
+        $location.path('/creweventtasks/' + event.EventTaskListId);
+        if (!$scope.$$phase) $scope.$apply();
+    }
+   
+    $scope.launchTicket = function (event) {
+        var today = new Date();
+        var ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + (today.getDay() + 1);
+        $location.path('/servicetickets/' + event.EventTaskListId + "/" + ticketDate);
         if (!$scope.$$phase) $scope.$apply();
     }
 
-    function loadEvents() {
-
-        var CustomAgenda = kendo.ui.AgendaView.extend({
-            endDate: function () {
-               // var date = kendo.ui.AgendaView.fn.endDate.call(this);
-                return new Date();
-            }
-        });
-
-        var scheduler = $( "#crewscheduler" ).kendoScheduler( {
-            date: new Date(),
-            startTime: new Date(),
-            endTime: new Date(),
-            height: 600,
-            //editable: false,
-            selectable: true,
-            change: function (e) {
-                launchTicket(e.events);
-                $scope.selectState = e;
-            },
-            views: [
-                 { type: CustomAgenda, title: "Crew Schedule", selected: true },
-                
-            ],
-            timezone: "America/New_York",
-            dataSource: $scope.crewevents,
-            group: {
-                resources: ["Properties"],
-                orientation: "vertical"
-            },
-            resources: [
-                {
-                    field: "roomId",
-                    name: "Properties",
-                    dataSource: propertyLists,
-                    title: "Property"
-                },
-                //{
-                //    field: "EventTaskListId",
-                //    name: "EventTaskLists",
-                //    datasource: eventTaskLists,
-                //    title: "EventTaskList"
-                //}
-            ]
-        } );
-    }
-   
     function codeAddress( addressdetails ) {
 
         geocoder.geocode({ 'address': addressdetails.address }, function (results, status) {
@@ -279,106 +222,9 @@
         e.preventDefault();
         google.maps.event.trigger( selectedMarker, 'click' );
     }
-    
-    var contextMenuOpen = function (e) {
-        var menu = e.sender;
-        var event = e.target;
-        
-        var text = "";
-        if ( $( e.target ).hasClass( "k-scheduler-table" ) )
-            {
-            text = "Add Note";
-            
-        }
-        else
-        {
-            return;
-        }
-        menu.remove( ".myClass" );
-        menu.append( [{ text: text, cssClass: "myClass" }] );
-    };
-
-    var contextMenuSelect = function ( e ) {
-        var message = "Notes";
-       
-        var html =
-             '<div id="myDialogWindow"> ' +
-             ' <div style="text-align: center; width:100%"> ' +
-             
-             ' <label>Enter Notes</label><br/> <textarea type="text" id="txtNotes" cols="100" rows="5" />' +
-             '   <button class="k-button" id="yesButton"">Save</button> ' +
-             '   <button class="k-button" id="noButton"">Cancel</button> ' +
-             '   </div> ' +
-             '</div> ';
-
-        $( 'body' ).append( html );
-
-        var windowDiv = $( '#myDialogWindow' );
-        windowDiv.kendoWindow( {
-            width: "450px",
-            title: message,
-            modal: true,
-            visible: false
-        } );
-        var txtNote = $( '#txtNotes' );
-        var dialog = windowDiv.data( "kendoWindow" );
-
-        $( '#yesButton' ).click( function ( e ) {
-
-            var note = $( '#txtNotes' )[0].value;
-            var state = $scope.selectState;
-            var eventId = state.events[0].id;
-            var propertyTaskEventNote = new Object( {
-                Notes: note,
-                EventScheduleId: eventId
-            } );
-
-            eventNotesResource.save( propertyTaskEventNote, function () {         
-            } );
-       
-
-            dialog.close();
-            $( '#myDialogWindow' ).remove();
-            
-           
-        } );
-
-        $( '#noButton' ).click( function ( e ) {
-            dialog.close();
-            $( '#myDialogWindow' ).remove();
-          
-            
-        } );
-
-        dialog.center();
-        dialog.open();
-    };
-
-    //var destroyListener = $scope.$on( 'destroyDirective', function () {
-    //    $scope.$destroy();
-    //} );
-
-    
-
-    //$scope.$on( '$destroy', function () {
-    //    destroyListener();
-    //   // element.remove();
-    //    $( "#crewcontextMenu" ).remove();
-    //} );
-
-    //$( "#crewcontextMenu" ).kendoContextMenu( {
-    //    filter: ".k-event, .k-scheduler-table",
-    //    showOn: "click",
-    //    select: contextMenuSelect,
-    //    open: contextMenuOpen
-    //} );
-
-    function scheduler_edit( e ) {
-        alert("edit")
-    }
 };
 
   
 
-CustomersRoutesController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'Modal'];
+CustomersRoutesController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'Modal', '$http'];
 app.controller( 'CustomersRoutesController', CustomersRoutesController );

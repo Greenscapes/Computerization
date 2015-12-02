@@ -1,4 +1,4 @@
-﻿<br/>
+﻿<br />
 <p>
     <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
@@ -32,8 +32,9 @@
     <!--<div id="EventScheduler">
         <div id="scheduler"></div>
     </div>-->
-    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, false)" ng-disabled="buttonsDisabled" ng-hide="eventTaskList.Id">Create Schedule</button>
-    <div kendo-scheduler k-options="schedulerOptions" k-visible="eventTaskList.Id">
+    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, true)" ng-disabled="buttonsDisabled" ng-hide="eventTaskList.Id">Save</button>
+</form>
+<!--<div kendo-scheduler k-options="schedulerOptions" k-visible="eventTaskList.Id">
         <span k-event-template class='custom-event'>{{dataItem.title}} - {{dataItem.start | date:'shortTime'}} to {{dataItem.end | date:'shortTime'}}</span>
         <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
     </div>
@@ -78,4 +79,4 @@
     <div data-container-for="description" class="k-edit-field">
         <textarea name="description" class="k-textbox" data-bind="value:description"></textarea>
     </div>
-</script>
+</script>-->

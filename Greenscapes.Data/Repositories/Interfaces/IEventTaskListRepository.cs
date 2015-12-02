@@ -16,5 +16,7 @@ namespace Greenscapes.Data.Repositories.Interfaces
         bool DeleteEventTaskList(int id);
         List<EventTaskList> GetEventTaskListsForCrew(int crewId);
         List<EventTaskList> GetPropertyEventTaskLists(int propertyId);
+        void SetStartTime(int id, DateTime start);
+        void SetFinishTime(int id, DateTime start);
     }
 }

@@ -13,9 +13,9 @@ namespace Greenscapes.Data.DataContext
         public int EmployeeId { get; set; }
 
         public int ServiceTicketId { get; set; }
-        
-        public virtual ServiceTicket ServiceTicket { get; set; }
 
         public virtual Employee Employee { get; set; }
+
+        public virtual ServiceTicket ServiceTicket { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Greenscapes.Data.DataContext
+namespace Greenscapes.Data.DataContext
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceTemplate()
         {
+            EventTaskLists = new HashSet<EventTaskList>();
             ServiceTickets = new HashSet<ServiceTicket>();
         }
 
@@ -21,7 +22,11 @@
 
         public string Url { get; set; }
 
+        [Column(TypeName = "ntext")]
         public string JsonFields { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventTaskList> EventTaskLists { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceTicket> ServiceTickets { get; set; }

@@ -18,8 +18,10 @@ namespace Greenscapes.Data.DataContext
 
         public Guid ClientTaskId { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime StartTime { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime EndTime { get; set; }
 
         public string Title { get; set; }
@@ -46,9 +48,9 @@ namespace Greenscapes.Data.DataContext
 
         public int EventTaskListId { get; set; }
 
-        public virtual EventTaskList EventTaskList { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
+
+        public virtual EventTaskList EventTaskList { get; set; }
     }
 }

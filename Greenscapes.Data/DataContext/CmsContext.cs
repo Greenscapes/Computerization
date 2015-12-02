@@ -10,7 +10,6 @@ namespace Greenscapes.Data.DataContext
         public CmsContext()
             : base("name=CmsContext")
         {
-            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<CrewMember> CrewMembers { get; set; }
@@ -20,6 +19,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EventSchedule> EventSchedules { get; set; }
         public virtual DbSet<EventTaskList> EventTaskLists { get; set; }
+        public virtual DbSet<EventTaskTime> EventTaskTimes { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<PropertyTaskDetail> PropertyTaskDetails { get; set; }
         public virtual DbSet<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
@@ -27,11 +27,11 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<PropertyTaskList> PropertyTaskLists { get; set; }
         public virtual DbSet<PropertyTaskListType> PropertyTaskListTypes { get; set; }
         public virtual DbSet<PropertyTask> PropertyTasks { get; set; }
+        public virtual DbSet<ServiceMember> ServiceMembers { get; set; }
         public virtual DbSet<ServiceTemplate> ServiceTemplates { get; set; }
         public virtual DbSet<ServiceTicket> ServiceTickets { get; set; }
-        public virtual DbSet<ServiceMember> ServiceMembers { get; set; }
-        public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<TaskTemplate> TaskTemplates { get; set; }
+        public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -102,9 +102,29 @@ namespace Greenscapes.Data.DataContext
                 .WithRequired(e => e.Employee)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.ServiceMembers)
+                .WithRequired(e => e.Employee)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.ServiceTickets)
+                .WithOptional(e => e.Employee)
+                .HasForeignKey(e => e.ApprovedById);
+
             modelBuilder.Entity<EventSchedule>()
                 .HasMany(e => e.PropertyTaskEventNotes)
                 .WithRequired(e => e.EventSchedule)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<EventTaskList>()
+                .HasMany(e => e.EventSchedules)
+                .WithRequired(e => e.EventTaskList)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<EventTaskList>()
+                .HasMany(e => e.EventTaskTimes)
+                .WithRequired(e => e.EventTaskList)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Property>()
@@ -137,22 +157,20 @@ namespace Greenscapes.Data.DataContext
                 .WithRequired(e => e.PropertyTaskListType)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<EventTaskList>()
-                .HasMany(e => e.EventSchedules)
-                .WithRequired(e => e.EventTaskList)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<PropertyTask>()
                 .HasMany(e => e.PropertyTaskDetails)
                 .WithRequired(e => e.PropertyTask)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ServiceTemplate>()
-                .HasMany(e => e.ServiceTickets);
-                //.WithRequired(e => e.ServiceTemplate)
-                //.WillCascadeOnDelete(false);
+                .HasMany(e => e.ServiceTickets)
+                .WithRequired(e => e.ServiceTemplate)
+                .WillCascadeOnDelete(false);
 
-
+            modelBuilder.Entity<ServiceTicket>()
+                .HasMany(e => e.ServiceMembers)
+                .WithRequired(e => e.ServiceTicket)
+                .WillCascadeOnDelete(false);
         }
     }
 }

@@ -77,6 +77,34 @@ namespace Greenscapes.Data.Repositories
             return db.EventTaskLists.Where(e => e.PropertyId == propertyId).ToList();
         }
 
+        public void SetStartTime(int id, DateTime start)
+        {
+            var eventTaskListTime =
+                db.EventTaskTimes.FirstOrDefault(e => e.EventDate == DateTime.Today && e.EventTaskListId == id) ??
+                new EventTaskTime();
+            eventTaskListTime.EventDate = DateTime.Today;
+            eventTaskListTime.StartTime = start;
+            eventTaskListTime.EventTaskListId = id;
+            if (eventTaskListTime.Id == 0)
+                db.EventTaskTimes.Add(eventTaskListTime);
+
+            db.SaveChanges();
+        }
+
+        public void SetFinishTime(int id, DateTime finish)
+        {
+            var eventTaskListTime =
+                db.EventTaskTimes.FirstOrDefault(e => e.EventDate == DateTime.Today && e.EventTaskListId == id) ??
+                new EventTaskTime();
+            eventTaskListTime.EventDate = DateTime.Today;
+            eventTaskListTime.EndTime = finish;
+            eventTaskListTime.EventTaskListId = id;
+            if (eventTaskListTime.Id == 0)
+                db.EventTaskTimes.Add(eventTaskListTime);
+
+            db.SaveChanges();
+        }
+
         public void Dispose()
         {
             db.Dispose();

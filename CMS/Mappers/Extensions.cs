@@ -123,5 +123,21 @@ namespace CMS.Mappers
         {
             return Mapper.Map<IEnumerable<Employee>, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this Crew source) where TTarget : CrewViewModel
+        {
+            return Mapper.Map<Crew, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this CrewViewModel source) where TTarget : Crew
+        {
+            return Mapper.Map<CrewViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<Crew> source)
+            where TTarget : IEnumerable<CrewViewModel>
+        {
+            return Mapper.Map<IEnumerable<Crew>, TTarget>(source);
+        }
     }
 }

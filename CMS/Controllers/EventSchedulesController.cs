@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System.Globalization;
+using DDay.iCal;
 using Greenscapes.Business.Services;
 using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Models;
@@ -78,21 +79,14 @@ namespace CMS.Controllers
                 //int crewid = 3;
                 DateTime selectedDate = new DateTime(year, month, date);
                 DateTime from = GetFirstDayOfWeek(selectedDate, null);
-                DateTime to = GetLastDayOfWeek(selectedDate,null);
                 List<EventDetails> eventDetails = new List<EventDetails>();
-
-                //var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from)||
-                //                                                   (ev.StartTime <= to) && (ev.EndTime >= to)||
-                //                                                    (ev.StartTime >= from) && (ev.EndTime <= to)
-                                                                    
-                //    ).OrderBy(e=>e.StartTime).ToList();
            
                 var service = new EventService();
                 var eventSchedules = service.GetEventsForCrewForDay(from, crewid);
 
                foreach (var eventVal in eventSchedules)
                {
-                    EventTaskList propTask = db.EventTaskLists.Include("Crew").Include("Property").Single(pt => pt.Id == eventVal.EventTaskListId);
+                    EventTaskList propTask = db.EventTaskLists.Include("Crew").Include("Property").Include("EventTaskTimes").Single(pt => pt.Id == eventVal.EventTaskListId);
                     if (propTask.Crew == null)
                     {
                         continue;
@@ -102,6 +96,22 @@ namespace CMS.Controllers
                     {
                         continue;
                     }
+
+                   if (!string.IsNullOrEmpty(eventVal.RecurrenceRule))
+                   {
+                       var pattern = new RecurrencePattern(eventVal.RecurrenceRule);
+                       var evaluator = new RecurrencePatternEvaluator(pattern);
+                       var items = evaluator.Evaluate(new iCalDateTime(selectedDate), eventVal.StartTime,
+                           eventVal.EndTime, false);
+                       if (!items.Any())
+                           continue;
+                   }
+                   else
+                   {
+                       if (eventVal.StartTime.AddDays(-1) > selectedDate || eventVal.EndTime < selectedDate)
+                           continue;
+                   }
+
                     EventDetails eventDetail = new EventDetails();
 
                     TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
@@ -131,6 +141,12 @@ namespace CMS.Controllers
 
                    eventDetail.PropertyName = eventVal.EventTaskList.Property.Name;
                    eventDetail.PropertyRefNumber = eventVal.EventTaskList.Property.PropertyRefNumber;
+                   var eventTaskTime = propTask.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(selectedDate) == TimeSpan.Zero);
+                   if (eventTaskTime != null)
+                   {
+                       eventDetail.TaskStartTime = eventTaskTime.StartTime;
+                       eventDetail.TaskEndTime = eventTaskTime.EndTime;
+                   }
                //    eventDetail.Crew=crewVal;
                    if (eventVal.PropertyTaskEventNotes != null)
                    {
@@ -140,7 +156,7 @@ namespace CMS.Controllers
                }  
                   
 
-                return eventDetails;
+                return eventDetails.OrderBy(e => e.StartTime);
             }
             catch (Exception ex)
             {
@@ -410,6 +426,8 @@ namespace CMS.Controllers
         public ICollection<PropertyTaskEventNote> EventNotes { get; set; }
         public Crew Crew { get; set; }
         public int EventTaskListId { get; set; }
+        public DateTime? TaskStartTime { get; set; }
+        public DateTime? TaskEndTime { get; set; }
     }
      
 }
