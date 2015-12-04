@@ -41,6 +41,16 @@ namespace CMS.Controllers
             return Ok(property);
         }
 
+        [Route("getNextReference")]
+        public string GetNextReferenceNumber()
+        {
+            var properties = db.GetProperties().OrderByDescending(p => p.PropertyRefNumber);
+            var refNumber = properties.First().PropertyRefNumber;
+            var number = Convert.ToInt32(refNumber.Replace("RM", ""));
+
+            return "RM" + (number + 1).ToString("0000");
+        }
+
         // PUT: api/Properties/5
         [Route("{id:int}")]
         [ResponseType(typeof(void))]

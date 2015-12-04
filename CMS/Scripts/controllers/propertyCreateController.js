@@ -1,7 +1,11 @@
-﻿function PropertyCreateController($scope, $resource, $location) {
+﻿function PropertyCreateController($scope, $resource, $location, $http) {
     var propertiesResource = $resource('/api/properties');
 
     $scope.property = {};
+    $http.get('/api/properties/getNextReference')
+                .success(function (data) {
+                    $scope.property.PropertyRefNumber = data;
+                });
 
     $scope.property.State = "FL";
     $scope.save = function(property) {
@@ -22,7 +26,7 @@
             }
             );
     };
-    
+
     $scope.back = function() {
         $location.path("/properties");
         if (!$scope.$$phase) $scope.$apply();
@@ -67,5 +71,5 @@
     }
 
 
-PropertyCreateController.$inject = ['$scope', '$resource', '$location'];
+PropertyCreateController.$inject = ['$scope', '$resource', '$location','$http'];
 app.controller('PropertyCreateController', PropertyCreateController);

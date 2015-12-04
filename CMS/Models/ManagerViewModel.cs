@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CMS.Models
 {
-    public class SupervisorViewModel
+    public class ManagerViewModel
     {
         public List<UnapprovedServiceTicketViewModel> UnapprovedTickets { get; set; } 
     }

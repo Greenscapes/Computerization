@@ -8,6 +8,11 @@
 
     var today = new Date();
     $scope.ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+    $scope.back = function () {
+        $location.path("/crewdashboard/" + $routeParams.crewId);// + "/tasklists/" + $routeParams.taskListId);
+        if (!$scope.$$phase) $scope.$apply();
+    };
 }
 
 CrewEventTasksController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

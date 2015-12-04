@@ -158,8 +158,6 @@
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Controllers\EventNotesController.cs" />
-    <Compile Include="Controllers\CustomersRoutesController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
     <Compile Include="Controllers\CrewsController.cs" />
     <Compile Include="Controllers\EmployeeSkillsController.cs" />
@@ -196,7 +194,7 @@
     <Compile Include="Models\ServiceMemberViewModel.cs" />
     <Compile Include="Models\ServiceTicketViewModel.cs" />
     <Compile Include="Models\ServiceTemplateViewModel.cs" />
-    <Compile Include="Models\SupervisorViewModel.cs" />
+    <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\TaskTemplateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -577,7 +575,7 @@
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewEventTasksController.js" />
     <Content Include="Scripts\controllers\crewRouteController.js" />
-    <Content Include="Scripts\controllers\eventNotesController.js" />
+    <Content Include="Scripts\controllers\managerDashboardController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
     <Content Include="Scripts\controllers\crewMemberDetailController.js" />
@@ -589,7 +587,7 @@
     <Content Include="Scripts\controllers\employeeCreateController.js" />
     <Content Include="Scripts\controllers\employeeDetailController.js" />
     <Content Include="Scripts\controllers\employeesController.js" />
-    <Content Include="Scripts\controllers\customersRoutesController.js" />
+    <Content Include="Scripts\controllers\crewDashboardController.js" />
     <Content Include="Scripts\controllers\eventTaskListController.js" />
     <Content Include="Scripts\controllers\eventTaskListCreateController.js" />
     <Content Include="Scripts\controllers\modalsController.js" />
@@ -639,6 +637,7 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\daypilot-all.min.js" />
     <Content Include="Scripts\directives\sortBy.js" />
+    <Content Include="Scripts\directives\tooltip.js" />
     <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -1288,7 +1287,7 @@
     <Content Include="Templates\creweventtasks.html" />
     <Content Include="Templates\crewmember-create.html" />
     <Content Include="Templates\crewroute.html" />
-    <Content Include="Templates\eventnotes.html" />
+    <Content Include="Templates\managerdashboard.html" />
     <Content Include="Templates\crews.html" />
     <Content Include="Templates\crewmember-detail.html" />
     <Content Include="Templates\employeeSkill-create.html" />
@@ -1304,7 +1303,7 @@
     <Content Include="Templates\customerschedules.html" />
     <Content Include="Templates\properties.html" />
     <Content Include="Templates\property-create.html" />
-    <Content Include="Templates\customers-routes.html" />
+    <Content Include="Templates\crewdashboard.html" />
     <Content Include="Templates\property-detail.html" />
     <Content Include="Templates\schedule.html" />
     <Content Include="Templates\servicetickets\palm-pruning.html" />

@@ -9,8 +9,13 @@
 
     $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId, eventDate: $routeParams.eventDate }, function () {
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
-        $scope.serviceTicket.FromTime = new Date($scope.serviceTicket.VisitFromTime.substring(0,19));
-        $scope.serviceTicket.ToTime = new Date($scope.serviceTicket.VisitToTime.substring(0,19));
+        if ($scope.serviceTicket.VisitFromTime) {
+            $scope.serviceTicket.FromTime = new Date($scope.serviceTicket.VisitFromTime.substring(0, 19));
+        }
+        if ($scope.serviceTicket.VisitToTime) {
+            $scope.serviceTicket.ToTime = new Date($scope.serviceTicket.VisitToTime.substring(0, 19));
+        }
+       
     });
 
     $scope.Item = null;
@@ -45,9 +50,9 @@
 
     $scope.back = function () {
         if ($scope.isApprove) {
-            $location.path("eventnotes");
+            $location.path("managerdashboard");
         } else {
-            $location.path("/");
+            $location.path("/crewdashboard/" + $routeParams.crewId);
         }
         
         if (!$scope.$$phase) $scope.$apply();

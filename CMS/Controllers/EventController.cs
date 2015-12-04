@@ -38,6 +38,7 @@ namespace CMS.Controllers
                 RecurrenceException = task.RecurrenceException,
                 StartTimezone = task.StartTimezone,
                 EndTimezone = task.EndTimezone,
+                StartDate = task.StartTime,
                 OwnerID = task.EventTaskListId
             });
 
