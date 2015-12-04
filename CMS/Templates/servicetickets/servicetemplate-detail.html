@@ -22,6 +22,13 @@
         <input id="url" type="text" class="form-control" autocomplete="off" placeholder="Url" required ng-disabled="buttonsDisabled" ng-model="serviceTemplate.Url">
     </div>
 
+    <label for="useTasks">Use Tasks</label>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="serviceTemplate.UseTasks">
+        </label>
+    </div>
+
     <div class="form-group">
         <label for="json">Dynamic Fields</label>
         <textarea id="json" type="text" class="form-control" placeholder="Fields" rows="15" required ng-disabled="buttonsDisabled" ng-model="serviceTemplate.JsonFields"></textarea>

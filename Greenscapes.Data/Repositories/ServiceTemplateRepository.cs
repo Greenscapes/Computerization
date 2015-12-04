@@ -31,6 +31,7 @@ namespace Greenscapes.Data.Repositories
             if (existingTemplate != null)
             {
                 existingTemplate.Name = serviceTemplate.Name;
+                existingTemplate.UseTasks = serviceTemplate.UseTasks;
                 existingTemplate.Url = serviceTemplate.Url;
                 existingTemplate.JsonFields = serviceTemplate.JsonFields;
             }

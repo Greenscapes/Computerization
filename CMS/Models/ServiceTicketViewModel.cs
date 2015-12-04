@@ -13,6 +13,8 @@ namespace CMS.Models
 
         public string TemplateUrl { get; set; }
 
+        public bool TemplateUseTasks { get; set; }
+
         public string PropertyName { get; set; }
 
         public string Address1 { get; set; }

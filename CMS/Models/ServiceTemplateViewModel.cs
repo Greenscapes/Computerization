@@ -11,6 +11,9 @@ namespace CMS.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public bool UseTasks { get; set; }
+
         public string Url { get; set; }
 
         public string JsonFields { get; set; }

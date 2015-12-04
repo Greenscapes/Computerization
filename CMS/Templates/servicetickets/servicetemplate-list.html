@@ -9,9 +9,13 @@
     <tr>
         <th>Name</th>
         <th>Url</th>
+        <th>Use Tasks</th>
     </tr>
     <tr ng-repeat="serviceTemplate in serviceTemplates">
         <td><a ng-href="#/servicetemplates/{{serviceTemplate.Id}}">{{serviceTemplate.Name}}</a></td>
         <td>{{serviceTemplate.Url}}</td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="serviceTemplate.UseTasks">&nbsp;</span>
+        </td>
     </tr>
 </table>

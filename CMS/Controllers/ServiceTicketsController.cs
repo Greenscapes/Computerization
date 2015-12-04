@@ -108,6 +108,7 @@ namespace CMS.Controllers
 
             var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
             ticket.TemplateName = serviceTemplate.Name;
+            ticket.TemplateUseTasks = serviceTemplate.UseTasks;
             ticket.TemplateUrl = serviceTemplate.Url;
             ticket.PropertyName = property.Name;
             ticket.Address1 = property.Address1;

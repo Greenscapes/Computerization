@@ -38,7 +38,7 @@
         </label>
     </div>
     
-    <div ng-include="serviceTicket.TemplateUrl"></div>
+    <div ng-if="!serviceTicket.UseTasks" ng-include="serviceTicket.TemplateUrl"></div>
 
     <div class="form-group">
         <label for="notes">Notes</label>

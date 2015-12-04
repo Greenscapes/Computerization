@@ -20,6 +20,9 @@ namespace Greenscapes.Data.DataContext
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public bool UseTasks { get; set; }
+
         public string Url { get; set; }
 
         [Column(TypeName = "ntext")]
