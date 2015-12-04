@@ -14,7 +14,7 @@ namespace Greenscapes.Data.Repositories
 
         public Employee GetEmployee(int id)
         {
-            Employee employee = db.Employees.Include("CrewTypes").FirstOrDefault(p => p.Id == id);
+            Employee employee = db.Employees.Include("EmployeeSkills").FirstOrDefault(p => p.Id == id);
             if (employee == null)
             {
                 return null;
@@ -25,12 +25,12 @@ namespace Greenscapes.Data.Repositories
 
         public List<Employee> GetEmployees()
         {
-            return db.Employees.Include("CrewTypes").ToList();
+            return db.Employees.Include("EmployeeSkills").ToList();
         }
 
         public bool UpdateEmployee(Employee employee)
         {
-            var existingEmployee = db.Employees.Include("CrewTypes").FirstOrDefault(p => p.Id == employee.Id);
+            var existingEmployee = db.Employees.Include("EmployeeSkills").FirstOrDefault(p => p.Id == employee.Id);
             if (existingEmployee != null)
             {
                 existingEmployee.Email = employee.Email;
@@ -39,15 +39,15 @@ namespace Greenscapes.Data.Repositories
                 existingEmployee.MiddleName = employee.MiddleName;
                 existingEmployee.Phone = employee.Phone;
 
-                foreach (var missing in existingEmployee.CrewTypes.Where(c => employee.CrewTypes.All(ec => ec.Id != c.Id)).ToList())
+                foreach (var missing in existingEmployee.EmployeeSkills.Where(c => employee.EmployeeSkills.All(ec => ec.Id != c.Id)).ToList())
                 {
-                    existingEmployee.CrewTypes.Remove(missing);
+                    existingEmployee.EmployeeSkills.Remove(missing);
                 }
 
-                foreach (var newlyAdded in employee.CrewTypes.Where(c => existingEmployee.CrewTypes.All(ec => ec.Id != c.Id)).ToList())
+                foreach (var newlyAdded in employee.EmployeeSkills.Where(c => existingEmployee.EmployeeSkills.All(ec => ec.Id != c.Id)).ToList())
                 {
-                    db.Set<CrewType>().Attach(newlyAdded);
-                    existingEmployee.CrewTypes.Add(newlyAdded);
+                    db.Set<EmployeeSkill>().Attach(newlyAdded);
+                    existingEmployee.EmployeeSkills.Add(newlyAdded);
                 }
 
                 db.SaveChanges();
@@ -55,7 +55,7 @@ namespace Greenscapes.Data.Repositories
             else
             {
                 db.Set<Employee>().Attach(employee);
-                employee.CrewTypes.ToList().ForEach(c => db.Set<CrewType>().Attach(c));
+                employee.EmployeeSkills.ToList().ForEach(c => db.Set<EmployeeSkill>().Attach(c));
 
                 db.Employees.Add(employee);
             }

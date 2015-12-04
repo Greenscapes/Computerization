@@ -5,6 +5,8 @@
         'update': { method: 'PUT' }
     });
 
+    $scope.isApprove = $routeParams.approve;
+
     $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId, eventDate: $routeParams.eventDate }, function () {
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
         $scope.serviceTicket.FromTime = new Date($scope.serviceTicket.VisitFromTime.substring(0,19));
@@ -26,6 +28,11 @@
         list.push($scope.Item);
     }
     
+    $scope.approve = function() {
+        $scope.serviceTicket.ApprovedDate = new Date();
+        $scope.save();
+    }
+
     $scope.save = function () {
         $scope.buttonsDisabled = true;
         $scope.serviceTicket.JsonFields = angular.toJson($scope.serviceTicket.Fields);
@@ -37,7 +44,12 @@
     };
 
     $scope.back = function () {
-        $location.path("/");
+        if ($scope.isApprove) {
+            $location.path("eventnotes");
+        } else {
+            $location.path("/");
+        }
+        
         if (!$scope.$$phase) $scope.$apply();
     };
 }

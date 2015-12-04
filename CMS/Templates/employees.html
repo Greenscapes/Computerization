@@ -15,6 +15,6 @@
     <tr ng-repeat="employee in employees">
         <td><a ng-href="#/employees/{{employee.Id}}">{{formatName(employee)}}</a></td>
         <td>{{employee.InCrew ? 'Yes' : 'No'}}</td>
-        <td><span ng-repeat="skill in employee.CrewTypes">{{skill.Name}}, </span></td>
+        <td><span ng-repeat="skill in employee.EmployeeSkills">{{skill.Name}}, </span></td>
     </tr>
 </table>

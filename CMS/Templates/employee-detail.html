@@ -22,10 +22,10 @@
     <div class="form-group">
         <label>Assigned Crew: {{crew.Name}}</label>
     </div>
-    <h3 ng-show="crewTypes.length > 0">Assignable Skills</h3>
-    <div class="form-group" ng-repeat="crewType in crewTypes">
-        <input type="checkbox" ng-model="crewType.checked" ng-disabled="buttonsDisabled" />
-        <label>{{crewType.Name}}</label>
+    <h3 ng-show="employeeSkills.length > 0">Assignable Skills</h3>
+    <div class="form-group" ng-repeat="employeeSkill in employeeSkills">
+        <input type="checkbox" ng-model="employeeSkill.checked" ng-disabled="buttonsDisabled" />
+        <label>{{employeeSkill.Name}}</label>
     </div>
     <p>
         <button type="submit" class="btn btn-success" ng-click="update(employee)" ng-disabled="buttonsDisabled">Save</button>

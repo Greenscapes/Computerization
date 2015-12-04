@@ -13,5 +13,15 @@ namespace Greenscapes.Data.Repositories.Interfaces
         List<Crew> GetCrews();
         bool UpdateCrew(Crew crew);
         bool DeleteCrew(int id);
+
+        EmployeeSkill GetEmployeeSkill(int id);
+        List<EmployeeSkill> GetEmployeeSkills();
+        bool UpdateEmployeeSkill(EmployeeSkill employeeSkill);
+        bool DeleteEmployeeSkill(int id);
+
+        CrewMember GetCrewMember(int id);
+        List<CrewMember> GetCrewMembers();
+        bool UpdateCrewMember(CrewMember crewMember);
+        bool DeleteCrewMember(int id);
     }
 }

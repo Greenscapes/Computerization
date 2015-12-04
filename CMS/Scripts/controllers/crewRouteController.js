@@ -24,23 +24,58 @@
 
     $scope.markers = [];
 
-    $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId }, function () {
-        $scope.addressList.push({ address: officeAddress, starttime: new Date(), endtime: new Date(), isFirstpoint: true });
-        $scope.addressList.push({ address: combineAddress($scope.property), starttime: new Date(), endtime: new Date(), isFirstpoint: false });
+    var month = getDate().getMonth() + 1;
+    var year = getDate().getFullYear();
+    var date = getDate().getDate();
 
-        //for (var i = 0; i < $scope.addressList.length; i++) {
-        //    codeAddress($scope.addressList[i]);//comment this during testing
-        //}
+    function getDate()
+    {
+        var today = new Date(new Date().setHours(0, 0, 0, 0));
+        var day = today.getDay();
+        var date = today.getDate() - day + Number($routeParams.routeId);
+
+        // Grabbing Start/End Dates
+        return new Date(today.setDate(date));
+    }
+
+    var eventsResource = $resource('/api/eventschedules/:year/:month/:date/:crewid/events',
+         {
+             year: year,
+             month: month,
+             date: date,
+             crewid: $routeParams.crewId
+         },
+            {
+
+            });
+
+    $scope.eventdetaillist = eventsResource.query({}, function() {
+        $scope.addressList.push({ address: officeAddress, starttime: new Date(), endtime: new Date(), isFirstpoint: true });
+
+        var uniqueAddress = [];
+        for (var i = 0; i < $scope.eventdetaillist.length; i++) {
+            var currentEvent = $scope.eventdetaillist[i];
+            uniqueAddress.push(currentEvent.PropertyAddress);
+        }
+
+        uniqueAddress = uniqueAddress.unique();
+        for (var i = 0; i < uniqueAddress.length; i++) {
+            $scope.addressList.push({ address: uniqueAddress[i], isFirstpoint: false });
+        }
+
         var waypts = [];
-        waypts.push({
-            location: $scope.addressList[1].address,
-            stopover: false
-        });
-        waypts.push({
-            location: '12558 Cara Cara Loop, Bradenton Fl, 34212',
-            stopover: false
-        });
+        for (var i = 0; i < $scope.addressList.length; i++) {
+            waypts.push({
+                location: $scope.addressList[i].address,
+                stopover: false
+            });
+        }
+
         calculateAndDisplayRoute(directionsService, directionsDisplay, waypts);
+
+        for (var i = 0; i < $scope.addressList.length; i++) {
+            codeAddress($scope.addressList[i]); //comment this during testing
+        }
     });
 
     function IndexByKeyValue(arraytosearch, key, valuetosearch) {
@@ -67,9 +102,9 @@
                     marker.icon = '~/Content/action.ico';
                 }
                 path.push(results[0].geometry.location);
-                var enddate =
                 marker.title = '<div >' + addressdetails.address + '</div>';
-                marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime + '<br>End Time :' + addressdetails.endtime + '</div>';
+                marker.content = '';
+               // marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime + '<br>End Time :' + addressdetails.endtime + '</div>';
 
                 google.maps.event.addListener(marker, 'click', function () {
                     infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
@@ -78,15 +113,8 @@
                 $scope.markers.push(marker);
                 var bounds = new google.maps.LatLngBounds();
                 for (i = 0; i < $scope.markers.length ; i++) {
-                    bounds.extend($scope.markers[i].position)
+                    bounds.extend($scope.markers[i].position);
                 }
-                var polyline = new google.maps.Polyline({
-                    map: $scope.map,
-                    path: path,
-                    strokeColor: '#0000FF',
-                    strokeOpacity: 0.7,
-                    strokeWeight: 1
-                });
                 $scope.map.fitBounds(bounds);
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
@@ -117,6 +145,13 @@
     $scope.openInfoWindow = function (e, selectedMarker) {
         e.preventDefault();
         google.maps.event.trigger(selectedMarker, 'click');
+    }
+
+    Array.prototype.unique = function () {
+        var arr = this;
+        return $.grep(arr, function (v, i) {
+            return $.inArray(v, arr) === i;
+        });
     }
 };
 

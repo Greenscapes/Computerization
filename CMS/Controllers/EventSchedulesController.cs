@@ -102,7 +102,7 @@ namespace CMS.Controllers
                        var pattern = new RecurrencePattern(eventVal.RecurrenceRule);
                        var evaluator = new RecurrencePatternEvaluator(pattern);
                        var items = evaluator.Evaluate(new iCalDateTime(selectedDate), eventVal.StartTime,
-                           eventVal.EndTime, false);
+                           selectedDate.AddDays(1), false);
                        if (!items.Any())
                            continue;
                    }

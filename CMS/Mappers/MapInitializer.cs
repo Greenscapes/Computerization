@@ -37,7 +37,6 @@ namespace CMS.Mappers
 
             Mapper.CreateMap<Crew, CrewViewModel>();
             Mapper.CreateMap<CrewViewModel, Crew>()
-                .ForMember(dest => dest.CrewMembers, src => src.Ignore())
                 .ForMember(dest => dest.EventTaskLists, src => src.Ignore())
                 .ForMember(dest => dest.PropertyTasks, src => src.Ignore());
 
@@ -82,9 +81,14 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.ServiceTickets, src => src.Ignore())
                 .ForMember(dest => dest.ServiceMembers, src => src.Ignore());
 
-            Mapper.CreateMap<CrewType, CrewTypeViewModel>();
-            Mapper.CreateMap<CrewTypeViewModel, CrewType>()
+            Mapper.CreateMap<EmployeeSkill, EmployeeSkillsViewModel>();
+            Mapper.CreateMap<EmployeeSkillsViewModel, EmployeeSkill>()
                 .ForMember(dest => dest.Employees, src => src.Ignore());
+
+            Mapper.CreateMap<CrewMember, CrewMemberViewModel>();
+            Mapper.CreateMap<CrewMemberViewModel, CrewMember>()
+                .ForMember(dest => dest.Employee, src => src.Ignore())
+                .ForMember(dest => dest.Crew, src => src.Ignore());
 
             Mapper.AssertConfigurationIsValid();
         }

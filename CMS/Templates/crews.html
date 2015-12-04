@@ -7,10 +7,19 @@
 <table class="table table-striped">
     <tr>
         <th>Name</th>
+        <th>View Routes</th>
         <!--<th>Type</th>-->
     </tr>
     <tr ng-repeat="crew in crews">
         <td><a ng-href="#/crews/{{crew.Id}}">{{crew.Name}}</a></td>
-        <!--<td>{{crew.CrewType.Name}}</td>-->
+        <td>
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/1">Monday</a> |
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/2">Tuesday</a> |
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/3">Wednesday</a> |
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/4">Thursday</a> |
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/5">Friday</a> |
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/6">Saturday</a> | 
+            <a ng-href="#/properties/1/crew/{{crew.Id}}/route/0">Sunday</a>
+</td>
     </tr>
 </table>

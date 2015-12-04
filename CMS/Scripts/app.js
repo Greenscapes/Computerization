@@ -53,12 +53,12 @@ app.config([
                 controller: 'PropertiesController'
             }).
             when('/types/crewlists/new', {
-                templateUrl: 'templates/crewtype-create.html',
-                controller: 'CrewTypeCreateController'
+                templateUrl: 'templates/employeeSkill-create.html',
+                controller: 'EmployeeSkillCreateController'
             }).
-            when('/types/crewlists/:crewTypeId', {
-                templateUrl: 'templates/crewtype-detail.html',
-                controller: 'CrewTypeDetailController'
+            when('/types/crewlists/:skillId', {
+                templateUrl: 'templates/employeeSkill-detail.html',
+                controller: 'EmployeeSkillDetailController'
             }).
             when('/types/tasklists/new', {
                 templateUrl: 'templates/tasklisttype-create.html',
@@ -68,10 +68,6 @@ app.config([
                 templateUrl: 'templates/tasklisttype-detail.html',
                 controller: 'TaskListTypeDetailController'
             }).
-            when('/types', {
-                templateUrl: 'templates/types.html',
-                controller: 'TypesController'
-            } ).
              when( '/types/tasklists', {
                  templateUrl: 'templates/tasklists.html',
                  controller: 'PropertyTaskListTypesController'
@@ -162,6 +158,10 @@ app.config([
             controller: 'EventNotesController'
         }).
             when('/servicetickets/:id/:eventDate', {
+                templateUrl: 'templates/servicetickets/serviceticket.html',
+                controller: 'ServiceTicketController'
+            }).
+            when('/servicetickets/:id/:eventDate/:approve', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
                 controller: 'ServiceTicketController'
             }).

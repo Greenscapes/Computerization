@@ -1,8 +1,8 @@
 ﻿function CrewListsController( $scope, $resource, $location ) {
-    var crewTypesResource = $resource( "/api/types/crewlists" );
-    $scope.crewTypes = crewTypesResource.query(function () { });
+    var skillsResource = $resource( "/api/types/crewlists" );
+    $scope.skills = skillsResource.query(function () { });
 
-    $scope.newCrewType = function () {
+    $scope.newEmployeeSkill = function () {
         $location.path( "/types/crewlists/new" );
         if (!$scope.$$phase) $scope.$apply();
     };

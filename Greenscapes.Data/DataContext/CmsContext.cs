@@ -14,7 +14,7 @@ namespace Greenscapes.Data.DataContext
 
         public virtual DbSet<CrewMember> CrewMembers { get; set; }
         public virtual DbSet<Crew> Crews { get; set; }
-        public virtual DbSet<CrewType> CrewTypes { get; set; }
+        public virtual DbSet<EmployeeSkill> EmployeeSkills { get; set; }
         public virtual DbSet<DailySchedule> DailySchedules { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EventSchedule> EventSchedules { get; set; }
@@ -50,10 +50,10 @@ namespace Greenscapes.Data.DataContext
                 .WithMany(e => e.Crews)
                 .Map(m => m.ToTable("PropertyTaskCrews"));
 
-            modelBuilder.Entity<CrewType>()
+            modelBuilder.Entity<EmployeeSkill>()
                 .HasMany(e => e.Employees)
-                .WithMany(e => e.CrewTypes)
-                .Map(m => m.ToTable("CrewTypeEmployees"));
+                .WithMany(e => e.EmployeeSkills)
+                .Map(m => m.ToTable("EmployeeSkillEmployees"));
 
             modelBuilder.Entity<DailySchedule>()
                 .HasMany(e => e.WeeklySchedules)

@@ -139,5 +139,37 @@ namespace CMS.Mappers
         {
             return Mapper.Map<IEnumerable<Crew>, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this EmployeeSkill source) where TTarget : EmployeeSkillsViewModel
+        {
+            return Mapper.Map<EmployeeSkill, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this EmployeeSkillsViewModel source) where TTarget : EmployeeSkill
+        {
+            return Mapper.Map<EmployeeSkillsViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<EmployeeSkill> source)
+            where TTarget : IEnumerable<EmployeeSkillsViewModel>
+        {
+            return Mapper.Map<IEnumerable<EmployeeSkill>, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this CrewMember source) where TTarget : CrewMemberViewModel
+        {
+            return Mapper.Map<CrewMember, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this CrewMemberViewModel source) where TTarget : CrewMember
+        {
+            return Mapper.Map<CrewMemberViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<CrewMember> source)
+            where TTarget : IEnumerable<CrewMemberViewModel>
+        {
+            return Mapper.Map<IEnumerable<CrewMember>, TTarget>(source);
+        }
     }
 }

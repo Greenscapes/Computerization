@@ -19,11 +19,11 @@ namespace CMS.Models
 
         public string Phone { get; set; }
 
-        public virtual ICollection<CrewTypeViewModel> CrewTypes { get; set; }
+        public virtual ICollection<EmployeeSkillsViewModel> EmployeeSkills { get; set; }
         public bool InCrew { get; set; }
     }
 
-    public class CrewTypeViewModel
+    public class EmployeeSkillsViewModel
     {
         public int Id { get; set; }
 

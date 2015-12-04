@@ -85,7 +85,7 @@
     function setSchedulerOptions() {
         $scope.schedulerOptions = {
             date: new Date(),
-            startTime: new Date(today.getYear(), today.getMonth(), today.getDay(), 8, 0, 0),
+            startTime: new Date(today.getYear(), today.getMonth(), today.getDate(), 8, 0, 0),
             height: 600,
             views: [
                 "day",

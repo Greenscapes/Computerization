@@ -162,7 +162,7 @@
     <Compile Include="Controllers\CustomersRoutesController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
     <Compile Include="Controllers\CrewsController.cs" />
-    <Compile Include="Controllers\CrewTypesController.cs" />
+    <Compile Include="Controllers\EmployeeSkillsController.cs" />
     <Compile Include="Controllers\CustomerScheduleDetailsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EventSchedulesController.cs" />
@@ -196,6 +196,7 @@
     <Compile Include="Models\ServiceMemberViewModel.cs" />
     <Compile Include="Models\ServiceTicketViewModel.cs" />
     <Compile Include="Models\ServiceTemplateViewModel.cs" />
+    <Compile Include="Models\SupervisorViewModel.cs" />
     <Compile Include="Models\TaskTemplateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -581,8 +582,8 @@
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
     <Content Include="Scripts\controllers\crewMemberDetailController.js" />
     <Content Include="Scripts\controllers\crewsController.js" />
-    <Content Include="Scripts\controllers\crewTypeCreateController.js" />
-    <Content Include="Scripts\controllers\crewTypeDetailController.js" />
+    <Content Include="Scripts\controllers\employeSkillCreateController.js" />
+    <Content Include="Scripts\controllers\employeeSkillDetailController.js" />
     <Content Include="Scripts\controllers\customerschedulesController.js" />
     <Content Include="Scripts\controllers\eventschedulesController.js" />
     <Content Include="Scripts\controllers\employeeCreateController.js" />
@@ -608,10 +609,9 @@
     <Content Include="Scripts\controllers\taskListTypeCreateController.js" />
     <Content Include="Scripts\controllers\taskListTypeDetailController.js" />
     <Content Include="Scripts\controllers\tasklistsController.js" />
-    <Content Include="Scripts\controllers\crewListsController.js" />
+    <Content Include="Scripts\controllers\employeeSkillsController.js" />
     <Content Include="Scripts\controllers\taskTemplateCreateController.js" />
     <Content Include="Scripts\controllers\taskTemplatesController.js" />
-    <Content Include="Scripts\controllers\typesController.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -1291,8 +1291,8 @@
     <Content Include="Templates\eventnotes.html" />
     <Content Include="Templates\crews.html" />
     <Content Include="Templates\crewmember-detail.html" />
-    <Content Include="Templates\crewtype-create.html" />
-    <Content Include="Templates\crewtype-detail.html" />
+    <Content Include="Templates\employeeSkill-create.html" />
+    <Content Include="Templates\employeeSkill-detail.html" />
     <Content Include="Templates\customerscheduledetails.html" />
     <Content Include="Templates\employee-create.html" />
     <Content Include="Templates\employee-detail.html" />
@@ -1343,7 +1343,6 @@
     <Content Include="Templates\eventtasklists.html" />
     <Content Include="Templates\tasktemplate-create.html" />
     <Content Include="Templates\taskTemplates.html" />
-    <Content Include="Templates\types.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

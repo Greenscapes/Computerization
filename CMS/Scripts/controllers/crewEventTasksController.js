@@ -7,7 +7,7 @@
     });
 
     var today = new Date();
-    $scope.ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + (today.getDay() + 1);
+    $scope.ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 }
 
 CrewEventTasksController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

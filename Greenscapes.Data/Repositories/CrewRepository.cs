@@ -28,18 +28,18 @@ namespace Greenscapes.Data.Repositories
             return db.Crews.ToList();
         }
 
-        public bool UpdateCrew(Crew Crew)
+        public bool UpdateCrew(Crew crew)
         {
-            var existingCrew = db.Crews.FirstOrDefault(p => p.Id == Crew.Id);
+            var existingCrew = db.Crews.FirstOrDefault(p => p.Id == crew.Id);
             if (existingCrew != null)
             {
-                existingCrew.Name = Crew.Name;
+                existingCrew.Name = crew.Name;
                 
                 db.SaveChanges();
             }
             else
             {
-                db.Crews.Add(Crew);
+                db.Crews.Add(crew);
             }
 
             db.SaveChanges();
@@ -54,6 +54,101 @@ namespace Greenscapes.Data.Repositories
                 return false;
 
             db.Crews.Remove(Crew);
+            db.SaveChanges();
+            return true;
+        }
+
+        public EmployeeSkill GetEmployeeSkill(int id)
+        {
+            EmployeeSkill employeeSkill = db.EmployeeSkills.FirstOrDefault(p => p.Id == id);
+            if (employeeSkill == null)
+            {
+                return null;
+            }
+
+            return employeeSkill;
+        }
+
+        public List<EmployeeSkill> GetEmployeeSkills()
+        {
+            return db.EmployeeSkills.ToList();
+        }
+
+        public bool UpdateEmployeeSkill(EmployeeSkill employeeSkill)
+        {
+            var existingCrew = db.EmployeeSkills.FirstOrDefault(p => p.Id == employeeSkill.Id);
+            if (existingCrew != null)
+            {
+                existingCrew.Description = employeeSkill.Description;
+                existingCrew.Name = employeeSkill.Description;
+
+                db.SaveChanges();
+            }
+            else
+            {
+                db.EmployeeSkills.Add(employeeSkill);
+            }
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool DeleteEmployeeSkill(int id)
+        {
+            var employeeSkill = db.EmployeeSkills.FirstOrDefault(p => p.Id == id);
+            if (employeeSkill == null)
+                return false;
+
+            db.EmployeeSkills.Remove(employeeSkill);
+            db.SaveChanges();
+            return true;
+        }
+
+        public CrewMember GetCrewMember(int id)
+        {
+            CrewMember crewMember = db.CrewMembers.FirstOrDefault(p => p.Id == id);
+            if (crewMember == null)
+            {
+                return null;
+            }
+
+            return crewMember;
+        }
+
+        public List<CrewMember> GetCrewMembers()
+        {
+            return db.CrewMembers.ToList();
+        }
+
+        public bool UpdateCrewMember(CrewMember crewMember)
+        {
+            var existingCrew = db.CrewMembers.FirstOrDefault(p => p.Id == crewMember.Id);
+            if (existingCrew != null)
+            {
+                existingCrew.CrewId = crewMember.CrewId;
+                existingCrew.EmployeeId = crewMember.EmployeeId;
+                existingCrew.IsCrewLeader = crewMember.IsCrewLeader;
+
+                db.SaveChanges();
+            }
+            else
+            {
+                db.CrewMembers.Add(crewMember);
+            }
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool DeleteCrewMember(int id)
+        {
+            var crewMember = db.CrewMembers.FirstOrDefault(p => p.Id == id);
+            if (crewMember == null)
+                return false;
+
+            db.CrewMembers.Remove(crewMember);
             db.SaveChanges();
             return true;
         }

@@ -14,7 +14,7 @@ namespace Greenscapes.Data.DataContext
             CrewMembers = new HashSet<CrewMember>();
             ServiceMembers = new HashSet<ServiceMember>();
             ServiceTickets = new HashSet<ServiceTicket>();
-            CrewTypes = new HashSet<CrewType>();
+            EmployeeSkills = new HashSet<EmployeeSkill>();
         }
 
         public int Id { get; set; }
@@ -39,6 +39,6 @@ namespace Greenscapes.Data.DataContext
         public virtual ICollection<ServiceTicket> ServiceTickets { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CrewType> CrewTypes { get; set; }
+        public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
     }
 }

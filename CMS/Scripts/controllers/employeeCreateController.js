@@ -1,8 +1,8 @@
 ﻿function EmployeeCreateController($scope, $resource, $routeParams, $location) {
     var employeesResource = $resource('/api/employees');
-    var crewTypesResource = $resource('/api/types/crewlists');
+    var skillResource = $resource('/api/types/crewlists');
 
-    $scope.crewTypes = crewTypesResource.query();
+    $scope.employeeSkills = skillResource.query();
     $scope.buttonsDisabled = false;
 
     $scope.back = function () {
@@ -12,12 +12,12 @@
 
     $scope.save = function(employee) {
         $scope.buttonsDisabled = true;
-        employee.CrewTypes = [];
+        employee.EmployeeSkills = [];
 
-        for (var i = 0; i < $scope.crewTypes.length; i++) {
-            if ($scope.crewTypes[i].checked) {
-                delete $scope.crewTypes[i].checked;
-                employee.CrewTypes.push($scope.crewTypes[i]);
+        for (var i = 0; i < $scope.employeeSkills.length; i++) {
+            if ($scope.employeeSkills[i].checked) {
+                delete $scope.employeeSkills[i].checked;
+                employee.EmployeeSkills.push($scope.employeeSkills[i]);
             }
         }
 

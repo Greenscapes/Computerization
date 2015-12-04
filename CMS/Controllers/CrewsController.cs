@@ -16,7 +16,6 @@ namespace CMS.Controllers
     public class CrewsController : ApiController
     {
         private readonly CrewRepository repository = new CrewRepository();
-        private readonly CmsContext db = new CmsContext();
     
         // GET: api/Crews
         [Route("")]
@@ -30,7 +29,7 @@ namespace CMS.Controllers
         [ResponseType(typeof(CrewViewModel))]
         public IHttpActionResult GetCrew(int id)
         {
-            var crew = repository.GetCrew(id);
+            var crew = repository.GetCrew(id).MapTo<CrewViewModel>();
             if (crew == null)
             {
                 return NotFound();
@@ -40,16 +39,16 @@ namespace CMS.Controllers
         }
 
         [Route("~/api/crews/employee/{id:int}")]
-        [ResponseType(typeof(Crew))]
+        [ResponseType(typeof(CrewViewModel))]
         public IHttpActionResult GetCrewByEmployeeId(int id)
         {
-            var crewMember = db.CrewMembers.FirstOrDefault(c => c.EmployeeId == id);
+            var crewMember = repository.GetCrewMembers().FirstOrDefault(c => c.EmployeeId == id);
             if (crewMember == null)
             {
                 return NotFound();
             }
 
-            return Ok(crewMember.Crew);
+            return Ok(crewMember.Crew.MapTo<CrewViewModel>());
         }
 
         // PUT: api/Crews/5
@@ -105,14 +104,9 @@ namespace CMS.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repository.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool CrewExists(int id)
-        {
-            return db.Crews.Count(e => e.Id == id) > 0;
         }
     }
 }

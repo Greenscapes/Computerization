@@ -42,7 +42,7 @@
     $scope.reset = function () {
         $location.path( '/' );
     }
-    $scope.getevents = function () {
+    $scope.getevents = function (getMap) {
       
         var month = $scope.selectedDate.getMonth()+1;
         var year = $scope.selectedDate.getFullYear();
@@ -63,38 +63,41 @@
 
         $scope.eventdetaillist = eventsResource.query( {}, function ()
         {
-            $scope.addressList.push( { address: officeAddress, starttime: new Date(), endtime: new Date(), isFirstpoint: true } );
+            if (getMap) {
+                $scope.addressList.push({ address: officeAddress, starttime: new Date(), endtime: new Date(), isFirstpoint: true });
 
 
-            var uniqueAddress = [];
-            for ( var i = 0; i < $scope.eventdetaillist.length; i++ ) {
-                var currentEvent = $scope.eventdetaillist[i];
-                uniqueAddress.push( currentEvent.PropertyAddress );
-                if ( IndexByKeyValue(propertyLists,"value",currentEvent.PropertyId) >-1 )continue
-                propertyLists.push( { text: currentEvent.PropertyName + " </br>" + currentEvent.PropertyAddress, value: currentEvent.PropertyId } )
-               
+                var uniqueAddress = [];
+                for (var i = 0; i < $scope.eventdetaillist.length; i++) {
+                    var currentEvent = $scope.eventdetaillist[i];
+                    uniqueAddress.push(currentEvent.PropertyAddress);
+                    if (IndexByKeyValue(propertyLists, "value", currentEvent.PropertyId) > -1) continue
+                    propertyLists.push({ text: currentEvent.PropertyName + " </br>" + currentEvent.PropertyAddress, value: currentEvent.PropertyId })
+
+                }
+                uniqueAddress = uniqueAddress.unique();
+                for (var i = 0; i < uniqueAddress.length; i++) {
+                    $scope.addressList.push({ address: uniqueAddress[i], starttime: currentEvent.StartTime, endtime: currentEvent.EndTime, isFirstpoint: false });
+
+
+                }
+                propertyLists = uniquePropertyList(propertyLists);
+
+                var waypts = [];
+                for (var i = 0; i < $scope.addressList.length; i++) {
+                    waypts.push({
+                        location: $scope.addressList[i].address,
+                        stopover: false
+                    });
+                }
+
+                calculateAndDisplayRoute(directionsService, directionsDisplay, waypts);
+
+                for (var i = 0; i < $scope.addressList.length; i++) {
+                    codeAddress($scope.addressList[i]);//comment this during testing
+                }
             }
-            uniqueAddress = uniqueAddress.unique();
-            for ( var i = 0; i < uniqueAddress.length; i++ ) {
-                $scope.addressList.push( { address: uniqueAddress[i], starttime: currentEvent.StartTime, endtime: currentEvent.EndTime, isFirstpoint: false } );
-
-               
-            }
-            propertyLists = uniquePropertyList(propertyLists);
             
-            var waypts = [];
-            for (var i = 0; i < $scope.addressList.length; i++) {
-                waypts.push({
-                    location: $scope.addressList[i].address,
-                    stopover: false
-                });
-            }
-           
-            calculateAndDisplayRoute(directionsService, directionsDisplay, waypts);
-           
-            for ( var i = 0; i < $scope.addressList.length; i++ ) {
-                codeAddress( $scope.addressList[i] );//comment this during testing
-            }
         }
    );
     };
@@ -152,7 +155,7 @@
    
     $scope.launchTicket = function (event) {
         var today = new Date();
-        var ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + (today.getDay() + 1);
+        var ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + (today.getDate());
         $location.path('/servicetickets/' + event.EventTaskListId + "/" + ticketDate);
         if (!$scope.$$phase) $scope.$apply();
     }

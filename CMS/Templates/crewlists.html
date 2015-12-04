@@ -3,7 +3,7 @@
     <div class="col-md-6">
         <h2>Skills</h2>
         <p>
-            <button type="button" class="btn btn-primary" ng-click="newCrewType()">
+            <button type="button" class="btn btn-primary" ng-click="newEmployeeSkill()">
                 <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Skill
             </button>
         </p>
@@ -12,9 +12,9 @@
                 <th>Name</th>
                 <th>Description</th>
             </tr>
-            <tr ng-repeat="crewType in crewTypes">
-                <td><a ng-href="#/types/crewlists/{{crewType.Id}}">{{crewType.Name}}</a></td>
-                <td>{{crewType.Description}}</td>
+            <tr ng-repeat="skill in skills">
+                <td><a ng-href="#/types/crewlists/{{skill.Id}}">{{skill.Name}}</a></td>
+                <td>{{skill.Description}}</td>
             </tr>
         </table>
     </div>

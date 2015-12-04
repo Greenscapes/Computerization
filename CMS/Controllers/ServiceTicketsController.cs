@@ -16,13 +16,45 @@ namespace CMS.Controllers
     public class ServiceTicketsController : ApiController
     {
         private readonly CmsContext db = new CmsContext();
-                
+
+        [Route("supervisor")]
+        public SupervisorViewModel GetUnapprovedServiceTickets()
+        {
+            var serviceTickets = db.ServiceTickets.Include("EventTaskList.EventTaskTimes").Where(s => !s.ApprovedDate.HasValue);
+            var supervisorViewModel = new SupervisorViewModel();
+            supervisorViewModel.UnapprovedTickets = new List<UnapprovedServiceTicketViewModel>();
+
+            foreach (var serviceTicket in serviceTickets)
+            {
+                if (!serviceTicket.EventDate.HasValue || !serviceTicket.EventTaskListId.HasValue)
+                    continue;
+
+                var ticket = new UnapprovedServiceTicketViewModel();
+                ticket.EventTaskListId = serviceTicket.EventTaskListId.Value;
+                ticket.CrewName = serviceTicket.EventTaskList.Crew.Name;
+                ticket.Title = serviceTicket.EventTaskList.Name;
+                ticket.EventDate = serviceTicket.EventDate.Value;
+                var property = serviceTicket.EventTaskList.Property;
+                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City + " " + property.State + " " + property.Zip;
+                var eventTaskTime = serviceTicket.EventTaskList.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(serviceTicket.EventDate.Value) == TimeSpan.Zero);
+                if (eventTaskTime != null)
+                {
+                    ticket.TaskStartTime = eventTaskTime.StartTime;
+                    ticket.TaskEndTime = eventTaskTime.EndTime;
+                }
+
+                supervisorViewModel.UnapprovedTickets.Add(ticket);
+            }
+
+            return supervisorViewModel;
+        }
+
         // GET: api/ServiceTickets/5/2015-10-10
         [Route("{id:int}/{date:DateTime}")]
         [ResponseType(typeof(ServiceTicketViewModel))]
         public IHttpActionResult GetServiceTicket(int id, DateTime date)
         {
-            var eventTaskList = db.EventTaskLists.FirstOrDefault(e => e.Id == id);
+            var eventTaskList = db.EventTaskLists.Include("EventTaskTimes").FirstOrDefault(e => e.Id == id);
             
             if (eventTaskList == null || !eventTaskList.ServiceTemplateId.HasValue)
             {
@@ -44,8 +76,17 @@ namespace CMS.Controllers
                 serviceTicket = new ServiceTicket();
                 serviceTicket.EventTaskListId = id;
                 serviceTicket.EventDate = date;
-                serviceTicket.VisitFromTime = DateTime.Today.AddHours(8);
-                serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
+                var eventTaskTime = eventTaskList.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(serviceTicket.EventDate.Value) == TimeSpan.Zero);
+                if (eventTaskTime != null)
+                {
+                    serviceTicket.VisitFromTime = eventTaskTime.StartTime?.AddHours(4) ?? DateTime.Today.AddHours(8);
+                    serviceTicket.VisitToTime = eventTaskTime.EndTime?.AddHours(4) ?? DateTime.Today.AddHours(10);
+                }
+                else
+                {
+                    serviceTicket.VisitFromTime = DateTime.Today.AddHours(8);
+                    serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
+                }
                 serviceTicket.ServiceTemplateId = serviceTemplate.Id;
                 serviceTicket.JsonFields = serviceTemplate.JsonFields;
                 serviceTicket.ReferenceNumber = property.PropertyRefNumber;

@@ -61,7 +61,7 @@
     <Compile Include="DataContext\EventTaskTime.cs" />
     <Compile Include="DataContext\ServiceMember.cs" />
     <Compile Include="DataContext\CrewMember.cs" />
-    <Compile Include="DataContext\CrewType.cs" />
+    <Compile Include="DataContext\EmployeeSkill.cs" />
     <Compile Include="DataContext\DailySchedule.cs" />
     <Compile Include="DataContext\Employee.cs" />
     <Compile Include="DataContext\EventSchedule.cs" />
