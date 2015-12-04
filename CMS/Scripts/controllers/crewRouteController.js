@@ -1,9 +1,4 @@
-﻿function CrewRouteController($scope, $resource, $routeParams, $location, Modal) {
-
-    var propertyResource = $resource('/api/properties/:propertyId');
-    var eventNotesResource = $resource('/api/eventnotes');
-
-
+﻿function CrewRouteController($scope, $resource, $routeParams) {
     var officeAddress = "8000 Fruitville rd, Sarasota, FL 34240";
 
 
@@ -11,7 +6,6 @@
     var infoWindow = new google.maps.InfoWindow();
     var geocoder = new google.maps.Geocoder();
     var directionsService = new google.maps.DirectionsService();
-    var zoom_option = 6;
     var mapOptions = {
         zoom: 4,
         center: new google.maps.LatLng(40.0000, -98.0000),
@@ -78,17 +72,6 @@
         }
     });
 
-    function IndexByKeyValue(arraytosearch, key, valuetosearch) {
-
-        for (var i = 0; i < arraytosearch.length; i++) {
-
-            if (arraytosearch[i][key] == valuetosearch) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     function codeAddress(addressdetails) {
 
         geocoder.geocode({ 'address': addressdetails.address }, function (results, status) {
@@ -136,10 +119,6 @@
                 window.alert('Directions request failed due to ' + status);
             }
         });
-    }
-
-    function combineAddress(property) {
-        return property.Address1 + " " + property.Address1 + " " + property.City + " " + property.State + " " + property.Zip;
     }
 
     $scope.openInfoWindow = function (e, selectedMarker) {

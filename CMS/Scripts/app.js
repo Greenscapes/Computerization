@@ -2,7 +2,7 @@
 
 app.config([
     '$routeProvider', '$resourceProvider',
-    function($routeProvider, $resourceProvider) {
+    function ($routeProvider, $resourceProvider) {
         $routeProvider.
             when('/properties/:propertyId/tasklists/:taskListId/tasks/new', {
                 templateUrl: 'templates/task-create.html',
@@ -18,7 +18,7 @@ app.config([
             }).
             when('/properties/:propertyId/crew/:crewId/route/:routeId', {
                 templateUrl: 'templates/crewroute.html',
-                controller: 'CrewRouteController'
+                controller: 'CrewRouterController'
             }).
             when('/properties/:propertyId/tasklists/:taskListId', {
                 templateUrl: 'templates/tasklist-detail.html',
@@ -140,26 +140,38 @@ app.config([
                  templateUrl: 'templates/property-detail.html',
                  controller: 'EventSchedulesController'
              } ).
-              when( '/customerroutes', {
-                  templateUrl: 'templates/customers-routes.html',
-                  controller: 'CustomersRoutesController'
+              when('/crewdashboard', {
+                  templateUrl: 'templates/crewDashboard.html',
+                  controller: 'CrewDashboardController',
+                  hideNav: true
               }).
-            when('/creweventtasks/:taskListId', {
-                templateUrl: 'templates/creweventtasks.html',
-                controller: 'CrewEventTasksController'
+            when('/crewdashboard/:crewId', {
+                templateUrl: 'templates/crewDashboard.html',
+                controller: 'CrewDashboardController',
+                hideNav: true
             }).
-               when( '/eventnotes/:eventid', {
-                   templateUrl: 'templates/eventnotes.html',
-                   controller: 'EventNotesController'
+            when('/creweventtasks/:taskListId/:crewId', {
+                templateUrl: 'templates/creweventtasks.html',
+                controller: 'CrewEventTasksController',
+                hideNav: true
+            }).
+               when('/managerdashboard/:eventid', {
+                   templateUrl: 'templates/managerdashboard.html',
+                   controller: 'ManagerDashboardController'
                } ).
             
-        when( '/eventnotes', {
-            templateUrl: 'templates/eventnotes.html',
-            controller: 'EventNotesController'
+        when('/managerdashboard', {
+            templateUrl: 'templates/managerdashboard.html',
+            controller: 'ManagerDashboardController'
         }).
             when('/servicetickets/:id/:eventDate', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
-                controller: 'ServiceTicketController'
+                controller: 'ServiceTicketController',
+            }).
+            when('/servicetickets/:id/:eventDate/:crewId', {
+                templateUrl: 'templates/servicetickets/serviceticket.html',
+                controller: 'ServiceTicketController',
+                hideNav: true
             }).
             when('/servicetickets/:id/:eventDate/:approve', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
@@ -196,9 +208,17 @@ app.config([
                 controller: 'ScheduleController'
             }).
             otherwise({
-                redirectTo: '/customerroutes'
+                redirectTo: '/schedule'
             });
 
         $resourceProvider.defaults.stripTrainingSlashes = false;
+    }
+]);
+
+app.run([
+    '$rootScope', function($rootScope) {
+        $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+            $rootScope.hideNav = current.$$route.hideNav;
+        });
     }
 ]);

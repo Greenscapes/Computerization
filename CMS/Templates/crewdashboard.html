@@ -1,0 +1,56 @@
+﻿<h2> Crew DashBoard</h2>
+
+<div ng-hide="crewId">
+    <b>Crews </b>:
+    <select ng-options="crew.Name for crew in crews" ng-model="crew" id="selectCrewList"
+            ng-disabled="isSelected" ng-change="getevents(true)"></select>
+    <button type="submit" class="btn btn-success" ng-click="reset()">Reset</button>
+</div>
+
+<div ng-show="crewId">
+    <b>Crew: </b> {{crew.Name}}
+</div>
+
+<br />
+<h3>Daily Schedule</h3>
+
+<table class="table table-striped">
+    <tr>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Event Task List</th>
+        <th>Arrived</th>
+        <th>Departed</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="event in eventdetaillist">
+        <td>{{event.StartTime | date:'h:mma'}} - {{event.EndTime | date:'h:mma'}}</td>
+        <td>{{event.PropertyAddress}}</td>
+        <td>{{event.Title}}</td>
+        <td><input type="checkbox" ng-click="setTime(true, event)" ng-hide="event.TaskStartTime"/>
+        <span ng-show="event.TaskStartTime">{{event.TaskStartTime | date:'h:mma'}}</span></td>
+        <td><input type="checkbox" ng-click="setTime(false, event)" ng-hide="event.TaskEndTime"/>
+            <span ng-show="event.TaskEndTime">{{event.TaskEndTime | date:'h:mma'}}</span></td>
+        <td class="buttonRow">
+            <button type="button" class="btn btn-primary" ng-click="launchTasks(event)">
+                View Tasks
+            </button><button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event)">
+                Create Ticket
+            </button>
+        </td>
+    </tr>
+</table>
+
+<!--<div id="EventScheduler">
+            <div id="crewscheduler" k-options="schedulerOptions"></div>
+            <ul id="crewcontextMenu"></ul>
+
+        </div>-->
+<br />
+
+<br />
+<h3>Route</h3>
+<div>
+    <div id="map"></div>
+
+</div>

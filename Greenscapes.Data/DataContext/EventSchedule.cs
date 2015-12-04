@@ -11,7 +11,7 @@ namespace Greenscapes.Data.DataContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EventSchedule()
         {
-            PropertyTaskEventNotes = new HashSet<PropertyTaskEventNote>();
+
         }
 
         public int Id { get; set; }
@@ -47,9 +47,6 @@ namespace Greenscapes.Data.DataContext
         public DateTime? ActualEndTime { get; set; }
 
         public int EventTaskListId { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
 
         public virtual EventTaskList EventTaskList { get; set; }
     }

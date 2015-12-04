@@ -42,7 +42,8 @@
         var scheduler = $(".k-scheduler").data("kendoScheduler");
         scheduler.addEvent({
             start: new Date(),
-            end: new Date()
+            end: new Date(),
+            StartDate: new Date()
         });
     }
 
@@ -83,9 +84,13 @@
     }
 
     function setSchedulerOptions() {
+        $scope.theContent = kendo.template($("#template").html()),
+
         $scope.schedulerOptions = {
+            allDaySlot: false,
             date: new Date(),
-            startTime: new Date(today.getYear(), today.getMonth(), today.getDate(), 8, 0, 0),
+            startTime: new Date(today.getYear(), today.getMonth(), today.getDate(), 6, 30, 0),
+            endTime: new Date(today.getYear(), today.getMonth(), today.getDate(), 18, 30, 0),
             height: 600,
             views: [
                 "day",
@@ -107,6 +112,9 @@
             },
             addEvent: function () {
                 $scope.scheduler.addEvent({title: ""});
+            },
+            edit: function(e) {
+                e.event.set('StartDate', new Date(e.event.start.getFullYear(), e.event.start.getMonth(), e.event.start.getDate()));
             },
             dataSource: {
                 batch: false,
@@ -138,6 +146,8 @@
                     parameterMap: function (model, operation) {
                         if (operation !== "read" && model) {
                             model.ownerId = $scope.eventTaskList.Id;
+                            model.Start = new Date(model.StartDate.getFullYear(), model.StartDate.getMonth(), model.StartDate.getDate(), model.Start.getHours(), model.Start.getMinutes(), 0);
+                            model.End = new Date(model.StartDate.getFullYear(), model.StartDate.getMonth(), model.StartDate.getDate(), model.End.getHours(), model.End.getMinutes(), 0);
                             return kendo.stringify(model);
                         }
                         if (operation === "read") {
@@ -167,6 +177,7 @@
                             title: { from: "Title", defaultValue: $scope.eventTaskList.Name },
                             start: { type: "date", from: "Start" },
                             end: { type: "date", from: "End" },
+                            StartDate: { type: "date", fromt: "StartDate" },
                             startTimezone: {
                                 from: "StartTimezone", defaultValue: "America/New_York"
                             },

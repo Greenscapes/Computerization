@@ -25,58 +25,7 @@
     $scope.eventTaskLists = eventTasksResource.query({ propertyId: $routeParams.propertyId });
 
     $scope.tasks = taskListsResource.query( function () {
-//        $scope.empEvents = [];
-//        $scope.eventlist = eventschedulesResource.query( {}, function () {
-//            $scope.empEvents;
-//            GetEvents( $scope.eventlist );
-//            loadEvents();
-
-//        });
-
     } );
-
-       
-    function GetEvents( data ) {
-        for ( var i = 0; i < data.length; i++ ) {
-
-            var event = data[i];
-            var newEvent = new Object( {
-                taskId: event.Id,
-                start: new Date( event.StartTime.toString() ),
-                end: new Date( event.EndTime.toString() ),
-                title: event.Title,
-                isAllDay: event.IsAllDay,
-                startTimezone: event.StartTimezone,
-                endTimezone: event.EndTimezone,
-                description: event.Description,
-                recurrenceId: event.RecurrenceID,
-                recurrenceRule: event.RecurrenceRule,
-                recurrenceException: event.RecurrenceException
-
-            } );
-            $scope.empEvents.push( newEvent );
-
-            // $( "#scheduler" ).data( "kendoScheduler" ).addEvent( newEvent );
-        }
-
-    }
-
-    function loadEvents() {
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
-            date: new Date(),
-            startTime: new Date(),
-            height: 600,
-            editable: false,
-            views: [
-                "day",
-                { type: "workWeek", selected: true },
-                "week",
-                "month",
-            ],
-            dataSource: $scope.empEvents,
-        } ).data( "kendoScheduler" );
-    }
-
 
     $scope.newTask = function () {
         $location.path('/properties/' + $routeParams.propertyId + '/tasklists/' + $scope.property.TaskListId + '/tasks/new');
@@ -102,12 +51,14 @@
         });
     };
 
-    var updateTask = function (task)
-    {
+    var updateTask = function (task) {
+        var deferred = $q.defer();
+        var promise = deferred.promise;
         task.EventTaskListId = $scope.eventTaskListId;
-        return taskResource.update({ taskId: task.Id }, task, function () {
-
+        taskResource.update({ taskId: task.Id }, task, function () {
+            deferred.resolve();
         });
+        return promise;
     }
 
     var deleteFunction = function () {

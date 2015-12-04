@@ -17,12 +17,12 @@ namespace CMS.Controllers
     {
         private readonly CmsContext db = new CmsContext();
 
-        [Route("supervisor")]
-        public SupervisorViewModel GetUnapprovedServiceTickets()
+        [Route("manager")]
+        public ManagerViewModel GetUnapprovedServiceTickets()
         {
             var serviceTickets = db.ServiceTickets.Include("EventTaskList.EventTaskTimes").Where(s => !s.ApprovedDate.HasValue);
-            var supervisorViewModel = new SupervisorViewModel();
-            supervisorViewModel.UnapprovedTickets = new List<UnapprovedServiceTicketViewModel>();
+            var managerViewModel = new ManagerViewModel();
+            managerViewModel.UnapprovedTickets = new List<UnapprovedServiceTicketViewModel>();
 
             foreach (var serviceTicket in serviceTickets)
             {
@@ -43,10 +43,10 @@ namespace CMS.Controllers
                     ticket.TaskEndTime = eventTaskTime.EndTime;
                 }
 
-                supervisorViewModel.UnapprovedTickets.Add(ticket);
+                managerViewModel.UnapprovedTickets.Add(ticket);
             }
 
-            return supervisorViewModel;
+            return managerViewModel;
         }
 
         // GET: api/ServiceTickets/5/2015-10-10

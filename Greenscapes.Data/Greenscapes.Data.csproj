@@ -69,7 +69,6 @@
     <Compile Include="DataContext\Property.cs" />
     <Compile Include="DataContext\PropertyTask.cs" />
     <Compile Include="DataContext\PropertyTaskDetail.cs" />
-    <Compile Include="DataContext\PropertyTaskEventNote.cs" />
     <Compile Include="DataContext\PropertyTaskHeader.cs" />
     <Compile Include="DataContext\PropertyTaskList.cs" />
     <Compile Include="DataContext\PropertyTaskListType.cs" />

@@ -40,6 +40,7 @@ namespace CMS.Models
         public bool IsAllDay { get; set; }
         public int? OwnerID { get; set; }
 
+        public DateTime StartDate { get; set; }
         public EventSchedule ToEntity()
         {
             return new EventSchedule()

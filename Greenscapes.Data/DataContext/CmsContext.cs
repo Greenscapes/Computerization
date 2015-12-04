@@ -22,7 +22,6 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<EventTaskTime> EventTaskTimes { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<PropertyTaskDetail> PropertyTaskDetails { get; set; }
-        public virtual DbSet<PropertyTaskEventNote> PropertyTaskEventNotes { get; set; }
         public virtual DbSet<PropertyTaskHeader> PropertyTaskHeaders { get; set; }
         public virtual DbSet<PropertyTaskList> PropertyTaskLists { get; set; }
         public virtual DbSet<PropertyTaskListType> PropertyTaskListTypes { get; set; }
@@ -111,11 +110,6 @@ namespace Greenscapes.Data.DataContext
                 .HasMany(e => e.ServiceTickets)
                 .WithOptional(e => e.Employee)
                 .HasForeignKey(e => e.ApprovedById);
-
-            modelBuilder.Entity<EventSchedule>()
-                .HasMany(e => e.PropertyTaskEventNotes)
-                .WithRequired(e => e.EventSchedule)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<EventTaskList>()
                 .HasMany(e => e.EventSchedules)

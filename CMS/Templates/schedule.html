@@ -17,17 +17,39 @@
     <button type="submit" class="btn btn-success" ng-click="schedulerOptions.addEvent()">Create</button><br /><br />
 </p>
 <form>
-    <div kendo-scheduler="scheduler" k-options="schedulerOptions">
-        <span k-event-template class='custom-event'>{{dataItem.title}} - {{dataItem.start | date:'shortTime'}} to {{dataItem.end | date:'shortTime'}}</span>
-        <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
+    <div kendo-tooltip k-content="theContent" k-filter="'.k-event'" class="k-group">
+        <div kendo-scheduler="scheduler" k-options="schedulerOptions">
+            <span k-event-template class='custom-event'>{{dataItem.title | truncate: 25: '...': false}}</span>
+            <div k-all-day-event-template class='custom-all-day-event'>{{dataItem.title}}</div>
+        </div>
     </div>
 </form>
+<script id="template" type="text/x-kendo-template">
+    #var uid = target.attr("data-uid");#
+    #var scheduler = target.closest("[data-role=scheduler]").data("kendoScheduler");#
+    #if (scheduler) {#
+    #var model = scheduler.occurrenceByUid(uid);#
+
+    #if(model) {#
+    <strong>#=model.title#</strong>
+    <br />
+    <strong>Start:</strong> #=kendo.format('{0:d}',model.start)#
+    <br />
+    <strong>End:</strong> #=kendo.format('{0:d}',model.end)#
+    <br />
+    #} else {#
+    <strong>No event data is available</strong>
+    #}#
+    #}#
+</script>
 <script id="customEditorTemplate" type="text/x-kendo-template">
     <!--<div class="k-edit-label" data-bind="visible:title"><label for="title">Title</label></div>
     <div data-container-for="title" class="k-edit-field">
         <input type="text" class="k-input k-textbox" name="title" data-bind="value:title,visible:title" value="{{eventTaskList.Name}}">
     </div>-->
     <div class="k-edit-label"><label for="ownerId">Event Task List</label></div>
+    /l
+    di
     <div data-container-for="ownerId" class="k-edit-field">
         <select id="ownerId" data-bind="value:ownerId,invisible:title"
                 data-value-field="value" data-text-field="text" ng-model="$parent.eventTaskList"
@@ -36,34 +58,51 @@
         </select>
     </div>
     <div data-container-for="ownerId" class="k-edit-field">
+        ss
         <select id="ownerId" data-bind="value:ownerId,visible:title" data-role="dropdownlist"
                 data-value-field="value" data-text-field="text" ng-model="eventTaskList">
             <option ng-repeat="eventTaskList in eventTaskLists" value="{{eventTaskList.Id}}">{{eventTaskList.Name}}</option>
         </select>
     </div>
     <div class="k-edit-label">
+        <label for="start">Date</label>
+    </div>
+    <div data-container-for="start" class="k-edit-field">
+        <input type="text" data-type="date" data-role="datepicker" data-bind="value:StartDate" name="StartDate" />
+    </div>
+    <div class="k-edit-label">
         <label for="start">Start</label>
     </div>
     <div data-container-for="start" class="k-edit-field">
         <input type="text"
-               data-role="datetimepicker"
+               data-role="timepicker"
                data-interval="10"
                data-type="date"
                data-bind="value:start,invisible:isAllDay"
-               name="start" />
+               name="start"
+               max="2000-01-01 18:30"
+               min="2000-01-01 6:30" />
         <input type="text" data-type="date" data-role="datepicker" data-bind="value:start,visible:isAllDay" name="start" />
         <span data-for="start" class="k-invalid-msg" style="display: none;"></span>
     </div>
     <div class="k-edit-label"><label for="end">End</label></div>
     <div data-container-for="end" class="k-edit-field">
-        <input type="text" data-type="date" data-role="datetimepicker" data-interval="10" data-bind="value:end,invisible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
+        <input type="text"
+               data-type="date"
+               data-role="timepicker"
+               data-interval="10"
+               data-bind="value:end,invisible:isAllDay"
+               name="end"
+               data-datecompare-msg="End date should be greater than or equal to the start date"
+               max="2000-01-01 18:30"
+               min="2000-01-01 6:30" />
         <input type="text" data-type="date" data-role="datepicker" data-bind="value:end,visible:isAllDay" name="end" data-datecompare-msg="End date should be greater than or equal to the start date" />
         <span data-for="end" class="k-invalid-msg" style="display: none;"></span>
     </div>
-    <div class="k-edit-label"><label for="isAllDay">All day event</label></div>
+    <!--<div class="k-edit-label"><label for="isAllDay">All day event</label></div>
     <div data-container-for="isAllDay" class="k-edit-field">
         <input type="checkbox" name="isAllDay" data-type="boolean" data-bind="checked:isAllDay">
-    </div>
+    </div>-->
     <div class="k-edit-label"><label for="recurrenceRule">Repeat</label></div>
     <div data-container-for="recurrenceRule" class="k-edit-field">
         <div data-bind="value:recurrenceRule" name="recurrenceRule" data-role="recurrenceeditor"></div>
