@@ -37,8 +37,24 @@
             {{employee.FirstName}} {{employee.LastName}}
         </label>
     </div>
+
+    <div ng-if="!serviceTicket.TemplateUseTasks" ng-include="serviceTicket.TemplateUrl"></div>
     
-    <div ng-if="!serviceTicket.UseTasks" ng-include="serviceTicket.TemplateUrl"></div>
+    <table ng-if="serviceTicket.TemplateUseTasks" class="table table-striped">
+        <tr>
+            <th class="col-md-4">Description</th>
+            <th class="col-md-4 text-center">Location</th>
+            <th class="col-md-4 text-center">Completed</th>
+        </tr>
+        <tr ng-repeat="task in serviceTicket.Fields.Tasks">
+
+            <td>{{task.Description}}</td>
+            <td>{{task.Location}}</td>
+            <td class="text-center">
+                <input type="checkbox" ng-model="task.Completed">
+            </td>
+        </tr>
+    </table>
 
     <div class="form-group">
         <label for="notes">Notes</label>

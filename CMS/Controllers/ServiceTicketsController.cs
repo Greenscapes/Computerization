@@ -9,6 +9,7 @@ using Greenscapes.Data.Repositories;
 using Greenscapes.Data.Repositories.Interfaces;
 using CMS.Mappers;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace CMS.Controllers
 {
@@ -88,7 +89,25 @@ namespace CMS.Controllers
                     serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
                 }
                 serviceTicket.ServiceTemplateId = serviceTemplate.Id;
-                serviceTicket.JsonFields = serviceTemplate.JsonFields;
+                if (serviceTemplate.UseTasks)
+                {
+                    var tasks = from t in db.PropertyTasks
+                                where t.EventTaskListId == eventTaskList.Id
+                                select new
+                                {
+                                    Description = t.Description,
+                                    Location = t.Location,
+                                    Completed = false
+                                };
+                   
+                    serviceTicket.JsonFields = "{\"Tasks\":" + JsonConvert.SerializeObject(tasks.ToList()) + "}";
+                    
+                }
+                else
+                {
+                    serviceTicket.JsonFields = serviceTemplate.JsonFields;
+
+                }
                 serviceTicket.ReferenceNumber = property.PropertyRefNumber;
                 db.ServiceTickets.Add(serviceTicket);
                 db.SaveChanges();
