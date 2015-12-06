@@ -1,0 +1,1 @@
+ALTER TABLE ServiceTemplates ADD UseTasks BIT NOT NULL DEFAULT(0)
