@@ -18,7 +18,7 @@ app.config([
             }).
             when('/properties/:propertyId/crew/:crewId/route/:routeId', {
                 templateUrl: 'templates/crewroute.html',
-                controller: 'CrewRouterController'
+                controller: 'CrewRouteController'
             }).
             when('/properties/:propertyId/tasklists/:taskListId', {
                 templateUrl: 'templates/tasklist-detail.html',
