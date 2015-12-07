@@ -164,6 +164,10 @@ app.config([
             templateUrl: 'templates/managerdashboard.html',
             controller: 'ManagerDashboardController'
         }).
+            when('/servicetickets/:id', {
+                templateUrl: 'templates/servicetickets/serviceticket.html',
+                controller: 'ServiceTicketController',
+            }).
             when('/servicetickets/:id/:eventDate', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
                 controller: 'ServiceTicketController',

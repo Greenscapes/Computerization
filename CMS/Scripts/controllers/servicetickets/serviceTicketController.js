@@ -8,6 +8,10 @@
     $scope.isApprove = $routeParams.approve;
 
     $scope.serviceTicket = resource.get({ eventTaskListId: $routeParams.eventTaskListId, eventDate: $routeParams.eventDate }, function () {
+
+        if (!$routeParams.eventDate)
+            $scope.buttonsDisabled = true;
+
         $scope.serviceTicket.Fields = angular.fromJson($scope.serviceTicket.JsonFields);
         if ($scope.serviceTicket.VisitFromTime) {
             $scope.serviceTicket.FromTime = new Date($scope.serviceTicket.VisitFromTime.substring(0, 19));

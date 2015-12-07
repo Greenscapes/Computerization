@@ -50,6 +50,63 @@ namespace CMS.Controllers
             return managerViewModel;
         }
 
+
+        // GET: api/ServiceTickets/5/2015-10-10
+        [Route("{id:int}")]
+        [ResponseType(typeof(ServiceTicketViewModel))]
+        public IHttpActionResult GetServiceTicket(int id)
+        {
+            var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == id);
+            var property = new Property()
+            {
+                Name = "Property Name",
+                Address1 = "Address",
+                City = "City",
+                State = "ST",
+                Zip = "00000"
+            };
+            if (serviceTemplate == null || property == null)
+            {
+                return NotFound();
+            }
+
+            var serviceTicket = new ServiceTicket();
+
+            serviceTicket.EventTaskListId = id;
+            serviceTicket.EventDate = DateTime.Now;
+            serviceTicket.VisitFromTime = DateTime.Today.AddHours(8);
+            serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
+            serviceTicket.ServiceTemplateId = serviceTemplate.Id;
+            serviceTicket.JsonFields = serviceTemplate.JsonFields;
+            
+            var serviceMembers = from e in db.Employees
+                                 join c in db.CrewMembers on e.Id equals c.EmployeeId
+                                 where c.CrewId == 1
+                                 orderby e.FirstName, e.LastName
+                                 select new ServiceMemberViewModel()
+                                 {
+                                     EmployeeId = e.Id,
+                                     FirstName = e.FirstName,
+                                     LastName = e.LastName,
+                                     Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
+                                 };
+
+            var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
+            ticket.TemplateName = serviceTemplate.Name;
+            ticket.TemplateUseTasks = serviceTemplate.UseTasks;
+            ticket.TemplateUrl = serviceTemplate.Url;
+            ticket.PropertyName = property.Name;
+            ticket.Address1 = property.Address1;
+            ticket.Address2 = property.Address2;
+            ticket.City = property.City;
+            ticket.State = property.State;
+            ticket.Zip = property.Zip;
+            ticket.Members = serviceMembers.ToList();
+
+            return Ok(ticket);
+        }
+
+
         // GET: api/ServiceTickets/5/2015-10-10
         [Route("{id:int}/{date:DateTime}")]
         [ResponseType(typeof(ServiceTicketViewModel))]
