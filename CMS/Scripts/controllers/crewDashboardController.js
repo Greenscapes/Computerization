@@ -164,7 +164,7 @@
     $scope.launchTicket = function (event) {
         var today = new Date();
         var ticketDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + (today.getDate());
-        $location.path('/servicetickets/' + event.EventTaskListId + "/" + ticketDate + "/" + $scope.crewId);
+        $location.path('/servicetickets/' + event.EventTaskListId + "/" + ticketDate + "/");
         if (!$scope.$$phase) $scope.$apply();
     }
 
