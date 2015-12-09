@@ -79,6 +79,29 @@
         $location.path("/properties");
         if (!$scope.$$phase) $scope.$apply();
     };
+
+    $scope.unallocateTask = function(task) {
+        task.EventTaskListId = null;
+        taskResource.update({ taskId: task.Id }, task, function () {
+            $scope.tasks = taskListsResource.query(function () {
+            });
+        });
+    }
+
+    var deleteTaskFunction = function (task) {
+        $scope.buttonsDisabled = true;
+        taskResource.delete({ taskId: task.Id }, task, function () {
+            $scope.tasks = taskListsResource.query(function () {
+            });
+        },
+            function () {
+                $scope.buttonsDisabled = false;
+            });
+    };
+
+    $scope.confirmDeleteTask = function (task) {
+        Modal.showConfirmDelete("task", task.Location + " - " + task.Description, task, deleteTaskFunction);
+    };
 }
 
 PropertyDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$q', 'Modal'];

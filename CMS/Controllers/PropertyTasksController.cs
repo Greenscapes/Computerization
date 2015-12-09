@@ -56,10 +56,10 @@ namespace CMS.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPropertyTask(int id, PropertyTaskViewModel propertyTask)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             if (id != propertyTask.Id)
             {

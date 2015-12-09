@@ -80,7 +80,7 @@ namespace Greenscapes.Data.Repositories
             if (existingCrew != null)
             {
                 existingCrew.Description = employeeSkill.Description;
-                existingCrew.Name = employeeSkill.Description;
+                existingCrew.Name = employeeSkill.Name;
 
                 db.SaveChanges();
             }

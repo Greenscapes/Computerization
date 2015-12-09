@@ -81,11 +81,11 @@ namespace Greenscapes.Data.Repositories
 
         public bool DeletePropertyTask(int id)
         {
-            var property = db.Properties.FirstOrDefault(p => p.Id == id);
-            if (property == null)
+            var task = db.PropertyTasks.FirstOrDefault(p => p.Id == id);
+            if (task == null)
                 return false;
 
-            db.Properties.Remove(property);
+            db.PropertyTasks.Remove(task);
             db.SaveChanges();
             return true;
         }

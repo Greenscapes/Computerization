@@ -12,7 +12,6 @@
         <td><!--{{property.PropertyType}}-->
             <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
                     ng-model="property.PropertyType" ng-readonly="true;" disabled="true">
-                <option value="" class="">Select</option>
                 <option value="1">Prospect</option>
                 <option value="2">Active</option>
                 <option value="3">Closed</option>
@@ -72,7 +71,7 @@
 <p>
     <button type="button" class="btn btn-primary" ng-click="newTask()">
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task
-    </button>
+    </button><br/><br/>
     <button type="button" class="btn btn-primary" ng-click="newEventTaskList()">
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Event Task List
     </button><br/><br/>
@@ -103,7 +102,10 @@
                 </a>
             </td>
             <td><a ng-href="#/properties/{{property.Id}}/schedule/{{task.EventTaskListId}}">{{task.ScheduleName}}</a></td>
-            <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a> | <a ng-click="deleteTask(task.id)">Delete Task</a></td>
+            <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a>
+                | <a ng-click="confirmDeleteTask(task)">Delete Task</a>
+                <span ng-if="task.EventTaskListId > 0">| <a ng-click="unallocateTask(task)">Unallocate Task</a></span>
+            </td>
         </tr>
     </table>
 </div>
