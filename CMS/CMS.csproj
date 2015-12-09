@@ -574,6 +574,7 @@
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewEventTasksController.js" />
+    <Content Include="Scripts\controllers\crewMembersController.js" />
     <Content Include="Scripts\controllers\crewRouteController.js" />
     <Content Include="Scripts\controllers\managerDashboardController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
@@ -1286,6 +1287,7 @@
     <Content Include="Templates\crew-detail.html" />
     <Content Include="Templates\creweventtasks.html" />
     <Content Include="Templates\crewmember-create.html" />
+    <Content Include="Templates\crewmembers.html" />
     <Content Include="Templates\crewroute.html" />
     <Content Include="Templates\managerdashboard.html" />
     <Content Include="Templates\crews.html" />

@@ -37,11 +37,14 @@ namespace Greenscapes.Data.Repositories
                 existingTask.EstimatedDuration = taskTemplate.EstimatedDuration;
                 existingTask.IsFreeService = taskTemplate.IsFreeService;
                 existingTask.Notes = taskTemplate.Notes;
+                existingTask.DisplayOrder = taskTemplate.DisplayOrder;
 
                 db.SaveChanges();
             }
             else
             {
+                var max = db.TaskTemplates.Max(t => t.DisplayOrder);
+                taskTemplate.DisplayOrder = max + 1;
                 db.TaskTemplates.Add(taskTemplate);
             }
 

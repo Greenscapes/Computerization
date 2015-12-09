@@ -17,5 +17,6 @@ namespace CMS.Models
         public int EstimatedDuration { get; set; }
 
         public bool IsFreeService { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }

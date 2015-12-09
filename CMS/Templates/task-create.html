@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="templateSelect">Select Existing Task</label>
         <select name="templateSelect" id="templateSelect"
-                ng-options="taskTemplate as taskTemplate.Description for taskTemplate in taskTemplates"
+                ng-options="taskTemplate as taskTemplate.Description for taskTemplate in taskTemplates | orderBy: 'DisplayOrder'"
                 ng-model="selectedTemplate"
                 ng-change="templateSelected()"></select>
     </div>

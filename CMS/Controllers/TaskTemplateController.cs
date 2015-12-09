@@ -66,6 +66,19 @@ namespace CMS.Controllers
             return Ok(propertyTask);
         }
 
+        [Route("{id:int}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult DeleteTaskTemplate(int id)
+        {
+            var success = db.DeleteTaskTemplate(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

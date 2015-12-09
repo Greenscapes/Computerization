@@ -17,5 +17,7 @@ namespace Greenscapes.Data.DataContext
         public int EstimatedDuration { get; set; }
 
         public bool IsFreeService { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

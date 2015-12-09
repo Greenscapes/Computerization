@@ -24,5 +24,7 @@ namespace CMS.Models
         public int CrewId { get; set; }
 
         public bool IsCrewLeader { get; set; }
+
+        public EmployeeViewModel Employee { get; set; }
     }
 }

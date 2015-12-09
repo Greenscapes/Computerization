@@ -75,7 +75,11 @@ app.config([
               when( '/types/crewlists', {
                   templateUrl: 'templates/crewlists.html',
                   controller: 'CrewListsController'
-              } ).
+              }).
+             when('/crewmembers', {
+                 templateUrl: 'templates/crewmembers.html',
+                 controller: 'CrewMembersController'
+             }).
             when('/employees/new', {
                 templateUrl: 'templates/employee-create.html',
                 controller: 'EmployeeCreateController'
