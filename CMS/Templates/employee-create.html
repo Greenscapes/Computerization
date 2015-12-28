@@ -19,6 +19,11 @@
         <label for="inputLastName">Last Name</label>
         <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-disabled="buttonsDisabled" ng-model="employee.LastName">
     </div>
+    <h3 ng-show="crews.length > 0">Assigned Crews</h3>
+    <div class="form-group" ng-repeat="crew in crews">
+        <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+        <label>{{crew.Name}}</label>
+    </div>
     <h3 ng-show="employeeSkills.length > 0">Assignable Skills</h3>
     <div class="form-group" ng-repeat="employeeSkill in employeeSkills">
         <input type="checkbox" ng-model="employeeSkill.checked" ng-disabled="buttonsDisabled" />

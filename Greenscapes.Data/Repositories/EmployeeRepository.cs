@@ -25,10 +25,10 @@ namespace Greenscapes.Data.Repositories
 
         public List<Employee> GetEmployees()
         {
-            return db.Employees.Include("EmployeeSkills").ToList();
+            return db.Employees.Include("EmployeeSkills").Include("CrewMembers").ToList();
         }
 
-        public bool UpdateEmployee(Employee employee)
+        public int UpdateEmployee(Employee employee)
         {
             var existingEmployee = db.Employees.Include("EmployeeSkills").FirstOrDefault(p => p.Id == employee.Id);
             if (existingEmployee != null)
@@ -62,7 +62,7 @@ namespace Greenscapes.Data.Repositories
 
             db.SaveChanges();
 
-            return true;
+            return employee.Id;
         }
 
         public bool DeleteEmployee(int id)
@@ -79,6 +79,36 @@ namespace Greenscapes.Data.Repositories
         public void Dispose()
         {
             db.Dispose();
+        }
+
+        public void UpdateEmployeeCrews(int id, List<int> crewIds)
+        {
+            var idsToRemove = new List<int>();
+            var employee = db.Employees.FirstOrDefault(p => p.Id == id);
+            if (employee == null)
+                return;
+
+            foreach (var crewmember in employee.CrewMembers)
+            {
+                idsToRemove.Add(crewmember.Id);
+            }
+
+            foreach (var idToRemove in idsToRemove)
+            {
+                var crewmember = db.CrewMembers.First(i => i.Id == idToRemove);
+                db.CrewMembers.Remove(crewmember);
+                db.SaveChanges();
+            }
+
+            foreach (var crewId in crewIds)
+            {
+                var crewMember = new CrewMember();
+                crewMember.EmployeeId = id;
+                crewMember.CrewId = crewId;
+                employee.CrewMembers.Add(crewMember);
+            }
+
+            db.SaveChanges();
         }
     }
 }

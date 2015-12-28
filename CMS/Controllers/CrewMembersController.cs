@@ -31,6 +31,12 @@ namespace CMS.Controllers
             return db.GetCrewMembers().Where(m => m.CrewId == crewId).MapTo<IEnumerable<CrewMemberViewModel>>();
         }
 
+        [Route("~/api/employee/{employeeId:int}/members")]
+        public IEnumerable<CrewMemberViewModel> GetCrewMembersForEmployee(int employeeId)
+        {
+            return db.GetCrewMembers().Where(m => m.EmployeeId == employeeId).MapTo<IEnumerable<CrewMemberViewModel>>();
+        }
+
         // GET: api/CrewMembers/5
         [Route("{id:int}")]
         [Route("~/api/crews/{crewId:int}/members/{id:int}")]

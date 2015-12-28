@@ -10,11 +10,11 @@
                                         ng-options="property.Id as property.Name for property in properties"
                                         ng-model="selectedPropertyId"></select>
     <button type="submit" class="btn btn-success" ng-click="filter('property')">View</button><br /><br />
-    Show Schedule for Event Task List: <select name="eventTaskSelect" id="eventTaskSelect"
-                                               ng-options="eventTaskList as eventTaskList.Name for eventTaskList in eventTaskLists"
-                                               ng-model="eventTaskList"></select>
-    <button type="submit" class="btn btn-success" ng-click="filter('eventTaskList')">View</button>
-    <button type="submit" class="btn btn-success" ng-click="schedulerOptions.addEvent()">Create</button><br /><br />
+    Show Schedule for Event Task List: 
+    <input type="text" name="eventTaskSelect" id="eventTaskSelect" ng-model="eventTaskList" style="width:300px;"
+           typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false" />
+    <button type="submit" class="btn btn-success" ng-click="filter('eventTaskList')">View</button><br /><br />
+    <button type="submit" class="btn btn-danger" ng-click="schedulerOptions.addEvent()">Create Schedule For Event Task List</button><br /><br />
 </p>
 <form>
     <div kendo-tooltip k-content="theContent" k-filter="'.k-event'" class="k-group">
@@ -49,17 +49,20 @@
     </div>-->
     <div class="k-edit-label"><label for="ownerId">Event Task List</label></div>
     <div data-container-for="ownerId" class="k-edit-field">
-        <select id="ownerId" data-bind="value:ownerId,invisible:title"
+        <!--<select id="ownerId" data-bind="value:ownerId,invisible:title"
                 data-value-field="value" data-text-field="text" ng-model="$parent.eventTaskList"
                 ng-options="eventTaskList as eventTaskList.Name for eventTaskList in $parent.eventTaskLists">
-            <!--<option ng-repeat="eventTaskList in eventTaskLists" value="{{eventTaskList.Id}}">{{eventTaskList.Name}}</option>-->
-        </select>
+        </select>-->
+        <input type="text" data-bind="value:title,invisible:title" ng-model="$parent.eventTaskList" data-value-field="value" data-text-field="text"
+               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false" />
     </div>
     <div data-container-for="ownerId" class="k-edit-field">
-        <select id="ownerId" data-bind="value:ownerId,visible:title" data-role="dropdownlist"
+        <!--<select id="ownerId" data-bind="value:ownerId,visible:title" data-role="dropdownlist"
                 data-value-field="value" data-text-field="text" ng-model="eventTaskList">
             <option ng-repeat="eventTaskList in eventTaskLists" value="{{eventTaskList.Id}}">{{eventTaskList.Name}}</option>
-        </select>
+        </select>-->
+        <input type="text" data-bind="value:title,visible:title" ng-model="$parent.eventTaskList" data-value-field="value" data-text-field="text"
+               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false" />
     </div>
     <div class="k-edit-label">
         <label for="start">Date</label>

@@ -1,10 +1,11 @@
-﻿function EmployeeDetailController($scope, $resource, $routeParams, $location) {
+﻿function EmployeeDetailController($scope, $resource, $routeParams, $location, $http) {
     var employeesResource = $resource('/api/employees/:employeeId',
     { employeeId: $routeParams.employeeId },
     {
         'update': { method: 'PUT' }
     });
-    var crewMemberResource = $resource('/api/crews/employee/:employeeId',
+    var crewsResource = $resource('/api/crews');
+    var crewMembersResource = $resource('/api/employee/:employeeId/members',
     { employeeId: $routeParams.employeeId });
 
     var skillsResource = $resource('/api/types/crewlists');
@@ -27,8 +28,17 @@
             }
             
         });
-        $scope.crew = crewMemberResource.get({}, function() {
-
+        $scope.crews = crewsResource.query({}, function () {
+            var crewMembers = crewMembersResource.query(function() {
+                for (var i = 0; i < $scope.crews.length; i++) {
+                    for (var j = 0; j < crewMembers.length; j++) {
+                        if ($scope.crews[i].Id === crewMembers[j].CrewId) {
+                            $scope.crews[i].checked = true;
+                            break;
+                        }
+                    }
+                }
+            });  
         });
 
         $scope.empEvents = [];
@@ -45,6 +55,7 @@
     $scope.update = function(employee) {
         $scope.buttonsDisabled = true;
         employee.EmployeeSkills = [];
+        var crewIds = [];
 
         for (var i = 0; i < $scope.employeeSkills.length; i++) {
             if ($scope.employeeSkills[i].checked) {
@@ -53,9 +64,19 @@
             }
         }
 
-        employeesResource.update({ employeeId: employee.Id }, employee, function() {
-                $scope.buttonsDisabled = false;
-                $scope.back();
+        for (var i = 0; i < $scope.crews.length; i++) {
+            if ($scope.crews[i].checked) {
+                delete $scope.crews[i].checked;
+                crewIds.push($scope.crews[i].Id);
+            }
+        }
+
+        employeesResource.update({ employeeId: employee.Id }, employee, function () {
+            $http.put('/api/employees/' + employee.Id + "/crews", crewIds)
+                .success(function (data) {
+                    $scope.buttonsDisabled = false;
+                    $scope.back();
+                }); 
             },
             function() {
                 $scope.buttonsDisabled = false;
@@ -75,5 +96,5 @@
     };
 };
 
-EmployeeDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
+EmployeeDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$http'];
 app.controller('EmployeeDetailController', EmployeeDetailController);

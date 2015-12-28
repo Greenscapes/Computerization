@@ -20,6 +20,7 @@ namespace CMS.Models
         public string Phone { get; set; }
 
         public virtual ICollection<EmployeeSkillsViewModel> EmployeeSkills { get; set; }
+         
         public bool InCrew { get; set; }
     }
 

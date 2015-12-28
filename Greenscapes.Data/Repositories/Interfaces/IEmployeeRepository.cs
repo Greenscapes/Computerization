@@ -11,7 +11,7 @@ namespace Greenscapes.Data.Repositories.Interfaces
     {
         Employee GetEmployee(int id);
         List<Employee> GetEmployees();
-        bool UpdateEmployee(Employee employee);
+        int UpdateEmployee(Employee employee);
         bool DeleteEmployee(int id);
     }
 }

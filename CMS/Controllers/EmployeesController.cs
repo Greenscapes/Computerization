@@ -65,6 +65,16 @@ namespace CMS.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Route("{id:int}/crews")]
+        [HttpPut]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutEmployeeCrews(int id, List<int> crewIds)
+        {
+            db.UpdateEmployeeCrews(id, crewIds);
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/Employees
         [Route("")]
         [ResponseType(typeof(EmployeeViewModel))]
@@ -76,8 +86,8 @@ namespace CMS.Controllers
             }
 
 
-            db.UpdateEmployee(employee.MapTo<Employee>());
-
+            var id = db.UpdateEmployee(employee.MapTo<Employee>());
+            employee.Id = id;
             return Ok(employee);
         }
 

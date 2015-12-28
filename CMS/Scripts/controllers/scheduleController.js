@@ -10,7 +10,7 @@
 
     $scope.selectedCrewId = 0;
     $scope.selectedPropertyId = 0;
-    $scope.eventTaskList = {};
+    $scope.eventTaskList = { Name: '' };
     $scope.eventTaskLists = [];
     $scope.filteredTaskLists = [];
     //$scope.eventTaskList.EventSchedules = [];
@@ -37,6 +37,16 @@
    // $scope.taskEvents = [];
 
     //  loadEvents();
+
+    $scope.getEventsForFilter = function (filter) {
+        var tasksLists = [];
+        $scope.eventTaskLists.forEach(function(taskList) {
+            if (taskList.Name.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+                tasksLists.push(taskList);
+            }
+        });
+        return tasksLists;
+    }
 
     $scope.createSchedule = function() {
         var scheduler = $(".k-scheduler").data("kendoScheduler");
@@ -145,6 +155,7 @@
                     },
                     parameterMap: function (model, operation) {
                         if (operation !== "read" && model) {
+                            model.OwnerID = $scope.eventTaskList.Id;
                             model.ownerId = $scope.eventTaskList.Id;
                             model.Start = new Date(model.StartDate.getFullYear(), model.StartDate.getMonth(), model.StartDate.getDate(), model.Start.getHours(), model.Start.getMinutes(), 0);
                             model.End = new Date(model.StartDate.getFullYear(), model.StartDate.getMonth(), model.StartDate.getDate(), model.End.getHours(), model.End.getMinutes(), 0);
