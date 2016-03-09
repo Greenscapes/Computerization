@@ -636,6 +636,7 @@
     <Content Include="Content\kendoui\images\kendoui.ttf" />
     <Content Include="Content\kendoui\images\kendoui.woff" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\dateFormat.js" />
     <Content Include="Scripts\daypilot-all.min.js" />
     <Content Include="Scripts\directives\sortBy.js" />
     <Content Include="Scripts\directives\tooltip.js" />

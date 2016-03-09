@@ -61,3 +61,12 @@ label.k-check {
 .buttonRow {
     width: 240px;
 }
+
+.k-scheduler-edit-form .k-edit-form-container {
+    width: 800px !important;
+}
+
+.eventTaskListEdit {
+    width: 100%;
+    max-width: 800px;
+}

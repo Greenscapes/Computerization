@@ -2,7 +2,8 @@
     var employeesResource = $resource('/api/employees/:employeeId',
     { employeeId: $routeParams.employeeId },
     {
-        'update': { method: 'PUT' }
+        'update': { method: 'PUT' },
+        'delete': { method: 'DELETE' }
     });
     var crewsResource = $resource('/api/crews');
     var crewMembersResource = $resource('/api/employee/:employeeId/members',
@@ -12,24 +13,24 @@
     //var eventschedulesResource = $resource( '/api/eventschedules/:employeeId/events',
     //{ employeeId: $routeParams.employeeId },
     //{
-          
+
     //});
-  
-    $scope.employee = employeesResource.get( {}, function () {
-        
-        $scope.employeeSkills = skillsResource.query( function () {
+
+    $scope.employee = employeesResource.get({}, function () {
+
+        $scope.employeeSkills = skillsResource.query(function () {
             for (var i = 0; i < $scope.employeeSkills.length; i++) {
-                for ( var j = 0; j < $scope.employee.EmployeeSkills.length; j++ ) {
+                for (var j = 0; j < $scope.employee.EmployeeSkills.length; j++) {
                     if ($scope.employeeSkills[i].Id === $scope.employee.EmployeeSkills[j].Id) {
                         $scope.employeeSkills[i].checked = true;
                         break;
                     }
                 }
             }
-            
+
         });
         $scope.crews = crewsResource.query({}, function () {
-            var crewMembers = crewMembersResource.query(function() {
+            var crewMembers = crewMembersResource.query(function () {
                 for (var i = 0; i < $scope.crews.length; i++) {
                     for (var j = 0; j < crewMembers.length; j++) {
                         if ($scope.crews[i].Id === crewMembers[j].CrewId) {
@@ -38,13 +39,13 @@
                         }
                     }
                 }
-            });  
+            });
         });
 
         $scope.empEvents = [];
-       
-    } );
-    
+
+    });
+
     $scope.buttonsDisabled = false;
 
     $scope.back = function () {
@@ -52,7 +53,7 @@
         if (!$scope.$$phase) $scope.$apply();
     };
 
-    $scope.update = function(employee) {
+    $scope.update = function (employee) {
         $scope.buttonsDisabled = true;
         employee.EmployeeSkills = [];
         var crewIds = [];
@@ -76,12 +77,24 @@
                 .success(function (data) {
                     $scope.buttonsDisabled = false;
                     $scope.back();
-                }); 
-            },
-            function() {
+                });
+        },
+            function () {
                 $scope.buttonsDisabled = false;
             });
     };
+
+    $scope.delete = function (employee) {
+        $scope.buttonsDisabled = true;
+
+        employeesResource.delete({ employeeId: employee.Id }, employee, function () {
+            $scope.buttonsDisabled = false;
+            $scope.back();
+        },
+           function () {
+               $scope.buttonsDisabled = false;
+           });
+    }
 
     $scope.formatName = function (employee) {
         var name = employee.FirstName;

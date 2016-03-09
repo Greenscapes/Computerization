@@ -54,7 +54,8 @@
                 ng-options="eventTaskList as eventTaskList.Name for eventTaskList in $parent.eventTaskLists">
         </select>-->
         <input type="text" data-bind="value:title,invisible:title" ng-model="$parent.eventTaskList" data-value-field="value" data-text-field="text"
-               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false" />
+               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false"
+               class="eventTaskListEdit" />
     </div>
     <div data-container-for="ownerId" class="k-edit-field">
         <!--<select id="ownerId" data-bind="value:ownerId,visible:title" data-role="dropdownlist"
@@ -62,7 +63,8 @@
             <option ng-repeat="eventTaskList in eventTaskLists" value="{{eventTaskList.Id}}">{{eventTaskList.Name}}</option>
         </select>-->
         <input type="text" data-bind="value:title,visible:title" ng-model="$parent.eventTaskList" data-value-field="value" data-text-field="text"
-               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false" />
+               typeahead="eventTaskList as eventTaskList.Name for eventTaskList in getEventsForFilter($viewValue)" typeahead-editable="false"
+               class="eventTaskListEdit" />
     </div>
     <div class="k-edit-label">
         <label for="start">Date</label>

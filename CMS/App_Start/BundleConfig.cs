@@ -13,12 +13,13 @@ namespace CMS
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-resource.js",
-                 "~/Scripts/angular-mocks.js",
-              "~/Scripts/angular-filter.min.js",
+                "~/Scripts/angular-mocks.js",
+                "~/Scripts/angular-filter.min.js",
                 "~/Scripts/angular-google-maps.js",
                 "~/Scripts/angular-google-maps-street-view.js",
-                   "~/Scripts/loadash.js",
-                   "~/Scripts/moment.js",
+                "~/Scripts/loadash.js",
+                "~/Scripts/moment.js",
+                "~/Scripts/dateFormat.js",
 
 #else
                 "~/Scripts/angular.min.js",
@@ -30,6 +31,7 @@ namespace CMS
                  "~/Scripts/angular-google-maps-street-view.min.js",
                     "~/Scripts/moment.min.js",
                    "~/Scripts/angular-filter.min.js",
+                "~/Scripts/dateFormat.js",
 #endif
  "~/Scripts/ui-bootstrap-tpls-0.13.0.min.js"
 

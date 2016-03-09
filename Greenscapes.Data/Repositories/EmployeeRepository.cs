@@ -71,6 +71,11 @@ namespace Greenscapes.Data.Repositories
             if (employee == null)
                 return false;
 
+            foreach (var crewMember in db.CrewMembers.Where(c => c.EmployeeId == id))
+            {
+                db.CrewMembers.Remove(crewMember);
+            }
+
             db.Employees.Remove(employee);
             db.SaveChanges();
             return true;

@@ -108,6 +108,17 @@
                 "week",
                 "month",
             ],
+            messages: {
+                day: "Date ",
+              recurrenceEditor: {
+                  monthly: {
+                      day: "date "
+                  },
+                  weekdays: {
+                      day: "Date "
+                  }
+              }  
+            },
             editable: {
                 template: $("#customEditorTemplate").html()
             },
@@ -121,10 +132,32 @@
                 });
             },
             addEvent: function () {
-                $scope.scheduler.addEvent({title: ""});
+                $scope.scheduler.addEvent({ title: "" });
             },
             edit: function(e) {
                 e.event.set('StartDate', new Date(e.event.start.getFullYear(), e.event.start.getMonth(), e.event.start.getDate()));
+                var recurrenceEditor = e.container.find("[data-role=recurrenceeditor]").data("kendoRecurrenceEditor");
+
+                recurrenceEditor.setOptions({
+                    start: new Date(e.event.start)
+                });
+
+                var startWidget = e.container.find("[data-role=datepicker]").filter("[name=StartDate]").data("kendoDatePicker");
+                startWidget.setOptions({
+                    change: function (dateEvent) {
+                        recurrenceEditor.setOptions({
+                            start: new Date(dateEvent.sender._value)
+                        });
+                    }
+                });
+
+                $('input').click(function () {
+                 var input_class = $(this).attr('k-recur-weekday-checkbox');
+
+                    $('.' + input_class).prop('checked', false);
+
+                    $(this).prop('checked', true);
+                });
             },
             dataSource: {
                 batch: false,

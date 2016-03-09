@@ -183,7 +183,7 @@
                 path.push(results[0].geometry.location);
                 var enddate =
                 marker.title = '<div >' + addressdetails.address + '</div>';
-                marker.content = '<div class="infoWindowContent">Start Time :' + addressdetails.starttime + '<br>End Time :' + addressdetails.endtime + '</div>';
+                marker.content = '<div class="infoWindowContent">Start Time :' + dateFormat(addressdetails.starttime, "shortTime", true) + '<br>End Time :' + dateFormat(addressdetails.endtime, "shortTime", true) + '</div>';
 
                 google.maps.event.addListener(marker, 'click', function () {
                     infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
