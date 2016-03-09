@@ -10,6 +10,7 @@ namespace CMS.Models
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool IsCrewMember { get; set; }
         public bool Selected { get; set; }
     }
 }

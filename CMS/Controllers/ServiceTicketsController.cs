@@ -78,16 +78,15 @@ namespace CMS.Controllers
             serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
             serviceTicket.ServiceTemplateId = serviceTemplate.Id;
             serviceTicket.JsonFields = serviceTemplate.JsonFields;
-            
+
             var serviceMembers = from e in db.Employees
-                                 join c in db.CrewMembers on e.Id equals c.EmployeeId
-                                 where c.CrewId == 1
                                  orderby e.FirstName, e.LastName
                                  select new ServiceMemberViewModel()
                                  {
                                      EmployeeId = e.Id,
                                      FirstName = e.FirstName,
                                      LastName = e.LastName,
+                                     IsCrewMember = true,
                                      Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
                                  };
 
@@ -102,6 +101,7 @@ namespace CMS.Controllers
             ticket.State = property.State;
             ticket.Zip = property.Zip;
             ticket.Members = serviceMembers.ToList();
+            ticket.ShowAllEmployees = true;
 
             return Ok(ticket);
         }
@@ -171,14 +171,26 @@ namespace CMS.Controllers
             }
 
             var serviceMembers = from e in db.Employees
-                               join c in db.CrewMembers on e.Id equals c.EmployeeId
-                               where c.CrewId == eventTaskList.CrewId
+                               join c in db.CrewMembers on
+
+                                new
+                                {
+                                    EmployeeId = e.Id,
+                                    eventTaskList.CrewId
+                                } equals new
+                                {
+                                    c.EmployeeId,
+                                    c.CrewId
+                                }
+                               into cm
+                               from c in cm.DefaultIfEmpty()
                                orderby e.FirstName, e.LastName
                                select new ServiceMemberViewModel()
                                {
                                    EmployeeId = e.Id,
                                    FirstName = e.FirstName,
                                    LastName = e.LastName,
+                                   IsCrewMember = c != null,
                                    Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
                                };
 
@@ -193,7 +205,7 @@ namespace CMS.Controllers
             ticket.State = property.State;
             ticket.Zip = property.Zip;
             ticket.Members = serviceMembers.ToList();
-
+            ticket.ShowAllEmployees = serviceMembers.Any(s => s.Selected && !s.IsCrewMember);
             return Ok(ticket);
         }
 
