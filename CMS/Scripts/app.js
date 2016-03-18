@@ -42,7 +42,7 @@ app.config([
             }).
             when('/properties/new', {
                 templateUrl: 'templates/property-create.html',
-                controller: 'PropertyCreateController'
+                controller: 'PropertyCreateController as propertyVm'
             }).
             when('/properties/:propertyId', {
                 templateUrl: 'templates/property-detail.html',
@@ -51,6 +51,18 @@ app.config([
             when('/properties', {
                 templateUrl: 'templates/properties.html',
                 controller: 'PropertiesController'
+            }).
+            when('/customer/:customerId', {
+                templateUrl: 'templates/customer.html',
+                controller: 'CustomerController as customerVm'
+            }).
+            when('/customer/', {
+                templateUrl: 'templates/customer.html',
+                controller: 'CustomerController as customerVm'
+            }).
+            when('/customers', {
+                templateUrl: 'templates/customers.html',
+                controller: 'CustomersController'
             }).
             when('/types/crewlists/new', {
                 templateUrl: 'templates/employeeSkill-create.html',
@@ -181,7 +193,7 @@ app.config([
                 controller: 'ServiceTicketController',
                 hideNav: true
             }).
-            when('/servicetickets/:id/:eventDate/:approve', {
+            when('/servicetickets/:id/:eventDate/approve/:approve', {
                 templateUrl: 'templates/servicetickets/serviceticket.html',
                 controller: 'ServiceTicketController'
             }).

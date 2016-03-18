@@ -20,6 +20,7 @@ namespace CMS
                 "~/Scripts/loadash.js",
                 "~/Scripts/moment.js",
                 "~/Scripts/dateFormat.js",
+                "~/scripts/toastr.min.js",
 
 #else
                 "~/Scripts/angular.min.js",
@@ -32,16 +33,16 @@ namespace CMS
                     "~/Scripts/moment.min.js",
                    "~/Scripts/angular-filter.min.js",
                 "~/Scripts/dateFormat.js",
+                "~/scripts/toastr.min.js",
 #endif
  "~/Scripts/ui-bootstrap-tpls-0.13.0.min.js"
 
  ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                "~/Scripts/app.js",
-                "~/Scripts/services/authenticationService.js",
-                "~/Scripts/services/modalService.js")
+                "~/Scripts/app.js")
                 .IncludeDirectory("~/Scripts/controllers", "*.js", true)
+                .IncludeDirectory("~/Scripts/services", "*.js", true)
                 .IncludeDirectory("~/Scripts/directives", "*.js", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

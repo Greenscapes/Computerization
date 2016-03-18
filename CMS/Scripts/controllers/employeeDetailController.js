@@ -85,6 +85,10 @@
     };
 
     $scope.delete = function (employee) {
+        if (!confirm('Are you sure you want to delete this employee')) {
+            return;
+        }
+
         $scope.buttonsDisabled = true;
 
         employeesResource.delete({ employeeId: employee.Id }, employee, function () {

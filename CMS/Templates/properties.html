@@ -3,6 +3,12 @@
     <button type="button" class="btn btn-primary" ng-click="newProperty()">
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Property
     </button>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="showClosed">
+            Show Closed Properties
+        </label>
+    </div>
 </p>
 <table class="table table-striped">
     <tr>
@@ -12,13 +18,15 @@
         <th>State</th>
         <th>Reference Number</th>
         <th>Customer since</th>
+        <th>Type</th>
     </tr>
-    <tr ng-repeat="property in properties">
+    <tr ng-repeat="property in properties" ng-if="property.PropertyType != 3 || showClosed">
         <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
         <td>{{property.Address1}}</td>
         <td>{{property.City}}</td>
         <td>{{property.State}}</td>
         <td>{{property.PropertyRefNumber}}</td>
         <td >{{property.ContractDate|date:'mediumDate'}}</td>
+        <td>{{getPropertyType(property.PropertyType)}}</td>
     </tr>
 </table>

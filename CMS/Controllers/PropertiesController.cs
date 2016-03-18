@@ -19,6 +19,7 @@ namespace CMS.Controllers
     public class PropertiesController : ApiController
     {
         private readonly IPropertyRepository db = new PropertyRepository();
+        private readonly ICustomerRepository customerRepository = new CustomerRepository();
 
         // GET: api/Properties
         [Route("")]
@@ -37,6 +38,16 @@ namespace CMS.Controllers
             {
                 return NotFound();
             }
+
+            if (property.CustomerId.HasValue)
+            {
+                var customer = customerRepository.GetCustomer(property.CustomerId.Value);
+                if (customer != null)
+                {
+                    property.CustomerName = customer.FirstName + " " + customer.LastName;
+                }
+            }
+            
 
             return Ok(property);
         }

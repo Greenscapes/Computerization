@@ -1,75 +1,76 @@
-﻿function PropertyCreateController($scope, $resource, $location, $http) {
-    var propertiesResource = $resource('/api/properties');
+﻿(function (angular) {
+    'use strict';
 
-    $scope.property = {};
-    $http.get('/api/properties/getNextReference')
-                .success(function (data) {
-                    $scope.property.PropertyRefNumber = data;
+    var controllerId = 'PropertyCreateController';
+
+    angular.module('cmsApp').controller(controllerId,
+        [
+            'propertyService', 'customerService', 'alertService', '$location',
+            function (propertyService, customerService, alertService, $location) {
+
+                var vm = this;
+
+                vm.property = {};
+                vm.customers = {};
+                vm.buttonsDisabled = false;
+                vm.isUpdate = false;
+
+                vm.save = save;
+                vm.back = back;
+
+                activate();
+
+                function activate() {
+                    customerService.getCustomers().then(function(data) {
+                        vm.customers = data;
+                    });
+
+                    propertyService.getNextReference().then(function (data) {
+                        vm.property.PropertyRefNumber = data;
+                    });
+
+                    vm.property.State = "FL";
+                }
+
+                function save() {
+                    vm.buttonsDisabled = true;
+
+                    propertyService.createProperty(vm.property).then(function () {
+                        vm.buttonsDisabled = false;
+                        vm.back();
+                    }, function (error) {
+                        alertService.error("Could not add property: " + error);
+                        vm.buttonsDisabled = false;
+                    });
+                };
+
+                function back() {
+                    $location.path("/properties");
+                };
+
+                angular.element(document).ready(function () {
+                    $('#datetimepicker').datepicker({
+                    }
+
+                    );
+                    var d = new Date();
+
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+                    var year = d.getFullYear();
+
+                    var output =
+                    (month < 10 ? '0' : '') + month + '/' +
+                    (day < 10 ? '0' : '') + day + '/' + year;
+
+                    $("#datetimepicker").val(output);
+
+                    $('#datetimepicker').on('changeDate', function (ev) {
+                        ('#datetimepicker').valueOf(ev.target.value);
+                        vm.property.ContractDate = ev.target.value;
+                    });
                 });
-
-    $scope.property.State = "FL";
-    $scope.save = function(property) {
-        $scope.buttonsDisabled = true;
-       
-        propertiesResource.save(property, function () {
-           
-            $scope.buttonsDisabled = false;
-                $scope.back();
-            },
-            function(error) {
-                _showValidationErrors($scope, error);
-                $scope.buttonsDisabled = false;
-            },
-
-            function () {
-                $scope.buttonsDisabled = false;
             }
-            );
-    };
-
-    $scope.back = function() {
-        $location.path("/properties");
-        if (!$scope.$$phase) $scope.$apply();
-    };
-
-    function _showValidationErrors($scope,error)
-    {
-        $scope.validationErrors = [];
-        if (error.data && angular.isObject(error.data)) {
-            //for (var key in error.data) {
-            //    $scope.validationErrors.push(error.data[key]);
-            //}
-        }
-        else {
-            $scope.validationErrors.push("Could not add property");
-
-        }
-    };
-    
-    $(document).ready(function () {
-        $('#datetimepicker').datepicker({
-        }
-
-        );
-        var d = new Date();
-
-        var month = d.getMonth() + 1;
-        var day = d.getDate();
-        var year = d.getFullYear();
-
-        var output =
-        (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day + '/' + year;
-
-        $("#datetimepicker").val(output);
-
-        $('#datetimepicker').on('changeDate', function (ev) {
-            ('#datetimepicker').valueOf(ev.target.value);
-            $scope.property.ContractDate = ev.target.value;
-        });
-    });
-    }
-
-
-PropertyCreateController.$inject = ['$scope', '$resource', '$location','$http'];
-app.controller('PropertyCreateController', PropertyCreateController);
+        ]
+    );
+})(angular);

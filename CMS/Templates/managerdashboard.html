@@ -1,6 +1,12 @@
 ﻿<h2>Manager Dashboard</h2>
 <br/>
 <h4>Items to Review</h4>
+<div class="checkbox">
+    <label>
+        <input type="checkbox" ng-click="getApproved()" ng-model="showApproved">
+        View Approved Tickets
+    </label>
+</div>
 <table class="table table-striped">
     <tr>
         <th>Crew</th>
@@ -23,9 +29,40 @@
             <span ng-show="event.TaskEndTime">{{event.TaskEndTime | date:'h:mma'}}</span>
         </td>
         <td>
-            <button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event)">
+            <button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event, true)">
                 View Ticket
             </button>
         </td>
     </tr>
 </table>
+<div ng-if="showApproved">
+    <h4>Approved Tickets</h4>
+    <table class="table table-striped">
+        <tr>
+            <th>Crew</th>
+            <td>Date</td>
+            <th>Location</th>
+            <th>Event Task List</th>
+            <th>Arrived</th>
+            <th>Departed</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="event in managerApproved.ApprovedTickets">
+            <td>{{event.CrewName}}</td>
+            <td>{{event.EventDate | date:'MM/dd/yyyy'}}</td>
+            <td>{{event.PropertyAddress}}</td>
+            <td>{{event.Title}}</td>
+            <td>
+                <span ng-show="event.TaskStartTime">{{event.TaskStartTime | date:'h:mma'}}</span>
+            </td>
+            <td>
+                <span ng-show="event.TaskEndTime">{{event.TaskEndTime | date:'h:mma'}}</span>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event, false)">
+                    View Ticket
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

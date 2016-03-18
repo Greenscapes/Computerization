@@ -50,6 +50,37 @@ namespace CMS.Controllers
             return managerViewModel;
         }
 
+        [Route("manager/approved")]
+        public ManagerViewModel GetApprovedServiceTickets()
+        {
+            var serviceTickets = db.ServiceTickets.Include("EventTaskList.EventTaskTimes").Where(s => s.ApprovedDate.HasValue);
+            var managerViewModel = new ManagerViewModel();
+            managerViewModel.ApprovedTickets = new List<UnapprovedServiceTicketViewModel>();
+
+            foreach (var serviceTicket in serviceTickets)
+            {
+                if (!serviceTicket.EventDate.HasValue || !serviceTicket.EventTaskListId.HasValue)
+                    continue;
+
+                var ticket = new UnapprovedServiceTicketViewModel();
+                ticket.EventTaskListId = serviceTicket.EventTaskListId.Value;
+                ticket.CrewName = serviceTicket.EventTaskList.Crew.Name;
+                ticket.Title = serviceTicket.EventTaskList.Name;
+                ticket.EventDate = serviceTicket.EventDate.Value;
+                var property = serviceTicket.EventTaskList.Property;
+                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City + " " + property.State + " " + property.Zip;
+                var eventTaskTime = serviceTicket.EventTaskList.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(serviceTicket.EventDate.Value) == TimeSpan.Zero);
+                if (eventTaskTime != null)
+                {
+                    ticket.TaskStartTime = eventTaskTime.StartTime;
+                    ticket.TaskEndTime = eventTaskTime.EndTime;
+                }
+
+                managerViewModel.ApprovedTickets.Add(ticket);
+            }
+
+            return managerViewModel;
+        }
 
         // GET: api/ServiceTickets/5/2015-10-10
         [Route("{id:int}")]

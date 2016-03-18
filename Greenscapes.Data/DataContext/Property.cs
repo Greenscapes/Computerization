@@ -39,10 +39,14 @@ namespace Greenscapes.Data.DataContext
         [StringLength(11)]
         public string Zip { get; set; }
 
+        public int? CustomerId { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventTaskList> EventTaskLists { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PropertyTaskList> PropertyTaskLists { get; set; }
+
+        public virtual Customer Customer { get; set; }
     }
 }

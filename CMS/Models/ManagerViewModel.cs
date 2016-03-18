@@ -7,7 +7,8 @@ namespace CMS.Models
 {
     public class ManagerViewModel
     {
-        public List<UnapprovedServiceTicketViewModel> UnapprovedTickets { get; set; } 
+        public List<UnapprovedServiceTicketViewModel> UnapprovedTickets { get; set; }
+        public List<UnapprovedServiceTicketViewModel> ApprovedTickets { get; set; }
     }
 
     public class UnapprovedServiceTicketViewModel

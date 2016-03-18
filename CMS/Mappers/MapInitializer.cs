@@ -19,10 +19,16 @@ namespace CMS.Mappers
         /// </summary>
         protected void InitializationStrategy()
         {
-            Mapper.CreateMap<Property, PropertyViewModel>();
+            Mapper.CreateMap<Property, PropertyViewModel>()
+                .ForMember(dest => dest.CustomerName, src => src.Ignore());
             Mapper.CreateMap<PropertyViewModel, Property>()
                 .ForMember(dest => dest.EventTaskLists, src => src.Ignore())
-                .ForMember(dest => dest.PropertyTaskLists, src => src.Ignore());
+                .ForMember(dest => dest.PropertyTaskLists, src => src.Ignore())
+                .ForMember(dest => dest.Customer, src => src.Ignore());
+
+            Mapper.CreateMap<Customer, CustomerViewModel>();
+            Mapper.CreateMap<CustomerViewModel, Customer>()
+                .ForMember(dest => dest.Properties, src => src.Ignore());
 
             Mapper.CreateMap<PropertyTask, PropertyTaskViewModel>()
                 .ForMember(dest => dest.ScheduleName,

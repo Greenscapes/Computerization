@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using CMS.Models;
+using DDay.iCal;
 using Greenscapes.Data.DataContext;
 using Newtonsoft.Json;
 
@@ -121,6 +122,34 @@ namespace CMS.Controllers
                     task.Title = eventTaskList.Property.Name + ", " + eventTaskList.Crew.Name;
                 }
 
+                if (!string.IsNullOrEmpty(task.RecurrenceRule))
+                {
+                    var pattern = new RecurrencePattern(task.RecurrenceRule);
+                    var evaluator = new RecurrencePatternEvaluator(pattern);
+                    var items = evaluator.Evaluate(new iCalDateTime(task.StartDate), task.Start,
+                        task.StartDate.AddDays(1), false);
+                    if (!items.Any())
+                    {
+                        var startEntity = new EventSchedule
+                        {
+                            Id = task.TaskID,
+                            Title = task.Title,
+                            StartTime = task.Start,
+                            StartTimezone = task.StartTimezone,
+                            EndTime = task.End,
+                            EndTimezone = task.EndTimezone,
+                            Description = task.Description,
+                            RecurrenceRule = string.Empty,
+                            RecurrenceException = string.Empty,
+                            RecurrenceID = null,
+                            IsAllDay = task.IsAllDay,
+                            EventTaskListId = task.OwnerID ?? 0
+                        };
+
+                        db.EventSchedules.Add(startEntity);
+                    }
+                }
+
                 var entity = new EventSchedule
                 {
                     Id = task.TaskID,
@@ -153,7 +182,7 @@ namespace CMS.Controllers
         // DELETE api/Task/5
         public HttpResponseMessage DeleteTask(EventViewModel deletedTask)
         {
-            EventSchedule task = db.EventSchedules.Single(p => p.Id == deletedTask.TaskID);
+            EventSchedule task = db.EventSchedules.SingleOrDefault(p => p.Id == deletedTask.TaskID);
             if (task == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

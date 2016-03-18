@@ -31,9 +31,15 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<ServiceTicket> ServiceTickets { get; set; }
         public virtual DbSet<TaskTemplate> TaskTemplates { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Customer>()
+                .HasMany(e => e.Properties)
+                .WithRequired(e => e.Customer)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Crew>()
                 .HasMany(e => e.CrewMembers)
                 .WithRequired(e => e.Crew)

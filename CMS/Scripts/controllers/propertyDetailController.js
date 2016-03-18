@@ -1,5 +1,8 @@
 ﻿function PropertyDetailController($scope, $resource, $routeParams, $location, $q, Modal) {
-    var propertyResource = $resource('/api/properties/:propertyId');
+    var propertyResource = $resource('/api/properties/:propertyId', { propertyId: $routeParams.propertyId }, 
+        {
+            'update': { method: 'PUT' }
+        });
     var taskListsResource = $resource( '/api/properties/:propertyId/tasks', { propertyId: $routeParams.propertyId } );
     var eventTasksResource = $resource("/api/properties/:propertyId/eventtasklists");
     var taskResource = $resource('/api/tasks/:taskId',
@@ -63,7 +66,10 @@
 
     var deleteFunction = function () {
         $scope.buttonsDisabled = true;
-        propertyResource.delete({ propertyId: $routeParams.propertyId }, $scope.property, function () {
+        $scope.buttonsDisabled = true;
+        $scope.property.PropertyType = 3;
+
+        propertyResource.update({ propertyId: $routeParams.propertyId }, $scope.property, function () {
             $scope.back();
         },
             function () {
@@ -89,7 +95,6 @@
     }
 
     var deleteTaskFunction = function (task) {
-        $scope.buttonsDisabled = true;
         taskResource.delete({ taskId: task.Id }, task, function () {
             $scope.tasks = taskListsResource.query(function () {
             });

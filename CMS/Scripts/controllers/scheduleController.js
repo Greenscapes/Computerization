@@ -161,6 +161,14 @@
             },
             dataSource: {
                 batch: false,
+                sync: function(e) {
+                    $scope.eventTaskLists = eventTaskListResource.query({}, function () {
+                        $scope.filteredTaskLists = $scope.eventTaskLists;
+                        var scheduler = $(".k-scheduler").data("kendoScheduler");
+                        scheduler.dataSource.read();
+                        scheduler.refresh();
+                    });
+                },
                 transport: {
                     read: {
                         url: "/api/event",
