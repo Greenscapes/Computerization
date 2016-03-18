@@ -71,6 +71,7 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.City, src => src.Ignore())
                 .ForMember(dest => dest.State, src => src.Ignore())
                 .ForMember(dest => dest.Zip, src => src.Ignore())
+                .ForMember(dest => dest.ShowAllEmployees, src => src.Ignore())
                 .ForMember(dest => dest.Members, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()

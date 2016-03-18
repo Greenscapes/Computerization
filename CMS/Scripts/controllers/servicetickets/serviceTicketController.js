@@ -19,7 +19,6 @@
         if ($scope.serviceTicket.VisitToTime) {
             $scope.serviceTicket.ToTime = new Date($scope.serviceTicket.VisitToTime.substring(0, 19));
         }
-       
     });
 
     $scope.Item = null;
@@ -60,6 +59,10 @@
         }
         
         if (!$scope.$$phase) $scope.$apply();
+    };
+
+    $scope.showEmployee = function (employee) {
+        return employee.IsCrewMember === true || $scope.serviceTicket.ShowAllEmployees === true;
     };
 }
 

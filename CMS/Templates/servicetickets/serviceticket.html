@@ -30,8 +30,13 @@
         <input id="toTime" type="time" class="form-control" ng-model="serviceTicket.ToTime" ng-disabled="buttonsDisabled" >
     </div>
 
-    <label for="toTime">GS Staff</label>
-    <div class="checkbox" ng-repeat="employee in serviceTicket.Members">
+    <label for="toTime">GS Staff </label>
+    <i>
+        <input type="radio" name="employee" ng-model="serviceTicket.ShowAllEmployees" ng-value="false"> Crew
+        <input type="radio" name="employee" ng-model="serviceTicket.ShowAllEmployees" ng-value="true"> All<br>
+    </i>
+
+    <div class="checkbox" ng-repeat="employee in serviceTicket.Members | filter: showEmployee"> 
         <label>
             <input type="checkbox" ng-model="employee.Selected">
             {{employee.FirstName}} {{employee.LastName}}

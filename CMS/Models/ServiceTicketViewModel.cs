@@ -49,6 +49,8 @@ namespace CMS.Models
 
         public int? Condition { get; set; }
 
+        public bool ShowAllEmployees { get; set; }
+
         public List<ServiceMemberViewModel> Members { get; set; }
     }
 }
