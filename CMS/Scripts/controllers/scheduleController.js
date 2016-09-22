@@ -48,6 +48,22 @@
         return tasksLists;
     }
 
+    $scope.$watch('eventTaskList',
+        function() {
+            var tasklist = $scope.eventTaskList;
+            if (tasklist && tasklist.PropertyTasks) {
+                var duration = 0;
+                tasklist.PropertyTasks.forEach(function(task) {
+                    duration += task.EstimatedDuration;
+                });
+                $scope.$$childTail.dataItem.end = new Date($scope.$$childTail.dataItem.start.getTime() + duration * 60000);
+                var end = $("[name=end][data-role=timepicker]");
+                if (end && $(end).data("kendoTimePicker")) {
+                    $(end).data("kendoTimePicker").value($scope.$$childTail.dataItem.end);
+                }
+            }
+        });
+
     $scope.createSchedule = function() {
         var scheduler = $(".k-scheduler").data("kendoScheduler");
         scheduler.addEvent({
@@ -133,6 +149,18 @@
             },
             addEvent: function () {
                 $scope.scheduler.addEvent({ title: "" });
+                var tasklist = $scope.eventTaskList;
+                if (tasklist && tasklist.PropertyTasks) {
+                    var duration = 0;
+                    tasklist.PropertyTasks.forEach(function (task) {
+                        duration += task.EstimatedDuration;
+                    });
+                    $scope.$$childTail.dataItem.end = new Date($scope.$$childTail.dataItem.start.getTime() + duration * 60000);
+                    var end = $("[name=end][data-role=timepicker]");
+                    if (end && $(end).data("kendoTimePicker")) {
+                        $(end).data("kendoTimePicker").value($scope.$$childTail.dataItem.end);
+                    }  
+                }
             },
             edit: function(e) {
                 e.event.set('StartDate', new Date(e.event.start.getFullYear(), e.event.start.getMonth(), e.event.start.getDate()));
@@ -145,6 +173,8 @@
                 var startWidget = e.container.find("[data-role=datepicker]").filter("[name=StartDate]").data("kendoDatePicker");
                 startWidget.setOptions({
                     change: function (dateEvent) {
+                        //recurrenceEditor.options.start = new Date(dateEvent.sender._value);
+                        //recurrenceEditor.options.value = new Date(dateEvent.sender._value);
                         recurrenceEditor.setOptions({
                             start: new Date(dateEvent.sender._value)
                         });
@@ -229,7 +259,7 @@
                             title: { from: "Title", defaultValue: $scope.eventTaskList.Name },
                             start: { type: "date", from: "Start" },
                             end: { type: "date", from: "End" },
-                            StartDate: { type: "date", fromt: "StartDate" },
+                            StartDate: { type: "date", from: "StartDate" },
                             startTimezone: {
                                 from: "StartTimezone", defaultValue: "America/New_York"
                             },

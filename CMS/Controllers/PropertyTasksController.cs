@@ -33,7 +33,7 @@ namespace CMS.Controllers
         [Route("~/api/tasks/locations/{propertyId:int}")]
         public IEnumerable<string> GetTaskLocations(int propertyId)
         {
-            return db.GetPropertyTasksForProperty(propertyId).MapTo<IEnumerable<PropertyTaskViewModel>>().Select(p => p.Location).Distinct();
+            return db.GetPropertyTasksForProperty(propertyId).MapTo<IEnumerable<PropertyTaskViewModel>>().Select(p => p.Location).Where(p => !string.IsNullOrEmpty(p)).Distinct();
         }
 
         // GET: api/PropertyTasks/5

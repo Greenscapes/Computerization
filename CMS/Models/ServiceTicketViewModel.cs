@@ -52,5 +52,7 @@ namespace CMS.Models
         public bool ShowAllEmployees { get; set; }
 
         public List<ServiceMemberViewModel> Members { get; set; }
+        public string CustomerName { get; set; }
+        public string AccessDetails { get; set; }
     }
 }

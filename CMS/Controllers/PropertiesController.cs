@@ -46,8 +46,7 @@ namespace CMS.Controllers
                 {
                     property.CustomerName = customer.FirstName + " " + customer.LastName;
                 }
-            }
-            
+            }         
 
             return Ok(property);
         }

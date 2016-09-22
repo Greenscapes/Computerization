@@ -10,12 +10,21 @@
 <br />
 <form name="PropertyAdd" novalidates>
     <div class="form-group">
-        <label for="propertytypeSelect">Property Type</label>
+        <label for="propertytypeSelect">Customer Status</label>
         <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
                 ng-model="propertyVm.property.PropertyType">
             <option value="1">Prospect</option>
             <option value="2">Active</option>
             <option value="3">Closed</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Type</label>
+        <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
+                ng-model="propertyVm.property.CustomerType">
+            <option value="1">HOA</option>
+            <option value="2">Commercial</option>
+            <option value="3">Residential</option>
         </select>
     </div>
     <div class="form-group">
@@ -56,7 +65,7 @@
             <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="propertyVm.property.ContractDate" data-date-format="dd/mm/yyyy" date-type="string">
         </div>
         <div class="form-group">
-            <label for="cntDate">Number Of Free Services </label>
+            <label for="cntDate">Number Of Free Additional Call Outs Entitled Under Contract </label>
             <input type="text" class="form-control" id="freeService" placeholder="NumberOfFreeServiceCalls" ng-model="propertyVm.property.NumberOfFreeServiceCalls">
         </div>
         <p>

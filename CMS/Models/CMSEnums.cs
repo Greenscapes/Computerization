@@ -9,6 +9,15 @@
 
     }
 
+    public enum CustomerTypeEnum
+    {
+        Draft = 0,
+        HOA = 1,
+        Commercial = 2,
+        Residential = 3
+
+    }
+
     public enum StatusEnum
     {
         New = 0,

@@ -33,7 +33,7 @@ namespace CMS.Models
             set;
         }
 
-        public string City
+        public int CityId
         {
             get;
             set;
@@ -47,6 +47,8 @@ namespace CMS.Models
         public string PropertyRefNumber { get; set; }
 
         public PropertyTypeEnum PropertyType { get; set; }
+
+        public CustomerTypeEnum CustomerType { get; set; }
 
         public int NumberOfFreeServiceCalls { get; set; }
 
@@ -66,5 +68,6 @@ namespace CMS.Models
         public int? CustomerId { get; set; }
 
         public string CustomerName { get; set; }
+        public string CityName { get; set; }
     }
 }

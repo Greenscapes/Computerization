@@ -9,7 +9,7 @@
     var crewMembersResource = $resource('/api/employee/:employeeId/members',
     { employeeId: $routeParams.employeeId });
 
-    var skillsResource = $resource('/api/types/crewlists');
+    var skillsResource = $resource('/api/types/employeeskills');
     //var eventschedulesResource = $resource( '/api/eventschedules/:employeeId/events',
     //{ employeeId: $routeParams.employeeId },
     //{

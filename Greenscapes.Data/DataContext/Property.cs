@@ -24,13 +24,14 @@ namespace Greenscapes.Data.DataContext
 
         public string Address2 { get; set; }
 
-        public string City { get; set; }
+        public int CityId { get; set; }
 
         public string State { get; set; }
 
         public string PropertyRefNumber { get; set; }
 
         public int PropertyType { get; set; }
+        public int CustomerType { get; set; }
 
         public int NumberOfFreeServiceCalls { get; set; }
 
@@ -48,5 +49,7 @@ namespace Greenscapes.Data.DataContext
         public virtual ICollection<PropertyTaskList> PropertyTaskLists { get; set; }
 
         public virtual Customer Customer { get; set; }
+
+        public virtual City City { get; set; }
     }
 }

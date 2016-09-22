@@ -1,4 +1,4 @@
-﻿function TaskCreateController($scope, $resource, $routeParams, $location) {
+﻿function TaskCreateController($scope, $resource, $routeParams, $location, alertService) {
     var taskListResource = $resource('/api/tasklists/:taskListId',
     {
         taskListId: $routeParams.taskListId
@@ -36,6 +36,15 @@
 
         $scope.save = function(task) {
             $scope.buttonsDisabled = true;
+
+            task.EstimatedDuration = task.Hours * 60 + task.Minutes;
+
+            if (!task.EstimatedDuration || !task.Description) {
+                alertService.error('You must enter a description and estimated duration');
+                $scope.buttonsDisabled = false;
+                return;
+            }
+
             //var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
             //SetEventSchedules( scheduler._data )
             task.PropertyTaskListId = $routeParams.taskListId;
@@ -146,5 +155,5 @@
 
     }
  
-TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
+TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'alertService'];
 app.controller('TaskCreateController', TaskCreateController);

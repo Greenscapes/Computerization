@@ -45,9 +45,9 @@
     $scope.collapsecrew = function ( event ) {
         $( event.target ).toggleClass( "glyphicon-arrow-down" );
     };
-    $scope.reset = function () {
-        $location.path( '/' );
-    }
+    //$scope.reset = function () {
+    //    $location.path( '/' );
+    //}
     $scope.getevents = function (getMap) {
       
         var month = $scope.selectedDate.getMonth()+1;

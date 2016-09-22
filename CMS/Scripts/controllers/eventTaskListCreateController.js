@@ -39,7 +39,7 @@
       //  eventTaskList.CrewId = $scope.task.Crews[0].Id;
 
         if (!eventTaskList.ServiceTemplateId) {
-            alert("You must select a service tempalte");
+            alert("You must select a service template");
             return;
         }
 

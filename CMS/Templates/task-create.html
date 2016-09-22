@@ -15,26 +15,24 @@
     </div>
     <div class="form-group">
         <label for="inputLocation">New Location</label>
-        <input type="text" class="form-control full-size" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location">
+        <input type="text" class="form-control full-size" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location" required>
     </div>
     <div class="form-group">
         <label for="templateSelect">Select Existing Task</label>
-        <select name="templateSelect" id="templateSelect"
+        <select name="templateSelect" id="templateSelect" class="longSelect"
                 ng-options="taskTemplate as taskTemplate.Description for taskTemplate in taskTemplates | orderBy: 'DisplayOrder'"
                 ng-model="selectedTemplate"
                 ng-change="templateSelected()"></select>
     </div>
     <div class="form-group">
         <label for="inputDescription">Task</label>
-        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description">
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description" required>
     </div>
-    <!--<div class="form-group" ng-repeat="detail in task.PropertyTaskDetails">
-        <label for="input{{$index}}">{{detail.HeaderName}}</label>
-        <input type="text" class="form-control" id="input{{$index}}" placeholder="{{detail.HeaderName}}" ng-disabled="buttonsDisabled" ng-model="detail.Value">
-    </div>-->
     <div class="form-group">
         <label for="inputDuration">Duration</label>
-        <input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration">
+        <input type="number" class="form-control" id="inputHours" placeholder="0" ng-disabled="buttonsDisabled" ng-model="task.Hours" required> Hours
+        <input type="number" class="form-control" id="inputMinutes" placeholder="0" ng-disabled="buttonsDisabled" ng-model="task.Minutes" required> Minutes
+        <!--<input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration" required>-->
     </div>
     <div class="form-group">
         <label for="inputNotes">Notes</label>

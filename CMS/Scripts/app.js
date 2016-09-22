@@ -64,11 +64,11 @@ app.config([
                 templateUrl: 'templates/customers.html',
                 controller: 'CustomersController'
             }).
-            when('/types/crewlists/new', {
+            when('/types/employeeskills/new', {
                 templateUrl: 'templates/employeeSkill-create.html',
                 controller: 'EmployeeSkillCreateController'
             }).
-            when('/types/crewlists/:skillId', {
+            when('/types/employeeskills/:skillId', {
                 templateUrl: 'templates/employeeSkill-detail.html',
                 controller: 'EmployeeSkillDetailController'
             }).
@@ -84,9 +84,9 @@ app.config([
                  templateUrl: 'templates/tasklists.html',
                  controller: 'PropertyTaskListTypesController'
              } ).
-              when( '/types/crewlists', {
-                  templateUrl: 'templates/crewlists.html',
-                  controller: 'CrewListsController'
+              when('/types/employeeskills', {
+                  templateUrl: 'templates/employeeskills.html',
+                  controller: 'EmployeeSkillsController'
               }).
              when('/crewmembers', {
                  templateUrl: 'templates/crewmembers.html',
@@ -222,6 +222,14 @@ app.config([
             when('/tasktemplates/:taskId', {
                 templateUrl: 'templates/tasktemplate-create.html',
                 controller: 'TaskTemplateCreateController'
+            }).
+            when('/cities', {
+                templateUrl: 'templates/cities.html',
+                controller: 'CitiesController'
+            }).
+            when('/city/:cityId', {
+                templateUrl: 'templates/city.html',
+                controller: 'CityController'
             }).
             when('/schedule', {
                 templateUrl: 'templates/schedule.html',

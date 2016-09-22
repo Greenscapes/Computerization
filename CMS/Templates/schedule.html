@@ -32,11 +32,12 @@
 
     #if(model) {#
     <strong>#=model.title#</strong>
-    <br />
+    <!--<br />
     <strong>Start:</strong> #=kendo.format('{0:d}',model.start)#
     <br />
-    <strong>End:</strong> #=kendo.format('{0:d}',model.end)#
+    <strong>End:</strong> #=kendo.format('{0:d}',model.end)#-->
     <br />
+    <strong>Total Time Spent: </strong> #=model.duration() / 60000 # minutes
     #} else {#
     <strong>No event data is available</strong>
     #}#

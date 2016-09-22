@@ -12,9 +12,9 @@
         <th>In Crew</th>
         <th>Skills</th>
     </tr>
-    <tr ng-repeat="employee in employees">
+    <tr ng-repeat="employee in employees | orderBy:'LastName'">
         <td><a ng-href="#/employees/{{employee.Id}}">{{formatName(employee)}}</a></td>
         <td>{{employee.InCrew ? 'Yes' : 'No'}}</td>
-        <td><span ng-repeat="skill in employee.EmployeeSkills">{{skill.Name}}, </span></td>
+        <td><span ng-repeat="skill in employee.EmployeeSkills | orderBy:'DisplayOrder'">{{skill.Name}}, </span></td>
     </tr>
 </table>

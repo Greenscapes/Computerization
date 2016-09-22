@@ -8,13 +8,25 @@
 
 <table class="table table-bordered" style="width:auto">
     <tr>
-        <td>Property Type</td>
+        <td>Customer Status</td>
         <td><!--{{property.PropertyType}}-->
             <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
                     ng-model="property.PropertyType" ng-readonly="true;" disabled="true">
                 <option value="1">Prospect</option>
                 <option value="2">Active</option>
                 <option value="3">Closed</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Customer Type</td>
+        <td>
+            <!--{{property.PropertyType}}-->
+            <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
+                    ng-model="property.CustomerType" ng-readonly="true;" disabled="true">
+                <option value="1">HOA</option>
+                <option value="2">Commercial</option>
+                <option value="3">Residential</option>
             </select>
         </td>
     </tr>

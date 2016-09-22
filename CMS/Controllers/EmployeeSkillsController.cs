@@ -12,7 +12,7 @@ using Greenscapes.Data.Repositories;
 
 namespace CMS.Controllers
 {
-    [RoutePrefix("api/types/crewlists")]
+    [RoutePrefix("api/types/employeeskills")]
     public class EmployeeSkillsController : ApiController
     {
         private readonly CrewRepository db = new CrewRepository();

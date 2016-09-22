@@ -1,6 +1,6 @@
 ﻿function EmployeeCreateController($scope, $resource, $routeParams, $location, $http) {
     var employeesResource = $resource('/api/employees');
-    var skillResource = $resource('/api/types/crewlists');
+    var skillResource = $resource('/api/types/employeeskills');
     var crewsResource = $resource('/api/crews');
 
     $scope.employeeSkills = skillResource.query();

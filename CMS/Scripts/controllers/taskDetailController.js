@@ -16,6 +16,9 @@
     
     $scope.task = taskResource.get( { taskId: $routeParams.taskId }, function () {
 
+        $scope.task.Hours = Math.floor($scope.task.EstimatedDuration / 60);
+        $scope.task.Minutes = $scope.task.EstimatedDuration % 60;
+
         $scope.crews = crewsResource.query( function () {
             //for ( var i = 0; i < $scope.crews.length; i++ ) {
             //    for ( var j = 0; j < $scope.task.Crews.length; j++ ) {

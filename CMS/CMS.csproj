@@ -157,6 +157,7 @@
     <Compile Include="Bootstrap Html Helpers\DatePickerFor.cs" />
     <Compile Include="Bootstrap Html Helpers\HelperMethods.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\CrewMembersController.cs" />
@@ -184,6 +185,7 @@
     </Compile>
     <Compile Include="Mappers\Extensions.cs" />
     <Compile Include="Mappers\MapInitializer.cs" />
+    <Compile Include="Models\CityViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\CMSEnums.cs" />
@@ -574,6 +576,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\calendar.js" />
+    <Content Include="Scripts\controllers\citiesController.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewEventTasksController.js" />
     <Content Include="Scripts\controllers\crewMembersController.js" />
@@ -1292,6 +1295,7 @@
     <Content Include="Scripts\services\propertyService.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.13.0.min.js" />
+    <Content Include="Templates\cities.html" />
     <Content Include="Templates\crew-create.html" />
     <Content Include="Templates\crew-detail.html" />
     <Content Include="Templates\creweventtasks.html" />
@@ -1351,7 +1355,7 @@
     <Content Include="Templates\tasklisttype-create.html" />
     <Content Include="Templates\tasklisttype-detail.html" />
     <Content Include="Templates\tasklists.html" />
-    <Content Include="Templates\crewlists.html" />
+    <Content Include="Templates\employeeskills.html" />
     <Content Include="Templates\eventtasklists.html" />
     <Content Include="Templates\tasktemplate-create.html" />
     <Content Include="Templates\taskTemplates.html" />

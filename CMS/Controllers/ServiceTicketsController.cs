@@ -87,12 +87,12 @@ namespace CMS.Controllers
         [ResponseType(typeof(ServiceTicketViewModel))]
         public IHttpActionResult GetServiceTicket(int id)
         {
-            var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == id);
+            var serviceTemplate = db.ServiceTemplates.Include("Customer").FirstOrDefault(s => s.Id == id);
             var property = new Property()
             {
                 Name = "Property Name",
                 Address1 = "Address",
-                City = "City",
+                City = new City(),
                 State = "ST",
                 Zip = "00000"
             };
@@ -128,9 +128,11 @@ namespace CMS.Controllers
             ticket.PropertyName = property.Name;
             ticket.Address1 = property.Address1;
             ticket.Address2 = property.Address2;
-            ticket.City = property.City;
+            ticket.City = property.City != null ? property.City.Name : "";
             ticket.State = property.State;
             ticket.Zip = property.Zip;
+            ticket.AccessDetails = property.Customer.AccessDetails;
+            ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
             ticket.Members = serviceMembers.ToList();
             ticket.ShowAllEmployees = true;
 
@@ -151,7 +153,7 @@ namespace CMS.Controllers
             }
 
             var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == eventTaskList.ServiceTemplateId);
-            var property = db.Properties.FirstOrDefault(p => p.Id == eventTaskList.PropertyId);
+            var property = db.Properties.Include("Customer").FirstOrDefault(p => p.Id == eventTaskList.PropertyId);
 
             if (serviceTemplate == null || property == null)
             {
@@ -232,11 +234,13 @@ namespace CMS.Controllers
             ticket.PropertyName = property.Name;
             ticket.Address1 = property.Address1;
             ticket.Address2 = property.Address2;
-            ticket.City = property.City;
+            ticket.City = property.City != null ? property.City.Name : "";
             ticket.State = property.State;
             ticket.Zip = property.Zip;
             ticket.Members = serviceMembers.ToList();
             ticket.ShowAllEmployees = serviceMembers.Any(s => s.Selected && !s.IsCrewMember);
+            ticket.AccessDetails = property.Customer.AccessDetails;
+            ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
             return Ok(ticket);
         }
 

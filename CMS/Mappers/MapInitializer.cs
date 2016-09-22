@@ -20,11 +20,14 @@ namespace CMS.Mappers
         protected void InitializationStrategy()
         {
             Mapper.CreateMap<Property, PropertyViewModel>()
-                .ForMember(dest => dest.CustomerName, src => src.Ignore());
+                .ForMember(dest => dest.CustomerName, src => src.Ignore())
+                .ForMember(dest => dest.CityName, src => src.ResolveUsing(c => c.City.Name));
+
             Mapper.CreateMap<PropertyViewModel, Property>()
                 .ForMember(dest => dest.EventTaskLists, src => src.Ignore())
                 .ForMember(dest => dest.PropertyTaskLists, src => src.Ignore())
-                .ForMember(dest => dest.Customer, src => src.Ignore());
+                .ForMember(dest => dest.Customer, src => src.Ignore())
+                .ForMember(dest => dest.City, src => src.Ignore());
 
             Mapper.CreateMap<Customer, CustomerViewModel>();
             Mapper.CreateMap<CustomerViewModel, Customer>()
@@ -72,7 +75,9 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.State, src => src.Ignore())
                 .ForMember(dest => dest.Zip, src => src.Ignore())
                 .ForMember(dest => dest.ShowAllEmployees, src => src.Ignore())
-                .ForMember(dest => dest.Members, src => src.Ignore());
+                .ForMember(dest => dest.Members, src => src.Ignore())
+                .ForMember(dest => dest.CustomerName, src => src.Ignore())
+                .ForMember(dest => dest.AccessDetails, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTicketViewModel, ServiceTicket>()
                 .ForMember(dest => dest.EventTaskList, src => src.Ignore())
@@ -97,6 +102,10 @@ namespace CMS.Mappers
             Mapper.CreateMap<CrewMemberViewModel, CrewMember>()
                 .ForMember(dest => dest.Employee, src => src.Ignore())
                 .ForMember(dest => dest.Crew, src => src.Ignore());
+
+            Mapper.CreateMap<City, CityViewModel>();
+            Mapper.CreateMap<CityViewModel, City>()
+                .ForMember(dest => dest.Properties, src => src.Ignore());
 
             Mapper.AssertConfigurationIsValid();
         }

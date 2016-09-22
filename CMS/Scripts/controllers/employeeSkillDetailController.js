@@ -1,5 +1,5 @@
 ﻿function EmployeeSkillDetailController($scope, $resource, $routeParams, $location, Modal) {
-    var skillsResource = $resource( '/api/types/crewlists/:skillId',
+    var skillsResource = $resource('/api/types/employeeskills/:skillId',
     { skillId: $routeParams.skillId },
     {
         'update': { method: 'PUT' }
@@ -17,7 +17,7 @@
     };
 
     $scope.back = function () {
-        $location.path( "/types/crewlists" );
+        $location.path("/types/employeeskills");
         if (!$scope.$$phase) $scope.$apply();
     };
 

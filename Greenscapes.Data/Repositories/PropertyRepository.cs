@@ -47,6 +47,7 @@ namespace Greenscapes.Data.Repositories
                 existingProperty.PropertyRefNumber = property.PropertyRefNumber;
                 existingProperty.State = property.State;
                 existingProperty.PropertyType = property.PropertyType;
+                existingProperty.CustomerType = property.CustomerType;
                 existingProperty.Zip = property.Zip;
             }
             else

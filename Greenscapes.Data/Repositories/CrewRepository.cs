@@ -81,11 +81,14 @@ namespace Greenscapes.Data.Repositories
             {
                 existingCrew.Description = employeeSkill.Description;
                 existingCrew.Name = employeeSkill.Name;
+                existingCrew.DisplayOrder = employeeSkill.DisplayOrder;
 
                 db.SaveChanges();
             }
             else
             {
+                var max = db.TaskTemplates.Max(t => t.DisplayOrder);
+                employeeSkill.DisplayOrder = max + 1;
                 db.EmployeeSkills.Add(employeeSkill);
             }
 

@@ -25,7 +25,7 @@
         <label>{{crew.Name}}</label>
     </div>
     <h3 ng-show="employeeSkills.length > 0">Assignable Skills</h3>
-    <div class="form-group" ng-repeat="employeeSkill in employeeSkills">
+    <div class="form-group" ng-repeat="employeeSkill in employeeSkills | orderBy:'DisplayOrder'">
         <input type="checkbox" ng-model="employeeSkill.checked" ng-disabled="buttonsDisabled" />
         <label>{{employeeSkill.Name}}</label>
     </div>

@@ -19,6 +19,7 @@
         <th>Reference Number</th>
         <th>Customer since</th>
         <th>Type</th>
+        <th>Status</th>
     </tr>
     <tr ng-repeat="property in properties" ng-if="property.PropertyType != 3 || showClosed">
         <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
@@ -27,6 +28,7 @@
         <td>{{property.State}}</td>
         <td>{{property.PropertyRefNumber}}</td>
         <td >{{property.ContractDate|date:'mediumDate'}}</td>
+        <td>{{getCustomerType(property.CustomerType)}}</td>
         <td>{{getPropertyType(property.PropertyType)}}</td>
     </tr>
 </table>

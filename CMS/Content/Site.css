@@ -59,7 +59,7 @@ label.k-check {
 }
 
 .buttonRow {
-    width: 240px;
+    width: 170px;
 }
 
 .k-scheduler-edit-form .k-edit-form-container {
@@ -69,4 +69,13 @@ label.k-check {
 .eventTaskListEdit {
     width: 100%;
     max-width: 800px;
+}
+
+.crew-list {
+    margin-bottom: 40px;
+}
+
+.longSelect {
+    width: 100%;
+    max-width: 100%;
 }

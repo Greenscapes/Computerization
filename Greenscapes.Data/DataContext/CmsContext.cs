@@ -32,6 +32,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<TaskTemplate> TaskTemplates { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -39,6 +40,11 @@ namespace Greenscapes.Data.DataContext
                 .HasMany(e => e.Properties)
                 .WithRequired(e => e.Customer)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<City>()
+               .HasMany(e => e.Properties)
+               .WithRequired(e => e.City)
+               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Crew>()
                 .HasMany(e => e.CrewMembers)

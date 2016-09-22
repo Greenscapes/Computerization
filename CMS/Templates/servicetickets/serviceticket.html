@@ -7,7 +7,10 @@
     {{serviceTicket.Address2}}<br />
     {{serviceTicket.City}}, {{serviceTicket.State}} {{serviceTicket.Zip}}
 </p>
-
+<p>
+    Customer: {{serviceTicket.CustomerName}}<br />
+    Access Details: {{serviceTicket.AccessDetails}}
+</p>
 <form role="form" novalidate>
 
     <div class="form-group">
@@ -17,17 +20,17 @@
 
     <div class="form-group">
         <label for="visit-date">Date of Visit</label>
-        <input id="visit-date" type="date" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled" >
+        <input id="visit-date" type="date" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled">
     </div>
-    
+
     <div class="form-group">
         <label for="fromTime">From Time</label>
-        <input id="fromTime" type="time" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled" >
+        <input id="fromTime" type="time" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled">
     </div>
-    
+
     <div class="form-group">
         <label for="toTime">To Time</label>
-        <input id="toTime" type="time" class="form-control" ng-model="serviceTicket.ToTime" ng-disabled="buttonsDisabled" >
+        <input id="toTime" type="time" class="form-control" ng-model="serviceTicket.ToTime" ng-disabled="buttonsDisabled">
     </div>
 
     <label for="toTime">GS Staff </label>
@@ -36,7 +39,7 @@
         <input type="radio" name="employee" ng-model="serviceTicket.ShowAllEmployees" ng-value="true"> All<br>
     </i>
 
-    <div class="checkbox" ng-repeat="employee in serviceTicket.Members | filter: showEmployee"> 
+    <div class="checkbox" ng-repeat="employee in serviceTicket.Members | filter: showEmployee">
         <label>
             <input type="checkbox" ng-model="employee.Selected">
             {{employee.FirstName}} {{employee.LastName}}
@@ -44,7 +47,7 @@
     </div>
 
     <div ng-if="!serviceTicket.TemplateUseTasks" ng-include="serviceTicket.TemplateUrl"></div>
-    
+
     <table ng-if="serviceTicket.TemplateUseTasks" class="table table-striped">
         <tr>
             <th class="col-md-4">Description</th>

@@ -4,7 +4,7 @@
     <b>Crews </b>:
     <select ng-options="crew.Name for crew in crews" ng-model="crew" id="selectCrewList"
             ng-disabled="isSelected" ng-change="getevents(true)"></select>
-    <button type="submit" class="btn btn-success" ng-click="reset()">Reset</button>
+    <!--<button type="submit" class="btn btn-success" ng-click="reset()">Reset</button>-->
 </div>
 
 <div ng-show="crewId">
@@ -12,7 +12,7 @@
 </div>
 
 <br />
-<h3>Daily Schedule</h3>
+<h3>Daily Schedule - {{selectedDate | date:'fullDate'}}</h3>
 
 <table class="table table-striped">
     <tr>
@@ -32,10 +32,10 @@
         <td><input type="checkbox" ng-click="setTime(false, event)" ng-hide="event.TaskEndTime"/>
             <span ng-show="event.TaskEndTime">{{event.TaskEndTime | date:'h:mma'}}</span></td>
         <td class="buttonRow">
-            <button type="button" class="btn btn-primary" ng-click="launchTasks(event)">
+            <!--<button type="button" class="btn btn-primary" ng-click="launchTasks(event)">
                 View Tasks
-            </button><button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event)">
-                Create Ticket
+            </button>--><button type="button" class="btn btn-primary left-margin" ng-click="launchTicket(event)">
+                Complete Ticket
             </button>
         </td>
     </tr>

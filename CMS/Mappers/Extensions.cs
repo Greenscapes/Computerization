@@ -44,6 +44,22 @@ namespace CMS.Mappers
             return Mapper.Map<IEnumerable<Customer>, TTarget>(source);
         }
 
+        public static TTarget MapTo<TTarget>(this City source) where TTarget : CityViewModel
+        {
+            return Mapper.Map<City, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this CityViewModel source) where TTarget : City
+        {
+            return Mapper.Map<CityViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<City> source)
+            where TTarget : IEnumerable<CityViewModel>
+        {
+            return Mapper.Map<IEnumerable<City>, TTarget>(source);
+        }
+
         public static TTarget MapTo<TTarget>(this PropertyTask source) where TTarget : PropertyTaskViewModel
         {
             return Mapper.Map<PropertyTask, TTarget>(source);

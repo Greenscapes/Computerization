@@ -20,6 +20,19 @@
 
         return '';
     }
+
+    $scope.getCustomerType = function (type) {
+        switch (type) {
+            case 1:
+                return "HOA";
+            case 2:
+                return "Commercial";
+            case 3:
+                return "Residential";
+        }
+
+        return '';
+    }
 }
 
 PropertiesController.$inject = ['$scope', '$resource', '$location'];

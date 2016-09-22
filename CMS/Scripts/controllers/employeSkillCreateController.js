@@ -1,10 +1,10 @@
 ﻿function EmployeeSkillCreateController($scope, $resource, $routeParams, $location) {
-    var skillResource = $resource( '/api/types/crewlists/' );
+    var skillResource = $resource('/api/types/employeeskills/');
 
     $scope.buttonsDisabled = false;
 
     $scope.back = function () {
-        $location.path("/types/crewlists");
+        $location.path("/types/employeeskills");
         if (!$scope.$$phase) $scope.$apply();
     };
 
