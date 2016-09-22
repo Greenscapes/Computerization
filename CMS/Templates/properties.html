@@ -24,7 +24,7 @@
     <tr ng-repeat="property in properties" ng-if="property.PropertyType != 3 || showClosed">
         <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
         <td>{{property.Address1}}</td>
-        <td>{{property.City}}</td>
+        <td>{{property.CityName}}</td>
         <td>{{property.State}}</td>
         <td>{{property.PropertyRefNumber}}</td>
         <td >{{property.ContractDate|date:'mediumDate'}}</td>

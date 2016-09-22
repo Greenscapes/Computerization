@@ -36,7 +36,7 @@ namespace CMS.Controllers
                 ticket.Title = serviceTicket.EventTaskList.Name;
                 ticket.EventDate = serviceTicket.EventDate.Value;
                 var property = serviceTicket.EventTaskList.Property;
-                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City + " " + property.State + " " + property.Zip;
+                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City.Name + " " + property.State + " " + property.Zip;
                 var eventTaskTime = serviceTicket.EventTaskList.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(serviceTicket.EventDate.Value) == TimeSpan.Zero);
                 if (eventTaskTime != null)
                 {
@@ -68,7 +68,7 @@ namespace CMS.Controllers
                 ticket.Title = serviceTicket.EventTaskList.Name;
                 ticket.EventDate = serviceTicket.EventDate.Value;
                 var property = serviceTicket.EventTaskList.Property;
-                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City + " " + property.State + " " + property.Zip;
+                ticket.PropertyAddress = property.Address1 + " " + property.Address2 + " " + property.City.Name + " " + property.State + " " + property.Zip;
                 var eventTaskTime = serviceTicket.EventTaskList.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(serviceTicket.EventDate.Value) == TimeSpan.Zero);
                 if (eventTaskTime != null)
                 {

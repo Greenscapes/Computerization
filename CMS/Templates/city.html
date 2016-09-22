@@ -1,0 +1,19 @@
+﻿
+
+<br />
+<p>
+    <button class="btn btn-xs" ng-click="customerVm.back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Cities
+    </button>
+</p>
+<h2>New City</h2>
+<br />
+<form name="CityAdd" novalidates>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="cityVm.city.Name">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="cityVm.save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+</form>

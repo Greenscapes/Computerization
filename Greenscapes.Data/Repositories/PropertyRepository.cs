@@ -30,7 +30,7 @@ namespace Greenscapes.Data.Repositories
 
         public List<Property> GetProperties()
         {
-            return db.Properties.ToList();
+            return db.Properties.Include("City").ToList();
         }
 
         public bool UpdateProperty(Property property)

@@ -208,7 +208,7 @@
         });
 
         function combineAddress( property ) {
-            return property.Address1 + " " + property.Address1 + " " + property.City + " " + property.State + " " + property.Zip;
+            return property.Address1 + " " + property.Address1 + " " + property.City.Name + " " + property.State + " " + property.Zip;
         }
 
     }

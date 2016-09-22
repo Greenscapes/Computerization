@@ -229,7 +229,11 @@ app.config([
             }).
             when('/city/:cityId', {
                 templateUrl: 'templates/city.html',
-                controller: 'CityController'
+                controller: 'CityController as cityVm'
+            }).
+            when('/city/', {
+                templateUrl: 'templates/city.html',
+                controller: 'CityController as cityVm'
             }).
             when('/schedule', {
                 templateUrl: 'templates/schedule.html',

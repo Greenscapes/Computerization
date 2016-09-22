@@ -135,7 +135,7 @@ namespace CMS.Controllers
                    eventDetail.PropertyId = propTask.Property.Id;
                    eventDetail.PropertyAddress = propTask.Property.Address1 + " "+
                                                  propTask.Property.Address2 + " "+
-                                                     propTask.Property.City + " "+
+                                                     propTask.Property.City.Name + " "+
                                                          propTask.Property.State + " "+
                                                              propTask.Property.Zip ;
 
@@ -210,7 +210,7 @@ namespace CMS.Controllers
                     eventDetail.PropertyId = eventTaskLists.Property.Id;
                     eventDetail.PropertyAddress = eventTaskLists.Property.Address1 + " " +
                                                   eventTaskLists.Property.Address2 + " " +
-                                                      eventTaskLists.Property.City + " " +
+                                                      eventTaskLists.Property.City.Name + " " +
                                                           eventTaskLists.Property.State + " " +
                                                               eventTaskLists.Property.Zip;
 

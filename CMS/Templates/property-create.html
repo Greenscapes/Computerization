@@ -46,7 +46,9 @@
         </div>
         <div class="form-group">
             <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity" placeholder="City" ng-model="propertyVm.property.City">
+            <select name="inputCity" id="inputCity"
+                    ng-options="city.Id as city.Name for city in propertyVm.cities"
+                    ng-model="propertyVm.property.CityId"></select>
         </div>
         <div class="form-group">
             <label for="inputState">State</label>

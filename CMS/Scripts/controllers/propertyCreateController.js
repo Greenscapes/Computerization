@@ -5,13 +5,14 @@
 
     angular.module('cmsApp').controller(controllerId,
         [
-            'propertyService', 'customerService', 'alertService', '$location',
-            function (propertyService, customerService, alertService, $location) {
+            'propertyService', 'customerService', 'cityService', 'alertService', '$location',
+            function (propertyService, customerService, cityService, alertService, $location) {
 
                 var vm = this;
 
                 vm.property = {};
                 vm.customers = {};
+                vm.cities = {};
                 vm.buttonsDisabled = false;
                 vm.isUpdate = false;
 
@@ -24,6 +25,11 @@
                     customerService.getCustomers().then(function(data) {
                         vm.customers = data;
                     });
+
+                    cityService.getCities()
+                        .then(function(data) {
+                            vm.cities = data;
+                        });
 
                     propertyService.getNextReference().then(function (data) {
                         vm.property.PropertyRefNumber = data;

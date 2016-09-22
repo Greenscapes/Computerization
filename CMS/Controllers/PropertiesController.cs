@@ -25,7 +25,8 @@ namespace CMS.Controllers
         [Route("")]
         public IEnumerable<PropertyViewModel> GetProperties()
         {
-            return db.GetProperties().MapTo<IEnumerable<PropertyViewModel>>();
+            var properties = db.GetProperties();
+            return properties.MapTo<IEnumerable<PropertyViewModel>>();
         }
 
         // GET: api/Properties/5

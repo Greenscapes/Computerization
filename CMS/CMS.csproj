@@ -577,6 +577,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\controllers\citiesController.js" />
+    <Content Include="Scripts\controllers\cityController.js" />
     <Content Include="Scripts\controllers\crewCreateController.js" />
     <Content Include="Scripts\controllers\crewEventTasksController.js" />
     <Content Include="Scripts\controllers\crewMembersController.js" />
@@ -1290,12 +1291,14 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\services\alertService.js" />
     <Content Include="Scripts\services\authenticationService.js" />
+    <Content Include="Scripts\services\cityService.js" />
     <Content Include="Scripts\services\customerService.js" />
     <Content Include="Scripts\services\modalService.js" />
     <Content Include="Scripts\services\propertyService.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.13.0.min.js" />
     <Content Include="Templates\cities.html" />
+    <Content Include="Templates\city.html" />
     <Content Include="Templates\crew-create.html" />
     <Content Include="Templates\crew-detail.html" />
     <Content Include="Templates\creweventtasks.html" />

@@ -30,7 +30,7 @@ namespace CMS.Controllers
         // GET: api/Properties/5
         [Route("{id:int}")]
         [ResponseType(typeof(CityViewModel))]
-        public IHttpActionResult GetProperty(int id)
+        public IHttpActionResult GetCity(int id)
         {
             var city = db.GetCity(id).MapTo<CityViewModel>();
             if (city == null)
