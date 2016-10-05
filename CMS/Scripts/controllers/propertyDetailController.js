@@ -5,7 +5,9 @@
         });
     var taskListsResource = $resource('/api/properties/:propertyId/tasks', { propertyId: $routeParams.propertyId });
     var servicesResource = $resource('/api/properties/:propertyId/services', { propertyId: $routeParams.propertyId });
-    var eventTasksResource = $resource("/api/properties/:propertyId/eventtasklists");
+    var eventTasksResource = $resource( "/api/properties/:propertyId/eventtasklists" );
+    var customersResource = $resource( "/api/customers" );
+    var citiesResource = $resource( "/api/cities" );
     var taskResource = $resource('/api/tasks/:taskId',
    { taskId: $routeParams.taskId },
    {
@@ -27,6 +29,10 @@
     $scope.eventTaskListId = '';
     $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
     $scope.eventTaskLists = eventTasksResource.query({ propertyId: $routeParams.propertyId });
+    $scope.customers = customersResource.query( function () {
+    } );
+    $scope.cities = citiesResource.query( function () { 
+    } );
 
     $scope.tasks = taskListsResource.query( function () {
     } );
@@ -129,6 +135,39 @@
     $scope.confirmDeleteService = function (service) {
         Modal.showConfirmDelete("service", service.Name, service, deleteServiceFunction);
     };
+
+    $scope.update = function ( property ) {
+        $scope.buttonsDisabled = true;
+
+        propertyResource.update( { propertyId: property.Id }, property, function () {
+            $scope.back();
+        }, function () {
+
+        } );
+    };
+
+    $( document ).ready( function () {
+        $( '#datetimepicker' ).datepicker( {
+        }
+
+        );
+        var d = new Date();
+
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var year = d.getFullYear();
+
+        var output =
+        ( month < 10 ? '0' : '' ) + month + '/' +
+        ( day < 10 ? '0' : '' ) + day + '/' + year;
+
+        $( "#datetimepicker" ).val( output );
+
+        $( '#datetimepicker' ).on( 'changeDate', function ( ev ) {
+            ( '#datetimepicker' ).valueOf( ev.target.value );
+            $scope.property.ContractDate = ev.target.value;
+        } );
+    } );
 }
 
 PropertyDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$q', 'servicesService', 'Modal'];
