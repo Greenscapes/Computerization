@@ -6,80 +6,74 @@
 </p>
 <h2>{{property.Name}} Details</h2>
 
-<table class="table table-bordered" style="width:auto">
-    <tr>
-        <td>Customer Status</td>
-        <td><!--{{property.PropertyType}}-->
-            <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
-                    ng-model="property.PropertyType" ng-readonly="true;" disabled="true">
-                <option value="1">Prospect</option>
-                <option value="2">Active</option>
-                <option value="3">Closed</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Customer Type</td>
-        <td>
-            <!--{{property.PropertyType}}-->
-            <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
-                    ng-model="property.CustomerType" ng-readonly="true;" disabled="true">
-                <option value="1">HOA</option>
-                <option value="2">Commercial</option>
-                <option value="3">Residential</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Customer</td>
-        <td>{{property.CustomerName}}</td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td>{{property.Name}}</td>
-    </tr>
-    <tr>
-        <td>Address 1</td>
-        <td>{{property.Address1}}</td>
-    </tr>
-    <tr>
-        <td>Address 2</td>
-        <td>{{property.Address2}}</td>
-    </tr>
-    <tr>
-        <td>City</td>
-        <td>{{property.CityName}}</td>
-    </tr>
-    <tr>
-        <td>State</td>
-        <td>{{property.State}}</td>
-    </tr>
-    <tr>
-        <td>Zip</td>
-        <td>{{property.Zip}}</td>
-    </tr>
-    <tr>
-        <td>Reference Number</td>
-        <td>{{property.PropertyRefNumber}}</td>
-    </tr>
-    <tr>
-        <td>Customer since</td>
-        <td>{{property.ContractDate|date:'mediumDate'}}</td>
-    </tr>
-    <tr>
-        <td>Number Of Free Services</td>
-        <td>{{property.NumberOfFreeServiceCalls}}</td>
-    </tr>
-    <tr>
-        <td>Remaining Free Services</td>
-        <td>{{property.NumberOfFreeServiceCalls}}</td>
-    </tr>
-</table>
-<p>
-    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
-        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
-    </button>
-</p>
+<br />
+<form name="PropertyAdd" novalidates>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Status</label>
+        <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
+                ng-model="property.PropertyType">
+            <option value="1">Prospect</option>
+            <option value="2">Active</option>
+            <option value="3">Closed</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Type</label>
+        <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
+                ng-model="property.CustomerType">
+            <option value="1">HOA</option>
+            <option value="2">Commercial</option>
+            <option value="3">Residential</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="customerSelect">Customer</label>
+        <select name="customerSelect" id="customerSelect" ng-options="customer.Id as customer.FirstName + ' ' + customer.LastName for customer in customers"
+                ng-model="property.CustomerId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="property.Name" ng-maxlength="100" required>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress1">Address 1</label>
+        <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-model="property.Address1">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-model="property.Address2">
+    </div>
+    <div class="form-group">
+        <label for="inputCity">City</label>
+        <select name="inputCity" id="inputCity"
+                ng-options="city.Id as city.Name for city in cities"
+                ng-model="property.CityId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" placeholder="State" ng-model="property.State">
+    </div>
+    <div class="form-group">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-model="property.Zip">
+    </div>
+    <div class="form-group">
+        <label for="propertyRef">Reference Number</label>
+        <input type="text" class="form-control" id="propertyRef" placeholder="PropertyRefNumber" ng-model="property.PropertyRefNumber">
+    </div>
+    <div class="form-group">
+        <label for="cntDate">Customer since </label>
+        <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="property.ContractDate" data-date-format="dd/mm/yyyy" date-type="string">
+    </div>
+    <div class="form-group">
+        <label for="cntDate">Number Of Free Additional Call Outs Entitled Under Contract </label>
+        <input type="text" class="form-control" id="freeService" placeholder="NumberOfFreeServiceCalls" ng-model="property.NumberOfFreeServiceCalls">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click=" update(property)" ng-disabled="buttonsDisabled">Save</button>
+
+</form>
+
 <hr/>
 
 <h3>Property Tasks</h3>
