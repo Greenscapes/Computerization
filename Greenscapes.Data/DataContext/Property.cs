@@ -13,6 +13,7 @@ namespace Greenscapes.Data.DataContext
         {
             EventTaskLists = new HashSet<EventTaskList>();
             PropertyTaskLists = new HashSet<PropertyTaskList>();
+            PropertyServices = new HashSet<PropertyService>();
         }
 
         public int Id { get; set; }
@@ -47,6 +48,8 @@ namespace Greenscapes.Data.DataContext
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PropertyTaskList> PropertyTaskLists { get; set; }
+
+        public virtual ICollection<PropertyService> PropertyServices { get; set; }
 
         public virtual Customer Customer { get; set; }
 

@@ -1,0 +1,23 @@
+﻿
+
+<br />
+<p>
+    <button class="btn btn-xs" ng-click="serviceVm.back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
+<h2>New Property Service</h2>
+<br />
+<form name="ServiceAdd" novalidates>
+    <div class="form-group">
+        <label for="inputName">Service</label>
+        <select ng-options="service.Id as service.Name for service in serviceVm.services" ng-model="serviceVm.propertyService.ServiceId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputName">Number of Events</label>
+        <input type="number" class="form-control" id="inputName" placeholder="Name" ng-model="serviceVm.propertyService.EventCount">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="serviceVm.save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+</form>

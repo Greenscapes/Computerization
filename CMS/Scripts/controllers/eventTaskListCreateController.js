@@ -3,6 +3,7 @@
     var eventTaskListResource = $resource('/api/eventtasklists');
     var eventTaskListResourceGet = $resource('/api/eventtasklists/:taskListId');
     var serviceTemplateResource = $resource('/api/servicetemplates');
+    var serviceResource = $resource('/api/services/properties/:propertyId');
     var crewsResource = $resource("/api/crews");
 
     $scope.eventTaskList = {};
@@ -17,6 +18,7 @@
     }
     $scope.selectedCrew = {};
     $scope.crews = crewsResource.query({});
+    $scope.propertyServices = serviceResource.query({ propertyId: $routeParams.propertyId });
     $scope.templates = serviceTemplateResource.query();
     $scope.taskEvents = [];
 

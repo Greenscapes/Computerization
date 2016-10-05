@@ -33,6 +33,8 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<PropertyService> PropertyServices { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -46,6 +48,14 @@ namespace Greenscapes.Data.DataContext
                .WithRequired(e => e.City)
                .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<PropertyService>()
+                .HasRequired(e => e.Property)
+                .WithMany(e => e.PropertyServices);
+
+            modelBuilder.Entity<Service>()
+                .HasMany(e => e.PropertyServices)
+                .WithRequired(e => e.Service);
+
             modelBuilder.Entity<Crew>()
                 .HasMany(e => e.CrewMembers)
                 .WithRequired(e => e.Crew)
@@ -54,6 +64,11 @@ namespace Greenscapes.Data.DataContext
             modelBuilder.Entity<Crew>()
                 .HasMany(e => e.EventTaskLists)
                 .WithRequired(e => e.Crew)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PropertyService>()
+                .HasMany(e => e.EventTaskLists)
+                .WithOptional(e => e.PropertyService)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Crew>()

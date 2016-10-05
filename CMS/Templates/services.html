@@ -1,0 +1,14 @@
+﻿<h2>Services</h2>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newService()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Service
+    </button>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="service in services">
+        <td><a ng-href="#/service/{{service.Id}}">{{service.Name}}</a></td>
+    </tr>
+</table>

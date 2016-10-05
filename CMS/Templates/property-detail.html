@@ -125,9 +125,32 @@
         </tr>
     </table>
 </div>
-<!--<div>
-    <h3 ng-show="crews.length > 0">Property Schedules</h3>
-    <div id="EventScheduler">
-        <div id="scheduler"></div>
-    </div>
-</div>-->
+
+<h3>Property Services</h3>
+
+<p>
+    <span class="row">
+        <button type="button" class="btn btn-primary" ng-click="newService()">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Service
+        </button>
+        <a type="button" class="btn btn-primary" ng-href="#/propertyschedule/{{property.Id}}">View Schedule
+        </a>
+</span>
+
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Number of Events</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="service in services">
+        <td>{{service.Name}}</td>
+        <td>{{service.EventCount}}</td>
+        <td>
+            <a ng-href="#/properties/{{property.Id}}/service/{{service.Id}}">Edit Service</a>
+            | <a ng-click="confirmDeleteService(service)">Delete Service</a>
+        </td>
+    </tr>
+</table>

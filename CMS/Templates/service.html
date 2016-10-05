@@ -1,0 +1,19 @@
+﻿
+
+<br />
+<p>
+    <button class="btn btn-xs" ng-click="serviceVm.back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Services
+    </button>
+</p>
+<h2>New Service</h2>
+<br />
+<form name="ServiceAdd" novalidates>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="serviceVm.service.Name">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="serviceVm.save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+</form>

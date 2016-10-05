@@ -79,3 +79,7 @@ label.k-check {
     width: 100%;
     max-width: 100%;
 }
+
+.error {
+    color: red;
+}

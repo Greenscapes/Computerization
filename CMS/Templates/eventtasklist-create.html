@@ -19,6 +19,16 @@
                 ng-model="selectedCrew" ng-change="crewChanged()"></select>
     </div>
     <div class="form-group">
+        <label for="serviceSelect">Service Provided</label>
+        <select name="serviceSelect" id="serviceSelect"
+                ng-options="service.Id as service.Name for service in propertyServices"
+                ng-model="eventTaskList.PropertyServiceId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputNumberEvents">Number of Events Provided</label>
+        <input type="number" id="inputNumberEvents" step=".25" ng-disabled="buttonsDisabled" ng-model="eventTaskList.NumberServices" style="width:100%">
+    </div>
+    <div class="form-group">
         <label for="templateSelect">Service Ticket Template</label>
         <select name="templateSelect" id="templateSelect"
                 ng-options="template.Id as template.Name for template in templates"
@@ -28,5 +38,5 @@
         <label for="inputFirstName">Name</label>
         <input type="text" id="inputFirstName" ng-disabled="buttonsDisabled" ng-model="eventTaskList.Name" style="width:100%">
     </div>
-    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, true)" ng-disabled="buttonsDisabled" ng-hide="eventTaskList.Id">Save</button>
+    <button type="submit" class="btn btn-success" ng-click="save(eventTaskList, true)" ng-disabled="buttonsDisabled">Save</button>
 </form>

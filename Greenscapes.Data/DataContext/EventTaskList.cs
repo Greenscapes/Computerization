@@ -22,13 +22,17 @@ namespace Greenscapes.Data.DataContext
         public int PropertyId { get; set; }
 
         public int CrewId { get; set; }
+        public int? PropertyServiceId { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; }
 
         public int? ServiceTemplateId { get; set; }
 
+        public decimal? NumberServices { get; set; }
+
         public virtual Crew Crew { get; set; }
+        public virtual PropertyService PropertyService { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventSchedule> EventSchedules { get; set; }
