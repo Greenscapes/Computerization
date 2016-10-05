@@ -14,7 +14,8 @@
                     updateProperty: updateProperty,
                     createProperty: createProperty,
                     deleteProperty: deleteProperty,
-                    getNextReference: getNextReference
+                    getNextReference: getNextReference,
+                    getPropertySchedule: getPropertySchedule
                 };
 
                 return service;
@@ -33,6 +34,14 @@
                         .then(function (response) {
                             return response.data;
                         });
+                }
+
+                function getPropertySchedule(propertyId) {
+                    return $http
+                       .get('/api/properties/' + propertyId + "/schedule")
+                       .then(function (response) {
+                           return response.data;
+                       });
                 }
 
                 function updateProperty(propertyId, property) {

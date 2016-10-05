@@ -15,10 +15,14 @@ namespace CMS.Models
 
         public int CrewId { get; set; }
 
+        public int? PropertyServiceId { get; set; }
+
         public int ServiceTemplateId { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; }
+
+        public decimal? NumberServices { get; set; }
 
         public List<PropertyTaskViewModel> PropertyTasks { get; set; } 
         public CrewViewModel Crew { get; set; }

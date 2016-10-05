@@ -25,6 +25,7 @@ namespace CMS.Mappers
 
             Mapper.CreateMap<PropertyViewModel, Property>()
                 .ForMember(dest => dest.EventTaskLists, src => src.Ignore())
+                .ForMember(dest => dest.PropertyServices, src => src.Ignore())
                 .ForMember(dest => dest.PropertyTaskLists, src => src.Ignore())
                 .ForMember(dest => dest.Customer, src => src.Ignore())
                 .ForMember(dest => dest.City, src => src.Ignore());
@@ -57,6 +58,7 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.EventSchedules, src => src.Ignore())
                 .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
                 .ForMember(dest => dest.EventTaskTimes, src => src.Ignore())
+                .ForMember(dest => dest.PropertyService, src => src.Ignore())
                 .ForMember(dest => dest.ServiceTickets, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTemplate, ServiceTemplateViewModel>();
@@ -106,6 +108,18 @@ namespace CMS.Mappers
             Mapper.CreateMap<City, CityViewModel>();
             Mapper.CreateMap<CityViewModel, City>()
                 .ForMember(dest => dest.Properties, src => src.Ignore());
+
+            Mapper.CreateMap<Service, ServiceViewModel>();
+            Mapper.CreateMap<ServiceViewModel, Service>()
+                .ForMember(dest => dest.PropertyServices, src => src.Ignore());
+
+            Mapper.CreateMap<PropertyService, PropertyServiceViewModel>()
+                .ForMember(dest => dest.Name, src => src.MapFrom(s => s.Service.Name));
+
+            Mapper.CreateMap<PropertyServiceViewModel, PropertyService>()
+                .ForMember(dest => dest.Service, src => src.Ignore())
+                .ForMember(dest => dest.EventTaskLists, src => src.Ignore())
+                .ForMember(dest => dest.Property, src => src.Ignore());
 
             Mapper.AssertConfigurationIsValid();
         }

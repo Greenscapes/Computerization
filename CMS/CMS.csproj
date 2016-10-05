@@ -175,6 +175,7 @@
     <Compile Include="Controllers\PropertyTaskListsController.cs" />
     <Compile Include="Controllers\PropertyTaskListTypesController.cs" />
     <Compile Include="Controllers\PropertyTasksController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ServiceTemplatesController.cs" />
     <Compile Include="Controllers\ServiceTicketsController.cs" />
     <Compile Include="Controllers\TaskTemplateController.cs" />
@@ -191,14 +192,17 @@
     <Compile Include="Models\CMSEnums.cs" />
     <Compile Include="Models\CrewViewModel.cs" />
     <Compile Include="Models\DataSourceRequestModelBinder.cs" />
+    <Compile Include="Models\EventTaskListScheduleViewModel.cs" />
     <Compile Include="Models\EventTaskListViewModel.cs" />
     <Compile Include="Models\EventViewModel.cs" />
+    <Compile Include="Models\PropertyServiceViewModel.cs" />
     <Compile Include="Models\PropertyTaskViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
     <Compile Include="Models\ServiceMemberViewModel.cs" />
     <Compile Include="Models\ServiceTicketViewModel.cs" />
     <Compile Include="Models\ServiceTemplateViewModel.cs" />
     <Compile Include="Models\ManagerViewModel.cs" />
+    <Compile Include="Models\ServiceViewModel.cs" />
     <Compile Include="Models\TaskTemplateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -604,7 +608,11 @@
     <Content Include="Scripts\controllers\propertyCreateController.js" />
     <Content Include="Scripts\controllers\propertyDetailController.js" />
     <Content Include="Scripts\controllers\propertiesController.js" />
+    <Content Include="Scripts\controllers\propertyScheduleController.js" />
+    <Content Include="Scripts\controllers\propertyServiceController.js" />
     <Content Include="Scripts\controllers\scheduleController.js" />
+    <Content Include="Scripts\controllers\serviceController.js" />
+    <Content Include="Scripts\controllers\servicesController.js" />
     <Content Include="Scripts\controllers\servicetickets\serviceTemplateDetailController.js" />
     <Content Include="Scripts\controllers\servicetickets\serviceTemplateListController.js" />
     <Content Include="Scripts\controllers\servicetickets\serviceTicketController.js" />
@@ -1295,6 +1303,7 @@
     <Content Include="Scripts\services\customerService.js" />
     <Content Include="Scripts\services\modalService.js" />
     <Content Include="Scripts\services\propertyService.js" />
+    <Content Include="Scripts\services\servicesService.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.13.0.min.js" />
     <Content Include="Templates\cities.html" />
@@ -1325,7 +1334,11 @@
     <Content Include="Templates\property-create.html" />
     <Content Include="Templates\crewdashboard.html" />
     <Content Include="Templates\property-detail.html" />
+    <Content Include="Templates\propertyschedule.html" />
+    <Content Include="Templates\propertyService.html" />
     <Content Include="Templates\schedule.html" />
+    <Content Include="Templates\service.html" />
+    <Content Include="Templates\services.html" />
     <Content Include="Templates\servicetickets\palm-pruning.html" />
     <Content Include="Templates\servicetickets\residential-maintenance.html" />
     <Content Include="Templates\servicetickets\walk-through.html" />

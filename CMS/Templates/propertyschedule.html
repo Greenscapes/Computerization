@@ -1,0 +1,29 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="scheduleVm.back()">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property Schedule
+    </button>
+</p>
+<h2>{{scheduleVm.property.Name}} Schedule</h2>
+
+<h3>Event Task Lists</h3>
+
+<div ng-repeat="eventTaskList in scheduleVm.eventTaskLists">
+    <h4>{{eventTaskList.Name}}</h4>
+    Events Expected: {{eventTaskList.EventCount}}<br />
+    <span ng-class="eventTaskList.EventCount != eventTaskList.Schedules[eventTaskList.Schedules.length - 1].EventNumber ?'error' : ''">
+        Events Found: {{eventTaskList.Schedules[eventTaskList.Schedules.length - 1].EventNumber}}
+    </span>
+    <table class="table table-striped">
+        <tr>
+            <th>Event Number</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+        <tr ng-repeat="schedule in eventTaskList.Schedules">
+            <td>{{schedule.EventNumber}}</td>
+            <td>{{schedule.Date}}</td>
+            <td>{{schedule.Time}}</td>
+        </tr>
+    </table>
+</div>

@@ -33,12 +33,20 @@ app.config([
                 controller: 'EventTaskListController'
             }).
             when('/properties/:propertyId/schedule/new', {
-                 templateUrl: 'templates/eventtasklist-create.html',
-                 controller: 'EventTaskListCreateController'
+                templateUrl: 'templates/eventtasklist-create.html',
+                controller: 'EventTaskListCreateController'
             }).
             when('/properties/:propertyId/schedule/:eventTaskId', {
                 templateUrl: 'templates/eventtasklist-create.html',
                 controller: 'EventTaskListCreateController'
+            }).
+            when('/properties/:propertyId/service/:serviceId', {
+                templateUrl: 'templates/propertyService.html',
+                controller: 'PropertyServiceController as serviceVm'
+            }).
+            when('/properties/:propertyId/service/', {
+                templateUrl: 'templates/propertyService.html',
+                controller: 'PropertyServiceController as serviceVm'
             }).
             when('/properties/new', {
                 templateUrl: 'templates/property-create.html',
@@ -80,10 +88,10 @@ app.config([
                 templateUrl: 'templates/tasklisttype-detail.html',
                 controller: 'TaskListTypeDetailController'
             }).
-             when( '/types/tasklists', {
+             when('/types/tasklists', {
                  templateUrl: 'templates/tasklists.html',
                  controller: 'PropertyTaskListTypesController'
-             } ).
+             }).
               when('/types/employeeskills', {
                   templateUrl: 'templates/employeeskills.html',
                   controller: 'EmployeeSkillsController'
@@ -128,34 +136,34 @@ app.config([
                 templateUrl: 'templates/customerschedules.html',
                 controller: 'CustomerSchedulesController'
             }).
-             when( '/eventschedules/:propertyId', {
+             when('/eventschedules/:propertyId', {
                  templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
-             } ).
-             when( '/eventschedules', {
+             }).
+             when('/eventschedules', {
                  templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
-             } ).
-             when( '/eventschedules/:eventscheduleId', {
+             }).
+             when('/eventschedules/:eventscheduleId', {
                  templateUrl: 'templates/customerscheduledetails.html',
                  controller: 'EventSchedulesController'
-             } ).
-            when( '/properties/:propertyId/tasklists/:taskListId/tasks/:taskId/eventschedules', {
+             }).
+            when('/properties/:propertyId/tasklists/:taskListId/tasks/:taskId/eventschedules', {
                 templateUrl: 'templates/customerscheduledetails.html',
-                 controller: 'EventSchedulesController'
-            } ).
-            when( '/eventschedules/:employeeId/events', {
-            templateUrl: 'templates/customerscheduledetails.html',
-            controller: 'EventSchedulesController'
-            } ).
-              when( '/eventschedules/:propertyId/:allProperty/propertyevents', {
+                controller: 'EventSchedulesController'
+            }).
+            when('/eventschedules/:employeeId/events', {
+                templateUrl: 'templates/customerscheduledetails.html',
+                controller: 'EventSchedulesController'
+            }).
+              when('/eventschedules/:propertyId/:allProperty/propertyevents', {
                   templateUrl: 'templates/property-detail.html',
                   controller: 'EventSchedulesController'
-              } ).
-             when( '/eventschedules/:year/:month/:date/:crewid/events', {
+              }).
+             when('/eventschedules/:year/:month/:date/:crewid/events', {
                  templateUrl: 'templates/property-detail.html',
                  controller: 'EventSchedulesController'
-             } ).
+             }).
               when('/crewdashboard', {
                   templateUrl: 'templates/crewDashboard.html',
                   controller: 'CrewDashboardController',
@@ -174,8 +182,8 @@ app.config([
                when('/managerdashboard/:eventid', {
                    templateUrl: 'templates/managerdashboard.html',
                    controller: 'ManagerDashboardController'
-               } ).
-            
+               }).
+
         when('/managerdashboard', {
             templateUrl: 'templates/managerdashboard.html',
             controller: 'ManagerDashboardController'
@@ -235,9 +243,25 @@ app.config([
                 templateUrl: 'templates/city.html',
                 controller: 'CityController as cityVm'
             }).
+        when('/services', {
+            templateUrl: 'templates/services.html',
+            controller: 'ServicesController'
+        }).
+        when('/service/:cityId', {
+            templateUrl: 'templates/service.html',
+            controller: 'ServiceController as serviceVm'
+        }).
+        when('/service/', {
+            templateUrl: 'templates/service.html',
+            controller: 'ServiceController as serviceVm'
+        }).
             when('/schedule', {
                 templateUrl: 'templates/schedule.html',
                 controller: 'ScheduleController'
+            }).
+            when('/propertyschedule/:propertyId', {
+                templateUrl: 'templates/propertyschedule.html',
+                controller: 'PropertyScheduleController as scheduleVm'
             }).
             otherwise({
                 redirectTo: '/schedule'
@@ -248,8 +272,8 @@ app.config([
 ]);
 
 app.run([
-    '$rootScope', function($rootScope) {
-        $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+    '$rootScope', function ($rootScope) {
+        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
             $rootScope.hideNav = current.$$route.hideNav;
         });
     }

@@ -45,6 +45,10 @@ namespace Greenscapes.Data.Repositories
             if (existingTaskList != null)
             {
                 existingTaskList.Name = taskList.Name;
+                existingTaskList.CrewId = taskList.CrewId;
+                existingTaskList.ServiceTemplateId = taskList.ServiceTemplateId;
+                existingTaskList.PropertyServiceId = taskList.PropertyServiceId;
+                existingTaskList.NumberServices = taskList.NumberServices;
             }
             else
             { 

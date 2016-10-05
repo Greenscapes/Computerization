@@ -61,6 +61,8 @@
     <Compile Include="DataContext\Crew.cs" />
     <Compile Include="DataContext\Customer.cs" />
     <Compile Include="DataContext\EventTaskTime.cs" />
+    <Compile Include="DataContext\PropertyService.cs" />
+    <Compile Include="DataContext\Service.cs" />
     <Compile Include="DataContext\ServiceMember.cs" />
     <Compile Include="DataContext\CrewMember.cs" />
     <Compile Include="DataContext\EmployeeSkill.cs" />
@@ -93,11 +95,13 @@
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventScheduleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventTaskListRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IServiceRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyTaskRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceTicketRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITaskTemplateRepository.cs" />
+    <Compile Include="Repositories\ServiceRepository.cs" />
     <Compile Include="Repositories\ServiceTemplateRepository.cs" />
     <Compile Include="Repositories\PropertyRepository.cs" />
     <Compile Include="Repositories\PropertyTaskRepository.cs" />

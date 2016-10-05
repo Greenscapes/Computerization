@@ -12,6 +12,7 @@ using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Repositories;
 using Greenscapes.Data.Repositories.Interfaces;
 using CMS.Mappers;
+using DDay.iCal;
 
 namespace CMS.Controllers
 {
@@ -50,6 +51,59 @@ namespace CMS.Controllers
             }         
 
             return Ok(property);
+        }
+
+        [Route("{id:int}/schedule")]
+        [ResponseType(typeof(List<EventTaskListScheduleViewModel>))]
+        public IHttpActionResult GetPropertySchedule(int id)
+        {
+            var repository = new EventTaskListRepository();
+            var taskLists = repository.GetPropertyEventTaskLists(id);
+            var eventTaskListSchedules = new List<EventTaskListScheduleViewModel>();
+
+            foreach (var taskList in taskLists)
+            {
+                var eventTaskListSchedule = new EventTaskListScheduleViewModel();
+                eventTaskListSchedule.Name = taskList.Name;
+                eventTaskListSchedule.EventCount = taskList.PropertyService == null ? 0 : taskList.PropertyService.EventCount;
+                eventTaskListSchedule.Schedules = new List<EventScheduleViewModel>();
+                decimal idx = 0;
+                foreach (var eventSchedule in taskList.EventSchedules)
+                {
+                    if (!string.IsNullOrEmpty(eventSchedule.RecurrenceRule))
+                    {
+                        var pattern = new RecurrencePattern(eventSchedule.RecurrenceRule);
+                        var evaluator = new RecurrencePatternEvaluator(pattern);
+                        var items = evaluator.Evaluate(new iCalDateTime(eventSchedule.StartTime), eventSchedule.StartTime,
+                            eventSchedule.EndTime, false);
+                        foreach(var item in items)
+                        {
+                            idx = idx + taskList.NumberServices ?? 0;
+                            var schedule = new EventScheduleViewModel();
+                            schedule.Date = item.StartTime.ToString("d");
+                            schedule.Time = item.StartTime.ToString("t");
+                            schedule.EventNumber = idx;
+                            eventTaskListSchedule.Schedules.Add(schedule);
+                        }
+                    }
+                    else
+                    {
+                        idx = idx + taskList.NumberServices ?? 0;
+                        var schedule = new EventScheduleViewModel();
+                        schedule.Date = eventSchedule.StartTime.ToString("d");
+                        schedule.Time = eventSchedule.StartTime.ToString("t");
+                        schedule.EventNumber = idx;
+                        eventTaskListSchedule.Schedules.Add(schedule);
+                    }
+                }
+
+                if (eventTaskListSchedule.Schedules.Any() || eventTaskListSchedule.EventCount > 0)
+                {
+                    eventTaskListSchedules.Add(eventTaskListSchedule);
+                }
+            }
+
+            return Ok(eventTaskListSchedules);
         }
 
         [Route("getNextReference")]

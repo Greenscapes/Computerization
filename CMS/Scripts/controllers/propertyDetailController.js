@@ -1,9 +1,10 @@
-﻿function PropertyDetailController($scope, $resource, $routeParams, $location, $q, Modal) {
+﻿function PropertyDetailController($scope, $resource, $routeParams, $location, $q, servicesService, Modal) {
     var propertyResource = $resource('/api/properties/:propertyId', { propertyId: $routeParams.propertyId }, 
         {
             'update': { method: 'PUT' }
         });
-    var taskListsResource = $resource( '/api/properties/:propertyId/tasks', { propertyId: $routeParams.propertyId } );
+    var taskListsResource = $resource('/api/properties/:propertyId/tasks', { propertyId: $routeParams.propertyId });
+    var servicesResource = $resource('/api/properties/:propertyId/services', { propertyId: $routeParams.propertyId });
     var eventTasksResource = $resource("/api/properties/:propertyId/eventtasklists");
     var taskResource = $resource('/api/tasks/:taskId',
    { taskId: $routeParams.taskId },
@@ -30,8 +31,16 @@
     $scope.tasks = taskListsResource.query( function () {
     } );
 
+    $scope.services = servicesResource.query(function() {
+
+    });
+
     $scope.newTask = function () {
         $location.path('/properties/' + $routeParams.propertyId + '/tasklists/' + $scope.property.TaskListId + '/tasks/new');
+    };
+
+    $scope.newService = function () {
+        $location.path('/properties/' + $routeParams.propertyId + '/service/');
     };
 
     $scope.newEventTaskList = function() {
@@ -104,10 +113,23 @@
             });
     };
 
+    var deleteServiceFunction = function (service) {
+        servicesService.deletePropertyService(service.Id)
+            .then(function() {
+                $scope.services = servicesResource.query(function() {
+                });
+            });
+        $scope.buttonsDisabled = false;
+    };
+
     $scope.confirmDeleteTask = function (task) {
         Modal.showConfirmDelete("task", task.Location + " - " + task.Description, task, deleteTaskFunction);
     };
+
+    $scope.confirmDeleteService = function (service) {
+        Modal.showConfirmDelete("service", service.Name, service, deleteServiceFunction);
+    };
 }
 
-PropertyDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$q', 'Modal'];
+PropertyDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$q', 'servicesService', 'Modal'];
 app.controller('PropertyDetailController', PropertyDetailController);

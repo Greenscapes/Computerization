@@ -203,5 +203,37 @@ namespace CMS.Mappers
         {
             return Mapper.Map<IEnumerable<CrewMember>, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this Service source) where TTarget : ServiceViewModel
+        {
+            return Mapper.Map<Service, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this ServiceViewModel source) where TTarget : Service
+        {
+            return Mapper.Map<ServiceViewModel, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<Service> source)
+            where TTarget : IEnumerable<ServiceViewModel>
+        {
+            return Mapper.Map<IEnumerable<Service>, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<PropertyService> source)
+            where TTarget : IEnumerable<PropertyServiceViewModel>
+        {
+            return Mapper.Map<IEnumerable<PropertyService>, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this PropertyService source) where TTarget : PropertyServiceViewModel
+        {
+            return Mapper.Map<PropertyService, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this PropertyServiceViewModel source) where TTarget : PropertyService
+        {
+            return Mapper.Map<PropertyServiceViewModel, TTarget>(source);
+        }
     }
 }
