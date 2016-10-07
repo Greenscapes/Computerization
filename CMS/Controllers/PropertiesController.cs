@@ -21,14 +21,19 @@ namespace CMS.Controllers
     {
         private readonly IPropertyRepository db = new PropertyRepository();
         private readonly ICustomerRepository customerRepository = new CustomerRepository();
-
-        // GET: api/Properties
         [Route("")]
         public IEnumerable<PropertyViewModel> GetProperties()
         {
             var properties = db.GetProperties();
             return properties.MapTo<IEnumerable<PropertyViewModel>>();
         }
+        [Route("type/{type:int}")]
+        public IEnumerable<PropertyViewModel> GetProperties(int type)
+        {
+            var properties = db.GetProperties().Where(p=>p.PropertyType==type).OrderBy(p=>p.Name);
+            return properties.MapTo<IEnumerable<PropertyViewModel>>();
+        }
+         
 
         // GET: api/Properties/5
         [Route("{id:int}")]

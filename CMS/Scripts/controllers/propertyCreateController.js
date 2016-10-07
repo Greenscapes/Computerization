@@ -51,7 +51,13 @@
                 };
 
                 function back() {
-                    $location.path("/properties");
+                    if ( vm.property.PropertyType == undefined )
+                    {
+                        $location.path( "/properties/type/1" );
+                    }
+                    else{
+                        $location.path( "/properties/type/" + vm.property.PropertyType );
+                    }
                 };
 
                 angular.element(document).ready(function () {

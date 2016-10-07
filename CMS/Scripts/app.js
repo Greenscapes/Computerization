@@ -56,10 +56,16 @@ app.config([
                 templateUrl: 'templates/property-detail.html',
                 controller: 'PropertyDetailController'
             }).
-            when('/properties', {
-                templateUrl: 'templates/properties.html',
-                controller: 'PropertiesController'
-            }).
+
+             when( '/properties/type/:type', {
+                 templateUrl: 'templates/properties.html',
+                 controller: 'PropertiesController'
+             } ).
+             
+             when( '/properties', {
+                 templateUrl: 'templates/properties.html',
+                 controller: 'PropertiesController'
+             } ).
             when('/customer/:customerId', {
                 templateUrl: 'templates/customer.html',
                 controller: 'CustomerController as customerVm'

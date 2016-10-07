@@ -1,8 +1,9 @@
-﻿function PropertiesController($scope, $resource, $location) {
-    var propertiesResource = $resource('/api/properties');
-    $scope.properties = propertiesResource.query(function () { });
-    $scope.showClosed = false;
+﻿function PropertiesController($scope, $resource, $routeParams, $location) {
+    var propertiesResource = $resource( '/api/properties/type/:type' );
+    $scope.properties = propertiesResource.query( { type: $routeParams.type } );
+    //$scope.showClosed = false;
 
+    
     $scope.newProperty = function() {
         $location.path("/properties/new");
         if (!$scope.$$phase) $scope.$apply();
@@ -35,5 +36,5 @@
     }
 }
 
-PropertiesController.$inject = ['$scope', '$resource', '$location'];
+PropertiesController.$inject = ['$scope', '$resource','$routeParams', '$location'];
 app.controller('PropertiesController', PropertiesController);

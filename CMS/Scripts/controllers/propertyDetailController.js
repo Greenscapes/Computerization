@@ -97,7 +97,12 @@
     };
 
     $scope.back = function () {
-        $location.path("/properties");
+      if( $scope.property.PropertyType == undefined ) {
+                          $location.path( "/properties/type/1" );
+                          }
+                    else {
+                        $location.path( "/properties/type/" +$scope.property.PropertyType );
+                    }
         if (!$scope.$$phase) $scope.$apply();
     };
 

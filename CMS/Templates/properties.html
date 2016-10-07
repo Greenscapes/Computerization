@@ -3,32 +3,87 @@
     <button type="button" class="btn btn-primary" ng-click="newProperty()">
         <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Property
     </button>
-    <div class="checkbox">
+    <!--<div class="checkbox">
         <label>
             <input type="checkbox" ng-model="showClosed">
             Show Closed Properties
         </label>
-    </div>
+    </div>-->
 </p>
-<table class="table table-striped">
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Reference Number</th>
-        <th>Customer since</th>
-        <th>Type</th>
-        <th>Status</th>
-    </tr>
-    <tr ng-repeat="property in properties" ng-if="property.PropertyType != 3 || showClosed">
-        <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
-        <td>{{property.Address1}}</td>
-        <td>{{property.CityName}}</td>
-        <td>{{property.State}}</td>
-        <td>{{property.PropertyRefNumber}}</td>
-        <td >{{property.ContractDate|date:'mediumDate'}}</td>
-        <td>{{getCustomerType(property.CustomerType)}}</td>
-        <td>{{getPropertyType(property.PropertyType)}}</td>
-    </tr>
-</table>
+<div>
+    <table class="table table-striped">
+        <tr><th>HOA Customers</th></tr>
+        <tr></tr>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Reference Number</th>
+            <th>Customer since</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+        <tr ng-repeat="property in properties" ng-if="property.CustomerType ==1">
+            <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
+            <td>{{property.Address1}}</td>
+            <td>{{property.CityName}}</td>
+            <td>{{property.State}}</td>
+            <td>{{property.PropertyRefNumber}}</td>
+            <td>{{property.ContractDate|date:'mediumDate'}}</td>
+            <td>{{getCustomerType(property.CustomerType)}}</td>
+            <td>{{getPropertyType(property.PropertyType)}}</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table class="table table-striped">
+        <tr><th>Commercial Customers</th></tr>
+        <tr></tr>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Reference Number</th>
+            <th>Customer since</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+        <tr ng-repeat="property in properties" ng-if="property.CustomerType ==2">
+            <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
+            <td>{{property.Address1}}</td>
+            <td>{{property.CityName}}</td>
+            <td>{{property.State}}</td>
+            <td>{{property.PropertyRefNumber}}</td>
+            <td>{{property.ContractDate|date:'mediumDate'}}</td>
+            <td>{{getCustomerType(property.CustomerType)}}</td>
+            <td>{{getPropertyType(property.PropertyType)}}</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table class="table table-striped">
+        <tr><th>Residential Customers</th></tr>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Reference Number</th>
+            <th>Customer since</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+        <tr ng-repeat="property in properties" ng-if="property.CustomerType ==3">
+            <td><a ng-href="#/properties/{{property.Id}}">{{property.Name}}</a></td>
+            <td>{{property.Address1}}</td>
+            <td>{{property.CityName}}</td>
+            <td>{{property.State}}</td>
+            <td>{{property.PropertyRefNumber}}</td>
+            <td>{{property.ContractDate|date:'mediumDate'}}</td>
+            <td>{{getCustomerType(property.CustomerType)}}</td>
+            <td>{{getPropertyType(property.PropertyType)}}</td>
+        </tr>
+    </table>
+</div>
