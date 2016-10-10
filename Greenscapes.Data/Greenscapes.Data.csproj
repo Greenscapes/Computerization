@@ -61,6 +61,7 @@
     <Compile Include="DataContext\Crew.cs" />
     <Compile Include="DataContext\Customer.cs" />
     <Compile Include="DataContext\EventTaskTime.cs" />
+    <Compile Include="DataContext\FreeService.cs" />
     <Compile Include="DataContext\PropertyService.cs" />
     <Compile Include="DataContext\Service.cs" />
     <Compile Include="DataContext\ServiceMember.cs" />

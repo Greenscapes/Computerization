@@ -59,6 +59,7 @@ namespace CMS.Mappers
                 .ForMember(dest => dest.ServiceTemplate, src => src.Ignore())
                 .ForMember(dest => dest.EventTaskTimes, src => src.Ignore())
                 .ForMember(dest => dest.PropertyService, src => src.Ignore())
+                .ForMember(dest => dest.FreeServices, src=>src.Ignore())
                 .ForMember(dest => dest.ServiceTickets, src => src.Ignore());
 
             Mapper.CreateMap<ServiceTemplate, ServiceTemplateViewModel>();

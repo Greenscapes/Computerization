@@ -15,6 +15,7 @@ namespace Greenscapes.Data.DataContext
             EventTaskTimes = new HashSet<EventTaskTime>();
             PropertyTasks = new HashSet<PropertyTask>();
             ServiceTickets = new HashSet<ServiceTicket>();
+            FreeServices = new HashSet<FreeService>();
         }
 
         public int Id { get; set; }
@@ -49,5 +50,8 @@ namespace Greenscapes.Data.DataContext
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceTicket> ServiceTickets { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FreeService> FreeServices { get; set; }
     }
 }

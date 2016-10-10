@@ -15,7 +15,8 @@
                     createProperty: createProperty,
                     deleteProperty: deleteProperty,
                     getNextReference: getNextReference,
-                    getPropertySchedule: getPropertySchedule
+                    getPropertySchedule: getPropertySchedule,
+                    setFreeService: setFreeService
                 };
 
                 return service;
@@ -75,6 +76,12 @@
                         });
                 }
                 
+                function setFreeService(freeServiceUpdate) {
+                    return $http.put('/api/properties/setFreeService/', freeServiceUpdate)
+                        .then(function(response) {
+                            return response.data;
+                        });
+                }
             }
         ]
     );

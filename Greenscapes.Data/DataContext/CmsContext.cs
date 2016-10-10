@@ -35,6 +35,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<PropertyService> PropertyServices { get; set; }
+        public virtual DbSet<FreeService> FreeServices { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -145,6 +146,11 @@ namespace Greenscapes.Data.DataContext
 
             modelBuilder.Entity<EventTaskList>()
                 .HasMany(e => e.EventTaskTimes)
+                .WithRequired(e => e.EventTaskList)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<EventTaskList>()
+                .HasMany(e => e.FreeServices)
                 .WithRequired(e => e.EventTaskList)
                 .WillCascadeOnDelete(false);
 

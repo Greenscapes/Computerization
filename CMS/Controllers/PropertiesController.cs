@@ -8,6 +8,7 @@ using CMS.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AutoMapper.Internal;
 using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Repositories;
 using Greenscapes.Data.Repositories.Interfaces;
@@ -69,6 +70,7 @@ namespace CMS.Controllers
             foreach (var taskList in taskLists)
             {
                 var eventTaskListSchedule = new EventTaskListScheduleViewModel();
+                eventTaskListSchedule.Id = taskList.Id;
                 eventTaskListSchedule.Name = taskList.Name;
                 eventTaskListSchedule.EventCount = taskList.PropertyService == null ? 0 : taskList.PropertyService.EventCount;
                 eventTaskListSchedule.Schedules = new List<EventScheduleViewModel>();
@@ -87,7 +89,9 @@ namespace CMS.Controllers
                             var schedule = new EventScheduleViewModel();
                             schedule.Date = item.StartTime.ToString("d");
                             schedule.Time = item.StartTime.ToString("t");
+                            schedule.DateTime = item.StartTime.Value;
                             schedule.EventNumber = idx;
+                            schedule.FreeService = taskList.FreeServices.Any(f => f.ServiceTime == item.StartTime.Value);
                             eventTaskListSchedule.Schedules.Add(schedule);
                         }
                     }
@@ -97,7 +101,9 @@ namespace CMS.Controllers
                         var schedule = new EventScheduleViewModel();
                         schedule.Date = eventSchedule.StartTime.ToString("d");
                         schedule.Time = eventSchedule.StartTime.ToString("t");
+                        schedule.DateTime = eventSchedule.StartTime;
                         schedule.EventNumber = idx;
+                        schedule.FreeService = taskList.FreeServices.Any(f => f.ServiceTime == eventSchedule.StartTime);
                         eventTaskListSchedule.Schedules.Add(schedule);
                     }
                 }
@@ -109,6 +115,18 @@ namespace CMS.Controllers
             }
 
             return Ok(eventTaskListSchedules);
+        }
+
+        [Route("setFreeService"), HttpPut]
+        [ResponseType(typeof(void))]
+        public void SetFreeService(FreeServiceUpdate freeServiceUpdate)
+        {
+            using (var repo = new EventScheduleRepository())
+            {
+                repo.SetFreeService(freeServiceUpdate.PropertyId, freeServiceUpdate.EventTaskListId,
+                    freeServiceUpdate.IsFreeService, freeServiceUpdate.ServiceDate);
+            }
+
         }
 
         [Route("getNextReference")]
@@ -198,5 +216,13 @@ namespace CMS.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public class FreeServiceUpdate
+    {
+        public bool IsFreeService { get; set; }
+        public DateTime ServiceDate { get; set; }
+        public int EventTaskListId { get; set; }
+        public int PropertyId { get; set; }
     }
 }

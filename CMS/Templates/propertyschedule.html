@@ -5,7 +5,7 @@
     </button>
 </p>
 <h2>{{scheduleVm.property.Name}} Schedule</h2>
-
+<b>Number of Free Services: </b> {{scheduleVm.property.NumberOfFreeServiceCalls}}
 <h3>Event Task Lists</h3>
 
 <div ng-repeat="eventTaskList in scheduleVm.eventTaskLists">
@@ -19,11 +19,13 @@
             <th>Event Number</th>
             <th>Date</th>
             <th>Time</th>
+            <th>Free Service</th>
         </tr>
         <tr ng-repeat="schedule in eventTaskList.Schedules">
             <td>{{schedule.EventNumber}}</td>
             <td>{{schedule.Date}}</td>
             <td>{{schedule.Time}}</td>
+            <td><input type="checkbox" ng-model="schedule.FreeService" ng-change="scheduleVm.updateFreeService(schedule, eventTaskList.Id)"/></td>
         </tr>
     </table>
 </div>

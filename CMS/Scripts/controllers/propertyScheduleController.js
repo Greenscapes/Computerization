@@ -14,6 +14,7 @@
                 vm.propertyId = '';
                 vm.eventTaskLists = [];
                 vm.back = back;
+                vm.updateFreeService = updateFreeService;
 
                 activate();
 
@@ -33,6 +34,27 @@
                 function back() {
                     $location.path("/properties/" + vm.propertyId);
                 };
+
+                function updateFreeService(schedule, eventTaskListId) {
+                    var freeServiceUpdate = {
+                        serviceDate: schedule.DateTime,
+                        isFreeService: schedule.FreeService,
+                        eventTaskListId: eventTaskListId,
+                        propertyId: vm.propertyId
+                    };
+
+                    if (schedule.FreeService && vm.property.NumberOfFreeServiceCalls <= 0) {
+                        if (!confirm('This property has no more free services. Do you want to continue?')) {
+                            schedule.FreeService = false;
+                            return;
+                        }  
+                    }
+
+                    propertyService.setFreeService(freeServiceUpdate)
+                        .then(function(data) {
+                            activate();
+                        });
+                }
             }
         ]
     );
