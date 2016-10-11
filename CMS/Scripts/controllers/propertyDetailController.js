@@ -23,7 +23,7 @@
 
    } );
 
-    $scope.liSortByField = "Id";
+    $scope.liSortByField = "Location";
     $scope.itemReverse = false;
 
     $scope.eventTaskListId = '';
@@ -110,7 +110,8 @@
         task.EventTaskListId = null;
         taskResource.update({ taskId: task.Id }, task, function () {
             $scope.tasks = taskListsResource.query(function () {
-            });
+            } );
+           
         });
     }
 
@@ -121,7 +122,9 @@
         },
             function () {
                 $scope.buttonsDisabled = false;
-            });
+            } );
+
+       
     };
 
     var deleteServiceFunction = function (service) {

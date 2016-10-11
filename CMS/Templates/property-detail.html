@@ -92,7 +92,8 @@
     <button type="button" class="btn btn-primary" ng-click="assignTasks()">
         Assign Tasks to Event Task List
     </button>
-    <select ng-options="eventTaskList.Id as eventTaskList.Name for eventTaskList in eventTaskLists" ng-model="eventTaskListId">
+    <select  ng-options="eventTaskList.Id as eventTaskList.Name for eventTaskList in eventTaskLists" ng-model="eventTaskListId"  >
+        <option value=''></option>
     </select>
 </p>
 
@@ -107,16 +108,21 @@
             <th></th>
         </tr>
         <tr ng-repeat="task in val | orderBy: liSortByField: itemReverse">
-            <td><input type="checkbox" ng-model="task.selected"/>{{task.Location}}</td>
+            <td><input type="checkbox" ng-model="task.selected" />{{task.Location}}</td>
             <td>{{task.Description}}</td>
             <!--<td ng-if="task.Crews.length <= 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>-->
+   <td>
+            
+
             <td>
+                
                 <a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">
                     {{task.Crew.Name}}
                 </a>
             </td>
             <td><a ng-href="#/properties/{{property.Id}}/schedule/{{task.EventTaskListId}}">{{task.ScheduleName}}</a></td>
-            <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a>
+            <td>
+                <a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a>
                 | <a ng-click="confirmDeleteTask(task)">Delete Task</a>
                 <span ng-if="task.EventTaskListId > 0">| <a ng-click="unallocateTask(task)">Unallocate Task</a></span>
             </td>
