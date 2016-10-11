@@ -62,6 +62,7 @@
     <Compile Include="DataContext\Customer.cs" />
     <Compile Include="DataContext\EventTaskTime.cs" />
     <Compile Include="DataContext\FreeService.cs" />
+    <Compile Include="DataContext\Holiday.cs" />
     <Compile Include="DataContext\PropertyService.cs" />
     <Compile Include="DataContext\Service.cs" />
     <Compile Include="DataContext\ServiceMember.cs" />
@@ -90,12 +91,14 @@
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\EventScheduleRepository.cs" />
     <Compile Include="Repositories\EventTaskListRepository.cs" />
+    <Compile Include="Repositories\HolidayRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICityRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICrewRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventScheduleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventTaskListRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IHolidayRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceTemplateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPropertyRepository.cs" />

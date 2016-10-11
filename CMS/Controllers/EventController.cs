@@ -14,8 +14,10 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using CMS.Models;
-using DDay.iCal;
 using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Repositories;
+using Ical.Net.DataTypes;
+using Ical.Net.Evaluation;
 using Newtonsoft.Json;
 
 namespace CMS.Controllers
@@ -122,12 +124,38 @@ namespace CMS.Controllers
                     task.Title = eventTaskList.Property.Name + ", " + eventTaskList.Crew.Name;
                 }
 
+                List<DateTime> holidays;
+
+                using (var holidayRepo = new HolidayRepository())
+                {
+                    holidays = holidayRepo.GetHolidays().Select(h => h.HolidayDate.Date).ToList();
+                }
+
+                if (holidays.Contains(task.StartDate.Date))
+                {
+                    var message = "Your schedule includes a holiday on: " + task.StartDate.Date;
+                    HttpError err = new HttpError(message);
+                    return Request.CreateResponse(HttpStatusCode.Conflict, err);
+                }
+
                 if (!string.IsNullOrEmpty(task.RecurrenceRule))
                 {
                     var pattern = new RecurrencePattern(task.RecurrenceRule);
                     var evaluator = new RecurrencePatternEvaluator(pattern);
-                    var items = evaluator.Evaluate(new iCalDateTime(task.StartDate), task.Start,
+                    var items = evaluator.Evaluate(new CalDateTime(task.StartDate), task.Start,
                         task.StartDate.AddDays(1), false);
+
+                    var allItems = evaluator.Evaluate(new CalDateTime(task.StartDate), task.Start,
+                        task.End.AddYears(5), true); //Adding 5 years since the end date is equal to the start date. The recurrence rule handles our occurences
+
+                    var holiday = allItems.FirstOrDefault(i => holidays.Contains(i.StartTime.Date));
+                    if (holiday != null)
+                    {
+                        var message = "Your schedule includes a holiday on: " + holiday.StartTime.Date;
+                        HttpError err = new HttpError(message);
+                        return Request.CreateResponse(HttpStatusCode.Conflict, err);
+                    }
+                        
                     if (!items.Any())
                     {
                         var startEntity = new EventSchedule

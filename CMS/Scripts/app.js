@@ -261,6 +261,10 @@ app.config([
             templateUrl: 'templates/service.html',
             controller: 'ServiceController as serviceVm'
         }).
+            when('/holidays/', {
+                templateUrl: 'templates/holidays.html',
+                controller: 'HolidayController as holidayVm'
+            }).
             when('/schedule', {
                 templateUrl: 'templates/schedule.html',
                 controller: 'ScheduleController'

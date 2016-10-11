@@ -34,6 +34,9 @@ namespace CMS.Mappers
             Mapper.CreateMap<CustomerViewModel, Customer>()
                 .ForMember(dest => dest.Properties, src => src.Ignore());
 
+            Mapper.CreateMap<Holiday, HolidayViewModel>();
+            Mapper.CreateMap<HolidayViewModel, Holiday>();
+
             Mapper.CreateMap<PropertyTask, PropertyTaskViewModel>()
                 .ForMember(dest => dest.ScheduleName,
                     src => src.MapFrom(s => s.EventTaskList != null ? s.EventTaskList.Name : ""))

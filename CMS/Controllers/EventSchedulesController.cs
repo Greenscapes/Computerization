@@ -10,10 +10,11 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System.Globalization;
-using DDay.iCal;
 using Greenscapes.Business.Services;
 using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Models;
+using Ical.Net.DataTypes;
+using Ical.Net.Evaluation;
 
 namespace CMS.Controllers
 {
@@ -101,9 +102,9 @@ namespace CMS.Controllers
                    {
                        var pattern = new RecurrencePattern(eventVal.RecurrenceRule);
                        var evaluator = new RecurrencePatternEvaluator(pattern);
-                       var items = evaluator.Evaluate(new iCalDateTime(selectedDate), eventVal.StartTime,
-                           selectedDate.AddDays(1), false);
-                       if (!items.Any())
+                       var items = evaluator.Evaluate(new CalDateTime(eventVal.StartTime), eventVal.StartTime,
+                           eventVal.StartTime.AddYears(5), false);
+                       if (!items.Any(i => i.StartTime.Date == selectedDate))
                            continue;
                    }
                    else

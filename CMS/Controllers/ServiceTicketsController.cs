@@ -153,7 +153,7 @@ namespace CMS.Controllers
             }
 
             var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == eventTaskList.ServiceTemplateId);
-            var property = db.Properties.Include("Customer").FirstOrDefault(p => p.Id == eventTaskList.PropertyId);
+            var property = db.Properties.FirstOrDefault(p => p.Id == eventTaskList.PropertyId);
 
             if (serviceTemplate == null || property == null)
             {
@@ -239,8 +239,11 @@ namespace CMS.Controllers
             ticket.Zip = property.Zip;
             ticket.Members = serviceMembers.ToList();
             ticket.ShowAllEmployees = serviceMembers.Any(s => s.Selected && !s.IsCrewMember);
-            ticket.AccessDetails = property.Customer.AccessDetails;
-            ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
+            if (property.Customer != null)
+            {
+                ticket.AccessDetails = property.Customer.AccessDetails;
+                ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
+            }
             return Ok(ticket);
         }
 

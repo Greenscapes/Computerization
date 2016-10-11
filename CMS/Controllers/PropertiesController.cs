@@ -13,7 +13,8 @@ using Greenscapes.Data.DataContext;
 using Greenscapes.Data.Repositories;
 using Greenscapes.Data.Repositories.Interfaces;
 using CMS.Mappers;
-using DDay.iCal;
+using Ical.Net.DataTypes;
+using Ical.Net.Evaluation;
 
 namespace CMS.Controllers
 {
@@ -81,14 +82,14 @@ namespace CMS.Controllers
                     {
                         var pattern = new RecurrencePattern(eventSchedule.RecurrenceRule);
                         var evaluator = new RecurrencePatternEvaluator(pattern);
-                        var items = evaluator.Evaluate(new iCalDateTime(eventSchedule.StartTime), eventSchedule.StartTime,
+                        var items = evaluator.Evaluate(new CalDateTime(eventSchedule.StartTime), eventSchedule.StartTime,
                             eventSchedule.EndTime, false);
                         foreach(var item in items)
                         {
                             idx = idx + taskList.NumberServices ?? 0;
                             var schedule = new EventScheduleViewModel();
-                            schedule.Date = item.StartTime.ToString("d");
-                            schedule.Time = item.StartTime.ToString("t");
+                            schedule.Date = item.StartTime.Value.ToString("d");
+                            schedule.Time = item.StartTime.Value.ToString("t");
                             schedule.DateTime = item.StartTime.Value;
                             schedule.EventNumber = idx;
                             schedule.FreeService = taskList.FreeServices.Any(f => f.ServiceTime == item.StartTime.Value);

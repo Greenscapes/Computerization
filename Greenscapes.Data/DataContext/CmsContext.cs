@@ -36,6 +36,7 @@ namespace Greenscapes.Data.DataContext
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<PropertyService> PropertyServices { get; set; }
         public virtual DbSet<FreeService> FreeServices { get; set; }
+        public virtual DbSet<Holiday> Holidays { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

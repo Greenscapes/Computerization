@@ -1,7 +1,7 @@
 USE [greenscapes]
 GO
 
-/****** Object:  Table [dbo].[FreeServices]    Script Date: 10/10/2016 9:49:00 AM ******/
+/****** Object:  Table [dbo].[FreeServices]    Script Date: 10/11/2016 4:43:10 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[FreeServices](
 
 GO
 
-ALTER TABLE [dbo].[FreeServices]  WITH CHECK ADD  CONSTRAINT [FK_FreeServices_EventTaskLists] FOREIGN KEY([TaskListId])
+ALTER TABLE [dbo].[FreeServices]  WITH CHECK ADD  CONSTRAINT [FK_FreeServices_EventTaskLists] FOREIGN KEY([EventTaskListId])
 REFERENCES [dbo].[EventTaskLists] ([Id])
 GO
 

@@ -3,8 +3,8 @@
 
 <p>
     {{serviceTicket.PropertyName}}<br />
-    {{serviceTicket.Address1}}
-    {{serviceTicket.Address2}}<br />
+    {{serviceTicket.Address1}}<br/>
+    <span ng-if="serviceTicket.Address2">{{serviceTicket.Address2}}<br /></span>
     {{serviceTicket.City}}, {{serviceTicket.State}} {{serviceTicket.Zip}}
 </p>
 <p>

@@ -41,12 +41,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="antlr.runtime, Version=2.7.6.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.2.2.14\lib\net45\antlr.runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -57,12 +57,24 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ical.Net, Version=2.1.0.27862, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.2.2.14\lib\net45\Ical.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ical.Net.Collections, Version=2.1.0.27861, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.2.2.14\lib\net45\Ical.Net.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Kendo.Mvc">
       <HintPath>..\packages\Kendo.mvc\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ical.Net.2.2.14\lib\net45\NodaTime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -167,6 +179,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EventSchedulesController.cs" />
     <Compile Include="Controllers\EventTaskListController.cs" />
+    <Compile Include="Controllers\HolidaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerSchedulesController.cs" />
     <Compile Include="Controllers\PropertiesController.cs" />
@@ -195,6 +208,7 @@
     <Compile Include="Models\EventTaskListScheduleViewModel.cs" />
     <Compile Include="Models\EventTaskListViewModel.cs" />
     <Compile Include="Models\EventViewModel.cs" />
+    <Compile Include="Models\HolidayViewModel.cs" />
     <Compile Include="Models\PropertyServiceViewModel.cs" />
     <Compile Include="Models\PropertyTaskViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
@@ -588,6 +602,7 @@
     <Content Include="Scripts\controllers\crewRouteController.js" />
     <Content Include="Scripts\controllers\customerController.js" />
     <Content Include="Scripts\controllers\customersController.js" />
+    <Content Include="Scripts\controllers\holidayController.js" />
     <Content Include="Scripts\controllers\managerDashboardController.js" />
     <Content Include="Scripts\controllers\crewDetailController.js" />
     <Content Include="Scripts\controllers\crewMemberCreateController.js" />
@@ -1303,6 +1318,7 @@
     <Content Include="Scripts\services\customerService.js" />
     <Content Include="Scripts\services\modalService.js" />
     <Content Include="Scripts\services\propertyService.js" />
+    <Content Include="Scripts\services\scheduleService.js" />
     <Content Include="Scripts\services\servicesService.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.13.0.min.js" />
@@ -1316,6 +1332,7 @@
     <Content Include="Templates\crewroute.html" />
     <Content Include="Templates\customer.html" />
     <Content Include="Templates\customers.html" />
+    <Content Include="Templates\holidays.html" />
     <Content Include="Templates\managerdashboard.html" />
     <Content Include="Templates\crews.html" />
     <Content Include="Templates\crewmember-detail.html" />

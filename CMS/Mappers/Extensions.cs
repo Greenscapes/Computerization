@@ -235,5 +235,21 @@ namespace CMS.Mappers
         {
             return Mapper.Map<PropertyServiceViewModel, TTarget>(source);
         }
+
+        public static TTarget MapTo<TTarget>(this IEnumerable<Holiday> source)
+    where TTarget : IEnumerable<HolidayViewModel>
+        {
+            return Mapper.Map<IEnumerable<Holiday>, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this Holiday source) where TTarget : HolidayViewModel
+        {
+            return Mapper.Map<Holiday, TTarget>(source);
+        }
+
+        public static TTarget MapTo<TTarget>(this HolidayViewModel source) where TTarget : Holiday
+        {
+            return Mapper.Map<HolidayViewModel, TTarget>(source);
+        }
     }
 }

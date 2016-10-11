@@ -1,4 +1,4 @@
-﻿function ScheduleController($scope, $resource, $routeParams, $location) {
+﻿function ScheduleController($scope, $resource, $routeParams, $location, alertService) {
     var propertyResource = $resource('/api/properties/');
     //var taskResource = $resource('/api/tasks/:taskId',
     //{ taskId: $routeParams.taskId });
@@ -239,6 +239,10 @@
                         }
                     }
                 },
+                error: function (e) {
+                    var response = JSON.parse(e.xhr.responseText);
+                    alert(response.Message);
+                },
                 filter: {
                     field: "ownerId",
                     operator: function (item, value) {
@@ -281,5 +285,5 @@
     }
 }
 
-ScheduleController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
+ScheduleController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'alertService'];
 app.controller('ScheduleController', ScheduleController);
