@@ -111,7 +111,7 @@
         taskResource.update({ taskId: task.Id }, task, function () {
             $scope.tasks = taskListsResource.query(function () {
             } );
-           
+            $scope.eventTaskLists = eventTasksResource.query({ propertyId: $routeParams.propertyId });
         });
     }
 

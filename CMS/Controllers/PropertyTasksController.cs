@@ -73,46 +73,46 @@ namespace CMS.Controllers
        //         eventSchedule.PropertyTaskId = propertyTask.Id;
        //         if (eventSchedule.Id > 0)
        //         {
-                
-       //             db.Entry(eventSchedule).State = EntityState.Modified;
-       //         }
-       //         else
-       //         {
-                   
-       //             db.EventSchedules.Add(eventSchedule);
-       //         }
-       //     }
-       //     //Remove events from property task
-       //     List<EventSchedule> currentEvents = db.EventSchedules.Where(e => e.PropertyTaskId == id).ToList();
 
-       //     foreach (EventSchedule eventsch in currentEvents)
-       //     {
-       //         EventSchedule eventSchValue = propertyTask.EventSchedules.SingleOrDefault(e => e.Id == eventsch.Id);
-                                 
-       //         if (eventSchValue == null)
-       //         { 
-       //             db.EventSchedules.Remove(eventsch);
-       //         }
-                
-       //     }
-            
-       ////     db.Entry(propertyTask).State = EntityState.Modified;
+            //             db.Entry(eventSchedule).State = EntityState.Modified;
+            //         }
+            //         else
+            //         {
 
-       //     try
-       //     {
-       //         db.SaveChanges();
-       //     }
-       //     catch (DbUpdateConcurrencyException)
-       //     {
-       //         if (!PropertyTaskExists(id))
-       //         {
-       //             return NotFound();
-       //         }
-       //         else
-       //         {
-       //             throw;
-       //         }
-       //     }
+            //             db.EventSchedules.Add(eventSchedule);
+            //         }
+            //     }
+            //     //Remove events from property task
+            //     List<EventSchedule> currentEvents = db.EventSchedules.Where(e => e.PropertyTaskId == id).ToList();
+
+            //     foreach (EventSchedule eventsch in currentEvents)
+            //     {
+            //         EventSchedule eventSchValue = propertyTask.EventSchedules.SingleOrDefault(e => e.Id == eventsch.Id);
+
+            //         if (eventSchValue == null)
+            //         { 
+            //             db.EventSchedules.Remove(eventsch);
+            //         }
+
+            //     }
+
+            ////     db.Entry(propertyTask).State = EntityState.Modified;
+
+            //     try
+            //     {
+            //         db.SaveChanges();
+            //     }
+            //     catch (DbUpdateConcurrencyException)
+            //     {
+            //         if (!PropertyTaskExists(id))
+            //         {
+            //             return NotFound();
+            //         }
+            //         else
+            //         {
+            //             throw;
+            //         }
+            //     }
 
             return StatusCode(HttpStatusCode.NoContent);
         }

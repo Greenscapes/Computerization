@@ -43,10 +43,18 @@ namespace Greenscapes.Data.Repositories
 
         public bool UpdatePropertyTask(PropertyTask propertyTask)
         {
-            if (propertyTask.EventTaskListId == 0)
-                propertyTask.EventTaskListId = null;
-
             var existingTask = db.PropertyTasks.Include("Crews").FirstOrDefault(p => p.Id == propertyTask.Id);
+
+            if (propertyTask.EventTaskListId == 0)
+            {
+                propertyTask.EventTaskListId = null;
+                if (existingTask != null && existingTask.EventTaskList != null &&
+                    existingTask.EventTaskList.PropertyTasks.Count() <= 1)
+                {
+                    db.EventTaskLists.Remove(existingTask.EventTaskList);
+                }
+            }
+                
             if (existingTask != null)
             {
                 existingTask.Description = propertyTask.Description;
