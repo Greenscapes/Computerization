@@ -19,12 +19,14 @@
 <h3>Repairs Needed</h3>
 <table class="table table-striped">
     <tr>
+        <th class="col-md-1 text-center">Clock No</th>
         <th class="col-md-1 text-center">Zone No</th>
-        <th class="col-md-9">Repair</th>
+        <th class="col-md-8">Repair</th>
         <th class="col-md-2"></th>
     </tr>
     <tr ng-repeat="zone in serviceTicket.Fields.Zones">
-
+        
+        <td class="text-center">{{zone.ClockNumber}}</td>
         <td class="text-center">{{zone.Number}}</td>
         <td>{{zone.Repair}}</td>
         <td>
@@ -45,6 +47,10 @@
                 <h4 class="modal-title">Edit Zone</h4>
             </div>
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="clock-number">Clock No</label>
+                    <input id="clock-number" type="number" class="form-control" ng-model="Item.ClockNumber" required>
+                </div>
 
                 <div class="form-group">
                     <label for="zone-number">Zone No</label>
@@ -78,6 +84,11 @@
             <a ng-click="removeItem(serviceTicket.Fields.Parts, part)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
             <a ng-click="selectItem(part)" class="btn pull-right" data-toggle="modal" data-target="#part-modal"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
+    </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Parts) | currency}}</td>
+        <td></td>
     </tr>
 </table>
 
@@ -126,7 +137,15 @@
             <a ng-click="selectItem(labor)" class="btn pull-right" data-toggle="modal" data-target="#labor-modal"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
     </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Labor) | currency}}</td>
+        <td></td>
+    </tr>
 </table>
+
+<h3>Total Charge</h3>
+<b>{{getTotal(serviceTicket.Fields.Labor) + getTotal(serviceTicket.Fields.Parts) | currency}}</b><br/><br/>
 
 <button ng-click="addItem(serviceTicket.Fields.Labor, serviceTicket.Fields.DefaultLabor)" data-toggle="modal" data-target="#labor-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Labor</button>
 <br />

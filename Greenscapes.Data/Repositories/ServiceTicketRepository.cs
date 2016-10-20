@@ -46,6 +46,7 @@ namespace Greenscapes.Data.Repositories
                 existingTicket.ApprovedDate = serviceTicket.ApprovedDate;
                 existingTicket.Condition = serviceTicket.Condition;
                 existingTicket.Notes = serviceTicket.Notes;
+                existingTicket.WhyNotCompleted = serviceTicket.WhyNotCompleted;
             }
             else
             {

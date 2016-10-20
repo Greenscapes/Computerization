@@ -19,7 +19,7 @@
         <td>{{tree.Location}}</td>
         <td class="text-center">
             <span class="glyphicon glyphicon-ok" ng-show="tree.ChemicalInjected">&nbsp;</span>
-            
+
         </td>
         <td>{{tree.ChemicalAmount}}</td>
         <td>
@@ -41,37 +41,35 @@
             </div>
             <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="kind">Tree or Palm?</label>
-                        <br />
-                        <select id="kind" ng-model="Item.Kind" required>
-                            <option></option>
-                            <option>Palm</option>
-                            <option>Tree</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="kind">Tree or Palm?</label>
+                    <br />
+                    <select id="kind" ng-model="Item.Kind" required>
+                        <option></option>
+                        <option>Palm</option>
+                        <option>Tree</option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <label for="type">Type of Tree or Palm</label>
-                        <input id ="type" type="text" autocomplete="off" class="form-control" ng-model="Item.Type" required>
-                    </div>
+                <div class="form-group">
+                    <label for="type">Type of Tree or Palm</label>
+                    <input id="type" type="text" autocomplete="off" class="form-control" ng-model="Item.Type" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="location">Percise Location</label>
-                        <input id="location" type="text" autocomplete="off" class="form-control" ng-model="Item.Location" required>
-                    </div>
+                <div class="form-group">
+                    <label for="location">Percise Location</label>
+                    <input id="location" type="text" autocomplete="off" class="form-control" ng-model="Item.Location" required>
+                </div>
 
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="Item.ChemicalInjected">
-                            Chemical Injected
-                        </label>
-                    </div>
-                                    
-                    <div class="form-group">
-                        <label for="chemicalAmount">Amount of Chemical Injected</label>
-                        <input id="chemicalAmount" type="number" class="form-control" ng-model="Item.ChemicalAmount" required>
-                    </div>
+                <div class="form-group">
+                    <label for="inject">Chemical Injected</label>
+                    <input id="inject" type="text" autocomplete="off" class="form-control" ng-model="Item.ChemicalInjected" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="chemicalAmount">Amount of Chemical Injected</label>
+                    <input id="chemicalAmount" type="number" class="form-control" ng-model="Item.ChemicalAmount" required>
+                </div>
 
             </div>
             <div class="modal-footer">

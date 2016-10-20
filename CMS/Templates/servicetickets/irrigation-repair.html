@@ -67,6 +67,11 @@
             <a ng-click="selectItem(part)" class="btn pull-right" data-toggle="modal" data-target="#part-modal"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
     </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Parts) | currency}}</td>
+        <td></td>
+    </tr>
 </table>
 
 <button ng-click="addItem(serviceTicket.Fields.Parts, serviceTicket.Fields.DefaultPart)" data-toggle="modal" data-target="#part-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Part</button>
@@ -114,6 +119,11 @@
             <a ng-click="selectItem(labor)" class="btn pull-right" data-toggle="modal" data-target="#labor-modal"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
     </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Labor) | currency}}</td>
+        <td></td>
+    </tr>
 </table>
 
 <button ng-click="addItem(serviceTicket.Fields.Labor, serviceTicket.Fields.DefaultLabor)" data-toggle="modal" data-target="#labor-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Labor</button>
@@ -146,6 +156,9 @@
     </div>
 </div>
 
+<h3>Total Charge</h3>
+<b>{{getTotal(serviceTicket.Fields.Labor) + getTotal(serviceTicket.Fields.Parts) | currency}}</b><br /><br />
+
 <div class="form-group">
     <label for="labor-pass-on">Labor charge to be passed on - yes or no?</label>
     <select id="labor-pass-on" class="form-control" ng-model="serviceTicket.Fields.ChargeCustomerLabor">
@@ -153,6 +166,11 @@
         <option value="Y">Yes</option>
         <option value="N">No</option>
     </select>
+</div>
+
+<div class="form-group">
+    <label for="whyLabor">If no, why not?</label>
+    <input id="whyLabor" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomerLabor" required>
 </div>
 
 <div class="form-group">
@@ -164,7 +182,7 @@
     </select>
 </div>
 
-<div class="form-group" ng-show="serviceTicket.Fields.ChargeCustomerLabor == 'N' || serviceTicket.Fields.ChargeCustomerParts == 'N'">
-    <label for="why">Why not?</label>
-    <input id="why" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomer" required>
+<div class="form-group">
+    <label for="why">If no, why not?</label>
+    <input id="why" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomerParts" required>
 </div>

@@ -8,6 +8,12 @@
 </p>
 <h2>New Service</h2>
 <br />
+<p>
+    <button type="button" class="btn btn-danger" ng-click="serviceVm.confirmDelete()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+    </button>
+</p>
+<hr/>
 <form name="ServiceAdd" novalidates>
     <div class="form-group">
         <label for="inputName">Name</label>

@@ -5,8 +5,8 @@
 
     angular.module('cmsApp').controller(controllerId,
         [
-            'servicesService', 'alertService', '$location', '$routeParams',
-            function (servicesService, alertService, $location, $routeParams) {
+            'servicesService', 'alertService', '$location', '$routeParams', 'Modal',
+            function (servicesService, alertService, $location, $routeParams, Modal) {
 
                 var vm = this;
 
@@ -16,13 +16,14 @@
 
                 vm.save = save;
                 vm.back = back;
+                vm.confirmDelete = confirmDelete;
 
                 activate();
 
                 function activate() {
                     var serviceId = $routeParams.serviceId;
                     if (serviceId) {
-                        servicesService.getCity(serviceId).then(function (data) {
+                        servicesService.getService(serviceId).then(function (data) {
                             vm.service = data;
                             vm.isUpdate = true;
                         });
@@ -53,6 +54,19 @@
 
                 function back() {
                     $location.path("/services");
+                };
+
+                var deleteFunction = function (service) {
+                    servicesService.deleteService(vm.service.Id)
+                        .then(function() {
+                            vm.back();
+                        }, function(error) {
+                            alert("Cannot delete this service since it is being used by a property");
+                        });
+                };
+
+                function confirmDelete() {
+                    Modal.showConfirmDelete("service", vm.service.Name, vm.service, deleteFunction);
                 };
 
                 function _showValidationErrors($scope, error) {

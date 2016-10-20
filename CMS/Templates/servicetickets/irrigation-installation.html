@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="zone-installation">Adjustment</label>
+                    <label for="zone-installation">Installation</label>
                     <input id="zone-installation" type="text" autocomplete="off" class="form-control" ng-model="Item.Installation" required>
                 </div>
 
@@ -66,6 +66,11 @@
             <a ng-click="removeItem(serviceTicket.Fields.Parts, part)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
             <a ng-click="selectItem(part)" class="btn pull-right" data-toggle="modal" data-target="#part-modal"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
+    </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Parts) | currency}}</td>
+        <td></td>
     </tr>
 </table>
 

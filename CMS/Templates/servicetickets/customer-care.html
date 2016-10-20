@@ -11,6 +11,11 @@
 </div>
 
 <div class="form-group">
+    <label for="whoMet">If yes, who?</label>
+    <input id="whoMet" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.WhoMet">
+</div>
+
+<div class="form-group">
     <label for="checkCustomerRecord">Did you check customer record with them and update - yes or no?</label>
     <select id="checkCustomerRecord" class="form-control" ng-model="serviceTicket.Fields.CheckCustomerRecord">
         <option value="">- Select Y/N -</option>
@@ -20,9 +25,17 @@
 </div>
 
 <div class="form-group">
+    <label for="notes">Notes</label>
+    <p class="help-block">
+        (including any conversations with the customers and any problems observed)
+    </p>
+    <textarea id="notes" class="form-control" rows="10" ng-disabled="buttonsDisabled" ng-model="serviceTicket.Notes"></textarea>
+</div>
+
+<div class="form-group">
     <label for="action">Action</label>
     <p class="help-block">
-        (Wht needs to be done? By when? Is there any charge to be made to the customer?)
+        (What needs to be done? By when? Is there any charge to be made to the customer?)
     </p>
-    <textarea id="action" class="form-control" rows="10" ng-disabled="buttonsDisabled" ng-model="serviceTicket.Fields.Action"></textarea>
+    <textarea id="action" class="form-control" rows="10" ng-model="serviceTicket.Fields.Action"></textarea>
 </div>

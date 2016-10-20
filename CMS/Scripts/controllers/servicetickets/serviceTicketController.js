@@ -64,6 +64,15 @@
     $scope.showEmployee = function (employee) {
         return employee.IsCrewMember === true || $scope.serviceTicket.ShowAllEmployees === true;
     };
+
+    $scope.getTotal = function (items) {
+        var total = 0;
+        for (var i = 0; i < items.length; i++) {
+            total += items[i].Charge;
+        }
+
+        return total;
+    }
 }
 
 ServiceTicketController.$inject = ['$scope', '$resource', '$routeParams', '$location'];

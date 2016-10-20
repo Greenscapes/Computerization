@@ -1,4 +1,4 @@
-﻿function ScheduleController($scope, $resource, $routeParams, $location, alertService) {
+﻿function ScheduleController($scope, $resource, $routeParams, $location, alertService, scheduleService) {
     var propertyResource = $resource('/api/properties/');
     //var taskResource = $resource('/api/tasks/:taskId',
     //{ taskId: $routeParams.taskId });
@@ -13,11 +13,16 @@
     $scope.eventTaskList = { Name: '' };
     $scope.eventTaskLists = [];
     $scope.filteredTaskLists = [];
+    $scope.holidays = [];
     //$scope.eventTaskList.EventSchedules = [];
     //$scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
     //if ($routeParams.eventTaskId) {
-    $scope.eventTaskLists = eventTaskListResource.query({ }, function () {
-        setSchedulerOptions();
+    $scope.eventTaskLists = eventTaskListResource.query({}, function () {
+        scheduleService.getHolidays()
+            .then(function (data) {
+                $scope.holidays = data;
+                setSchedulerOptions();
+            });
         $scope.filteredTaskLists = $scope.eventTaskLists;
     });
     //}
@@ -109,6 +114,12 @@
         scheduler.refresh();
     }
 
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
+
     function setSchedulerOptions() {
         $scope.theContent = kendo.template($("#template").html()),
 
@@ -145,6 +156,17 @@
                     if (eventDetails['ownerId'] === $scope.eventTaskList.Id) {
                         $('div.k-event[data-uid="' + eventDetails['uid'] + '"]').addClass('special-event');
                     }
+                });
+                var scheduler = this;
+                var slots = this.view().table.find("td[role='gridcell']");
+                slots.each(function() {
+                    var slot = scheduler.slotByElement(this);
+                    var selectedSlot = $(this);
+                    $scope.holidays.forEach(function(holiday) {
+                        if (slot.startDate > new Date(holiday.HolidayDate) && slot.startDate < addDays(new Date(holiday.HolidayDate), 1)) {
+                            selectedSlot.css("background-color", "red");
+                        }
+                    });
                 });
             },
             addEvent: function () {
@@ -285,5 +307,5 @@
     }
 }
 
-ScheduleController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'alertService'];
+ScheduleController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'alertService', 'scheduleService'];
 app.controller('ScheduleController', ScheduleController);

@@ -253,7 +253,7 @@ app.config([
             templateUrl: 'templates/services.html',
             controller: 'ServicesController'
         }).
-        when('/service/:cityId', {
+        when('/service/:serviceId', {
             templateUrl: 'templates/service.html',
             controller: 'ServiceController as serviceVm'
         }).

@@ -10,6 +10,7 @@ using Greenscapes.Data.Repositories.Interfaces;
 using CMS.Mappers;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CMS.Controllers
 {
@@ -87,7 +88,7 @@ namespace CMS.Controllers
         [ResponseType(typeof(ServiceTicketViewModel))]
         public IHttpActionResult GetServiceTicket(int id)
         {
-            var serviceTemplate = db.ServiceTemplates.Include("Customer").FirstOrDefault(s => s.Id == id);
+            var serviceTemplate = db.ServiceTemplates.FirstOrDefault(s => s.Id == id);
             var property = new Property()
             {
                 Name = "Property Name",
@@ -131,8 +132,11 @@ namespace CMS.Controllers
             ticket.City = property.City != null ? property.City.Name : "";
             ticket.State = property.State;
             ticket.Zip = property.Zip;
-            ticket.AccessDetails = property.Customer.AccessDetails;
-            ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
+            if (property.Customer != null)
+            {
+                ticket.AccessDetails = property.Customer.AccessDetails;
+                ticket.CustomerName = property.Customer.FirstName + " " + property.Customer.LastName;
+            }
             ticket.Members = serviceMembers.ToList();
             ticket.ShowAllEmployees = true;
 
@@ -146,7 +150,7 @@ namespace CMS.Controllers
         public IHttpActionResult GetServiceTicket(int id, DateTime date)
         {
             var eventTaskList = db.EventTaskLists.Include("EventTaskTimes").FirstOrDefault(e => e.Id == id);
-            
+
             if (eventTaskList == null || !eventTaskList.ServiceTemplateId.HasValue)
             {
                 return NotFound();
@@ -179,53 +183,65 @@ namespace CMS.Controllers
                     serviceTicket.VisitToTime = DateTime.Today.AddHours(10);
                 }
                 serviceTicket.ServiceTemplateId = serviceTemplate.Id;
-                if (serviceTemplate.UseTasks)
-                {
-                    var tasks = from t in db.PropertyTasks
-                                where t.EventTaskListId == eventTaskList.Id
-                                select new
-                                {
-                                    Description = t.Description,
-                                    Location = t.Location,
-                                    Completed = false
-                                };
-                   
-                    serviceTicket.JsonFields = "{\"Tasks\":" + JsonConvert.SerializeObject(tasks.ToList()) + "}";
-                    
-                }
-                else
-                {
-                    serviceTicket.JsonFields = serviceTemplate.JsonFields;
+                // if (serviceTemplate.UseTasks)
+                // {
+                var tasks = from t in db.PropertyTasks
+                            where t.EventTaskListId == eventTaskList.Id
+                            select new TaskInfo()
+                            {
+                                Description = t.Description,
+                                Location = t.Location,
+                                Completed = false,
+                                Comment = string.Empty
+                            };
 
+                //   serviceTicket.JsonFields = "{\"Tasks\":" + JsonConvert.SerializeObject(tasks.ToList()) + "}";
+
+                // }
+                // else
+                // {
+
+                JObject json = JObject.Parse(serviceTemplate.JsonFields);
+                JArray tasksArray = (JArray)json["Tasks"];
+                if (!tasksArray.HasValues)
+                {
+                    foreach (var task in tasks)
+                    {
+                        tasksArray.Add(JObject.FromObject(task));
+                    }
                 }
+
+                serviceTicket.JsonFields = JsonConvert.SerializeObject(json);
+
+                //  }
                 serviceTicket.ReferenceNumber = property.PropertyRefNumber;
                 db.ServiceTickets.Add(serviceTicket);
                 db.SaveChanges();
             }
 
             var serviceMembers = from e in db.Employees
-                               join c in db.CrewMembers on
+                                 join c in db.CrewMembers on
 
-                                new
-                                {
-                                    EmployeeId = e.Id,
-                                    eventTaskList.CrewId
-                                } equals new
-                                {
-                                    c.EmployeeId,
-                                    c.CrewId
-                                }
-                               into cm
-                               from c in cm.DefaultIfEmpty()
-                               orderby e.FirstName, e.LastName
-                               select new ServiceMemberViewModel()
-                               {
-                                   EmployeeId = e.Id,
-                                   FirstName = e.FirstName,
-                                   LastName = e.LastName,
-                                   IsCrewMember = c != null,
-                                   Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
-                               };
+                                  new
+                                  {
+                                      EmployeeId = e.Id,
+                                      eventTaskList.CrewId
+                                  } equals new
+                                  {
+                                      c.EmployeeId,
+                                      c.CrewId
+                                  }
+                                 into cm
+                                 from c in cm.DefaultIfEmpty()
+                                 orderby e.FirstName, e.LastName
+                                 select new ServiceMemberViewModel()
+                                 {
+                                     EmployeeId = e.Id,
+                                     FirstName = e.FirstName,
+                                     LastName = e.LastName,
+                                     IsCrewMember = c != null,
+                                     Selected = db.ServiceMembers.Any(s => s.EmployeeId == e.Id && s.ServiceTicketId == serviceTicket.Id)
+                                 };
 
             var ticket = serviceTicket.MapTo<ServiceTicketViewModel>();
             ticket.TemplateName = serviceTemplate.Name;
@@ -264,7 +280,7 @@ namespace CMS.Controllers
 
             var existingTicket = db.ServiceTickets.FirstOrDefault(p => p.Id == id);
             if (existingTicket == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -287,7 +303,7 @@ namespace CMS.Controllers
                 if (member.Selected)
                     db.ServiceMembers.Add(new ServiceMember() { ServiceTicketId = serviceTicket.Id, EmployeeId = member.EmployeeId });
             }
-                        
+
             db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -333,4 +349,13 @@ namespace CMS.Controllers
             base.Dispose(disposing);
         }
     }
+
+    public class TaskInfo
+    {
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public bool Completed { get; set; }
+        public string Comment { get; set; }
+    }
+
 }

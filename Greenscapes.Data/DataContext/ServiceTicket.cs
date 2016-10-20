@@ -33,6 +33,8 @@ namespace Greenscapes.Data.DataContext
 
         public int? Condition { get; set; }
 
+        public string WhyNotCompleted { get; set; }
+
         [Column(TypeName = "ntext")]
         public string Notes { get; set; }
 

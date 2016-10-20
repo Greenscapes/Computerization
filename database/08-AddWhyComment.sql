@@ -1,0 +1,1 @@
+ALTER TABLE ServiceTickets ADD WhyNotCompleted nvarchar(MAX) NULL 

@@ -150,6 +150,11 @@
 </div>
 
 <div class="form-group">
+    <label for="whyLabor">If no, Why not?</label>
+    <input id="whyLabor" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomerLabor">
+</div>
+
+<div class="form-group">
     <label for="parts-pass-on">Parts charge to be passed on - yes or no?</label>
     <select id="parts-pass-on" class="form-control" ng-model="serviceTicket.Fields.ChargeCustomerParts">
         <option value="">- Select Y/N -</option>
@@ -158,7 +163,7 @@
     </select>
 </div>
 
-<div class="form-group" ng-show="serviceTicket.Fields.ChargeCustomerLabor == 'N' || serviceTicket.Fields.ChargeCustomerParts == 'N'">
-    <label for="why">Why not?</label>
-    <input id="why" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomer" required>
+<div class="form-group">
+    <label for="why">If no, Why not?</label>
+    <input id="why" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotChargeCustomerParts" required>
 </div>

@@ -48,7 +48,7 @@ namespace CMS.Models
         public string Notes { get; set; }
 
         public int? Condition { get; set; }
-
+        public string WhyNotCompleted { get; set; }
         public bool ShowAllEmployees { get; set; }
 
         public List<ServiceMemberViewModel> Members { get; set; }
