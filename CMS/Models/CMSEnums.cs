@@ -5,7 +5,8 @@
         Draft = 0,
         Prospect = 1,
         Active = 2,
-        Closed = 3
+        UnconvertedProspect = 3,
+        ExClient = 4
 
     }
 

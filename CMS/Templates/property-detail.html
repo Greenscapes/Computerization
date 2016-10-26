@@ -14,7 +14,8 @@
                 ng-model="property.PropertyType">
             <option value="1">Prospect</option>
             <option value="2">Active</option>
-            <option value="3">Closed</option>
+            <option value="3">Unconverted Prospect</option>
+            <option value="4">Ex-Client</option>
         </select>
     </div>
     <div class="form-group">
@@ -72,9 +73,9 @@
     <p>
         <button type="submit" class="btn btn-success" ng-click=" update(property)" ng-disabled="buttonsDisabled">Save</button>
     
-        <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
+        <!--<button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
            Delete
-        </button>
+        </button>-->
     </p>
 </form>
 

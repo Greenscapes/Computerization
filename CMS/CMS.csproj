@@ -1356,6 +1356,7 @@
     <Content Include="Templates\schedule.html" />
     <Content Include="Templates\service.html" />
     <Content Include="Templates\services.html" />
+    <Content Include="Templates\servicetickets\lighting-inspection.html" />
     <Content Include="Templates\servicetickets\palm-pruning.html" />
     <Content Include="Templates\servicetickets\residential-maintenance.html" />
     <Content Include="Templates\servicetickets\walk-through.html" />

@@ -16,7 +16,9 @@
             case 2:
                 return "Active";
             case 3:
-                return "Closed";
+                return "Unconverted Prospect";
+            case 4:
+                return "Ex-Client";
         }
 
         return '';
