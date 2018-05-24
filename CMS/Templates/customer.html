@@ -1,0 +1,44 @@
+﻿
+
+<br />
+<p>
+    <button class="btn btn-xs" ng-click="customerVm.back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Customers
+    </button>
+</p>
+<h2>New Customer</h2>
+<br />
+<form name="CustomerAdd" novalidates>
+    <div class="form-group">
+        <label for="inputTitle">Title</label>
+        <input type="text" class="form-control" id="inputTitle" placeholder="Name" autocomplete="false" ng-model="customerVm.customer.Title">
+    </div>
+    <div class="form-group">
+        <label for="inputFirstName">First Name</label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-model="customerVm.customer.FirstName" required>
+    </div>
+    <div class="form-group">
+        <label for="inputLastName">Last Name</label>
+        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-model="customerVm.customer.LastName">
+    </div>
+    <div class="form-group">
+        <label for="inputSuffix">Suffix</label>
+        <input type="text" class="form-control" id="inputSuffix" placeholder="Suffix" ng-model="customerVm.customer.Suffix">
+    </div>
+    <div class="form-group">
+        Code/key needed for access
+        <div class="radio">
+            <label><input type="radio" name="keyRadio" ng-model="customerVm.customer.RequiresAccess" ng-value="true">Yes</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="keyRadio" checked ng-model="customerVm.customer.RequiresAccess" ng-value="false">No</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDetails">Access Details</label>
+        <input type="text" class="form-control" id="inputDetails" placeholder="Access Details" ng-model="customerVm.customer.AccessDetails">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="customerVm.save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+</form>

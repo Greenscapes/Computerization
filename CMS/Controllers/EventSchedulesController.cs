@@ -10,6 +10,11 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS.Models;
 using System.Globalization;
+using Greenscapes.Business.Services;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Models;
+using Ical.Net.DataTypes;
+using Ical.Net.Evaluation;
 
 namespace CMS.Controllers
 {
@@ -35,7 +40,7 @@ namespace CMS.Controllers
 
                 db.CrewMembers.Where(cm => cm.EmployeeId == employeeId).ToList().ForEach(m =>
                 {
-                    m.Crew.PropertyTasks.ToList().ForEach(p => events.AddRange(p.EventSchedules));
+                    m.Crew.EventTaskLists.ToList().ForEach(p => events.AddRange(p.EventSchedules));
                 });
                 return events;
             }
@@ -54,7 +59,7 @@ namespace CMS.Controllers
             {
                 List<EventSchedule> events = new List<EventSchedule>();
 
-                db.PropertyTasks.Where(pt => pt.PropertyTaskList.PropertyId == propertyId).ToList()
+                db.EventTaskLists.Where(pt => pt.PropertyId == propertyId).ToList()
                     .ForEach(p => events.AddRange(p.EventSchedules));
                 
                 return events;
@@ -75,33 +80,47 @@ namespace CMS.Controllers
                 //int crewid = 3;
                 DateTime selectedDate = new DateTime(year, month, date);
                 DateTime from = GetFirstDayOfWeek(selectedDate, null);
-                DateTime to = GetLastDayOfWeek(selectedDate,null);
                 List<EventDetails> eventDetails = new List<EventDetails>();
-
-                var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from)||
-                                                                   (ev.StartTime <= to) && (ev.EndTime >= to)||
-                                                                    (ev.StartTime >= from) && (ev.EndTime <= to)
-                                                                    
-                    ).OrderBy(e=>e.StartTime).ToList();
            
+                var service = new EventService();
+                var eventSchedules = service.GetEventsForCrewForDay(from, crewid);
+
                foreach (var eventVal in eventSchedules)
                {
-                   PropertyTask propTask = db.PropertyTasks.Single(pt => pt.Id == eventVal.PropertyTaskId);
-                   if(propTask.Crews== null || propTask.Crews.Count < 1)
-                   {
-                       continue;
-                   }
-                   Crew crewVal = propTask.Crews.FirstOrDefault(c=>c.Id == crewid );
-                   if(crewVal == null)
-                   {
-                       continue;
-                   }
-                   EventDetails eventDetail = new EventDetails();
+                    EventTaskList propTask = db.EventTaskLists.Include("Crew").Include("Property").Include("EventTaskTimes").Single(pt => pt.Id == eventVal.EventTaskListId);
+                    if (propTask.Crew == null)
+                    {
+                        continue;
+                    }
+                    Crew crewVal = propTask.Crew;
+                    if (crewVal == null)
+                    {
+                        continue;
+                    }
 
-                   eventDetail.EventId = eventVal.Id;
-                   eventDetail.StartTime = eventVal.StartTime;
-                   eventDetail.EndTime = eventVal.EndTime;
-                   eventDetail.ActualEndTime = eventVal.ActualEndTime;
+                   if (!string.IsNullOrEmpty(eventVal.RecurrenceRule))
+                   {
+                       var pattern = new RecurrencePattern(eventVal.RecurrenceRule);
+                       var evaluator = new RecurrencePatternEvaluator(pattern);
+                       var items = evaluator.Evaluate(new CalDateTime(eventVal.StartTime), eventVal.StartTime,
+                           eventVal.StartTime.AddYears(5), false);
+                       if (!items.Any(i => i.StartTime.Date == selectedDate))
+                           continue;
+                   }
+                   else
+                   {
+                       if (eventVal.StartTime.AddDays(-1) > selectedDate || eventVal.EndTime < selectedDate)
+                           continue;
+                   }
+
+                    EventDetails eventDetail = new EventDetails();
+
+                    TimeZoneInfo estZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    
+                    eventDetail.EventId = eventVal.Id;
+                   eventDetail.StartTime = TimeZoneInfo.ConvertTimeFromUtc(eventVal.StartTime, estZone);
+                    eventDetail.EndTime = TimeZoneInfo.ConvertTimeFromUtc(eventVal.EndTime, estZone);
+                    eventDetail.ActualEndTime = eventVal.ActualEndTime;
                    eventDetail.ActualStartTime = eventVal.ActualStartTime;
                    eventDetail.IsAllDay = eventVal.IsAllDay;
                    eventDetail.RecurrenceRule = eventVal.RecurrenceRule;
@@ -109,27 +128,99 @@ namespace CMS.Controllers
                    eventDetail.RecurrenceException = eventVal.RecurrenceException;
                    eventDetail.StartTimezone = eventVal.StartTimezone;
                    eventDetail.EndTimezone = eventVal.EndTimezone;
-                   eventDetail.Status = eventVal.Status;
+                   eventDetail.Status = (StatusEnum)eventVal.Status;
                    eventDetail.Title = eventVal.Title;
-                   eventVal.PropertyTask =propTask;
+                   eventVal.EventTaskList =propTask;
                    eventDetail.TaskId = propTask.Id;
-                   eventDetail.PropertyId = propTask.PropertyTaskList.Property.Id;
-                   eventDetail.PropertyAddress = propTask.PropertyTaskList.Property.Address1 + " "+
-                                                 propTask.PropertyTaskList.Property.Address2 + " "+
-                                                     propTask.PropertyTaskList.Property.City + " "+
-                                                         propTask.PropertyTaskList.Property.State + " "+
-                                                             propTask.PropertyTaskList.Property.Zip ;
+                   eventDetail.EventTaskListId = eventVal.EventTaskListId;
+                   eventDetail.PropertyId = propTask.Property.Id;
+                   eventDetail.PropertyAddress = propTask.Property.Address1 + " "+
+                                                 propTask.Property.Address2 + " "+
+                                                     propTask.Property.City.Name + " "+
+                                                         propTask.Property.State + " "+
+                                                             propTask.Property.Zip ;
 
-                   eventDetail.PropertyName = eventVal.PropertyTask.PropertyTaskList.Property.Name;
-                   eventDetail.PropertyRefNumber = eventVal.PropertyTask.PropertyTaskList.Property.PropertyRefNumber;
-                   eventDetail.Crew=crewVal;
-                   if (eventVal.PropertyTaskEventNotes != null)
+                   eventDetail.PropertyName = eventVal.EventTaskList.Property.Name;
+                   eventDetail.PropertyRefNumber = eventVal.EventTaskList.Property.PropertyRefNumber;
+                   var eventTaskTime = propTask.EventTaskTimes.FirstOrDefault(e => e.EventDate.Subtract(selectedDate) == TimeSpan.Zero);
+                   if (eventTaskTime != null)
                    {
-                       eventDetail.EventNotes = eventVal.PropertyTaskEventNotes;
+                       eventDetail.TaskStartTime = eventTaskTime.StartTime;
+                       eventDetail.TaskEndTime = eventTaskTime.EndTime;
                    }
                    eventDetails.Add(eventDetail);
                }  
                   
+
+                return eventDetails.OrderBy(e => e.StartTime);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        [Route("{crewid:int}/crewevents")]
+        public IEnumerable<EventDetails> GetEventSchedulesForCrew(int crewid)
+        {
+            try
+            {
+                //int crewid = 3;
+                DateTime selectedDate = DateTime.Now;
+                DateTime from = DateTime.Now.AddYears(-1);
+                DateTime to = DateTime.Now.AddYears(1);
+                List<EventDetails> eventDetails = new List<EventDetails>();
+
+                var eventSchedules = db.EventSchedules.Where(ev => (ev.StartTime <= from) && (ev.EndTime >= from) ||
+                                                                   (ev.StartTime <= to) && (ev.EndTime >= to) ||
+                                                                    (ev.StartTime >= from) && (ev.EndTime <= to)
+
+                    ).OrderBy(e => e.StartTime).ToList();
+
+                foreach (var eventVal in eventSchedules)
+                {
+                    var eventTaskLists = db.EventTaskLists.Single(pt => pt.Id == eventVal.EventTaskListId);
+                    if (eventTaskLists.Crew == null || eventTaskLists.CrewId != crewid)
+                    {
+                        continue;
+                    }
+                    Crew crewVal = eventTaskLists.Crew;
+                    if (crewVal == null)
+                    {
+                        continue;
+                    }
+                    EventDetails eventDetail = new EventDetails();
+
+                    eventDetail.EventId = eventVal.Id;
+                    eventDetail.StartTime = eventVal.StartTime;
+                    eventDetail.EndTime = eventVal.EndTime;
+                    eventDetail.ActualEndTime = eventVal.ActualEndTime;
+                    eventDetail.ActualStartTime = eventVal.ActualStartTime;
+                    eventDetail.IsAllDay = eventVal.IsAllDay;
+                    eventDetail.RecurrenceRule = eventVal.RecurrenceRule;
+                    eventDetail.RecurrenceID = eventVal.RecurrenceID;
+                    eventDetail.RecurrenceException = eventVal.RecurrenceException;
+                    eventDetail.StartTimezone = eventVal.StartTimezone;
+                    eventDetail.EndTimezone = eventVal.EndTimezone;
+                    eventDetail.Status = (StatusEnum)eventVal.Status;
+                    eventDetail.Title = eventVal.Title;
+                    eventVal.EventTaskList = eventTaskLists;
+                    eventDetail.TaskId = eventTaskLists.Id;
+                    eventDetail.PropertyId = eventTaskLists.Property.Id;
+                    eventDetail.PropertyAddress = eventTaskLists.Property.Address1 + " " +
+                                                  eventTaskLists.Property.Address2 + " " +
+                                                      eventTaskLists.Property.City.Name + " " +
+                                                          eventTaskLists.Property.State + " " +
+                                                              eventTaskLists.Property.Zip;
+
+                    eventDetail.PropertyName = eventVal.EventTaskList.Property.Name;
+                    eventDetail.PropertyRefNumber = eventVal.EventTaskList.Property.PropertyRefNumber;
+                    eventDetail.Crew = crewVal;
+                    eventDetails.Add(eventDetail);
+                }
+
 
                 return eventDetails;
             }
@@ -140,6 +231,7 @@ namespace CMS.Controllers
             }
 
         }
+
         /*
         // [Route("{id:int}/eventschedules'")]int taskId
         [Route("~/api/properties/:propertyId/tasklists/{taskListId:int}/tasks/{taskId:int}/eventschedules")]
@@ -323,9 +415,10 @@ namespace CMS.Controllers
         public string PropertyName { get; set; }
         public string PropertyRefNumber { get; set; }
         public string PropertyAddress { get; set; }
-        public ICollection<PropertyTaskEventNote> EventNotes { get; set; }
         public Crew Crew { get; set; }
-       
+        public int EventTaskListId { get; set; }
+        public DateTime? TaskStartTime { get; set; }
+        public DateTime? TaskEndTime { get; set; }
     }
      
 }

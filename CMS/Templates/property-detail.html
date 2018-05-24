@@ -6,90 +6,156 @@
 </p>
 <h2>{{property.Name}} Details</h2>
 
-<table class="table table-bordered" style="width:auto">
-    <tr>
-        <td>Property Type</td>
-        <td><!--{{property.PropertyType}}-->
-            <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
-                    ng-model="property.PropertyType" ng-readonly="true;" disabled="true">
-                <option value="" class="">Select</option>
-                <option value="1">Draft</option>
-                <option value="2">Prospect</option>
-                <option value="66">Active</option>
-                <option value="66">Closed</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td>{{property.Name}}</td>
-    </tr>
-    <tr>
-        <td>Address 1</td>
-        <td>{{property.Address1}}</td>
-    </tr>
-    <tr>
-        <td>Address 2</td>
-        <td>{{property.Address2}}</td>
-    </tr>
-    <tr>
-        <td>City</td>
-        <td>{{property.City}}</td>
-    </tr>
-    <tr>
-        <td>State</td>
-        <td>{{property.State}}</td>
-    </tr>
-    <tr>
-        <td>Zip</td>
-        <td>{{property.Zip}}</td>
-    </tr>
-    <tr>
-        <td>Reference Number</td>
-        <td>{{property.PropertyRefNumber}}</td>
-    </tr>
-    <tr>
-        <td>Customer since</td>
-        <td>{{property.ContractDate|date:'mediumDate'}}</td>
-    </tr>
-    <tr>
-        <td>Number Of Free Services</td>
-        <td>{{property.NumberOfFreeServiceCalls}}</td>
-    </tr>
-    <tr>
-        <td>Remaining Free Services</td>
-        <td>{{property.NumberOfFreeServiceCalls}}</td>
-    </tr>
-</table>
-<p>
-    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
-        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
-    </button>
-</p>
+<br />
+<form name="PropertyAdd" novalidates>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Status</label>
+        <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
+                ng-model="property.PropertyType">
+            <option value="1">Prospect</option>
+            <option value="2">Active</option>
+            <option value="3">Unconverted Prospect</option>
+            <option value="4">Ex-Client</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Type</label>
+        <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
+                ng-model="property.CustomerType">
+            <option value="1">HOA</option>
+            <option value="2">Commercial</option>
+            <option value="3">Residential</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="customerSelect">Customer</label>
+        <select name="customerSelect" id="customerSelect" ng-options="customer.Id as customer.FirstName + ' ' + customer.LastName for customer in customers"
+                ng-model="property.CustomerId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputName">Property Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="property.Name" ng-maxlength="100" required>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress1">Address 1</label>
+        <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-model="property.Address1">
+    </div>
+    <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-model="property.Address2">
+    </div>
+    <div class="form-group">
+        <label for="inputCity">City</label>
+        <select name="inputCity" id="inputCity"
+                ng-options="city.Id as city.Name for city in cities"
+                ng-model="property.CityId"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" placeholder="State" ng-model="property.State">
+    </div>
+    <div class="form-group">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-model="property.Zip">
+    </div>
+    <div class="form-group">
+        <label for="propertyRef">Reference Number</label>
+        <input type="text" class="form-control" id="propertyRef" placeholder="PropertyRefNumber" ng-model="property.PropertyRefNumber">
+    </div>
+    <div class="form-group">
+        <label for="cntDate">Customer since </label>
+        <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="property.ContractDate" data-date-format="dd/mm/yyyy" date-type="string">
+    </div>
+    <div class="form-group">
+        <label for="cntDate">Number Of Free Additional Call Outs Entitled Under Contract </label>
+        <input type="text" class="form-control" id="freeService" placeholder="NumberOfFreeServiceCalls" ng-model="property.NumberOfFreeServiceCalls">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click=" update(property)" ng-disabled="buttonsDisabled">Save</button>
+    
+        <!--<button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled">
+           Delete
+        </button>-->
+    </p>
+</form>
+
 <hr/>
 
-<h3>{{property.Name}} Task Lists</h3>
+<h3>Property Tasks</h3>
 
 <p>
-    <button type="button" class="btn btn-primary" ng-click="newTaskList()">
-        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task List
+    <button type="button" class="btn btn-primary" ng-click="newTask()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Task
+    </button><br/><br/>
+    <button type="button" class="btn btn-primary" ng-click="newEventTaskList()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create Event Task List
+    </button><br/><br/>
+    <button type="button" class="btn btn-primary" ng-click="assignTasks()">
+        Assign Tasks to Event Task List
     </button>
+    <select  ng-options="eventTaskList.Id as eventTaskList.Name for eventTaskList in eventTaskLists" ng-model="eventTaskListId"  >
+        <option value=''></option>
+    </select>
+</p>
+
+<div ng-repeat="(key, val) in tasks | groupBy: 'ScheduleName'">
+    <h4>{{key ? key : 'Not Allocated'}}</h4>
+    <table class="table table-striped">
+        <tr>
+            <th><sortby neworder="'Location'" oldorder="liSortByField" reverse="itemReverse">Location</sortby></th>
+            <th>Task</th>
+            <th><sortby neworder="'Crew.Name'" oldorder="liSortByField" reverse="itemReverse">Crew</sortby></th>
+            <th><sortby neworder="'ScheduleName'" oldorder="liSortByField" reverse="itemReverse">Event Task List</sortby></th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="task in val | orderBy: liSortByField: itemReverse">
+            <td><input type="checkbox" ng-model="task.selected" />{{task.Location}}</td>
+            <td>{{task.Description}}</td>
+            <!--<td ng-if="task.Crews.length <= 0"><a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">Assign Task to Crew</a></td>-->
+   <td>
+            
+
+            <td>
+                
+                <a ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/crew">
+                    {{task.Crew.Name}}
+                </a>
+            </td>
+            <td><a ng-href="#/properties/{{property.Id}}/schedule/{{task.EventTaskListId}}">{{task.ScheduleName}}</a></td>
+            <td>
+                <a ng-href="#/properties/{{property.Id}}/tasklists/{{property.TaskListId}}/tasks/{{task.Id}}">Edit Task</a>
+                | <a ng-click="confirmDeleteTask(task)">Delete Task</a>
+                <span ng-if="task.EventTaskListId > 0">| <a ng-click="unallocateTask(task)">Unallocate Task</a></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3>Property Services</h3>
+
+<p>
+    <span class="row">
+        <button type="button" class="btn btn-primary" ng-click="newService()">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add Service
+        </button>
+        <a type="button" class="btn btn-primary" ng-href="#/propertyschedule/{{property.Id}}">View Schedule
+        </a>
+</span>
+
 </p>
 
 <table class="table table-striped">
     <tr>
         <th>Name</th>
+        <th>Number of Events</th>
+        <th></th>
     </tr>
-    <tr ng-repeat="taskList in taskLists">
-        <td><a ng-href="#/properties/{{property.Id}}/tasklists/{{taskList.Id}}">{{taskList.Name}}</a></td>
+    <tr ng-repeat="service in services">
+        <td>{{service.Name}}</td>
+        <td>{{service.EventCount}}</td>
+        <td>
+            <a ng-href="#/properties/{{property.Id}}/service/{{service.Id}}">Edit Service</a>
+            | <a ng-click="confirmDeleteService(service)">Delete Service</a>
+        </td>
     </tr>
 </table>
-
-<div>
-    <h3 ng-show="crews.length > 0">Property Schedules</h3>
-    <div id="EventScheduler">
-        <div id="scheduler"></div>
-
-        <!--<ul id="contextMenu"></ul>-->
-    </div>
-</div>

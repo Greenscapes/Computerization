@@ -1,0 +1,14 @@
+﻿<h2>Cities</h2>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="newCity()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New City
+    </button>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="city in cities">
+        <td><a ng-href="#/city/{{city.Id}}">{{city.Name}}</a></td>
+    </tr>
+</table>

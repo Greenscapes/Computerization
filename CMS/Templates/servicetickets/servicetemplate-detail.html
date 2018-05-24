@@ -1,0 +1,41 @@
+﻿<br />
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Service Templates
+    </button>
+</p>
+<h2>Service Template</h2>
+<p>
+    <button type="button" class="btn btn-danger" ng-click="confirmDelete()" ng-disabled="buttonsDisabled" ng-show="allowDelete">
+        <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+    </button>
+</p>
+<form role="form">
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" class="form-control" autocomplete="off" placeholder="Name" required ng-disabled="buttonsDisabled" ng-model="serviceTemplate.Name">
+    </div>
+
+    <div class="form-group">
+        <label for="url">Url</label>
+        <input id="url" type="text" class="form-control" autocomplete="off" placeholder="Url" required ng-disabled="buttonsDisabled" ng-model="serviceTemplate.Url">
+    </div>
+
+    <label for="useTasks">Use Tasks</label>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="serviceTemplate.UseTasks">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="json">Dynamic Fields</label>
+        <textarea id="json" type="text" class="form-control" placeholder="Fields" rows="15" required ng-disabled="buttonsDisabled" ng-model="serviceTemplate.JsonFields"></textarea>
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+
+</form>

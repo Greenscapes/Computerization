@@ -4,58 +4,66 @@
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Task List
     </button>
 </p>
-<h2>New Task</h2>
+<h2>New Task for {{property.Name}}</h2><br/><br/>
 
 <form>
     <div class="form-group">
-        <label for="inputLocation">Location</label>
-        <input type="text" class="form-control" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location">
+        <label for="locationSelect">Select Existing Location</label>
+        <select name="locationSelect" id="locationSelect"
+                ng-options="location for location in locations"
+                ng-model="task.Location"></select>
     </div>
     <div class="form-group">
-        <label for="inputDescription">Description</label>
-        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description">
+        <label for="inputLocation">New Location</label>
+        <input type="text" class="form-control full-size" id="inputLocation" placeholder="Location" ng-disabled="buttonsDisabled" ng-model="task.Location" required>
     </div>
-    <div class="form-group" ng-repeat="detail in task.PropertyTaskDetails">
-        <label for="input{{$index}}">{{detail.HeaderName}}</label>
-        <input type="text" class="form-control" id="input{{$index}}" placeholder="{{detail.HeaderName}}" ng-disabled="buttonsDisabled" ng-model="detail.Value">
+    <div class="form-group">
+        <label for="templateSelect">Select Existing Task</label>
+        <select name="templateSelect" id="templateSelect" class="longSelect"
+                ng-options="taskTemplate as taskTemplate.Description for taskTemplate in taskTemplates | orderBy: 'DisplayOrder'"
+                ng-model="selectedTemplate"
+                ng-change="templateSelected()"></select>
+    </div>
+    <div class="form-group">
+        <label for="inputDescription">Task</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" ng-disabled="buttonsDisabled" ng-model="task.Description" required>
     </div>
     <div class="form-group">
         <label for="inputDuration">Duration</label>
-        <input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration">
+        <input type="number" class="form-control" id="inputHours" placeholder="0" ng-disabled="buttonsDisabled" ng-model="task.Hours" required> Hours
+        <input type="number" class="form-control" id="inputMinutes" placeholder="0" ng-disabled="buttonsDisabled" ng-model="task.Minutes" required> Minutes
+        <!--<input type="number" class="form-control" id="inputDuration" placeholder="Duration" ng-disabled="buttonsDisabled" ng-model="task.EstimatedDuration" required>-->
     </div>
     <div class="form-group">
         <label for="inputNotes">Notes</label>
-        <input type="text" class="form-control" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
+        <input type="text" class="form-control full-size" id="inputNotes" placeholder="Notes" ng-disabled="buttonsDisabled" ng-model="task.Notes">
     </div>
-    <div class="form-group">
-        <input type="checkbox" ng-model="task.IsFreeService" ng-disabled="buttonsDisabled" />IsFreeService
-    </div>
-    <h3 ng-show="crews.length > 0">Assignable Crews</h3>
+    <!--<div class="form-group">
+        <input type="checkbox" ng-model="task.IsFreeService" ng-disabled="buttonsDisabled"/>IsFreeService
+    </div>-->
+    <!--<h3 ng-show="crews.length > 0">Assignable Crews</h3>
     <table class="table table-striped">
         <tr>
             <th>Name</th>
-        
+
         </tr>
         <tr ng-repeat="crew in crews">
             <td>
-                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled"/>
                 <a ng-href="#/crews/{{crew.Id}}">{{crew.Name}}</a>
             </td>
 
         </tr>
     </table>
-    <br />
-   
-    <br />
+    <br/>-->
+    <!--<br/>
     <div id="EventScheduler">
-        <div id="taskCreatescheduler"></div>
-
-      
-    </div>
-    <br />
+        <div id="scheduler"></div>
+    </div>-->
+    <br/>
     <button type="submit" class="btn btn-success" ng-click="save(task)" ng-disabled="buttonsDisabled">Create</button>
-    <br />
+    <br/>
     <label class="has-error">{{ErrorLabel}}</label>
 
-    <br />
+    <br/>
 </form>

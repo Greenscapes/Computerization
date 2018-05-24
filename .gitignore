@@ -4,3 +4,12 @@ CMS/CMS.csproj.user
 CMS/bin/
 CMS/obj/
 packages/
+*.orig
+Greenscapes.Data/bin/
+Greenscapes.Data/obj/
+/.vs/CMS/v14/.suo
+/Greenscapes.Data/Greenscapes.Data.csproj.user
+/Greenscapes.Tests/bin/Debug
+/Greenscapes.Tests/obj/Debug
+Greenscapes.Business/obj/
+.vs/

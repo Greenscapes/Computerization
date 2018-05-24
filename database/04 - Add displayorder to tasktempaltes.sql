@@ -1,0 +1,1 @@
+ALTER TABLE TaskTemplates ADD DisplayOrder int NULL 

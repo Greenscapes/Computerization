@@ -1,6 +1,7 @@
-﻿function NavController($scope) {
+﻿function NavController($scope, $rootScope) {
     $scope.navCollapsed = true;
+
 }
 
-NavController.$inject = ['$scope'];
+NavController.$inject = ['$scope', '$rootScope'];
 app.controller('NavController', NavController);

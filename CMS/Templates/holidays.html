@@ -1,0 +1,33 @@
+﻿<h2>Holidays</h2>
+<p>
+    <button type="button" class="btn btn-primary" ng-click="holidayVm.newHoliday()">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Holiday
+    </button>
+</p>
+
+<form name="HolidayAdd" novalidates ng-show="holidayVm.inEdit">
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="holidayVm.holiday.Name">
+    </div>
+    <div class="form-group">
+        <label for="inputName">Date</label>
+        <input type="date" class="form-control" id="datetimepicker" placeholder="Date" ng-model="holidayVm.holiday.HolidayDate" data-date-format="dd/mm/yyyy" date-type="string">
+    </div>
+    <p>
+        <button type="submit" class="btn btn-success" ng-click="holidayVm.save()" ng-disabled="buttonsDisabled">Save</button>
+    </p>
+</form>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="holiday in holidayVm.holidays">
+        <td>{{holiday.Name}}</td>
+        <td>{{holiday.HolidayDate | date:'MM/dd/yyyy'}}</td>
+        <td><a href="" ng-click="holidayVm.deleteHoliday(holiday.Id)">delete</a></td>
+    </tr>
+</table>

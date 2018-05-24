@@ -12,14 +12,13 @@ namespace CMS
     {
         protected void Application_Start()
         {
-#if DEBUG
-            Database.SetInitializer(new CmsContextInitializer());
-#endif
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy =
+    IncludeErrorDetailPolicy.Always;
         }
     }
 }

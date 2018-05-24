@@ -19,13 +19,19 @@
         <label for="inputLastName">Last Name</label>
         <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-disabled="buttonsDisabled" ng-model="employee.LastName">
     </div>
-    <h3 ng-show="crewTypes.length > 0">Assignable Crew Types</h3>
-    <div class="form-group" ng-repeat="crewType in crewTypes">
-        <input type="checkbox" ng-model="crewType.checked" ng-disabled="buttonsDisabled" />
-        <label>{{crewType.Name}}</label>
+    <h3 ng-show="crews.length > 0">Assigned Crews</h3>
+    <div class="form-group" ng-repeat="crew in crews">
+        <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+        <label>{{crew.Name}}</label>
+    </div>
+    <h3 ng-show="employeeSkills.length > 0">Assignable Skills</h3>
+    <div class="form-group" ng-repeat="employeeSkill in employeeSkills | orderBy:'DisplayOrder'">
+        <input type="checkbox" ng-model="employeeSkill.checked" ng-disabled="buttonsDisabled" />
+        <label>{{employeeSkill.Name}}</label>
     </div>
     <p>
         <button type="submit" class="btn btn-success" ng-click="update(employee)" ng-disabled="buttonsDisabled">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="delete(employee)" ng-show="employee" ng-disabled="buttonsDisabled">Delete Employee</button>
     </p>
     <div>
         <h3 ng-show="crews.length > 0">Employee Schedules</h3>

@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CMS.Models
+﻿namespace Greenscapes.Data.Models
 {
     public enum PropertyTypeEnum
     {
         Draft = 0,
         Prospect = 1,
         Active = 2,
-        Closed = 3
+        UnconvertedProspect = 3,
+        ExClient = 4
+
+    }
+
+    public enum CustomerTypeEnum
+    {
+        Draft = 0,
+        HOA = 1,
+        Commercial = 2,
+        Residential = 3
 
     }
 

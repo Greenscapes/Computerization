@@ -2,70 +2,75 @@
 
 <br />
 <p>
-    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+    <button class="btn btn-xs" ng-click="propertyVm.back()" ng-disabled="buttonsDisabled">
         <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Properties
     </button>
 </p>
-<h2>New Property{{property.Name ? ": " + property.Name : ""}}</h2>
+<h2>New Property{{propertyVm.property.Name ? ": " + propertyVm.property.Name : ""}}</h2>
 <br />
 <form name="PropertyAdd" novalidates>
     <div class="form-group">
-        <label for="propertytypeSelect">Property Type</label>
+        <label for="propertytypeSelect">Customer Status</label>
         <select my-entity-set="Enums?type=PropertyType" id="propertytypeSelect"
-                ng-model="property.PropertyType">
-            <option value="" class="">Select</option>
-            <option value="1">Draft</option>
-            <option value="2">Prospect</option>
-            <option value="66">Active</option>
-            <option value="66">Closed</option>
+                ng-model="propertyVm.property.PropertyType">
+            <option value="1">Prospect</option>
+            <option value="2">Active</option>
+            <option value="3">Closed</option>
         </select>
     </div>
+    <div class="form-group">
+        <label for="propertytypeSelect">Customer Type</label>
+        <select my-entity-set="Enums?type=CustomerType" id="customerTypeSelect"
+                ng-model="propertyVm.property.CustomerType">
+            <option value="1">HOA</option>
+            <option value="2">Commercial</option>
+            <option value="3">Residential</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="customerSelect">Customer</label>
+        <select ng-options="customer.Id as customer.FirstName + ' ' + customer.LastName for customer in propertyVm.customers"
+                ng-model="propertyVm.property.CustomerId"></select>
+    </div>
         <div class="form-group">
-            <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="property.Name" ng-maxlength="100" required>
+            <label for="inputName">Property Name</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="propertyVm.property.Name" ng-maxlength="100" required>
         </div>
         <div class="form-group">
             <label for="inputAddress1">Address 1</label>
-            <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-model="property.Address1">
+            <input type="text" class="form-control" id="inputAddress1" placeholder="Address 1" ng-model="propertyVm.property.Address1">
         </div>
         <div class="form-group">
             <label for="inputAddress2">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-model="property.Address2">
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" ng-model="propertyVm.property.Address2">
         </div>
         <div class="form-group">
             <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity" placeholder="City" ng-model="property.City">
+            <select name="inputCity" id="inputCity"
+                    ng-options="city.Id as city.Name for city in propertyVm.cities"
+                    ng-model="propertyVm.property.CityId"></select>
         </div>
         <div class="form-group">
             <label for="inputState">State</label>
-            <input type="text" class="form-control" id="inputState" placeholder="State" ng-model="property.State">
+            <input type="text" class="form-control" id="inputState" placeholder="State" ng-model="propertyVm.property.State">
         </div>
         <div class="form-group">
             <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-model="property.Zip">
+            <input type="text" class="form-control" id="inputZip" placeholder="Zip" ng-model="propertyVm.property.Zip">
         </div>
         <div class="form-group">
             <label for="propertyRef">Reference Number</label>
-            <input type="text" class="form-control" id="propertyRef" placeholder="PropertyRefNumber" ng-model="property.PropertyRefNumber">
+            <input type="text" class="form-control" id="propertyRef" placeholder="PropertyRefNumber" ng-model="propertyVm.property.PropertyRefNumber">
         </div>
         <div class="form-group">
             <label for="cntDate">Customer since </label>
-            <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="property.ContractDate" data-date-format="dd/mm/yyyy" date-type="string">
+            <input type="text" class="form-control" id="datetimepicker" placeholder="ContractDate" ng-model="propertyVm.property.ContractDate" data-date-format="dd/mm/yyyy" date-type="string">
         </div>
         <div class="form-group">
-            <label for="cntDate">Number Of Free Services </label>
-            <input type="text" class="form-control" id="freeService" placeholder="NumberOfFreeServiceCalls" ng-model="property.NumberOfFreeServiceCalls">
+            <label for="cntDate">Number Of Free Additional Call Outs Entitled Under Contract </label>
+            <input type="text" class="form-control" id="freeService" placeholder="NumberOfFreeServiceCalls" ng-model="propertyVm.property.NumberOfFreeServiceCalls">
         </div>
         <p>
-            <button type="submit" class="btn btn-success" ng-click="save(property)" ng-disabled="buttonsDisabled">Create</button>
+            <button type="submit" class="btn btn-success" ng-click="propertyVm.save()" ng-disabled="buttonsDisabled">Create</button>
         </p>
-        <div ng-show="validationErrors">
-            <ul>
-                <li class="has-error" ng-repeat="error in validationErrors">{{error}}</li>
-            </ul>
-        </div>
-
-
-
-
 </form>

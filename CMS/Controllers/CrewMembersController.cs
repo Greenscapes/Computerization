@@ -1,39 +1,49 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CMS.Mappers;
 using CMS.Models;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Repositories;
 
 namespace CMS.Controllers
 {
     [RoutePrefix("api/crewmembers")]
     public class CrewMembersController : ApiController
     {
-        private readonly CmsContext db = new CmsContext();
+        private readonly CrewRepository db = new CrewRepository();
 
         // GET: api/CrewMembers
         [Route("")]
-        public IQueryable<CrewMember> GetCrewMembers()
+        public IEnumerable<CrewMemberViewModel> GetCrewMembers()
         {
-            return db.CrewMembers;
+            return db.GetCrewMembers().MapTo<IEnumerable<CrewMemberViewModel>>();
         }
 
         // GET: api/CrewMembers
         [Route("~/api/crews/{crewId:int}/members")]
-        public IQueryable<CrewMember> GetCrewMembers(int crewId)
+        public IEnumerable<CrewMemberViewModel> GetCrewMembers(int crewId)
         {
-            return db.CrewMembers.Where(m => m.CrewId == crewId);
+            return db.GetCrewMembers().Where(m => m.CrewId == crewId).MapTo<IEnumerable<CrewMemberViewModel>>();
+        }
+
+        [Route("~/api/employee/{employeeId:int}/members")]
+        public IEnumerable<CrewMemberViewModel> GetCrewMembersForEmployee(int employeeId)
+        {
+            return db.GetCrewMembers().Where(m => m.EmployeeId == employeeId).MapTo<IEnumerable<CrewMemberViewModel>>();
         }
 
         // GET: api/CrewMembers/5
         [Route("{id:int}")]
         [Route("~/api/crews/{crewId:int}/members/{id:int}")]
-        [ResponseType(typeof(CrewMember))]
+        [ResponseType(typeof(CrewMemberViewModel))]
         public IHttpActionResult GetCrewMember(int id)
         {
-            var crewMember = db.CrewMembers.Find(id);
+            var crewMember = db.GetCrewMember(id).MapTo<CrewMemberViewModel>();
             if (crewMember == null)
             {
                 return NotFound();
@@ -46,7 +56,7 @@ namespace CMS.Controllers
         [Route("{id:int}")]
         [Route("~/api/crews/{crewId:int}/members/{id:int}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCrewMember(int id, CrewMember crewMember)
+        public IHttpActionResult PutCrewMember(int id, CrewMemberViewModel crewMember)
         {
             if (!ModelState.IsValid)
             {
@@ -58,23 +68,7 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            db.Entry(crewMember).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CrewMemberExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.UpdateCrewMember(crewMember.MapTo<CrewMember>());
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -82,16 +76,15 @@ namespace CMS.Controllers
         // POST: api/CrewMembers
         [Route("")]
         [Route("~/api/crews/{crewId:int}/members")]
-        [ResponseType(typeof(CrewMember))]
-        public IHttpActionResult PostCrewMember(CrewMember crewMember)
+        [ResponseType(typeof(CrewMemberViewModel))]
+        public IHttpActionResult PostCrewMember(CrewMemberViewModel crewMember)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.CrewMembers.Add(crewMember);
-            db.SaveChanges();
+            db.UpdateCrewMember(crewMember.MapTo<CrewMember>());
 
             return Ok(crewMember);
         }
@@ -99,19 +92,16 @@ namespace CMS.Controllers
         // DELETE: api/CrewMembers/5
         [Route("{id:int}")]
         [Route("~/api/crews/{crewId:int}/members/{id:int}")]
-        [ResponseType(typeof(CrewMember))]
+        [ResponseType(typeof(void))]
         public IHttpActionResult DeleteCrewMember(int id)
         {
-            var crewMember = db.CrewMembers.Find(id);
-            if (crewMember == null)
+            var success = db.DeleteCrewMember(id);
+            if (!success)
             {
                 return NotFound();
             }
 
-            db.CrewMembers.Remove(crewMember);
-            db.SaveChanges();
-
-            return Ok(crewMember);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -121,11 +111,6 @@ namespace CMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool CrewMemberExists(int id)
-        {
-            return db.CrewMembers.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -5,19 +5,16 @@
     </button>
 </p>
 <br/>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
 <br />
 <table class="table table-striped">
     <tr>
         <th>Name</th>
+        <th>In Crew</th>
+        <th>Skills</th>
     </tr>
-    <tr ng-repeat="employee in employees | filter:filterText">
+    <tr ng-repeat="employee in employees | orderBy:'LastName'">
         <td><a ng-href="#/employees/{{employee.Id}}">{{formatName(employee)}}</a></td>
+        <td>{{employee.InCrew ? 'Yes' : 'No'}}</td>
+        <td><span ng-repeat="skill in employee.EmployeeSkills | orderBy:'DisplayOrder'">{{skill.Name}}, </span></td>
     </tr>
 </table>

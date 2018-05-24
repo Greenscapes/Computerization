@@ -1,0 +1,16 @@
+﻿<h2>Crews</h2>
+<div ng-repeat="crew in crews" class="crew-list">
+    <h4>{{crew.Name}}</h4>
+    <table class="table table-striped">
+        <tr>
+            <th class="col-lg-4">Name</th>
+            <th class="col-lg-2">Crew Leader</th>
+            <th class="col-lg-6">Skills</th>
+        </tr>
+        <tr ng-repeat="crewMember in crew.CrewMembers">
+            <td class="col-lg-4">{{crewMember.Employee.FirstName}} {{crewMember.Employee.LastName}}</td>
+            <td class="col-lg-2">{{crewMember.IsCrewLeader ? 'Yes' : ''}}</td>
+            <td class="col-lg-6"><span ng-repeat="skill in crewMember.Employee.EmployeeSkills">{{skill.Name}}, </span></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,113 @@
+﻿
+<h3>Work Carried Out During Visit</h3>
+
+<div class="form-group">
+    <label for="wasComplete">Were all the tasks on the task list completed - yes or no?</label>
+    <select id="wasComplete" class="form-control" ng-model="serviceTicket.Fields.WasComplete">
+        <option value="">- Select Y/N -</option>
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+</div>
+
+<div class="form-group" ng-show="serviceTicket.Fields.WasComplete == 'N'">
+    <label for="why">Why not?</label>
+    <input id="why" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.NotCompleteReason" required>
+</div>
+
+<div class="form-group">
+    <label for="roundUpGallons">How many gallons of Round-up did you use?</label>
+    <input id="roundUpGallons" type="number" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.RoundUpGallons" step=".5" required>
+</div>
+
+<h3>Task List</h3>
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-2">Location</th>
+        <th class="col-md-1 text-center">Pruned</th>
+        <th class="col-md-1 text-center">Weeded</th>
+        <th class="col-md-1 text-center">Sprayed</th>
+        <th class="col-md-1 text-center">Blew Off</th>
+        <th class="col-md-2">Comments</th>
+        <th class="col-md-2"></th>
+    </tr>
+    <tr ng-repeat="task in serviceTicket.Fields.Tasks">
+
+        <td>{{task.Location}}</td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="task.Pruned">&nbsp;</span>
+        </td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="task.Weeded">&nbsp;</span>
+        </td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="task.Sprayed">&nbsp;</span>
+        </td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="task.BlewOff">&nbsp;</span>
+        </td>
+        <td>{{task.Comments}}</td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.Tasks, task)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(task)" class="btn pull-right" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+</table>
+
+<button ng-click="addItem(serviceTicket.Fields.Tasks, serviceTicket.Fields.DefaultTask)" data-toggle="modal" data-target="#modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Task</button>
+<br />
+<br />
+<div id="modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Task</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input id="location" type="text" autocomplete="off" class="form-control" ng-model="Item.Location" required>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Item.Pruned">
+                        Pruned
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Item.Weeded">
+                        Weeded
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Item.Sprayed">
+                        Sprayed
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Item.BlewOff">
+                        Blew Off
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <input id="comments" type="text" autocomplete="off" class="form-control" ng-model="Item.Comments" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,23 +1,34 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using CMS.Mappers;
 using CMS.Models;
+using Greenscapes.Data.DataContext;
+using Greenscapes.Data.Repositories;
 
 namespace CMS.Controllers
 {
     [RoutePrefix("api/employees")]
     public class EmployeesController : ApiController
     {
-        private readonly CmsContext db = new CmsContext();
+        private readonly EmployeeRepository db = new EmployeeRepository();
+        private readonly CmsContext context = new CmsContext();
 
         // GET: api/Employees
         [Route("")]
-        public IQueryable<Employee> GetEmployees()
+        public IEnumerable<EmployeeViewModel> GetEmployees()
         {
-            return db.Employees;
+            var employees = db.GetEmployees().MapTo<List<EmployeeViewModel>>();
+            foreach (var employee in employees)
+            {
+                employee.InCrew = context.CrewMembers.Any(c => c.EmployeeId == employee.Id);
+            }
+
+            return employees;
         }
 
         // GET: api/Employees/5
@@ -25,7 +36,7 @@ namespace CMS.Controllers
         [ResponseType(typeof(Employee))]
         public IHttpActionResult GetEmployee(int id)
         {
-            var employee = db.Employees.Find(id);
+            var employee = db.GetEmployee(id).MapTo<EmployeeViewModel>();
             if (employee == null)
             {
                 return NotFound();
@@ -37,7 +48,7 @@ namespace CMS.Controllers
         // PUT: api/Employees/5
         [Route("{id:int}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEmployee(int id, Employee employee)
+        public IHttpActionResult PutEmployee(int id, EmployeeViewModel employee)
         {
             if (!ModelState.IsValid)
             {
@@ -49,74 +60,49 @@ namespace CMS.Controllers
                 return BadRequest();
             }
 
-            var originalEmployee = db.Employees.Find(id);
-            var originalEntry = db.Entry(originalEmployee);
-            originalEntry.CurrentValues.SetValues(employee);
+            db.UpdateEmployee(employee.MapTo<Employee>());
 
-            foreach (var missing in originalEmployee.CrewTypes.Where(c => employee.CrewTypes.All(ec => ec.Id != c.Id)).ToList())
-            {
-                originalEmployee.CrewTypes.Remove(missing);
-            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
-            foreach (var newlyAdded in employee.CrewTypes.Where(c => originalEmployee.CrewTypes.All(ec => ec.Id != c.Id)).ToList())
-            {
-                db.Set<CrewType>().Attach(newlyAdded);
-                originalEmployee.CrewTypes.Add(newlyAdded);
-            }
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmployeeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        [Route("{id:int}/crews")]
+        [HttpPut]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutEmployeeCrews(int id, List<int> crewIds)
+        {
+            db.UpdateEmployeeCrews(id, crewIds);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Employees
         [Route("")]
-        [ResponseType(typeof(Employee))]
-        public IHttpActionResult PostEmployee(Employee employee)
+        [ResponseType(typeof(EmployeeViewModel))]
+        public IHttpActionResult PostEmployee(EmployeeViewModel employee)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Set<Employee>().Attach(employee);
-            employee.CrewTypes.ToList().ForEach(c => db.Set<CrewType>().Attach(c));
 
-            db.Employees.Add(employee);
-            db.SaveChanges();
-
+            var id = db.UpdateEmployee(employee.MapTo<Employee>());
+            employee.Id = id;
             return Ok(employee);
         }
 
         // DELETE: api/Employees/5
         [Route("{id:int}")]
-        [ResponseType(typeof(Employee))]
+        [ResponseType(typeof(void))]
         public IHttpActionResult DeleteEmployee(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            var success = db.DeleteEmployee(id);
+            if (!success)
             {
                 return NotFound();
             }
 
-            db.Employees.Remove(employee);
-            db.SaveChanges();
-
-            return Ok(employee);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -126,11 +112,6 @@ namespace CMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool EmployeeExists(int id)
-        {
-            return db.Employees.Count(e => e.Id == id) > 0;
         }
     }
 }

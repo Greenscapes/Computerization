@@ -1,72 +1,88 @@
-﻿function PropertyCreateController($scope, $resource, $location) {
-    var propertiesResource = $resource('/api/properties');
+﻿(function (angular) {
+    'use strict';
 
-    $scope.property = {};
-  
-    $scope.property.State = "FL"
-    $scope.save = function(property) {
-        $scope.buttonsDisabled = true;
-       
-        propertiesResource.save(property, function () {
-           
-            $scope.buttonsDisabled = false;
-                $scope.back();
-            },
-            function(error) {
-                _showValidationErrors($scope, error)
-                $scope.buttonsDisabled = false;
-            },
+    var controllerId = 'PropertyCreateController';
 
-            function () {
-                $scope.buttonsDisabled = false;
+    angular.module('cmsApp').controller(controllerId,
+        [
+            'propertyService', 'customerService', 'cityService', 'alertService', '$location',
+            function (propertyService, customerService, cityService, alertService, $location) {
+
+                var vm = this;
+
+                vm.property = {};
+                vm.customers = {};
+                vm.cities = {};
+                vm.buttonsDisabled = false;
+                vm.isUpdate = false;
+
+                vm.save = save;
+                vm.back = back;
+
+                activate();
+
+                function activate() {
+                    customerService.getCustomers().then(function(data) {
+                        vm.customers = data;
+                    });
+
+                    cityService.getCities()
+                        .then(function(data) {
+                            vm.cities = data;
+                        });
+
+                    propertyService.getNextReference().then(function (data) {
+                        vm.property.PropertyRefNumber = data;
+                    });
+
+                    vm.property.State = "FL";
+                }
+
+                function save() {
+                    vm.buttonsDisabled = true;
+
+                    propertyService.createProperty(vm.property).then(function () {
+                        vm.buttonsDisabled = false;
+                        vm.back();
+                    }, function (error) {
+                        alertService.error("Could not add property: " + error);
+                        vm.buttonsDisabled = false;
+                    });
+                };
+
+                function back() {
+                    if ( vm.property.PropertyType == undefined )
+                    {
+                        $location.path( "/properties/type/1" );
+                    }
+                    else{
+                        $location.path( "/properties/type/" + vm.property.PropertyType );
+                    }
+                };
+
+                angular.element(document).ready(function () {
+                    $('#datetimepicker').datepicker({
+                    }
+
+                    );
+                    var d = new Date();
+
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+                    var year = d.getFullYear();
+
+                    var output =
+                    (month < 10 ? '0' : '') + month + '/' +
+                    (day < 10 ? '0' : '') + day + '/' + year;
+
+                    $("#datetimepicker").val(output);
+
+                    $('#datetimepicker').on('changeDate', function (ev) {
+                        ('#datetimepicker').valueOf(ev.target.value);
+                        vm.property.ContractDate = ev.target.value;
+                    });
+                });
             }
-            );
-    };
-    
-    $scope.back = function() {
-        $location.path("/properties");
-        if (!$scope.$$phase) $scope.$apply();
-    };
-
-    function _showValidationErrors($scope,error)
-    {
-        $scope.validationErrors = [];
-        if (error.data && angular.isObject(error.data)) {
-            for (var key in error.data);
-            $scope.validationErrors.push(error.data[key]);
-        }
-        else {
-            $scope.validationErrors.push("Could not add property");
-
-        }
-    };
-    
-    $(document).ready(function () {
-        $('#datetimepicker').datepicker({
-            format: 'mm-dd-yyyy',
-
-
-        }
-
-        );
-        var d = new Date();
-
-        var month = d.getMonth() + 1;
-        var day = d.getDate();
-
-        var output = d.getFullYear() + '/' +
-        (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day;
-
-        $("#datetimepicker").val(output + " 00:01:00");
-
-        $('#datetimepicker').on('changeDate', function (ev) {
-            ('#datetimepicker').valueOf(ev.target.value);
-            $scope.property.ContractDate = ev.target.value;
-        });
-    });
-    }
-
-
-PropertyCreateController.$inject = ['$scope', '$resource', '$location'];
-app.controller('PropertyCreateController', PropertyCreateController);
+        ]
+    );
+})(angular);

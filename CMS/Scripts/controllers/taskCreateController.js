@@ -1,24 +1,31 @@
-﻿function TaskCreateController($scope, $resource, $routeParams, $location) {
+﻿function TaskCreateController($scope, $resource, $routeParams, $location, alertService) {
     var taskListResource = $resource('/api/tasklists/:taskListId',
     {
         taskListId: $routeParams.taskListId
     });
+    var propertyResource = $resource('/api/properties/:propertyId');
     var tasksResource = $resource( '/api/tasks' );
+    var locationsResource = $resource('/api/tasks/locations/:propertyId');
 
     var eventschedulesResource = $resource( '/api/eventschedules' );
-  
+    var taskTemplateResource = $resource('/api/taskTemplates/');
+
+    $scope.taskTemplates = taskTemplateResource.query({});
 
     $scope.task = {};
-    $scope.taskList = taskListResource.get({}, function() {
+    $scope.selectedTemplate = {};
+    $scope.property = propertyResource.get({ propertyId: $routeParams.propertyId });
+    $scope.locations = locationsResource.query({ propertyId: $routeParams.propertyId });
+    $scope.taskList = taskListResource.get({}, function () {
         $scope.task.PropertyTaskDetails = [];
-        for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
-            var newTaskDetail = {
-                PropertyTaskHeaderId: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id,
-                HeaderName: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name
-            };
+        //for (var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++) {
+        //    var newTaskDetail = {
+        //        PropertyTaskHeaderId: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id,
+        //        HeaderName: $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name
+        //    };
 
-            $scope.task.PropertyTaskDetails.push(newTaskDetail);
-        }
+        //    $scope.task.PropertyTaskDetails.push(newTaskDetail);
+        //}
         if (!$scope.$$phase) $scope.$apply();
     } );
     $scope.task.EventSchedules = [];
@@ -29,32 +36,54 @@
 
         $scope.save = function(task) {
             $scope.buttonsDisabled = true;
-            var scheduler = $( "#taskCreatescheduler" ).data( "kendoScheduler" );
-            SetEventSchedules( scheduler._data )
-            task.PropertyTaskListId = $routeParams.taskListId;
-            task.crews = [];
-            for ( var i = 0; i < $scope.crews.length; i++ ) {
-                if ( $scope.crews[i].checked ) {
-                    delete $scope.crews[i].checked;
-                    task.crews.push( $scope.crews[i] );
-                }
+
+            task.EstimatedDuration = task.Hours * 60 + task.Minutes;
+
+            if (!task.EstimatedDuration || !task.Description) {
+                alertService.error('You must enter a description and estimated duration');
+                $scope.buttonsDisabled = false;
+                return;
             }
+
+            //var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+            //SetEventSchedules( scheduler._data )
+            task.PropertyTaskListId = $routeParams.taskListId;
+            //task.crews = [];
+            //for ( var i = 0; i < $scope.crews.length; i++ ) {
+            //    if ( $scope.crews[i].checked ) {
+            //        delete $scope.crews[i].checked;
+            //        task.crews.push( $scope.crews[i] );
+            //    }
+            //}
           
             var response = tasksResource.save(task, function() {
                 $scope.buttonsDisabled = false;
-                $scope.back();
-                if (!$scope.$$phase) $scope.$apply();
-            },
+                $scope.task.Description = '';
+                $scope.task.EstimatedDuration = '';
+                $scope.task.Notes = '';
+
+                $scope.locations = locationsResource.query({ propertyId: $routeParams.propertyId });
+                    //  $scope.back();
+                    //  if (!$scope.$$phase) $scope.$apply();
+                },
                 function() {
                     $scope.buttonsDisabled = false;
                 });
       
             $scope.back = function() {
-                $location.path("/properties/" + $routeParams.propertyId + "/tasklists/" + $routeParams.taskListId);
+                $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
                 if (!$scope.$$phase) $scope.$apply();
             };
         }
 
+        $scope.templateSelected = function() {
+            if ($scope.selectedTemplate) {
+                $scope.task.Description = $scope.selectedTemplate.Description;
+                $scope.task.EstimatedDuration = $scope.selectedTemplate.EstimatedDuration;
+                $scope.task.Notes = $scope.selectedTemplate.Notes;
+                $scope.task.IsFreeService = false;//$scope.selectedTemplate.IsFreeService;
+            }
+        }
       
         var scheduler = $( "#taskCreatescheduler" ).kendoScheduler( {
             date: new Date( ),
@@ -126,5 +155,5 @@
 
     }
  
-TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
+TaskCreateController.$inject = ['$scope', '$resource', '$routeParams', '$location', 'alertService'];
 app.controller('TaskCreateController', TaskCreateController);

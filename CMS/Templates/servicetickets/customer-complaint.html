@@ -1,0 +1,38 @@
+﻿
+<h3>People Seen During Visit</h3>
+
+<div class="form-group">
+    <label for="meetAnyone">Did you meet with anyone from the property - yes or no?</label>
+    <select id="meetAnyone" class="form-control" ng-model="serviceTicket.Fields.MeetAnyone">
+        <option value="">- Select Y/N -</option>
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="checkCustomerRecord">Did you check customer record with them and update - yes or no?</label>
+    <select id="checkCustomerRecord" class="form-control" ng-model="serviceTicket.Fields.CheckCustomerRecord">
+        <option value="">- Select Y/N -</option>
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="complaint">Note of Complaint(s)</label>
+    <textarea id="complaint" class="form-control" rows="10" ng-model="serviceTicket.Fields.Complaint"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="promised">Note of of What We Told or Promised Customer</label>
+    <textarea id="promised" class="form-control" rows="10" ng-model="serviceTicket.Fields.Promised"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="action">Action</label>
+    <p class="help-block">
+        (Wht needs to be done? By when? Is there any charge to be made to the customer?)
+    </p>
+    <textarea id="action" class="form-control" rows="10" ng-model="serviceTicket.Fields.Action"></textarea>
+</div>

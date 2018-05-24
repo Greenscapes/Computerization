@@ -1,0 +1,95 @@
+﻿<div class="form-group">
+    <label for="clockReference">Clock reference</label>
+    <input id="clockReference" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.ClockReference" required>
+</div>
+
+<h3>Zones Inspected</h3>
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-1 text-center">Zone No</th>
+        <th class="col-md-1 text-center">Position</th>
+        <th class="col-md-1 text-center">Adjusted Timer</th>
+        <th class="col-md-1 text-center">Fixtures Adjusted</th>
+        <th class="col-md-1 text-center">LED Bulbs Changed</th>
+        <th class="col-md-1 text-center">Halogen Bulbs Changed</th>
+        <th class="col-md-2 text-center">Minor Repairs</th>
+        <th class="col-md-2 text-center">Major Repairs</th>
+        <th class="col-md-2"></th>
+    </tr>
+    <tr ng-repeat="zone in serviceTicket.Fields.Zones">
+        <td class="text-center">{{zone.ZoneNumber}}</td>
+        <td class="text-center">{{zone.ZonePosition}}</td>
+        <td class="text-center">{{zone.AdjustedTimer}}</td>
+        <td class="text-center">{{zone.FixturesAdjusted}}</td>
+        <td class="text-center">{{zone.LEDChanged}}</td>
+        <td class="text-center">{{zone.HalogenChanged}}</td>
+        <td class="text-center">{{zone.MinorRepairs}}</td>
+        <td class="text-center">{{zone.MajorRepairs}}</td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.Zones, zone)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(zone)" class="btn pull-right" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+</table>
+<button ng-click="addItem(serviceTicket.Fields.Zones, serviceTicket.Fields.DefaultZones)" data-toggle="modal" data-target="#modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Zone</button>
+<br />
+<br />
+
+<div id="modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Zone</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="zoneNumber">Zone No</label>
+                    <input id="zoneNumber" type="number" class="form-control" ng-model="Item.ZoneNumber" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="zonePosition">Zone Position</label>
+                    <input id="zonePosition" type="text" class="form-control" ng-model="Item.ZonePosition" required>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Item.AdjustedTimer">
+                        <b>Adjusted timer - yes/no?</b>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="fixturesAdjusted">No of fixtures adjusted</label>
+                    <input id="fixturesAdjusted" type="number" class="form-control" ng-model="Item.FixturesAdjusted" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ledChanged">No of LED bulbs changed</label>
+                    <input id="ledChanged" type="number" class="form-control" ng-model="Item.LEDChanged" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="halogenChanged">No of Halogen bulbs changed</label>
+                    <input id="halogenChanged" type="number" class="form-control" ng-model="Item.HalogenChanged" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="minorRepairs">Other minor repairs completed</label>
+                    <input id="minorRepairs" type="text" class="form-control" ng-model="Item.MinorRepairs" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="majorRepairs">Major repairs needed - details</label>
+                    <input id="majorRepairs" type="text" class="form-control" ng-model="Item.MajorRepairs" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

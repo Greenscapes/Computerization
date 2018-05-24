@@ -1,0 +1,106 @@
+﻿<br />
+<h2>{{serviceTicket.TemplateName}}</h2>
+
+<p>
+    {{serviceTicket.PropertyName}}<br />
+    {{serviceTicket.Address1}}<br/>
+    <span ng-if="serviceTicket.Address2">{{serviceTicket.Address2}}<br /></span>
+    {{serviceTicket.City}}, {{serviceTicket.State}} {{serviceTicket.Zip}}
+</p>
+<p>
+    Customer: {{serviceTicket.CustomerName}}<br />
+    Access Details: {{serviceTicket.AccessDetails}}
+</p>
+<form role="form" novalidate>
+
+    <div class="form-group">
+        <label for="referenceNumber">AS/SB/RM No</label>
+        <input id="referenceNumber" type="text" class="form-control" autocomplete="off" placeholder="Reference Number" ng-disabled="buttonsDisabled" ng-model="serviceTicket.ReferenceNumber">
+    </div>
+
+    <div class="form-group">
+        <label for="visit-date">Date of Visit</label>
+        <input id="visit-date" type="date" class="form-control" ng-model="serviceTicket.FromTime" ng-disabled="buttonsDisabled">
+    </div>
+
+    <div class="form-group">
+        <b>From Time: </b> 
+        <input id="fromTime" type="time" class="form-control" ng-model="serviceTicket.FromTime" disabled>
+    </div>
+
+    <div class="form-group">
+        <label for="toTime">To Time</label>
+        <input id="toTime" type="time" class="form-control" ng-model="serviceTicket.ToTime" disabled>
+    </div>
+
+    <label for="toTime">GreenScapes Staff</label>
+    <i>
+        <input type="radio" name="employee" ng-model="serviceTicket.ShowAllEmployees" ng-value="false"> View Crew Employees
+        <input type="radio" name="employee" ng-model="serviceTicket.ShowAllEmployees" ng-value="true"> View All Employees<br>
+    </i>
+
+    <div class="checkbox" ng-repeat="employee in serviceTicket.Members | filter: showEmployee">
+        <label>
+            <input type="checkbox" ng-model="employee.Selected">
+            {{employee.FirstName}} {{employee.LastName}}
+        </label>
+    </div>
+
+    <div ng-if="!serviceTicket.TemplateUseTasks" ng-include="serviceTicket.TemplateUrl"></div>
+
+    <table class="table table-striped">
+        <tr>
+            <th class="col-md-2 text-center">Location</th>
+            <th class="col-md-2">Task</th>
+            <th class="col-md-2 text-center">Completed Yes/No</th>
+            <th class="col-md-6 text-center">Comment</th>
+        </tr>
+        <tr ng-repeat="task in serviceTicket.Fields.Tasks">
+            <td>{{task.Location}}</td>
+            <td>{{task.Description}}</td>
+            <td class="text-center">
+                <input type="checkbox" ng-model="task.Completed">
+            </td>
+            <td>
+                <input id="comment" type="text" class="form-control" autocomplete="off" ng-model="task.Comment">
+            </td>
+        </tr>
+    </table>
+    
+    <div class="form-group">
+        <label for="notCompleted">If not all tasks were completed, why not</label>
+        <textarea id="notCompleted" class="form-control" rows="10" ng-model="serviceTicket.WhyNotCompleted"></textarea>
+    </div>
+
+    <div class="form-group" ng-hide="serviceTicket.ServiceTemplateId == 17 || serviceTicket.ServiceTemplateId == 6 || serviceTicket.ServiceTemplateId == 20
+         || serviceTicket.ServiceTemplateId == 21">
+        <label for="notes">Notes</label>
+        <p class="help-block">
+            (including any conversations with the customers and any problems observed)
+        </p>
+        <textarea id="notes" class="form-control" rows="10" ng-model="serviceTicket.Notes"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="condition">Overall Condition of Landscape</label>
+        <p class="help-block">
+            Rank the overall condition of the landscape on a scale of 0 to 5
+            (where 0 is terrible and 5 is perfect) taking into account all aspects of the landscape
+        </p>
+        <select id="condition" class="form-control" ng-model="serviceTicket.Condition" required>
+            <option value=null>- Select Condition -</option>
+            <option value=0>0 - terrible</option>
+            <option value=1>1 - poor</option>
+            <option value=2>2 - okay</option>
+            <option value=3>3 - good</option>
+            <option value=4>4 - great</option>
+            <option value=5>5 - perfect</option>
+        </select>
+    </div>
+
+    <p>
+        <button class="btn btn-success" ng-click="save()" ng-disabled="buttonsDisabled">Save</button>
+        <button class="btn btn-success left-margin" ng-click="approve()" ng-show="isApprove" ng-disabled="buttonsDisabled">Approve</button>
+    </p>
+
+</form>

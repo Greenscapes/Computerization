@@ -1,83 +1,51 @@
-﻿function EmployeeDetailController($scope, $resource, $routeParams, $location) {
+﻿function EmployeeDetailController($scope, $resource, $routeParams, $location, $http) {
     var employeesResource = $resource('/api/employees/:employeeId',
     { employeeId: $routeParams.employeeId },
     {
-        'update': { method: 'PUT' }
+        'update': { method: 'PUT' },
+        'delete': { method: 'DELETE' }
     });
-    var crewTypesResource = $resource('/api/types/crewlists');
-    var eventschedulesResource = $resource( '/api/eventschedules/:employeeId/events',
-    { employeeId: $routeParams.employeeId },
-    {
-          
-    });
-  
-    $scope.employee = employeesResource.get( {}, function () {
-        
-        $scope.crewTypes = crewTypesResource.query( function () {
-            for ( var i = 0; i < $scope.crewTypes.length; i++ ) {
-                for ( var j = 0; j < $scope.employee.CrewTypes.length; j++ ) {
-                    if ( $scope.crewTypes[i].Id === $scope.employee.CrewTypes[j].Id ) {
-                        $scope.crewTypes[i].checked = true;
+    var crewsResource = $resource('/api/crews');
+    var crewMembersResource = $resource('/api/employee/:employeeId/members',
+    { employeeId: $routeParams.employeeId });
+
+    var skillsResource = $resource('/api/types/employeeskills');
+    //var eventschedulesResource = $resource( '/api/eventschedules/:employeeId/events',
+    //{ employeeId: $routeParams.employeeId },
+    //{
+
+    //});
+
+    $scope.employee = employeesResource.get({}, function () {
+
+        $scope.employeeSkills = skillsResource.query(function () {
+            for (var i = 0; i < $scope.employeeSkills.length; i++) {
+                for (var j = 0; j < $scope.employee.EmployeeSkills.length; j++) {
+                    if ($scope.employeeSkills[i].Id === $scope.employee.EmployeeSkills[j].Id) {
+                        $scope.employeeSkills[i].checked = true;
                         break;
                     }
                 }
             }
 
-        } );
+        });
+        $scope.crews = crewsResource.query({}, function () {
+            var crewMembers = crewMembersResource.query(function () {
+                for (var i = 0; i < $scope.crews.length; i++) {
+                    for (var j = 0; j < crewMembers.length; j++) {
+                        if ($scope.crews[i].Id === crewMembers[j].CrewId) {
+                            $scope.crews[i].checked = true;
+                            break;
+                        }
+                    }
+                }
+            });
+        });
+
         $scope.empEvents = [];
-        $scope.eventlist = eventschedulesResource.query( {}, function () {
 
-            $scope.empEvents;
-            GetEvents( $scope.eventlist );
-            loadEvents();
+    });
 
-        } );
-       
-    } );
-    
- 
-    function GetEvents( data ) {
-        for ( var i = 0; i < data.length; i++ ) {
-
-            var event = data[i];
-            var newEvent = new Object( {
-                taskId: event.Id,
-                start: new Date( event.StartTime.toString() ),
-                end: new Date( event.EndTime.toString() ),
-                title: event.Title,
-                isAllDay: event.IsAllDay,
-                startTimezone: event.StartTimezone,
-                endTimezone: event.EndTimezone,
-                description: event.Description,
-                recurrenceId: event.RecurrenceID,
-                recurrenceRule: event.RecurrenceRule,
-                recurrenceException: event.RecurrenceException
-
-            } );
-            $scope.empEvents.push( newEvent );
-
-            // $( "#scheduler" ).data( "kendoScheduler" ).addEvent( newEvent );
-        }
-
-    }
-
-    function loadEvents() {
-        var scheduler = $( "#scheduler" ).kendoScheduler( {
-            date: new Date(),
-            startTime: new Date(),
-            height: 600,
-            editable: false,
-            views: [
-                "day",
-                { type: "workWeek", selected: true },
-                "week",
-                "month",
-            ],
-            dataSource: $scope.empEvents,
-        } ).data( "kendoScheduler" );
-    }
-
-    
     $scope.buttonsDisabled = false;
 
     $scope.back = function () {
@@ -85,25 +53,52 @@
         if (!$scope.$$phase) $scope.$apply();
     };
 
-    $scope.update = function(employee) {
+    $scope.update = function (employee) {
         $scope.buttonsDisabled = true;
-        employee.CrewTypes = [];
+        employee.EmployeeSkills = [];
+        var crewIds = [];
 
-        for (var i = 0; i < $scope.crewTypes.length; i++) {
-            if ($scope.crewTypes[i].checked) {
-                delete $scope.crewTypes[i].checked;
-                employee.CrewTypes.push($scope.crewTypes[i]);
+        for (var i = 0; i < $scope.employeeSkills.length; i++) {
+            if ($scope.employeeSkills[i].checked) {
+                delete $scope.employeeSkills[i].checked;
+                employee.EmployeeSkills.push($scope.employeeSkills[i]);
             }
         }
 
-        employeesResource.update({ employeeId: employee.Id }, employee, function() {
-                $scope.buttonsDisabled = false;
-                $scope.back();
-            },
-            function() {
+        for (var i = 0; i < $scope.crews.length; i++) {
+            if ($scope.crews[i].checked) {
+                delete $scope.crews[i].checked;
+                crewIds.push($scope.crews[i].Id);
+            }
+        }
+
+        employeesResource.update({ employeeId: employee.Id }, employee, function () {
+            $http.put('/api/employees/' + employee.Id + "/crews", crewIds)
+                .success(function (data) {
+                    $scope.buttonsDisabled = false;
+                    $scope.back();
+                });
+        },
+            function () {
                 $scope.buttonsDisabled = false;
             });
     };
+
+    $scope.delete = function (employee) {
+        if (!confirm('Are you sure you want to delete this employee')) {
+            return;
+        }
+
+        $scope.buttonsDisabled = true;
+
+        employeesResource.delete({ employeeId: employee.Id }, employee, function () {
+            $scope.buttonsDisabled = false;
+            $scope.back();
+        },
+           function () {
+               $scope.buttonsDisabled = false;
+           });
+    }
 
     $scope.formatName = function (employee) {
         var name = employee.FirstName;
@@ -118,5 +113,5 @@
     };
 };
 
-EmployeeDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location'];
+EmployeeDetailController.$inject = ['$scope', '$resource', '$routeParams', '$location', '$http'];
 app.controller('EmployeeDetailController', EmployeeDetailController);

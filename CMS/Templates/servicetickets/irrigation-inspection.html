@@ -1,0 +1,189 @@
+﻿<div class="form-group">
+    <label for="clockReference">Clock reference</label>
+    <input id="clockReference" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.ClockReference" required>
+</div>
+
+<div class="form-group">
+    <label for="controllerInspection">Inspection of Controller</label>
+    <input id="controllerInspection" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.ControllerInspection" required>
+</div>
+
+<div class="form-group">
+    <label for="inhibitInspection">Inspection of System to Inhibit When Sufficient Moisture, e.g. rain sensor System present? Working? Fixable if not working?</label>
+    <input id="inhibitInspection" type="text" autocomplete="off" class="form-control" ng-model="serviceTicket.Fields.InhibitInspection" required>
+</div>
+
+<h3>Repairs Carried Out Under Contract During Visit (Not Chargeable)</h3>
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-1 text-center">Zone No</th>
+        <th class="col-md-3 text-center" text-center ng-repeat="repair in serviceTicket.Fields.DefaultNoCharge.Repairs">{{repair.Name}}</th>
+        <th class="col-md-2"></th>
+    </tr>
+    <tr ng-repeat="zone in serviceTicket.Fields.NoCharges">
+        <td class="text-center">{{zone.ZoneNumber}}</td>
+        <td class="text-center" ng-repeat="repair in zone.Repairs">
+            <span class="glyphicon glyphicon-ok" ng-show="repair.Value">&nbsp;</span>
+        </td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.NoCharges, zone)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(zone)" class="btn pull-right" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+</table>
+<button ng-click="addItem(serviceTicket.Fields.NoCharges, serviceTicket.Fields.DefaultNoCharge)" data-toggle="modal" data-target="#modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Zone</button>
+<br />
+<br />
+
+<h3>Repairs Carried Out Under Pre-Agreed Limit During Visit (Chargeable)</h3>
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-1 text-center">Zone No</th>
+        <th class="col-md-2 text-center" text-center ng-repeat="repair in serviceTicket.Fields.DefaultCharge.Repairs">{{repair.Name}}</th>
+        <th class="col-md-3"></th>
+    </tr>
+    <tr ng-repeat="zone in serviceTicket.Fields.Charges">
+
+        <td class="text-center">{{zone.ZoneNumber}}</td>
+        <td class="text-center" ng-repeat="repair in zone.Repairs">
+            {{repair.Value}}
+        </td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.Charges, zone)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(zone)" class="btn pull-right" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+</table>
+<button ng-click="addItem(serviceTicket.Fields.Charges, serviceTicket.Fields.DefaultCharge)" data-toggle="modal" data-target="#chargeModal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Zone</button>
+<br />
+<br />
+
+<div id="modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Zone</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="zoneNumber">Zone No</label>
+                    <input id="zoneNumber" type="number" class="form-control" ng-model="Item.ZoneNumber" required>
+                </div>
+                
+                <div class="checkbox" ng-repeat="repair in Item.Repairs">
+                    <label>
+                        <input type="checkbox" ng-model="repair.Value">
+                        {{repair.Name}}
+                    </label>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chargeModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Zone</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="zoneNumber">Zone No</label>
+                    <input id="zoneNumber" type="number" class="form-control" ng-model="Item.ZoneNumber" required>
+                </div>
+                
+                <div class="form-group" ng-repeat="repair in Item.Repairs">
+                    <label>{{repair.Name}}</label>
+                    <input type="number" class="form-control" ng-model="repair.Value">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Parts Used in Carrying Out Repairs Under Pre-Agreed Limit (Chargeable)</h3>
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-9">Part</th>
+        <th class="col-md-1 text-right">Charge $</th>
+        <th class="col-md-2"></th>
+    </tr>
+    <tr ng-repeat="part in serviceTicket.Fields.Parts">
+
+        <td>{{part.Name}}</td>
+        <td class="text-right">{{part.Charge  | currency}}</td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.Parts, part)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(part)" class="btn pull-right" data-toggle="modal" data-target="#part-modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{getTotal(serviceTicket.Fields.Parts) | currency}}</td>
+        <td></td>
+    </tr>
+</table>
+
+<button ng-click="addItem(serviceTicket.Fields.Parts, serviceTicket.Fields.DefaultPart)" data-toggle="modal" data-target="#part-modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Part</button>
+<br />
+<br />
+<div id="part-modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Part</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="part-name">Part Used</label>
+                    <input id="part-name" type="text" autocomplete="off" class="form-control" ng-model="Item.Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="part-charge">Charge $</label>
+                    <input id="part-charge" type="number" step="any" class="form-control" ng-model="Item.Charge" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Additional Repairs Needed - Need to Seek Customer Approval (Give Details)</h3>
+
+<div class="form-group">
+    <label for="pipeBroken">Break in Pipe Over 2'' or needs excavation</label>
+    <input id="pipeBroken" type="text" class="form-control" autocomplete="off" ng-model="serviceTicket.Fields.PipeBroken">
+</div>
+
+<div class="form-group">
+    <label for="valveNotOperating">Valve Not Operating</label>
+    <input id="valveNotOperating" type="text" class="form-control" autocomplete="off" ng-model="serviceTicket.Fields.ValveNotOperating">
+</div>
+
+<div class="form-group">
+    <label for="headRelocate">Head Needs Relocating</label>
+    <input id="headRelocate" type="text" class="form-control" autocomplete="off" ng-model="serviceTicket.Fields.HeadRelocate">
+</div>
+
+<div class="form-group">
+    <label for="other">Other</label>
+    <input id="other" type="text" class="form-control" autocomplete="off" ng-model="serviceTicket.Fields.Other">
+</div>

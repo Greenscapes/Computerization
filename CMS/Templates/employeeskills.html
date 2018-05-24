@@ -1,0 +1,23 @@
+﻿<div class="container">
+   
+    <div class="col-md-6">
+        <h2>Skills</h2>
+        <p>
+            <button type="button" class="btn btn-primary" ng-click="newEmployeeSkill()">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Skill
+            </button>
+        </p>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr ng-repeat="skill in skills | orderBy:'DisplayOrder'">
+                <td><a ng-href="#/types/employeeskills/{{skill.Id}}">{{skill.Name}}</a></td>
+                <td>{{skill.Description}}</td>
+                <td><a ng-click="moveUp(skill)"><span class="glyphicon glyphicon-arrow-up"></span></a></td>
+                <td><a ng-click="moveDown(skill)"><span class="glyphicon glyphicon-arrow-down"></span></a></td>
+            </tr>
+        </table>
+    </div>
+</div>

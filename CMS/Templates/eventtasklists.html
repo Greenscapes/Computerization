@@ -1,0 +1,40 @@
+﻿<br/>
+<p>
+    <button class="btn btn-xs" ng-click="back()" ng-disabled="buttonsDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Property
+    </button>
+</p>
+<h2>Assign Event Task List</h2>
+<p>
+    Property Name: {{property.Name}}<br />
+    Description: {{task.Description}}<br />
+    Location: {{task.Location}}<br/>
+    Crew: <span ng-repeat="crew in task.Crews">{{crew.Name}} </span>
+</p>
+<form>
+
+    <h3 ng-show="eventTaskLists.length > 0">Available Event Task Lists</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Schedule</th>
+        </tr>
+        <tr ng-repeat="eventTaskList in eventTaskLists">
+            <td>
+                <input type="checkbox" ng-model="eventTaskList.checked" ng-disabled="buttonsDisabled"/>
+                <a href="#/properties/{{property.Id}}/schedule/{{eventTaskList.Id}}">{{eventTaskList.Name}}</a>
+            </td>
+            <td>
+                Mondays at 9:00am
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-success" ng-href="#/properties/{{property.Id}}/tasks/{{task.Id}}/schedule/new" ng-disabled="buttonsDisabled">Create new Event Task List</a>
+    <!--<div id="EventScheduler">
+        <div id="scheduler"></div>
+    </div>
+    <br />
+    <br />
+    <br />-->
+    <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
+</form>

@@ -1,0 +1,80 @@
+﻿
+<p class="help-block">
+    Number of trees treated: {{serviceTicket.Fields.Trees.length}}
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th class="col-md-2">Tree</th>
+        <th class="col-md-2">Type</th>
+        <th class="col-md-3">Precise Location</th>
+        <th class="col-md-2 text-center">Chemical Injected</th>
+        <th class="col-md-1">Amount</th>
+        <th class="col-md-2"></th>
+    </tr>
+    <tr ng-repeat="tree in serviceTicket.Fields.Trees">
+
+        <td>{{tree.Kind}}</td>
+        <td>{{tree.Type}}</td>
+        <td>{{tree.Location}}</td>
+        <td class="text-center">
+            <span class="glyphicon glyphicon-ok" ng-show="tree.ChemicalInjected">&nbsp;</span>
+
+        </td>
+        <td>{{tree.ChemicalAmount}}</td>
+        <td>
+            <a ng-click="removeItem(serviceTicket.Fields.Trees, tree)" class="btn pull-right"><span class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="selectItem(tree)" class="btn pull-right" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </td>
+    </tr>
+</table>
+
+<button ng-click="addItem(serviceTicket.Fields.Trees, serviceTicket.Fields.DefaultTree)" data-toggle="modal" data-target="#modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Tree</button>
+<br />
+<br />
+<div id="modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Tree</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="kind">Tree or Palm?</label>
+                    <br />
+                    <select id="kind" ng-model="Item.Kind" required>
+                        <option></option>
+                        <option>Palm</option>
+                        <option>Tree</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type of Tree or Palm</label>
+                    <input id="type" type="text" autocomplete="off" class="form-control" ng-model="Item.Type" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Percise Location</label>
+                    <input id="location" type="text" autocomplete="off" class="form-control" ng-model="Item.Location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inject">Chemical Injected</label>
+                    <input id="inject" type="text" autocomplete="off" class="form-control" ng-model="Item.ChemicalInjected" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="chemicalAmount">Amount of Chemical Injected</label>
+                    <input id="chemicalAmount" type="number" class="form-control" ng-model="Item.ChemicalAmount" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-disabled="modalForm$invalid">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

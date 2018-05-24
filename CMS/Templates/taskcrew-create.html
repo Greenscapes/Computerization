@@ -1,0 +1,33 @@
+﻿<br />
+<h2>Assign Crew to Task</h2>
+<p>
+    Property Name: {{property.Name}}<br/>
+    Description: {{task.Description}}<br/>
+    Location: {{task.Location}}
+</p>
+<form>
+    
+    <h3 ng-show="crews.length > 0">Assignable Crews</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <td>View Routes</td>
+        </tr>
+        <tr ng-repeat="crew in crews">
+            <td>
+                <input type="checkbox" ng-model="crew.checked" ng-disabled="buttonsDisabled" />
+                <a ng-href="#/crews/{{crew.Id}}">{{crew.Name}}</a>
+            </td>
+            <td>
+                <a ng-href="#/properties/1/crew/{{crew.Id}}/route/1">Monday</a> | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+            </td>
+        </tr>
+    </table>
+    <!--<div id="EventScheduler">
+        <div id="scheduler"></div>
+    </div>
+    <br />
+    <br />
+    <br />-->
+    <button type="submit" class="btn btn-success" ng-click="update(task)" ng-disabled="buttonsDisabled">Save</button>
+</form>

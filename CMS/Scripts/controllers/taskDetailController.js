@@ -16,31 +16,34 @@
     
     $scope.task = taskResource.get( { taskId: $routeParams.taskId }, function () {
 
+        $scope.task.Hours = Math.floor($scope.task.EstimatedDuration / 60);
+        $scope.task.Minutes = $scope.task.EstimatedDuration % 60;
+
         $scope.crews = crewsResource.query( function () {
-            for ( var i = 0; i < $scope.crews.length; i++ ) {
-                for ( var j = 0; j < $scope.task.Crews.length; j++ ) {
-                    if ( $scope.crews[i].Id === $scope.task.Crews[j].Id ) {
-                        $scope.crews[i].checked = true;
-                        break;
-                    }
-                }
-            }
+            //for ( var i = 0; i < $scope.crews.length; i++ ) {
+            //    for ( var j = 0; j < $scope.task.Crews.length; j++ ) {
+            //        if ( $scope.crews[i].Id === $scope.task.Crews[j].Id ) {
+            //            $scope.crews[i].checked = true;
+            //            break;
+            //        }
+            //    }
+            //}
         } );
 
         $scope.taskList = taskListResource.get({}, function () {
-            for ( var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++ ) {
-                for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
-                    if ( $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId ) {
-                        $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name;
-                    }
-                }
-            }
-            if (!$scope.$$phase) $scope.$apply();
+            //for ( var i = 0; i < $scope.taskList.PropertyTaskListType.PropertyTaskHeaders.length; i++ ) {
+            //    for (var j = 0; j < $scope.task.PropertyTaskDetails.length; j++) {
+            //        if ( $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Id === $scope.task.PropertyTaskDetails[j].PropertyTaskHeaderId ) {
+            //            $scope.task.PropertyTaskDetails[j].HeaderName = $scope.taskList.PropertyTaskListType.PropertyTaskHeaders[i].Name;
+            //        }
+            //    }
+            //}
+            //if (!$scope.$$phase) $scope.$apply();
         } );
         $scope.taskEvents = [];
-        GetEvents( $scope.task.EventSchedules );
+        //GetEvents( $scope.task.EventSchedules );
         
-            loadEvents();
+        //    loadEvents();
         
     });
      
@@ -72,15 +75,8 @@
 
     $scope.update = function(task) {
         $scope.buttonsDisabled = true;
-        var scheduler = $( "#taskdetailscheduler" ).data( "kendoScheduler" );
-        SetEventSchedules( scheduler._data );
-        task.Crews = [];
-        for ( var i = 0; i < $scope.crews.length; i++ ) {
-            if ( $scope.crews[i].checked ) {
-                delete $scope.crews[i].checked;
-                task.Crews.push( $scope.crews[i] );
-            }
-        }
+        //var scheduler = $( "#scheduler" ).data( "kendoScheduler" );
+        //SetEventSchedules( scheduler._data );
         taskResource.update( { taskId: task.Id }, task, function () {
 
             
@@ -154,7 +150,7 @@
 
     }
     $scope.back = function() {
-        $location.path("/properties/" + $routeParams.propertyId + "/tasklists/" + $routeParams.taskListId);
+        $location.path("/properties/" + $routeParams.propertyId);// + "/tasklists/" + $routeParams.taskListId);
         if (!$scope.$$phase) $scope.$apply();
     }
 
